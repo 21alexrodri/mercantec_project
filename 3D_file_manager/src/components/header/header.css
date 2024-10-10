@@ -1,0 +1,23 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 70px;
+    background-color: #0037c4;
+}
+.header_title{
+    font-size: 24px;
+    color: white;
+}
+ul{
+    display: flex;
+    list-style: none;
+}
+li{
+    margin: 0 10px;
+}
+a{
+    
+    color: white;
+    text-decoration: none;
+}

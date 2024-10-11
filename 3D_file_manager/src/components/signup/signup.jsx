@@ -1,11 +1,16 @@
+import React from "react";
 import './signup.css';
 
-function Signup() {
+export const Signup = ({closeSignup}) => {
+    const handleContainerClick = (e) => {
+        e.stopPropagation();
+    };
     return (
-        <div className="signup">
+        <div onClick={closeSignup} className="blur_content">
+        <div onClick={handleContainerClick} className="signup_container">
         <h2>Signup</h2>
+        <button onClick={closeSignup} className="close_signup">X</button>
+        </div>
         </div>
     );
 }
-
-export default Signup;

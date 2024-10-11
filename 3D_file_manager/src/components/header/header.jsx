@@ -1,9 +1,6 @@
 import './header.css';
-import { useState } from 'react';
 
 function Header() {
-
-
     return (
         <header>
             <h1 className='header_title'>3D Print File Manager</h1>
@@ -17,6 +14,6 @@ function Header() {
             </nav>
         </header>
     );
-    }
+}
 
 export default Header;

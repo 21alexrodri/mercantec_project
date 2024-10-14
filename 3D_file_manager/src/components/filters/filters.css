@@ -1,0 +1,12 @@
+.filter {
+    flex: 0.4; 
+    padding: 20px;
+    background-color: #dcdcdc; 
+    box-sizing: border-box; 
+    max-width: 300px;
+    min-width: 300px;
+}
+
+h2 {
+    margin-top: 0;
+}

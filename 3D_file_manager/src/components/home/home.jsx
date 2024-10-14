@@ -1,5 +1,6 @@
 import './home.css';
 import { useState } from 'react';
+import Filters from '../filters/filters'
 
 function Home() {
     const [tags, setTags] = useState([]); 
@@ -29,6 +30,8 @@ function Home() {
     };
 
     return (
+        <div className="main_block">
+        <Filters />
         <div className="home">
             <h2>Home</h2>
             <button onClick={handleShowTags}>Show Tags</button> 
@@ -45,6 +48,7 @@ function Home() {
                     <p>No tags to show</p> 
                 )}
             </div>
+        </div>
         </div>
     );
 }

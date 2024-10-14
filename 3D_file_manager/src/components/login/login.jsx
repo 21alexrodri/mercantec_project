@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-import './login.css';
 
 export const Login = ({closeLogin}) => {
     const handleContainerClick = (e) => {
@@ -15,8 +14,8 @@ export const Login = ({closeLogin}) => {
 
     return (
         <div onClick={closeLogin} className="blur_content">
-        <div onClick={handleContainerClick} className="login_container">
-        <div className="close_login">
+        <div onClick={handleContainerClick} className="credentials_popup_container">
+        <div className="credentials_popup_close">
             <button onClick={closeLogin}>X</button>
         </div>
         <div className="credentials_title">
@@ -28,7 +27,7 @@ export const Login = ({closeLogin}) => {
         <label htmlFor="">Password</label><br />
         <input type="password" /><br />
         <br />
-        <input type="submit" value="LOG IN" className="login_button" />
+        <input type="submit" value="LOG IN" className="credentials_submit_button" />
         </div>
         </div>
         </div>

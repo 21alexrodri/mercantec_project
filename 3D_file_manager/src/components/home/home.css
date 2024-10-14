@@ -15,6 +15,12 @@ ul {
     padding: 0;
 }
 
+.tags-list{
+    display: flex;
+    flex-direction: column;
+}
+
 ul li {
     padding: 5px 0;
+    
 }

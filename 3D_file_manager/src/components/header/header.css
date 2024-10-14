@@ -3,7 +3,7 @@ header{
     justify-content: space-between;
     align-items: center;
     padding: 10px 70px;
-    background-color: #0037c4;
+    background-color: #0E38AB;
 }
 .header_title{
     font-size: 24px;
@@ -28,16 +28,15 @@ li.link_li a:hover{
     color: white;
 }
 .login_btn, .signup_btn{
-    background-color: transparent;
-    border: 2px solid rgb(237, 123, 191);
-    border-radius: 5px;
+   background-color: transparent;
+   border: 2px solid rgb(237, 123, 191);
+   border-radius: 5px;
     padding: 5px 10px;
-    color: rgb(237, 123, 191);
+    color: #FF8387;
     font-size: 17px;
 }
 .login_btn:hover, .signup_btn:hover{
     background-color: rgb(237, 123, 191);
-    border: 2px solid rgb(237, 123, 191);
     color: white;
 }
 .link_li{

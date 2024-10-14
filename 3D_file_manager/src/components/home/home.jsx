@@ -14,9 +14,8 @@ function Home() {
             headers: {
                 'Content-Type' : 'application/json'
             },
-            body : JSON.stringify({arg: "getTags",})
-        }
-    )
+            body : JSON.stringify({arg: "getTags"})
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);

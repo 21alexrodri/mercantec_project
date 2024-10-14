@@ -7,7 +7,7 @@ function Header() {
     const [showSignup, setShowSignup] = useState(false);
     return (
         <header>
-            <h1 className='header_title'>3D Print File Manager</h1>
+            <h1 className='header_title'>3D Print Archive</h1>
             <nav className='header_navbar'>
                 <ul>
                     <li className='link_li'><a href='home'>Home</a></li>

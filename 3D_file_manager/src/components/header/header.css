@@ -16,26 +16,27 @@ ul{
 li{
     margin: 0 10px;
 }
-a{
-    
-    color: rgb(237, 123, 191);
+li.link_li a {
+    display:block;
+    color: white;
     font-size: 17px;
     font-weight: 900;
+    text-decoration: none;
 }
-a:hover{
-    color: white;
+li.link_li a:hover{
+    text-decoration: underline;
 }
 .login_btn, .signup_btn{
    background-color: transparent;
-   border: 2px solid rgb(237, 123, 191);
+   border: 2px solid white;
    border-radius: 5px;
     padding: 5px 10px;
-    color: rgb(237, 123, 191);
+    color: white;
     font-size: 17px;
 }
 .login_btn:hover, .signup_btn:hover{
     background-color: rgb(237, 123, 191);
-    color: white;
+   border: 2px solid rgb(237, 123, 191);
 }
 .link_li{
     display: flex;

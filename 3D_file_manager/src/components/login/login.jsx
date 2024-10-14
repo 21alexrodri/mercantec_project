@@ -22,10 +22,9 @@ export const Login = ({closeLogin}) => {
         <div className="credentials_title">
             <h2>Login</h2>
         </div>
-        <div className="credentials">
+        <div className="credentials_body">
         <label htmlFor="">Username</label><br />
         <input type="text" autoFocus /><br />
-        <br />
         <label htmlFor="">Password</label><br />
         <input type="password" /><br />
         <br />

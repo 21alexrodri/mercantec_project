@@ -9,7 +9,14 @@ function Home() {
 
     const handleShowTags = () => {
         setLoading(true); 
-        fetch('http://192.168.116.229/3D_printer/3d_project/query.php')
+        fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify({arg: "getTags",})
+        }
+    )
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -38,10 +45,13 @@ function Home() {
         
             <div>
                 {tags.length > 0 ? (
-                    <ul>
+                    <ul className="tags-list">
                         {tags.map((tag, index) => (
                             
-                            <li id={tag.id} key={index}>{tag.name_tag}</li>
+                            <li id={tag.id} key={index}>
+                                <h2>{tag.name_tag}</h2>
+
+                            </li>
                         ))}
                     </ul>
                 ) : (

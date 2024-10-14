@@ -18,25 +18,27 @@ li{
 }
 li.link_li a {
     display:block;
-    color: white;
+    color: rgb(237, 123, 191);
     font-size: 17px;
     font-weight: 900;
     text-decoration: none;
 }
 li.link_li a:hover{
     text-decoration: underline;
+    color: white;
 }
 .login_btn, .signup_btn{
-   background-color: transparent;
-   border: 2px solid white;
-   border-radius: 5px;
+    background-color: transparent;
+    border: 2px solid rgb(237, 123, 191);
+    border-radius: 5px;
     padding: 5px 10px;
-    color: white;
+    color: rgb(237, 123, 191);
     font-size: 17px;
 }
 .login_btn:hover, .signup_btn:hover{
     background-color: rgb(237, 123, 191);
-   border: 2px solid rgb(237, 123, 191);
+    border: 2px solid rgb(237, 123, 191);
+    color: white;
 }
 .link_li{
     display: flex;

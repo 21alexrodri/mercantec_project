@@ -16,25 +16,27 @@ ul{
 li{
     margin: 0 10px;
 }
-a{
-    
-    color: #FF8387;
+li.link_li a {
+    display:block;
+    color: rgb(237, 123, 191);
     font-size: 17px;
     font-weight: 900;
+    text-decoration: none;
 }
-a:hover{
+li.link_li a:hover{
+    text-decoration: underline;
     color: white;
 }
 .login_btn, .signup_btn{
    background-color: transparent;
-   border: 2px solid #FF8387;
+   border: 2px solid rgb(237, 123, 191);
    border-radius: 5px;
     padding: 5px 10px;
     color: #FF8387;
     font-size: 17px;
 }
 .login_btn:hover, .signup_btn:hover{
-    background-color: #FF8387;
+    background-color: rgb(237, 123, 191);
     color: white;
 }
 .link_li{

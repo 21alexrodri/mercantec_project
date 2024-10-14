@@ -7,7 +7,13 @@ function Filters() {
         setSelectedTag(event.target.value);
     };
     useEffect(() => {
-        fetch('http://192.168.116.229/3D_printer/3d_project/query.php')
+        fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({arg: "getTags"})
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -15,7 +21,7 @@ function Filters() {
                 return response.json();
             })
             .then(data => {
-                setSelectedTag(data);
+                setTags(data);
             })
             .catch(error => {
                 console.error('Error fetching categories:', error);
@@ -24,14 +30,17 @@ function Filters() {
     return (
         <div className="filter">
         <h2>Filter</h2>
-        <select value={selectedTag} onChange={handleCategoryChange}>
-            <option value="">Seleccione una categoría</option>
+        <form className="filter_form">
+        <fieldset>
+            <legend>Tags</legend>
             {tags.map((tag) => (
-                <option key={tag.id} value={tag.id}>
-                    {tag.tag_name}
-                </option>
+              <div>
+              <input type="checkbox" key={tag.id} id={tag.id} name={tag.id}/>
+              <label className='fieldset_labels' for={tag.id}>{tag.name_tag}</label>
+              </div>  
             ))}
-        </select>
+        </fieldset>
+        </form>
     </div>
     );
 }

@@ -11,3 +11,20 @@
 h2 {
     margin-top: 0;
 }
+
+.filter_form{
+    display: flex;
+    flex-direction: column;
+}
+fieldset{
+    border: none;
+}
+legend{
+    color: #0E38AB;
+    font-weight: bolder;
+    font-size: 23px;
+}
+
+.fieldset_labels{
+    font-weight: bolder;
+}

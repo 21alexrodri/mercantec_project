@@ -20,6 +20,28 @@ ul {
     flex-direction: column;
 }
 
+.tag-content{
+    display: flex;
+    flex-direction: column;
+}
+
+.job-content{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    background-color: #0E38AB;
+    margin: 10px;
+}
+
+.jobs-container{
+    display: flex;
+    flex-direction: row;
+}
+
 ul li {
     padding: 5px 0;
     

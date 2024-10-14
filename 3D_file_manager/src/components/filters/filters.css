@@ -1,10 +1,11 @@
 .filter {
     flex: 0.4; 
     padding: 20px;
-    background-color: #dcdcdc; 
+    border-right: 2px solid rgb(201, 199, 199);
     box-sizing: border-box; 
     max-width: 300px;
     min-width: 300px;
+    background-color: #f0f0f0;
 }
 
 h2 {

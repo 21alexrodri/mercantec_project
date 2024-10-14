@@ -34,9 +34,9 @@ function Filters() {
         <fieldset>
             <legend>Tags</legend>
             {tags.map((tag) => (
-              <div>
-              <input type="checkbox" key={tag.id} id={tag.id} name={tag.id}/>
-              <label className='fieldset_labels' for={tag.id}>{tag.name_tag}</label>
+              <div key={tag.id}>
+              <input type="checkbox" id={tag.id} name={tag.id}/>
+              <label className='fieldset_labels' htmlFor={tag.id}>{tag.name_tag}</label>
               </div>  
             ))}
         </fieldset>

@@ -51,10 +51,10 @@ div.credentials_title {
     padding-top: 1em;
     padding-bottom: 1em;
 
-    background-color: #14b;
+    background-color: #0E38AB;
     display: block;
 
-    border-color: #14b;
+    border-color: #0E38AB;
     border-top-left-radius: 1em;
     border-top-right-radius: 1em;
 
@@ -113,12 +113,12 @@ div.credentials_body input {
 }
 
 div.credentials_body input.credentials_submit_button {
-    background-color:#f89;
+    background-color:#FF8387;
     color: white;
     cursor: pointer;
 }
 
 div.credentials_body label {
-    color: #f89;
+    color: #FF8387;
     font-weight: bold;
 }

@@ -1,18 +1,3 @@
-div.close_login {
-    display: inline;
-    float:right;
-    text-align: right;
-}
-
-div.close_login button{
-    background-color: transparent;
-    border:none;
-    color:white;
-    font-size: 1.2em;
-    cursor: pointer;
-    padding:1em;
-}
-
 div.blur_content {
     position: fixed;
     top: 0;
@@ -36,16 +21,59 @@ div.login_container {
     margin:0;
 }
 
-div.credentials {
+
+div.credentials_title {
+    width: 100%;
+    margin: 0;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    background-color: #5858D4;
+    display: block;
+
+    border-color: #5858D4;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+}
+
+div.credentials_title h2 {
+    width: 60%;
+    margin: 0px auto;
+    display: block;
+}
+
+
+div.close_login {
+    display: inline;
+    float:right;
+    text-align: right;
+}
+
+div.close_login button{
+    background-color: transparent;
+    border:none;
+    color:white;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding:1.4em;
+}
+
+
+div.credentials_body {
     display: block;
     max-width:100%;
     padding:3em;
     background-color: rgb(255, 255, 255);
     text-align: left;
+
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
 }
 
-
-div.credentials input {
+div.credentials_body input {
     line-height: 2em;
     margin-bottom: 0.5em;
     box-sizing: border-box;
@@ -61,30 +89,13 @@ div.credentials input {
     font-size: 0.9em;
 }
 
-div.credentials input.login_button {
+div.credentials_body input.login_button {
     background-color: #F95086;
     color: white;
     cursor: pointer;
 }
 
-div.credentials label {
+div.credentials_body label {
     color: #F95086;
     font-weight: bold;
-}
-
-div.credentials_title {
-    width: 100%;
-    margin: 0;
-    padding-top: 1em;
-    padding-bottom: 1em;
-
-    background-color: #5858D4;
-    border-color: #5858D4;
-    display: block;
-}
-
-div.credentials_title h2 {
-    width: 60%;
-    margin: 00px auto;
-    display: block;
 }

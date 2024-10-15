@@ -42,3 +42,29 @@ select:focus{
 .fieldset_labels{
     font-weight: bolder;
 }
+.filters_applied{
+    border-bottom: 2px solid rgb(201, 199, 199);   
+}
+.filter_title{
+    margin-top: 15px;
+}
+.filter_style{
+    background-color: #FF8387;
+    border-radius: 20px;
+    text-align: center;
+    overflow: hidden;
+    text-wrap: nowrap;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: white;
+    font-weight: 900;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    p{
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
+}
+.filter_style:hover{
+}

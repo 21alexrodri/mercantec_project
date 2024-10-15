@@ -19,7 +19,7 @@ export const Login = ({closeLogin}) => {
             <button onClick={closeLogin}>X</button>
         </div>
         <div className="credentials_title">
-            <h2>Login</h2>
+            <h2>Log In</h2>
         </div>
         <div className="credentials_body">
         <label htmlFor="">Username</label><br />

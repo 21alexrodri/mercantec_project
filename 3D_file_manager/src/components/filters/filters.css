@@ -18,11 +18,25 @@ h2 {
 }
 fieldset{
     border: none;
+    padding-left: 0;
 }
 legend{
+    padding-left: 0;
+}
+legend, .color_label{
     color: #0E38AB;
     font-weight: bolder;
     font-size: 23px;
+    width: fit-content;
+    
+}
+select{
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 2px solid #0E38AB;
+}
+select:focus{
+    border: 2px solid #FF8387;
 }
 
 .fieldset_labels{

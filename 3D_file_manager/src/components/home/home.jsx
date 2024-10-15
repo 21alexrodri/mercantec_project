@@ -1,9 +1,10 @@
 import './home.css';
 import { useEffect, useState } from 'react';
 import Filters from '../filters/filters'
+import TagTemplate from './tag-template/tag-template'
 
 function Home() {
-    const [tags, setTags] = useState([]); 
+    const [tags, setTags] = useState([]);
     const [jobs, setJobs] = useState({});
     const [error, setError] = useState(null); 
     const [loading, setLoading] = useState(false); 
@@ -37,7 +38,7 @@ function Home() {
             });
     };
 
-    async function handleShowJobs(tagId) {
+    async function handleShowJobs(tagId,offset) {
         let jobs;
         console.log("show jobs");
         setLoading(true);
@@ -50,7 +51,8 @@ function Home() {
                 },
                 body: JSON.stringify({
                     arg: "getJobs",
-                    tag_id: tagId
+                    tag_id: tagId,
+                    offset: offset
                 }),
             });
     
@@ -82,7 +84,7 @@ function Home() {
     useEffect(() => {
         if (tags.length > 0) {
             tags.forEach(tag => {
-                handleShowJobs(tag.id); 
+                handleShowJobs(tag.id,0);
             });
         }
     }, [tags]);
@@ -92,33 +94,16 @@ function Home() {
         <Filters />
         <div className="home">
             <h2>Home</h2>
-        
             <div>
                 {tags.length > 0 ? (
                     <ul className="tags-list">
                         {tags.map((tag, index) => (
-                            
-                            <li id={tag.id} className="tag-content" key={index}>
-                                <h2>{tag.name_tag}</h2>
-                                <div className='jobs-container'>
-                                        {jobs[tag.id] ? (
-                                            jobs[tag.id].length > 0 ? (
-                                                jobs[tag.id].map((job, i) => (
-                                                    <div key={i} className='col'>
-                                                        <div className='job-content'>
-                                                            
-                                                        </div>
-                                                        <p>{job.project_name}</p>
-                                                    </div>
-                                                ))
-                                            ) : (
-                                                <p>No jobs</p> 
-                                            )
-                                        ) : (
-                                            <p>Loading jobs...</p>
-                                        )}
-                                </div>
-                            </li>
+                            <TagTemplate 
+                                jobs={jobs} 
+                                tagId={tag.id} 
+                                tagName={tag.name_tag}
+                                handleShowJobs={handleShowJobs}
+                            />
                         ))}
                     </ul>
                 ) : (

@@ -6,8 +6,11 @@
 
 .home {
     flex: 2;
-    padding: 20px;
+    padding-left: 20px;
+    padding-top: 20px;
     background-color: #f0f0f0; 
+    overflow: hidden;
+    position: relative;
 }
 
 ul {
@@ -23,18 +26,33 @@ ul {
 .tag-content{
     display: flex;
     flex-direction: column;
+    width: calc(100vw - 300px);
+    box-sizing: border-box;
+    position: relative;
+}
+
+.tag-content::after{
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 20%;
+    height: 100%;
+    background: linear-gradient(to right,rgba(1,1,1,0),#f0f0f0);
 }
 
 .job-content{
-    width: 200px;
-    height: 200px;
+    min-width: 250px;
+    min-height: 250px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 30px;
-    background-color: #0E38AB;
-    margin: 10px;
+
+    border-radius: 50px;
+    background-color: #90a3d4;
+    margin: 25px;
 }
 
 .jobs-container{

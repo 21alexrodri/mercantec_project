@@ -4,12 +4,11 @@ import Filters from '../filters/filters'
 
 function Home() {
     const [tags, setTags] = useState([]); 
-    const [jobs, setJobs] = useState([]);
+    const [jobs, setJobs] = useState({});
     const [error, setError] = useState(null); 
     const [loading, setLoading] = useState(false); 
 
     const handleShowTags = () => {
-        console.log("show tags")
         setLoading(true); 
         fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
             method: 'POST',
@@ -26,7 +25,6 @@ function Home() {
                 return response.json(); 
             })
             .then(data => {
-                console.log("Tags: "+data)
                 setTags(data); 
                 setError(null); 
             })
@@ -39,41 +37,55 @@ function Home() {
             });
     };
 
-    const handleShowJobs = () => {
-        console.log("show jobs")
-        setLoading(true)
-        fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body : JSON.stringify({arg: "getJobs"})
-        })
-        .then(response => {
+    async function handleShowJobs(tagId) {
+        let jobs;
+        console.log("show jobs");
+        setLoading(true);
+    
+        try {
+            const response = await fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    arg: "getJobs",
+                    tag_id: tagId
+                }),
+            });
+    
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            return response.json(); 
-        })
-        .then(data => {
-            console.log("Jobs: "+data)
-            setJobs(data)
-            setError(null)
-        })
-        .catch(error => {
+    
+            const data = await response.json();
+            console.log("Jobs:", data);
+            setJobs(prevJobs => ({
+                ...prevJobs,
+                [tagId]: data,
+            }));
+            setError(null);
+        } catch (error) {
             console.error('Error:', error);
             setError(error.message); 
-        })
-        .finally(() => {
-            setLoading(false)
-        })
+        } finally {
+            setLoading(false); 
+        }
     }
 
     // When the component is loaded, executes queries to load information
     useEffect(() => {
-        handleShowJobs();
         handleShowTags();
     }, []);
+
+    // When tags are updated, update jobs for each tag
+    useEffect(() => {
+        if (tags.length > 0) {
+            tags.forEach(tag => {
+                handleShowJobs(tag.id); 
+            });
+        }
+    }, [tags]);
 
     return (
         <div className="main_block">
@@ -89,17 +101,22 @@ function Home() {
                             <li id={tag.id} className="tag-content" key={index}>
                                 <h2>{tag.name_tag}</h2>
                                 <div className='jobs-container'>
-                                {jobs.map((job, jobIndex) => {
-                                    if (job["name_tag"] === tag.name_tag) {
-                                        return (
-                                            <div className="job-content" key={jobIndex}>
-                                                {/* Aquí puedes agregar más detalles del trabajo */}
-                                                <p>{job.project_name}</p>
-                                            </div>
-                                        );
-                                    }
-                                    return null;  // Si no hay coincidencia, devuelve null para no renderizar nada
-                                })}
+                                        {jobs[tag.id] ? (
+                                            jobs[tag.id].length > 0 ? (
+                                                jobs[tag.id].map((job, i) => (
+                                                    <div key={i} className='col'>
+                                                        <div className='job-content'>
+                                                            
+                                                        </div>
+                                                        <p>{job.project_name}</p>
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <p>No jobs</p> 
+                                            )
+                                        ) : (
+                                            <p>Loading jobs...</p>
+                                        )}
                                 </div>
                             </li>
                         ))}

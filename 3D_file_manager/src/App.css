@@ -18,6 +18,13 @@ h1{
   font-family: 'Montserrat Bold', monospace;
 }
 
+.col{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 
 /*===== popups css =====*/
 

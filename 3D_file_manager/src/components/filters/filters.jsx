@@ -71,6 +71,7 @@ function Filters() {
                 {filtersApplied.color && (
                     <div className='filter_style'><p>{filtersApplied.color}</p></div>
                 )}
+                
             </div>
 
             <h2 className='filter_title'>Filters</h2>
@@ -79,7 +80,6 @@ function Filters() {
                     <legend onClick={toggleTagVisibility} style={{ cursor: 'pointer' }}>
                         Tags {isTagVisible ? '▲' : '▼'}
                     </legend>
-                    {/* Siempre renderizamos los checkboxes, pero controlamos su visibilidad con CSS */}
                     <div style={{ display: isTagVisible ? 'block' : 'none' }}>
                         {tags.map((tag) => (
                             <div key={tag.id}>
@@ -87,7 +87,7 @@ function Filters() {
                                     type="checkbox"
                                     id={tag.id}
                                     value={tag.name_tag}
-                                    checked={selectedTags.includes(tag.name_tag)} // Controlamos el valor del checkbox
+                                    checked={selectedTags.includes(tag.name_tag)} 
                                     onChange={handleTagChange}
                                 />
                                 <label className='fieldset_labels' htmlFor={tag.id}>{tag.name_tag}</label>
@@ -104,7 +104,7 @@ function Filters() {
                     Colors {isColorsVisible ? '▲' : '▼'}
                 </label>
 
-                {/* Siempre renderizamos el select, pero controlamos su visibilidad con CSS */}
+                
                 <div style={{ display: isColorsVisible ? 'block' : 'none' }}>
                     <select name="colors_form" value={selectedColor} onChange={handleColorChange}>
                         <option value=''>No color selected</option>
@@ -121,6 +121,7 @@ function Filters() {
                         <option value='brown'>Brown</option>
                     </select>
                 </div>
+
             </form>
         </div>
     );

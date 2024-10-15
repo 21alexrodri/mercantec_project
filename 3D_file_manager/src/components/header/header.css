@@ -18,7 +18,7 @@ li{
 }
 li.link_li a {
     display:block;
-    color: rgb(237, 123, 191);
+    color: #FF8387;
     font-size: 17px;
     font-weight: 900;
     text-decoration: none;
@@ -42,4 +42,12 @@ li.link_li a:hover{
 .link_li{
     display: flex;
     align-items: center;
+}
+#search_by_name{
+    background-color: #ffe4f5;
+    padding: 5px;
+    width: 40%;
+    border-radius: 20px;
+    border:2px solid #0E38AB;
+   padding-left: 25px;
 }

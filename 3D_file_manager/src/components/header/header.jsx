@@ -14,7 +14,7 @@ function Header() {
     return (
         <header>
             <h1 className='header_title'>3D Print Archive</h1>
-            <input type="text" value={searchItem} onChange={handleInputChange} placeholder='Search by printjob name'/>
+            <input id="search_by_name" type="text" value={searchItem} onChange={handleInputChange} placeholder='Search by printjob name...'/>
             <nav className='header_navbar'>
                 <ul>
                     <li className='link_li'><a href='home'>Home</a></li>

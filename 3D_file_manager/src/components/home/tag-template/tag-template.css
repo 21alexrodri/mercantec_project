@@ -1,0 +1,19 @@
+.arrow-left{
+    position: absolute;
+}
+.arrow-right{
+    position: absolute;
+    left: 90%;
+}
+
+.arrow:hover{
+    cursor: pointer;
+}
+
+.arrow{
+    border: none;
+    background: none;
+    font-size: xx-large;
+    z-index: 999;
+    top: 45%;
+}

@@ -13,12 +13,13 @@ function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
     const handleNextPage = () => {
         offset = ((currentPage+1)*jobsPerPage)
         handleShowJobs(tagId,offset)
-        console.log(offset)
+        console.log(jobs)
         setCurrentPage(prevPage => prevPage + 1)
     };
     const handlePrevPage = () => {
         offset = offset - jobsPerPage
         handleShowJobs(tagId,offset)
+        console.log(jobs)
         setCurrentPage(prevPage => prevPage + 1)
     };
     

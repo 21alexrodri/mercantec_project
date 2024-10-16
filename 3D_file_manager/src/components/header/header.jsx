@@ -7,16 +7,9 @@ import { Signup } from  '../signup/signup';
 function Header() {
     const [showLogin, setShowLogin] = useState(false);
     const [showSignup, setShowSignup] = useState(false);
-    const [searchItem, setSearchItem] = useState('');
-
-    const handleInputChange = (e) => {
-        const searchTerm = e.target.value;
-        setSearchItem(searchTerm)
-    }
     return (
         <header>
             <h1 className='header_title'>3D Print Archive</h1>
-            <input id="search_by_name" type="text" value={searchItem} onChange={handleInputChange} placeholder='Search by printjob name...'/>
             <nav className='header_navbar'>
                 <ul>
                     <li className='link_li'><a href='home'>Home</a></li>

@@ -1,7 +1,7 @@
 import './home.css';
 import { useEffect, useState } from 'react';
 import Filters from '../filters/filters'
-import TagTemplate from './tag-template/tag-template'
+import TagTemplate from '../tag-template/tag-template'
 
 function Home() {
     const [tags, setTags] = useState([]);
@@ -39,8 +39,6 @@ function Home() {
     };
 
     async function handleShowJobs(tagId,offset) {
-        let jobs;
-        console.log("show jobs");
         setLoading(true);
     
         try {
@@ -61,11 +59,11 @@ function Home() {
             }
     
             const data = await response.json();
-            console.log("Jobs:", data);
             setJobs(prevJobs => ({
                 ...prevJobs,
                 [tagId]: data,
             }));
+
             setError(null);
         } catch (error) {
             console.error('Error:', error);
@@ -84,8 +82,9 @@ function Home() {
     useEffect(() => {
         if (tags.length > 0) {
             tags.forEach(tag => {
-                handleShowJobs(tag.id,0);
+                handleShowJobs(tag.id,0);   
             });
+            console.log(jobs)
         }
     }, [tags]);
 
@@ -93,7 +92,7 @@ function Home() {
         <div className="main_block">
         <Filters />
         <div className="home">
-            <h2>Home</h2>
+            {/* <h2>Home</h2> */}
             <div>
                 {tags.length > 0 ? (
                     <ul className="tags-list">

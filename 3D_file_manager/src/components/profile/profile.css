@@ -1,0 +1,100 @@
+div.profile {
+    display: flex;
+    flex-wrap: nowrap;
+    min-height: 100%;
+}
+
+div.profile_left_column {
+    padding-left: 5%;
+    padding-right: 0%;
+    padding-top: 2em;
+    padding-bottom: 2em;
+
+    /*border-right:1px solid grey;*/
+
+    flex: 25%;
+    height: 100%;
+}
+
+img.profile_picture {
+    display: block;
+    width: 100%;
+    margin: 10px auto;
+
+}
+
+h2.username_text {
+    display: inline;
+    margin-right: 1em;
+    margin-bottom: 0;
+    line-height: 2em;
+}
+
+button.profile_button {
+    display: inline;
+    line-height: 2em;
+    font-size: 0.9em;
+
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+
+    border: none;
+}
+
+button.profile_button#button1 {
+    border-radius: 1.2em;
+}
+
+div.profile_jobs_section {
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2em;
+    padding-bottom: 2em;
+
+    float: right;
+    flex: 70%
+}
+
+div.profile_jobs_section_header {
+    height: 4em;
+    display: block;
+}
+
+h3.profile_jobs_section_title {
+    display: inline;
+    float: left;
+}
+
+button.profile_button#button2 {
+    border-radius: 0.3em;
+
+    display: inline;
+    float: right;
+
+    width: 150px;
+    margin: 1em;
+}
+
+div.job_content {
+    width: 250px;
+    height: 250px;
+
+    border-radius: 50px;
+    background-color: #90a3d4;
+    margin: 10px;
+    margin-top: 25px;
+}
+
+div.job_gallery {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+div.job_gallery_container {
+    text-align: center;
+}

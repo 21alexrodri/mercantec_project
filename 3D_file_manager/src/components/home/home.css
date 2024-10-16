@@ -42,8 +42,8 @@ ul {
 }
 
 .job-content{
-    min-width: 250px;
-    min-height: 250px;
+    min-width: 290px;
+    min-height: 290px;
 
     display: flex;
     flex-direction: column;
@@ -51,8 +51,21 @@ ul {
     justify-content: center;
 
     border-radius: 50px;
-    background-color: #90a3d4;
+    background-image: url("http://192.168.116.229/3D_printer/Files/img/default-job.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
     margin: 25px;
+
+    transition: all 0.3s;
+}
+
+.job-content:hover{
+    margin: 15px;
+    min-width: 310px;
+    min-height: 310px;
+    transition: all 0.5s;
+    cursor: pointer;
 }
 
 .jobs-container{

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
      
+    let offset = 0;
     const [currentPage, setCurrentPage] = useState(0); // act job page
     const jobsPerPage = 4; // max visible jobs
     const [error, setError] = useState(null); 
@@ -10,13 +11,15 @@ function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
 
     // Functions created to handle job pages changes
     const handleNextPage = () => {
-        const newOffset = (currentPage+1)*jobsPerPage - 4
-        handleShowJobs(tagId,newOffset)
+        offset = ((currentPage+1)*jobsPerPage)
+        handleShowJobs(tagId,offset)
+        console.log(offset)
+        setCurrentPage(prevPage => prevPage + 1)
     };
     const handlePrevPage = () => {
-        if (currentPage > 0) {
-            setCurrentPage(prevPage => prevPage - 1);
-        }
+        offset = offset - jobsPerPage
+        handleShowJobs(tagId,offset)
+        setCurrentPage(prevPage => prevPage + 1)
     };
     
     return (
@@ -28,10 +31,12 @@ function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
                         
                         jobs[tagId].length > 0 ? (
                             <>
-                                {(
+                                {(offset == 0) ? (
                                     <button className="arrow arrow-left" onClick={() => handlePrevPage()}>
                                         ←
                                     </button>
+                                ) : (
+                                    <></>
                                 )}
                                 {jobs[tagId].map((job, i) => (
                                     <div key={i} className='col'>
@@ -41,10 +46,12 @@ function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
                                         <p>{job.project_name}</p>
                                     </div>
                                 ))}
-                                {(
+                                {((jobs[tagId].length > jobsPerPage*currentPage) && jobs[tagId].length>=4) ? (
                                     <button className="arrow arrow-right" onClick={() => handleNextPage(tagId,currentPage*jobsPerPage)}>
                                         →
                                     </button>
+                                ) : (
+                                    <></>
                                 )}
                             </>
                         ) : (

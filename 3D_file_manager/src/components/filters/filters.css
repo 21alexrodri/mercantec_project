@@ -8,14 +8,20 @@
     background-color: #f0f0f0;
 }
 
+.filter_form {
+    display: flex;
+    flex-direction: column;
+    position: sticky; 
+    top: 20px; 
+    z-index: 10;
+    background-color: #f0f0f0; 
+    padding: 10px; 
+}
+
 h2 {
     margin-top: 0;
 }
 
-.filter_form{
-    display: flex;
-    flex-direction: column;
-}
 fieldset{
     border: none;
     padding-left: 0;
@@ -73,12 +79,13 @@ select:focus{
     }
 }
 
-#search_by_name{
+#search_by_name, #search_by_date{
     background-color: transparent;
     border: none;
     border-bottom: 2px solid #0E38AB;
     font-size: 15px;
     outline: none;
+    margin-bottom: 10px;
 &:hover, &:active, &:focus, &:target{
     border: none;
     border-bottom: 2px solid #FF8387;

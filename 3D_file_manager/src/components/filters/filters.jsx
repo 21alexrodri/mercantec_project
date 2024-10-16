@@ -6,16 +6,17 @@ function Filters() {
     const [customers, setCustomers] = useState([]);
     const [selectedTags, setSelectedTags] = useState([]);
     const [selectedColor, setSelectedColor] = useState('');
-    const [selectedText, setSelectedText] = useState('');
+    const [selectedTextName, setSelectedTextName] = useState('');
+    const [selectedDate, setSelectedDate] = useState('');
     const [selectedCustomer, setSelectedCustomer] = useState('');
     const [isTagVisible, setIsTagVisible] = useState(false);
     const [isColorsVisible, setIsColorsVisible] = useState(false);
     const [isCustomerVisible, setIsCustomerVisible] = useState(false);
     const [isLayerThicknessVisible, setIsLayerThicknessVisible] = useState(false);
     const [isLikesVisible, setIsLikesVisible] = useState(false);
-    const [filtersApplied, setFiltersApplied] = useState({ text: '', tags: [], color: '', customer: '', minlayerthickness: '', maxlayerthickness: '', minLikesValue: ''});
+    const [filtersApplied, setFiltersApplied] = useState({ textname: '', date: '', tags: [], color: '', customer: '', minlayerthickness: '', maxlayerthickness: '', minLikesValue: '' });
 
-    const [minLayerThicknessValue, setMinLayerThicknessValue] = useState(0); 
+    const [minLayerThicknessValue, setMinLayerThicknessValue] = useState(0);
     const [maxLayerThicknessValue, setMaxLayerThicknessValue] = useState(100);
     const [minLikesValue, setMinLikesValue] = useState(0);
     const toggleTagVisibility = () => {
@@ -50,11 +51,12 @@ function Filters() {
     const handleColorChange = (event) => {
         setSelectedColor(event.target.value);
     };
-
     const handleTextChange = (event) => {
-        setSelectedText(event.target.value);
+        setSelectedTextName(event.target.value);
     };
-
+    const handleDateChange = (event) => {
+        setSelectedDate(event.target.value);
+    };
     const handleCustomerChange = (event) => {
         setSelectedCustomer(event.target.value);
     };
@@ -69,15 +71,16 @@ function Filters() {
         setMaxLayerThicknessValue(value);
     };
     const handleMinLikesChange = (event) => {
-        const value = Math.max(Number(event.target.value), 0); 
+        const value = Math.max(Number(event.target.value), 0);
         setMinLikesValue(value);
     };
-    
-    
+
+
     useEffect(() => {
-        
+
         setFiltersApplied({
-            text: selectedText,
+            textname: selectedTextName,
+            date: selectedDate,
             tags: selectedTags,
             color: selectedColor,
             customer: selectedCustomer,
@@ -85,7 +88,7 @@ function Filters() {
             maxlayerthickness: (maxLayerThicknessValue / 100).toFixed(2),
             minLikesValue: minLikesValue
         });
-    }, [selectedText, selectedTags, selectedColor, selectedCustomer, minLayerThicknessValue, maxLayerThicknessValue, minLikesValue]);
+    }, [selectedTextName, selectedDate, selectedTags, selectedColor, selectedCustomer, minLayerThicknessValue, maxLayerThicknessValue, minLikesValue]);
 
     useEffect(() => {
         fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
@@ -139,26 +142,29 @@ function Filters() {
         <div className="filter">
             <h2>Filters Applied</h2>
             <div className='filters_applied'>
-                {filtersApplied.text && (
-                    <div id={("name_")+filtersApplied.text} className='filter_style'><p>{filtersApplied.text}</p></div>
+                {filtersApplied.textname && (
+                    <div id={("name_") + filtersApplied.textname} className='filter_style'><p>{filtersApplied.textname}</p></div>
+                )}
+                {filtersApplied.date && (
+                    <div id={("date_") + filtersApplied.date} className='filter_style'><p>{filtersApplied.date}</p></div>    
                 )}
                 {filtersApplied.tags.length > 0 && filtersApplied.tags.map((tag) => (
-                    <div id={("tag_")+tag} key={tag} className='filter_style'>{tag}</div>
+                    <div id={("tag_") + tag} key={tag} className='filter_style'>{tag}</div>
                 ))}
                 {filtersApplied.color && (
-                    <div id={("color_")+filtersApplied.color} className='filter_style'><p>{filtersApplied.color}</p></div>
+                    <div id={("color_") + filtersApplied.color} className='filter_style'><p>{filtersApplied.color}</p></div>
                 )}
                 {filtersApplied.customer && (
-                    <div id={("customer")+filtersApplied.customer} className='filter_style'><p>{filtersApplied.customer}</p></div>
+                    <div id={("customer") + filtersApplied.customer} className='filter_style'><p>{filtersApplied.customer}</p></div>
                 )}
                 {filtersApplied.minlayerthickness > 0 && (
-                    <div id={("min-layerthickness_")+filtersApplied.minlayerthickness} className='filter_style'><p>Min. layer thickness: {filtersApplied.minlayerthickness}</p></div>
+                    <div id={("min-layerthickness_") + filtersApplied.minlayerthickness} className='filter_style'><p>Min. layer thickness: {filtersApplied.minlayerthickness}</p></div>
                 )}
                 {filtersApplied.maxlayerthickness < 1 && (
-                    <div id={("max-layerthickness_")+filtersApplied.maxlayerthickness} className='filter_style'><p>Max. layer thickness: {filtersApplied.maxlayerthickness}</p></div>
+                    <div id={("max-layerthickness_") + filtersApplied.maxlayerthickness} className='filter_style'><p>Max. layer thickness: {filtersApplied.maxlayerthickness}</p></div>
                 )}
                 {filtersApplied.minLikesValue > 0 && (
-                    <div id={("min-likes_")+filtersApplied.minLikesValue} className='filter_style'><p>Min. likes: {filtersApplied.minLikesValue}</p></div>
+                    <div id={("min-likes_") + filtersApplied.minLikesValue} className='filter_style'><p>Min. likes: {filtersApplied.minLikesValue}</p></div>
                 )}
 
             </div>
@@ -171,6 +177,12 @@ function Filters() {
                     type="text"
                     placeholder='Search by printjob name...'
                 />
+                <input
+                    onChange={handleDateChange}
+                    id="search_by_date"
+                    type="date"
+                    placeholder='Search by printjob name...'
+                /> 
                 <fieldset>
                     <legend onClick={toggleTagVisibility} style={{ cursor: 'pointer' }}>
                         Tags {isTagVisible ? '▲' : '▼'}
@@ -198,7 +210,7 @@ function Filters() {
                     <select name='customer_form' value={selectedCustomer} onChange={handleCustomerChange}>
                         <option value="">No customer selected</option>
                         {customers.map((customer) => (
-                           <option key={customer.id} value={customer.customer_name}>{customer.customer_name}</option>
+                            <option key={customer.id} value={customer.customer_name}>{customer.customer_name}</option>
                         ))}
                     </select>
                 </div>
@@ -223,7 +235,7 @@ function Filters() {
                         <option value='brown'>Brown</option>
                     </select>
                 </div>
-                <label className='range_label' onClick={toggleLayerThicknessVisibility} style={{cursor: 'pointer'}}>
+                <label className='range_label' onClick={toggleLayerThicknessVisibility} style={{ cursor: 'pointer' }}>
                     Layer Thickness {isLayerThicknessVisible ? '▲' : '▼'}
                 </label>
                 <div className="range-slider" style={{ display: isLayerThicknessVisible ? 'block' : 'none' }}>
@@ -243,9 +255,9 @@ function Filters() {
                         onChange={handleMaxChange}
                         className="max-range"
                     />
-                <p>Selected Layer Thickness Range: {(minLayerThicknessValue / 100).toFixed(2)} - {(maxLayerThicknessValue / 100).toFixed(2)}</p>
+                    <p>Selected Layer Thickness Range: {(minLayerThicknessValue / 100).toFixed(2)} - {(maxLayerThicknessValue / 100).toFixed(2)}</p>
                 </div>
-                <label className='likes_label' onClick={toggleLikesVisibility} style={{cursor: 'pointer'}}>
+                <label className='likes_label' onClick={toggleLikesVisibility} style={{ cursor: 'pointer' }}>
                     Likes {isLikesVisible ? '▲' : '▼'}
                 </label>
                 <div className="like_slider" style={{ display: isLikesVisible ? 'block' : 'none' }}>
@@ -258,7 +270,7 @@ function Filters() {
                         className="min-range"
                     />
                 </div>
-                
+
             </form>
         </div>
     );

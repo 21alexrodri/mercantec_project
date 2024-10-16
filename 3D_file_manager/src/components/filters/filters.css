@@ -19,11 +19,13 @@ h2 {
 fieldset{
     border: none;
     padding-left: 0;
+    padding-bottom: 0;
 }
 legend{
     padding-left: 0;
+    margin-bottom: -5px;
 }
-legend, .color_label{
+legend, .color_label, .customer_label, .range_label, .likes_label{
     color: #0E38AB;
     font-weight: bolder;
     font-size: 23px;
@@ -43,7 +45,11 @@ select:focus{
     font-weight: bolder;
 }
 .filters_applied{
-    border-bottom: 2px solid rgb(201, 199, 199);   
+    border-bottom: 2px solid rgb(201, 199, 199);
+    height: 5%;
+    min-height: 5%;
+    max-height: 5%;
+    overflow-y: scroll;   
 }
 .filter_title{
     margin-top: 15px;
@@ -66,5 +72,15 @@ select:focus{
         margin-bottom: 2px;
     }
 }
-.filter_style:hover{
+
+#search_by_name{
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #0E38AB;
+    font-size: 15px;
+    outline: none;
+&:hover, &:active, &:focus, &:target{
+    border: none;
+    border-bottom: 2px solid #FF8387;
+}
 }

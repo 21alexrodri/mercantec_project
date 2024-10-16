@@ -129,3 +129,10 @@ div.credentials_body label {
     color: #FF8387;
     font-weight: bold;
 }
+
+@media (width:700px) {
+    .credentials_popup_container{
+        width: 80% ;
+        max-width: 700px !important;
+    }
+}

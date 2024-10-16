@@ -29,12 +29,11 @@ export const Signup = ({ closeSignup }) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                 arg: 'insertUser',
-                 email: dataSend.email,
-                 username: dataSend.username,
-                 password: dataSend.password 
-                
-                }),
+                arg: 'insertUser',
+                email: dataSend.email,
+                username: dataSend.username,
+                password: dataSend.password
+            }),
         })
             .then((response) => {
                 if (!response.ok) {
@@ -43,11 +42,17 @@ export const Signup = ({ closeSignup }) => {
                 return response.json();
             })
             .then((data) => {
-                // setTags(data); 
+                console.log('Response:', data); 
+                if (data.status === "success") {
+                    alert("User created successfully");
+                } else {
+                    alert("Error: " + data.message);
+                }
             })
             .catch((error) => {
-                console.error('Error fetching categories:', error);
+                console.error('Error fetching:', error);
             });
+        
     };
 
     useEffect(() => {

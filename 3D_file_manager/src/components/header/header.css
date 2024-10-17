@@ -8,6 +8,7 @@ header{
 .header_title{
     font-size: 24px;
     color: white;
+    padding-left: 25px;
 }
 ul{
     display: flex;

@@ -8,6 +8,7 @@ header{
 .header_title{
     font-size: 24px;
     color: white;
+    padding-left: 25px;
 }
 ul{
     display: flex;
@@ -42,4 +43,11 @@ li.link_li a:hover{
 .link_li{
     display: flex;
     align-items: center;
+}
+#mercantec_header{
+    display: flex;
+    flex-direction: row;
+}
+#mercantec_logo{
+    margin-left: 0;
 }

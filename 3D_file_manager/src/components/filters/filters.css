@@ -52,13 +52,14 @@ select:focus{
 }
 .filters_applied{
     border-bottom: 2px solid rgb(201, 199, 199);
-    /* height: 5%; */
-    min-height: 1%;
+    height: 5%;
+    min-height: 5%;
     max-height: 5%;
     overflow-y: scroll;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    align-content: start;
 }
 .filter_title{
     margin-top: 15px;
@@ -66,11 +67,13 @@ select:focus{
 .filter_style{
     background-color: #FF8387;
     border-radius: 20px;
+
     display: flex;
     align-items: center;
     justify-content: center;
     width: fit-content;
     height: 20px;
+
     overflow: hidden;
     text-wrap: nowrap;
     padding-left: 8px;
@@ -81,10 +84,6 @@ select:focus{
     font-weight: 900;
     font-size: 15px;
     margin: 1%;
-    p{
-        margin-top: 5px;
-        margin-bottom: 5px;
-    } 
 }
 
 #search_by_name, #search_by_date, #search_by_material{

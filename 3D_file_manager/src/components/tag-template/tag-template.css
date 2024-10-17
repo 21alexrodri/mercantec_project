@@ -8,12 +8,32 @@
 
 .arrow:hover{
     cursor: pointer;
+    font-size: 55px;
+    transition: all 0.2s;
 }
 
 .arrow{
     border: none;
     background: none;
-    font-size: xx-large;
-    z-index: 999;
+    font-size: 48px;
+    z-index: 998;
     top: 45%;
+    transition: all 0.2s;
+}
+
+.slide-right{
+    transform: translateX(300%);
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide-left{
+    transform: translateX(-300%);
+    transition: transform 0.5s ease-in-out;
+}
+
+.jobs-container {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    width: 100%;
 }

@@ -23,6 +23,14 @@ h1{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    transform: translateX("-100px");
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 

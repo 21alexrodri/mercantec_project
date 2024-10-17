@@ -6,11 +6,9 @@ div.profile {
 
 div.profile_left_column {
     padding-left: 5%;
-    padding-right: 0%;
+    padding-right: 5%;
     padding-top: 2em;
     padding-bottom: 2em;
-
-    /*border-right:1px solid grey;*/
 
     flex: 25%;
     height: 100%;
@@ -54,7 +52,9 @@ div.profile_jobs_section {
     padding-bottom: 2em;
 
     float: right;
-    flex: 70%
+    flex: 70%;
+
+    background-color: #f0f0f0;
 }
 
 div.profile_jobs_section_header {
@@ -78,14 +78,28 @@ button.profile_button#button2 {
 }
 
 div.job_content {
-    width: 250px;
-    height: 250px;
+    width: 280px;
+    height: 280px;
 
-    border-radius: 50px;
-    background-color: #90a3d4;
-    margin: 10px;
     margin-top: 25px;
 }
+
+div.job_content img {
+    margin: 10px auto;
+    width: 260px;
+    height: 260px;
+    border-radius: 3em;
+    transition: all 0.3s;
+}
+
+div.job_content:hover img {
+    margin: 0 auto;
+    width: 280px;
+    height: 280px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
 
 div.job_gallery {
     display: flex;

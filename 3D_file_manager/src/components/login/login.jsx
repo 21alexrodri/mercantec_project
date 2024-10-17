@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 
 export const Login = ({ closeLogin }) => {
     const [dataSend, setDataSend] = useState({ username: '', password: '' });
@@ -12,6 +12,13 @@ export const Login = ({ closeLogin }) => {
             closeLogin();
         }
     });
+
+    useEffect(() => {
+        document.addEventListener("keydown", escFunction, false);
+        return () => {
+            document.removeEventListener("keydown", escFunction, false); 
+        };
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

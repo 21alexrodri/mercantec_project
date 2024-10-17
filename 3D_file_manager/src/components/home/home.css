@@ -59,6 +59,10 @@ ul {
 
     transition: all 0.3s;
 }
+.job-content a{ 
+    width: 100%;
+    height: 100%;
+}
 
 .job-content:hover{
     margin: 15px;

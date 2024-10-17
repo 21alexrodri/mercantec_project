@@ -60,9 +60,10 @@ function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
                                 {
                                     jobs[tagId].jobs.map((job, i) => (
                                         <div key={i} className={`col ${direction==="left" ? "slide-left" : ""} ${direction==="right" ? "slide-right" : ""} `}>
-                                            <div className='job-content'>
-                                                
-                                            </div>
+                                                <div className='job-content'>
+                                                <a href={`job_page?jobId=${job.id}`}/>
+
+                                                </div>
                                             <b>{job.id}</b><p>{job.project_name}</p>
                                         </div>
                                     ))

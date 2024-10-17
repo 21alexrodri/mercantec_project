@@ -41,25 +41,26 @@ export const Login = ({ closeLogin }) => {
                 password: dataSend.password
             }),
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then((data) => {
-                console.log('Response:', data); 
-                if (data.status === "success") {
-                    alert("Login successful");
-                    // Aquí podrías redirigir al usuario a otra parte de la app
-                } else {
-                    alert("Error: " + data.message);
-                }
-            })
-            .catch((error) => {
-                console.error('Error fetching:', error);
-            });
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response:', data);
+            if (data.status === "success") {
+                alert("Login successful");
+    
+                localStorage.setItem('user', JSON.stringify(data.user));
+                
+                document.cookie = `PHPSESSID=${data.session_id}; path=/; SameSite=None; Secure`;
+    
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching:', error);
+        });
     };
+    
+    
 
     return (
         <div onClick={closeLogin} className="blur_content">

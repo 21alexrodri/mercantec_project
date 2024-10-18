@@ -53,12 +53,10 @@ ul {
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    margin: 1.6vw;
     transition: all 0.3s;
 }
 
 .job-content:hover{
-    margin: 0.6vw;
     width: 21vw;
     height: 21vw;
     transition: all 0.5s;
@@ -96,4 +94,21 @@ ul li {
         font-size: xx-large;
         font-weight: bolder;
     }
+}
+
+a.job-content{
+    margin: 1.6vw;
+    transition: all 0.3s;
+}
+
+a.job-content:hover{
+    margin: 0.6vw;
+    transition: all 0.5s;
+}
+
+a:hover .job-content{
+    width: 21vw;
+    height: 21vw;
+    transition: all 0.5s;
+    cursor: pointer;
 }

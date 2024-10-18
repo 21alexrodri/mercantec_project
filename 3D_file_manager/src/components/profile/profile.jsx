@@ -2,17 +2,18 @@ import './profile.css';
 import { useEffect, useState } from 'react';
 
 function Profile() {
-    const imageLink = "https://icon.icepanel.io/Technology/svg/NixOS.svg"
-    const [oldersFirst, setOldersFirst] = useState(false)
-    const [buttonText, setButtonText] = useState("⯆ order by newer")
+    //const imageLink = "https://icon.icepanel.io/Technology/svg/NixOS.svg"
+    const imageLink =  "http://192.168.116.229/3D_printer/Files/img/default-job.png";
+    const [recentsFirst, setRecentsFirst] = useState(false)
+    const [buttonText, setButtonText] = useState("⯆ recents first")
     const [jobs, setJobs] = useState({})
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null);
     const [tags, setTags] = useState([]);
 
     function changeOrder() {
-        setOldersFirst(!oldersFirst);
-        setButtonText(oldersFirst ? "⯆ order by newer" : "⯅ order by older ")
+        setRecentsFirst(!recentsFirst);
+        setButtonText(recentsFirst ? "⯆ recents first" : "⯅ olders first ")
     }
 
     const handleShowTags = () => {
@@ -96,17 +97,33 @@ function Profile() {
 
 
     function getJobs() {
-        return (
-            <div className='job_gallery'>
-                {tags.map((tag) => (
-                    <div className="job_gallery_container">
-                    <div className='job_content'>
-                    </div>
-                    <h4>job title</h4>
-                    </div>
-                ))}
-            </div>
-        )
+        if (recentsFirst) {
+            return (
+                <div className='job_gallery'>
+                    {tags.map((tag) => (
+                        <div className="job_gallery_container" key={tag.id}>
+                        <div className='job_content'>
+                            <img src="http://192.168.116.229/3D_printer/Files/img/default-job.png" alt="" />
+                        </div>
+                        <h4>job title {tag.id}</h4>
+                        </div>
+                    )).reverse()}
+                </div>
+            )
+        } else {
+            return (
+                <div className='job_gallery'>
+                    {tags.map((tag) => (
+                        <div className="job_gallery_container" key={tag.id}>
+                        <div className='job_content'>
+                            <img src="http://192.168.116.229/3D_printer/Files/img/default-job.png" alt="" />
+                        </div>
+                        <h4>job title {tag.id}</h4>
+                        </div>
+                    ))}
+                </div>
+            )
+        }
     }
 
     return (
@@ -127,15 +144,6 @@ function Profile() {
                 {getJobs()}
             </div>
             {console.log("jobs is:", jobs)}
-            {/* {tags.map((tag, i) => {
-                console.log("tag: ");
-                console.log(tag);
-                console.log("i: ");
-                console.log(i);
-                (
-                    <div className='funciona'>TRY</div>
-                )
-            })} */}
             {tags.map((tag) => {
                 console.log(tag)
             })}

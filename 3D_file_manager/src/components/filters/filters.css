@@ -1,10 +1,10 @@
 .filter {
-    flex: 0.4; 
-    padding: 20px;
+    flex: 0.4;
+    padding: 1%;
     border-right: 2px solid rgb(201, 199, 199);
-    box-sizing: border-box; 
-    max-width: 300px;
-    min-width: 300px;
+    box-sizing: border-box;
+    max-width: 20%;
+    min-width: 20%;
     background-color: #f0f0f0;
 }
 
@@ -55,7 +55,11 @@ select:focus{
     height: 5%;
     min-height: 5%;
     max-height: 5%;
-    overflow-y: scroll;   
+    overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: start;
 }
 .filter_title{
     margin-top: 15px;
@@ -63,19 +67,23 @@ select:focus{
 .filter_style{
     background-color: #FF8387;
     border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: 20px;
+
     overflow: hidden;
     text-wrap: nowrap;
     padding-left: 8px;
+    padding-top: 3px;
     padding-right: 8px;
+    padding-bottom: 3px;
     color: white;
     font-weight: 900;
     font-size: 15px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    p{
-        margin-top: 2px;
-        margin-bottom: 2px;
-    }
+    margin: 1%;
 }
 
 #search_by_name, #search_by_date, #search_by_material{
@@ -85,8 +93,8 @@ select:focus{
     font-size: 15px;
     outline: none;
     margin-bottom: 10px;
-&:hover, &:active, &:focus, &:target{
-    border: none;
-    border-bottom: 2px solid #FF8387;
-}
+    &:hover, &:active, &:focus, &:target{
+        border: none;
+        border-bottom: 2px solid #FF8387;
+    }
 }

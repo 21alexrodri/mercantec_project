@@ -19,9 +19,7 @@ function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
 
     // Functions created to handle job pages changes
     const handleNextPage = () => {
-
-        let newOffset
-        newOffset = ((currentPage+1)*jobsPerPage) 
+        const newOffset = ((currentPage+1)*jobsPerPage) 
         setOffset(newOffset)
 
         setDirection("left")
@@ -64,7 +62,7 @@ function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
                                                 <a href={`job_page?jobId=${job.id}`}/>
 
                                                 </div>
-                                            <b>{job.id}</b><p>{job.project_name}</p>
+                                            <b>{job.project_name}</b><p>{job.username} - {job.creation_date}</p>
                                         </div>
                                     ))
                                     

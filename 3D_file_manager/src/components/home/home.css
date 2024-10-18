@@ -96,17 +96,26 @@ ul li {
     }
 }
 
-a.job-content{
+.job-content{
+    
+    transition: all 0.3s;
+}
+
+.job-content:hover{
+    transition: all 0.5s;
+}
+
+.job-link{
     margin: 1.6vw;
     transition: all 0.3s;
 }
 
-a.job-content:hover{
+.job-link:hover{
     margin: 0.6vw;
     transition: all 0.5s;
 }
 
-a:hover .job-content{
+.job-link:hover .job-content{
     width: 21vw;
     height: 21vw;
     transition: all 0.5s;

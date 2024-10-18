@@ -12,10 +12,6 @@ function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
     const [error, setError] = useState(null); 
     const [loading, setLoading] = useState(false);
 
-    // DEBUGGING FUNCTION
-    useEffect(() => {
-        console.log('Offset ha cambiado:', offset);
-    }, [offset]);
 
     // Functions created to handle job pages changes
     const handleNextPage = () => {
@@ -58,10 +54,9 @@ function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
                                 {
                                     jobs[tagId].jobs.map((job, i) => (
                                         <div key={i} className={`col ${direction==="left" ? "slide-left" : ""} ${direction==="right" ? "slide-right" : ""} `}>
-                                                <div className='job-content'>
-                                                <a href={`job_page?jobId=${job.id}`}/>
-
-                                                </div>
+                                                <a href={`job_page?jobId=${job.id}`}>
+                                                    <img className='job-content' src={`http://192.168.116.229/3D_printer/Files/img/jobs/${job.id}.jpg`} onError={(e) => e.target.src = 'http://192.168.116.229/3D_printer/Files/img/default-job.png'} />
+                                                </a>
                                             <b>{job.project_name}</b><p>{job.username} - {job.creation_date}</p>
                                         </div>
                                     ))

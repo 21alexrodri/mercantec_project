@@ -2,10 +2,12 @@ import './home.css';
 import { useEffect, useState } from 'react';
 import Filters from '../filters/filters'
 import TagTemplate from '../tag-template/tag-template'
+import { NewJob } from '../new_job/new_job';
 
 function Home() {
     const [tags, setTags] = useState([]);
     const [jobs, setJobs] = useState({});
+    const [jobMenu,setNewJobMenu] = useState(false);
     const [error, setError] = useState(null); 
     const [loading, setLoading] = useState(false); 
 
@@ -93,7 +95,7 @@ function Home() {
             <div className="main_block">
             <Filters />
             <div className="home">
-                {/* <h2>Home</h2> */}
+                {jobMenu && <NewJob closeLogin={() => setShowLogin(false)}/>}
                 <div>
                     {tags.length > 0 ? (
                         <ul className="tags-list">
@@ -112,7 +114,7 @@ function Home() {
                 </div>
             </div>
             </div>
-            <div id="upload-button">
+            <div onClick={()=>setNewJobMenu(true)} id="upload-button">
                 <p>+</p>
             </div>
         </>

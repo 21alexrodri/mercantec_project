@@ -12,8 +12,8 @@ function Header() {
             <h1 className='header_title'>3D Print Archive</h1>
             <nav className='header_navbar'>
                 <ul>
-                    <li className='link_li'><a href='home'>Home</a></li>
-                    <li className='link_li'><a href='profile'>Profile</a></li>
+                    <li className='link_li'><a href='/home'>Home</a></li>
+                    <li className='link_li'><a href='/profile'>Profile</a></li>
                     <li><button className='login_btn' onClick={() => setShowLogin(true)}>Log In</button>
                     {showLogin && <Login closeLogin={() => setShowLogin(false)} />}</li>
                     <li><button className='signup_btn' onClick={() => setShowSignup(true)}> Sign Up</button>

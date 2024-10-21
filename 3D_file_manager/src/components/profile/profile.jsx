@@ -9,8 +9,8 @@ function Profile() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [tags, setTags] = useState([]);
-    const [username, setUsername] = useState("guest");  // Estado para almacenar el nombre del usuario
-    const [isAdmin, setIsAdmin] = useState(false);  // Estado para saber si es administrador
+    const [username, setUsername] = useState("guest");  
+    const [isAdmin, setIsAdmin] = useState(false);  
 
     function changeOrder() {
         setRecentsFirst(!recentsFirst);
@@ -27,7 +27,7 @@ function Profile() {
                 body: JSON.stringify({
                     arg: 'checkUserLoggedIn'
                 }),
-                credentials: 'include', // Esto es crítico para enviar las cookies
+                credentials: 'include', 
             });
     
             const text = await response.text(); 
@@ -117,13 +117,13 @@ function Profile() {
         }
     }
 
-    // Comprobar el estado del usuario cuando se carga el componente
+    
     useEffect(() => {
         checkUserStatus();
         handleShowTags();
     }, []);
 
-    // When tags are updated, update jobs for each tag
+    
     useEffect(() => {
         if (tags.length > 0) {
             tags.forEach(tag => {
@@ -162,7 +162,7 @@ function Profile() {
         }
     }
 
-    // Manejar el click en el botón "edit"
+    
     const handleEditClick = () => {
         if (isAdmin) {
             console.log("You are an admin");
@@ -175,7 +175,7 @@ function Profile() {
         <div className="profile">
             <div className="profile_left_column">
                 <img className="profile_picture" src={imageLink} alt="" />
-                <h2 className="username_text">{username}</h2> {/* Mostrar el nombre de usuario */}
+                <h2 className="username_text">{username}</h2> 
                 <button className="profile_button" id="button1" onClick={handleEditClick}>
                     edit
                 </button>

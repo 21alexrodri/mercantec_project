@@ -1,63 +1,69 @@
-.job-page {
+.job_page {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding: 20px;
-  }
-  
-  .job-header {
+}
+
+.job_page .job_header {
     text-align: center;
-  }
-  
-  .job-content {
+}
+
+.job_page .job_content {
     display: flex;
     justify-content: space-between;
-  }
-  
-  .job-images {
-    width: 20%;
-  }
-  
-  .image-scroll {
+}
+
+.job_page .job_images {
+    width: 28%;
+    border: 1px solid #888;
+}
+
+.job_page .job_images .image_scroll {
     max-height: 300px;
     overflow-y: scroll;
-  }
-  
-  .job-thumbnail {
-    width: 50%;
+}
+
+.job_page .job_display {
+    width: 40%;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-  }
-  
-  .job-display {
-    position: relative;
-  }
-  
-  .job-actions {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    display: flex;
-    gap: 10px;
-  }
-  
-  .job-info {
-    width: 25%;
-  }
-  
-  .job-description, .job-comments {
+    border: 1px solid #888;
+    aspect-ratio: 1.5;
+}
+
+.job_page .job_display .job_actions {
+    position:absolute;
+    right:0;
+    bottom:0px;
+    width:60px;
+    height:103px;
+}
+
+.job_page .job_display .job_actions > * {
+    display:block;
+    width:  40px;
+    height: 40px;
+    margin: 5px;
+}
+
+.job_page .job_info {
+    width: 28%;
+    border: 1px solid #888;
+}
+
+.job_page .job_description, .job_comments {
     margin-top: 20px;
-  }
-  
-  .other-jobs {
+}
+
+.job_page .other_jobs {
     margin-top: 20px;
-  }
-  
-  .other-job {
+}
+
+.job_page .other_job {
     padding: 10px;
     background-color: #f0f0f0;
     margin-bottom: 10px;
-  }
-  
+}

@@ -2,7 +2,7 @@ import './profile.css';
 import { useEffect, useState } from 'react';
 
 function Profile() {
-    const imageLink = "http://192.168.116.229/3D_printer/Files/img/default-job.png";
+    const imageLink = "/3D_printer/Files/img/default-job.png";
     const [recentsFirst, setRecentsFirst] = useState(false);
     const [buttonText, setButtonText] = useState("⯆ recents first");
     const [jobs, setJobs] = useState({});
@@ -19,7 +19,7 @@ function Profile() {
 
     const checkUserStatus = async () => {
         try {
-            const response = await fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
+            const response = await fetch('/3D_printer/3d_project/query.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ function Profile() {
 
     const handleShowTags = () => {
         setLoading(true);
-        fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
+        fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ function Profile() {
         setLoading(true);
 
         try {
-            const response = await fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
+            const response = await fetch('/3D_printer/3d_project/query.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

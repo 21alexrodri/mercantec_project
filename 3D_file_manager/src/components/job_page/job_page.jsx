@@ -20,7 +20,7 @@ export const JobPage = ({ }) => {
         console.log('Job ID:', jobId); // Verificas que jobId llega correctamente
         window.scrollTo(0, 0);
         // Llamada al backend para obtener los datos del proyecto
-        fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
+        fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -72,17 +72,17 @@ export const JobPage = ({ }) => {
     
 
     return  (
-        <div className="job-page">
+        <div className="job_page">
             {/* Título y dueño del proyecto */}
-            <div className="job-header">
+            <div className="job_header">
                 <h1>{jobData.title}</h1>
                 <p>{jobData.owner}</p>
             </div>
 
-            <div className="job-content">
+            <div className="job_content">
                 {/* Contenedor de imágenes con scrollbar */}
-                <div className="job-images">
-                    <div className="image-scroll">
+                <div className="job_images">
+                    <div className="image_scroll">
                         {jobData.images.map((image, index) => (
                             <img key={index} src={image} alt={`Job IMG ${index}`} />
                         ))}
@@ -91,31 +91,29 @@ export const JobPage = ({ }) => {
                 </div>
 
                 {/* Thumbnail del proyecto con botones de like y descarga */}
-                <div className="job-thumbnail">
-                    <div className="job-display">
+                <div className="job_display">
                         <h2>Job</h2>
-                        <div className="job-actions">
-                            <button className="like-button">❤️</button>
-                            <button className="download-button">⬇️</button>
+                        <div className="job_actions">
+                            <button className="like_button">❤️</button>
+                            <button className="download_button">⬇️</button>
                         </div>
-                    </div>
                 </div>
 
                 {/* Información del proyecto */}
-                <div className="job-info">
+                <div className="job_info">
                     <h3>Job Info</h3>
                     <p>{jobData.info}</p>
                 </div>
             </div>
 
             {/* Descripción del proyecto */}
-            <div className="job-description">
+            <div className="job_description">
                 <h3>Job Desc</h3>
                 <p>{jobData.description}</p>
             </div>
 
             {/* Sección de comentarios */}
-            <div className="job-comments">
+            <div className="job_comments">
                 <h3>Comments</h3>
                 {Array.isArray(jobData.comments) && jobData.comments.length > 0 ? (
                     jobData.comments.map((comment, index) => (
@@ -129,10 +127,10 @@ export const JobPage = ({ }) => {
             </div>
 
             {/* Otros proyectos */}
-            <div className="other-jobs">
+            <div className="other_jobs">
                 <h3>Other Jobs</h3>
                 {jobData.otherJobs.map((otherJob, index) => (
-                    <div key={index} className="other-job">{otherJob.title}</div>
+                    <div key={index} className="other_job">{otherJob.title}</div>
                 ))}
             </div>
         </div>

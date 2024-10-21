@@ -10,7 +10,7 @@ function Header() {
     return (
         <header>
             <div id='mercantec_header'>
-            <a target='_blank' className= "logo" href="https://www.mercantec.dk/"><img id="mercantec_logo" src='http://192.168.116.229/3D_printer/Files/img/logo.svg'></img></a>
+            <a target='_blank' className= "logo" href="https://www.mercantec.dk/"><img id="mercantec_logo" src="/3D_printer/Files/img/logo.svg"></img></a>
             <h1 className='header_title'>3D Print Archive</h1>
             </div>
             <nav className='header_navbar'>

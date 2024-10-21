@@ -61,11 +61,7 @@ function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
                                     jobs[tagId].jobs.map((job, i) => (
                                         <div key={i} className={`col ${direction==="left" ? "slide-left" : ""} ${direction==="right" ? "slide-right" : ""} `}>
                                             <div id={job.id} className='job-link' onClick={() => handleJobClick(job.id)}>
-                                                <img 
-                                                    className='job-content'
-                                                    src={`http://192.168.116.229/3D_printer/Files/img/jobs/${job.id}.jpg`} 
-                                                    onError={handleError}
-                                                />                                            
+                                                <img className='job-content' src={`/3D_printer/Files/img/jobs/${job.id}.jpg`} onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'} />
                                             </div>
                                             <b>{job.project_name}</b><p>{job.username} - {job.creation_date}</p>
                                         </div>

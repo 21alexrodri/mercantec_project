@@ -1,21 +1,24 @@
 @font-face {
-  font-family: 'Montserrat Bold';
-  src: url('/Montserrat/static/Montserrat-Bold.ttf');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'Montserrat Bold';
+    src: url('/Montserrat/static/Montserrat-Bold.ttf');
+    font-weight: normal;
+    font-style: normal;
 }
+
 @font-face {
-  font-family: 'Montserrat';
-  src: url('/Montserrat/static/Montserrat-Light.ttf');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'Montserrat';
+    src: url('/Montserrat/static/Montserrat-Light.ttf');
+    font-weight: normal;
+    font-style: normal;
 }
+
 body{
     margin: 0;
     font-family: 'Montserrat', monospace;
 }
+
 h1{
-  font-family: 'Montserrat Bold', monospace;
+    font-family: 'Montserrat Bold', monospace;
 }
 
 .col{
@@ -36,7 +39,7 @@ h1{
 
 /*===== popups css =====*/
 
-div.blur_content {
+.blur_content {
     position: fixed;
     top: 0;
     left: 0;
@@ -50,7 +53,7 @@ div.blur_content {
     z-index: 999; 
 }
 
-div.credentials_popup_container {
+.credentials_popup_container {
     color: #fff;
     width: 40%;
     max-width: 400px;
@@ -60,7 +63,7 @@ div.credentials_popup_container {
 }
 
 
-div.credentials_title {
+.credentials_popup_container .credentials_title {
     width: 100%;
     margin: 0;
     padding-top: 1em;
@@ -77,20 +80,20 @@ div.credentials_title {
     padding-bottom: 1.5em;
 }
 
-div.credentials_title h2 {
+.credentials_popup_container .credentials_title h2 {
     width: 60%;
     margin: 0px auto;
     display: block;
 }
 
 
-div.credentials_popup_close {
+.credentials_popup_container .credentials_popup_close {
     display: inline;
     float:right;
     text-align: right;
 }
 
-div.credentials_popup_close button{
+.credentials_popup_container .credentials_popup_close button{
     background-color: transparent;
     border:none;
     color: #fff;
@@ -100,7 +103,7 @@ div.credentials_popup_close button{
 }
 
 
-div.credentials_body {
+.credentials_popup_container .credentials_body {
     display: block;
     max-width:100%;
     padding:3em;
@@ -111,7 +114,7 @@ div.credentials_body {
     border-bottom-right-radius: 1em;
 }
 
-div.credentials_body input {
+.credentials_popup_container .credentials_body input {
     line-height: 2em;
     margin-bottom: 0.5em;
     box-sizing: border-box;
@@ -127,13 +130,13 @@ div.credentials_body input {
     font-size: 0.9em;
 }
 
-div.credentials_body input.credentials_submit_button {
+.credentials_popup_container .credentials_body input.credentials_submit_button {
     background-color:#FF8387;
     color: white;
     cursor: pointer;
 }
 
-div.credentials_body label {
+.credentials_popup_container .credentials_body label {
     color: #FF8387;
     font-weight: bold;
 }

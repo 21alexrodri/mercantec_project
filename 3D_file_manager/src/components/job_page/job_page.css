@@ -1,0 +1,63 @@
+.job-page {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .job-header {
+    text-align: center;
+  }
+  
+  .job-content {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .job-images {
+    width: 20%;
+  }
+  
+  .image-scroll {
+    max-height: 300px;
+    overflow-y: scroll;
+  }
+  
+  .job-thumbnail {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  .job-display {
+    position: relative;
+  }
+  
+  .job-actions {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .job-info {
+    width: 25%;
+  }
+  
+  .job-description, .job-comments {
+    margin-top: 20px;
+  }
+  
+  .other-jobs {
+    margin-top: 20px;
+  }
+  
+  .other-job {
+    padding: 10px;
+    background-color: #f0f0f0;
+    margin-bottom: 10px;
+  }
+  

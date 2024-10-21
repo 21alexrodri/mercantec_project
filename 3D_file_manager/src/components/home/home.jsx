@@ -89,28 +89,30 @@ function Home() {
     }, [tags]);
 
     return (
-        <div className="main_block">
-        <Filters />
-        <div className="home">
-            {/* <h2>Home</h2> */}
-            <div>
-                {tags.length > 0 ? (
-                    <ul className="tags-list">
-                        {tags.map((tag, index) => (
-                            <TagTemplate 
-                                jobs={jobs} 
-                                tagId={tag.id} 
-                                tagName={tag.name_tag}
-                                handleShowJobs={handleShowJobs}
-                            />
-                        ))}
-                    </ul>
-                ) : (
-                    <p>No tags to show</p> 
-                )}
+        <>
+            <home>
+            <Filters />
+            <main>
+                    {tags.length > 0 ? (
+                        <ul className="tags-list">
+                            {tags.map((tag, index) => (
+                                <TagTemplate 
+                                    jobs={jobs} 
+                                    tagId={tag.id} 
+                                    tagName={tag.name_tag}
+                                    handleShowJobs={handleShowJobs}
+                                />
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No tags to show</p> 
+                    )}
+            </main>
+            </home>
+            <div id="upload-button">
+                <p>+</p>
             </div>
-        </div>
-        </div>
+        </>
     );
 }
 

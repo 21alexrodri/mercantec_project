@@ -1,10 +1,10 @@
-.main_block {
+home {
     display: flex;
     width: 100%;
     min-height: 100vh; 
 }
 
-.home {
+home main {
     flex: 2;
     padding-left: 1%;
     padding-top: 1%;
@@ -13,17 +13,17 @@
     position: relative;
 }
 
-ul {
+home ul {
     list-style-type: none;
     padding: 0;
 }
 
-.tags-list{
+home .tags-list{
     display: flex;
     flex-direction: column;
 }
 
-.tag-content{
+home .tag-content{
     display: flex;
     flex-direction: column;
     width: calc(100vw - 22%);
@@ -31,7 +31,7 @@ ul {
     position: relative;
 }
 
-.tag-content::after{
+home .tag-content::after{
     content: "";
     position: absolute;
     right: 0;
@@ -41,40 +41,83 @@ ul {
     background: linear-gradient(to right,rgba(1,1,1,0),#f0f0f0);
 }
 
-.job-content{
-    min-width: 19vw;
-    min-height: 19vw;
+home .job-content{
+    width: 19vw;
+    height: 19vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border-radius: 17%;
-    background-image: url(http://192.168.116.229/3D_printer/Files/img/default-job.png);
+    object-fit: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    margin: 1.6vw;
     transition: all 0.3s;
 }
-.job-content a{ 
-    width: 100%;
-    height: 100%;
-}
 
-.job-content:hover{
-    margin: 0.6vw;
-    min-width: 21vw;
-    min-height: 21vw;
+home .job-content:hover{
+    width: 21vw;
+    height: 21vw;
     transition: all 0.5s;
     cursor: pointer;
 }
 
-.jobs-container{
+home .jobs-container{
     display: flex;
     flex-direction: row;
 }
 
-ul li {
+home ul li {
     padding: 5px 0;
     
+}
+home #upload-button{
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+
+    width: 80px;
+    height: 80px;
+    border-radius: 1vw;
+    background-color: #0E38AB;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 997;
+
+    cursor: pointer;
+
+    p{
+        color: white;
+        font-size: xx-large;
+        font-weight: bolder;
+    }
+}
+
+home .job-content{
+    
+    transition: all 0.3s;
+}
+
+home .job-content:hover{
+    transition: all 0.5s;
+}
+
+home .job-link{
+    margin: 1.6vw;
+    transition: all 0.3s;
+}
+
+home .job-link:hover{
+    margin: 0.6vw;
+    transition: all 0.5s;
+}
+
+home .job-link:hover .job-content{
+    width: 21vw;
+    height: 21vw;
+    transition: all 0.5s;
+    cursor: pointer;
 }

@@ -93,29 +93,29 @@ function Home() {
     return (
         <>
             <div id='home'>
-            <Filters />
-            <div className="home">
-                {jobMenu && <NewJob closeNewJob={() => setNewJobMenu(false)}/>}
-                <div>
-                    {tags.length > 0 ? (
-                        <ul className="tags-list">
-                            {tags.map((tag, index) => (
-                                <TagTemplate 
-                                    jobs={jobs} 
-                                    tagId={tag.id} 
-                                    tagName={tag.name_tag}
-                                    handleShowJobs={handleShowJobs}
-                                />
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>No tags to show</p> 
-                    )}
+                <Filters />
+                <main>
+                    {jobMenu && <NewJob closeNewJob={() => setNewJobMenu(false)}/>}
+                    <div>
+                        {tags.length > 0 ? (
+                            <ul className="tags-list">
+                                {tags.map((tag, index) => (
+                                    <TagTemplate 
+                                        jobs={jobs} 
+                                        tagId={tag.id} 
+                                        tagName={tag.name_tag}
+                                        handleShowJobs={handleShowJobs}
+                                    />
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>No tags to show</p> 
+                        )}
+                    </div>
+                </main>
+                <div onClick={()=>setNewJobMenu(true)} id="upload-button">
+                    <p>+</p>
                 </div>
-            </div>
-            <div onClick={()=>setNewJobMenu(true)} id="upload-button">
-                <p>+</p>
-            </div>
             </div>
         </>
     );

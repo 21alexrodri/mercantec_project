@@ -95,7 +95,7 @@ function Home() {
             <div className="main_block">
             <Filters />
             <div className="home">
-                {jobMenu && <NewJob closeLogin={() => setShowLogin(false)}/>}
+                {jobMenu && <NewJob closeNewJob={() => setNewJobMenu(false)}/>}
                 <div>
                     {tags.length > 0 ? (
                         <ul className="tags-list">

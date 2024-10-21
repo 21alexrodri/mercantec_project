@@ -77,12 +77,14 @@ button.profile_button#button2 {
     margin: 1em;
 }
 
+/*
 div.job_content {
     width: 280px;
     height: 280px;
 
     margin-top: 25px;
 }
+*/
 
 div.job_content img {
     margin: 10px auto;

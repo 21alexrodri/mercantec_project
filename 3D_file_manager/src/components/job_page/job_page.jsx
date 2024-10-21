@@ -20,7 +20,7 @@ export const JobPage = ({ }) => {
         console.log('Job ID:', jobId); // Verificas que jobId llega correctamente
         window.scrollTo(0, 0);
         // Llamada al backend para obtener los datos del proyecto
-        fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
+        fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

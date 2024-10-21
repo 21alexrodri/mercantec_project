@@ -95,7 +95,7 @@ function Filters() {
     }, [selectedTextName, selectedDate, selectedTags, selectedColor, selectedCustomer, minLayerThicknessValue, maxLayerThicknessValue, selectedMaterial]);
 
     useEffect(() => {
-        fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
+        fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ function Filters() {
     }, []);
 
     useEffect(() => {
-        fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
+        fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

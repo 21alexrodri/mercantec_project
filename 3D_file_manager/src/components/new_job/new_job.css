@@ -28,18 +28,6 @@
     margin: 0;
 }
 
-.img-upload{
-    width: 200px;
-    height: 200px;
-    background-color: lightgrey;
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
 .img-upload:hover{
     background-color: rgb(232, 232, 232);
     transition: all 0.3s ease;
@@ -128,6 +116,7 @@ input:focus, input:hover{
     width: 300px;
     height: 100px;
     resize: none;
+    border-radius: 10px;
     margin-top: 10px;
 }
 
@@ -149,4 +138,108 @@ input:focus, input:hover{
 
 .input-row p{
     margin: 0;
+}
+
+.img-upload-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background-color: lightgrey;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-size: cover; 
+    background-position: center;
+}
+
+.img-upload-label {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.img-upload {
+    width: 100%;
+    height: 100%;
+    opacity: 0; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.upload-icon {
+    font-size: 50px;
+    padding: 100%;
+    background-color: lightgray;
+    opacity: 0.7;
+    color: #0E38AB;
+    z-index: 1;
+    pointer-events: none; /* Allows the pointer to activate the input (the pointer ignores the icon) */
+}
+
+.img-upload-container:hover {
+    background-color: rgb(232, 232, 232);
+    transition: all 0.3s ease;
+}
+
+.img-upload-manager{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 25%;
+}
+.img-upload-manager p {
+    font-size: small;
+}
+
+.nj-delete-image{
+    background-color: #FF8387;
+    border: 2px #FF8387 solid;
+    border-radius: 30px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.nj-delete-image:hover{
+    background: none;
+    transition: all 0.3s ease;
+    color: #FF8387;
+}
+
+.nj-file{
+    min-width: 75px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: xx-large;
+    border-radius: 20px;
+    background-color: lightgray;
+}
+
+.new-file p{
+    margin: 0;
+}
+
+.files-list{
+    width: 60%;
+    overflow-x: auto;
+}
+
+input[type="file"]{
+    opacity: 0;
+    width: 75px;
 }

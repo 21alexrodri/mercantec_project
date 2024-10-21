@@ -6,41 +6,41 @@ import TagTemplate from '../tag-template/tag-template'
 function Home() {
     const [tags, setTags] = useState([]);
     const [jobs, setJobs] = useState({});
-    const [error, setError] = useState(null); 
-    const [loading, setLoading] = useState(false); 
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const handleShowTags = () => {
         setLoading(true); 
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type': 'application/json'
             },
-            body : JSON.stringify({arg: "getTags"})
+            body: JSON.stringify({ arg: "getTags" })
         }
-    )
+        )
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                return response.json(); 
+                return response.json();
             })
             .then(data => {
-                setTags(data); 
-                setError(null); 
+                setTags(data);
+                setError(null);
             })
             .catch(error => {
                 console.error('Error:', error);
-                setError(error.message); 
+                setError(error.message);
             })
             .finally(() => {
                 setLoading(false);
             });
     };
 
-    async function handleShowJobs(tagId,offset) {
+    async function handleShowJobs(tagId, offset) {
         setLoading(true);
-    
+
         try {
             const response = await fetch('/3D_printer/3d_project/query.php', {
                 method: 'POST',
@@ -53,11 +53,11 @@ function Home() {
                     offset: offset
                 }),
             });
-    
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-    
+
             const data = await response.json();
             setJobs(prevJobs => ({
                 ...prevJobs,
@@ -67,9 +67,9 @@ function Home() {
             setError(null);
         } catch (error) {
             console.error('Error:', error);
-            setError(error.message); 
+            setError(error.message);
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     }
 
@@ -82,7 +82,7 @@ function Home() {
     useEffect(() => {
         if (tags.length > 0) {
             tags.forEach(tag => {
-                handleShowJobs(tag.id,0);   
+                handleShowJobs(tag.id, 0);
             });
             console.log(jobs)
         }
@@ -90,25 +90,25 @@ function Home() {
 
     return (
         <>
-            <home>
+            <div id='home'>
             <Filters />
             <main>
-                    {tags.length > 0 ? (
-                        <ul className="tags-list">
-                            {tags.map((tag, index) => (
-                                <TagTemplate 
-                                    jobs={jobs} 
-                                    tagId={tag.id} 
-                                    tagName={tag.name_tag}
-                                    handleShowJobs={handleShowJobs}
-                                />
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>No tags to show</p> 
-                    )}
+                {tags.length > 0 ? (
+                    <ul className="tags-list">
+                        {tags.map((tag, index) => (
+                            <TagTemplate
+                                jobs={jobs}
+                                tagId={tag.id}
+                                tagName={tag.name_tag}
+                                handleShowJobs={handleShowJobs}
+                            />
+                        ))}
+                    </ul>
+                ) : (
+                    <p>No tags to show</p>
+                )}
             </main>
-            </home>
+            </div>
             <div id="upload-button">
                 <p>+</p>
             </div>

@@ -30,7 +30,7 @@ export const Login = ({ closeLogin }) => {
 
     const send_data = () => {
         console.log("Datos enviados:", dataSend);
-        fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
+        fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

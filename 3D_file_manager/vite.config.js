@@ -12,5 +12,20 @@ export default defineConfig({
     },
     host: 'localhost',
     port: 5173,
+    proxy: {
+      '/3D_printer/Files/img': {
+        target: 'http://192.168.116.229',
+        changeOrigin: true,
+      },
+      '/3D_printer/Files/img/jobs': {
+        target: 'http://192.168.116.229',
+        changeOrigin: true,
+      },
+      '/3D_printer/3d_project': {
+        target: 'http://192.168.116.229',
+        changeOrigin: true,
+      }
+    }
+    
   }
 })

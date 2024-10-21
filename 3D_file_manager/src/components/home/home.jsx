@@ -10,8 +10,8 @@ function Home() {
     const [loading, setLoading] = useState(false);
 
     const handleShowTags = () => {
-        setLoading(true);
-        fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
+        setLoading(true); 
+        fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ function Home() {
         setLoading(true);
 
         try {
-            const response = await fetch('http://192.168.116.229/3D_printer/3d_project/query.php', {
+            const response = await fetch('/3D_printer/3d_project/query.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -40,17 +40,13 @@ export const Login = ({ closeLogin }) => {
                 username: dataSend.username,
                 password: dataSend.password
             }),
+            credentials: 'include'
         })
         .then(response => response.json())
         .then(data => {
             console.log('Response:', data);
             if (data.status === "success") {
                 alert("Login successful");
-    
-                localStorage.setItem('user', JSON.stringify(data.user));
-                
-                document.cookie = `PHPSESSID=${data.session_id}; path=/; SameSite=None; Secure`;
-    
             } else {
                 alert("Error: " + data.message);
             }
@@ -59,6 +55,7 @@ export const Login = ({ closeLogin }) => {
             console.error('Error fetching:', error);
         });
     };
+    
     
     
 

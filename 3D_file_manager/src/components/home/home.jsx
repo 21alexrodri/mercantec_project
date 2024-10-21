@@ -2,12 +2,14 @@ import './home.css';
 import { useEffect, useState } from 'react';
 import Filters from '../filters/filters'
 import TagTemplate from '../tag-template/tag-template'
+import { NewJob } from '../new_job/new_job';
 
 function Home() {
     const [tags, setTags] = useState([]);
     const [jobs, setJobs] = useState({});
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [jobMenu,setNewJobMenu] = useState(false);
+    const [error, setError] = useState(null); 
+    const [loading, setLoading] = useState(false); 
 
     const handleShowTags = () => {
         setLoading(true); 
@@ -91,26 +93,29 @@ function Home() {
     return (
         <>
             <div id='home'>
-            <Filters />
-            <main>
-                {tags.length > 0 ? (
-                    <ul className="tags-list">
-                        {tags.map((tag, index) => (
-                            <TagTemplate
-                                jobs={jobs}
-                                tagId={tag.id}
-                                tagName={tag.name_tag}
-                                handleShowJobs={handleShowJobs}
-                            />
-                        ))}
-                    </ul>
-                ) : (
-                    <p>No tags to show</p>
-                )}
-            </main>
-            </div>
-            <div id="upload-button">
-                <p>+</p>
+                <Filters />
+                <main>
+                    {jobMenu && <NewJob closeNewJob={() => setNewJobMenu(false)}/>}
+                    <div>
+                        {tags.length > 0 ? (
+                            <ul className="tags-list">
+                                {tags.map((tag, index) => (
+                                    <TagTemplate 
+                                        jobs={jobs} 
+                                        tagId={tag.id} 
+                                        tagName={tag.name_tag}
+                                        handleShowJobs={handleShowJobs}
+                                    />
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>No tags to show</p> 
+                        )}
+                    </div>
+                </main>
+                <div onClick={()=>setNewJobMenu(true)} id="upload-button">
+                    <p>+</p>
+                </div>
             </div>
         </>
     );

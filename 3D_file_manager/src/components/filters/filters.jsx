@@ -1,7 +1,7 @@
 import './filters.css';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignature, faCalendar, faTag, faBuilding, faPaintBrush} from '@fortawesome/free-solid-svg-icons';
+import { faSignature, faCalendar, faTag, faBuilding, faPaintBrush, faPenNib} from '@fortawesome/free-solid-svg-icons';
 function Filters() {
     const [tags, setTags] = useState([]);
     const [customers, setCustomers] = useState([]);
@@ -162,10 +162,10 @@ function Filters() {
                     <div id={("customer") + filtersApplied.customer} className='filter_style'><p><FontAwesomeIcon icon={faBuilding} title='Customer Filter'/> {filtersApplied.customer}</p></div>
                 )}
                 {filtersApplied.minlayerthickness > 0 && (
-                    <div id={("min-layerthickness_") + filtersApplied.minlayerthickness} className='filter_style'><p>Min. layer thickness: {filtersApplied.minlayerthickness}</p></div>
+                    <div id={("min-layerthickness_") + filtersApplied.minlayerthickness} className='filter_style'><p><FontAwesomeIcon icon={faPenNib} /> Min. layer thickness: {filtersApplied.minlayerthickness}</p></div>
                 )}
                 {filtersApplied.maxlayerthickness < 1 && (
-                    <div id={("max-layerthickness_") + filtersApplied.maxlayerthickness} className='filter_style'><p>Max. layer thickness: {filtersApplied.maxlayerthickness}</p></div>
+                    <div id={("max-layerthickness_") + filtersApplied.maxlayerthickness} className='filter_style'><p><FontAwesomeIcon icon={faPenNib} /> Max. layer thickness: {filtersApplied.maxlayerthickness}</p></div>
                 )}
                 {filtersApplied.material && (
                     <div id={(material_)+filtersApplied.material} className='filter_style'><p>{filtersApplied.material}</p></div>

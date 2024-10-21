@@ -40,13 +40,15 @@ export const Login = ({ closeLogin }) => {
                 username: dataSend.username,
                 password: dataSend.password
             }),
-            credentials: 'include'
+            credentials: 'include' // Esto asegura que las cookies de sesión se envíen
         })
         .then(response => response.json())
         .then(data => {
             console.log('Response:', data);
             if (data.status === "success") {
                 alert("Login successful");
+                localStorage.setItem('userLoggedIn', true);
+                localStorage.setItem('isAdmin', data.user.is_admin);
             } else {
                 alert("Error: " + data.message);
             }
@@ -55,9 +57,7 @@ export const Login = ({ closeLogin }) => {
             console.error('Error fetching:', error);
         });
     };
-    
-    
-    
+ 
 
     return (
         <div onClick={closeLogin} className="blur_content">

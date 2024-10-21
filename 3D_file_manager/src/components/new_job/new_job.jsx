@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUpload} from '@fortawesome/free-solid-svg-icons';
 
 export const NewJob = ({closeNewJob})=>{
+    const [files,setFiles] = useState([])
 
     const handleContainerClick = (e) => {
         e.stopPropagation();
@@ -61,7 +62,14 @@ export const NewJob = ({closeNewJob})=>{
                             </div>
                         </div>
                         <div className="files-upload">
-
+                            <ul>
+                                {files.map((file,index) => (
+                                    <li></li>
+                                ))}
+                                <li className="new-file">
+                                    
+                                </li>
+                            </ul>
                         </div>
                         <div className="upload-options">
                             <button onClick={closeNewJob}>CANCEL</button>

@@ -92,7 +92,7 @@ function Home() {
 
     return (
         <>
-            <div className="main_block">
+            <home>
             <Filters />
             <div className="home">
                 {jobMenu && <NewJob closeNewJob={() => setNewJobMenu(false)}/>}
@@ -113,10 +113,10 @@ function Home() {
                     )}
                 </div>
             </div>
-            </div>
             <div onClick={()=>setNewJobMenu(true)} id="upload-button">
                 <p>+</p>
             </div>
+            </home>
         </>
     );
 }

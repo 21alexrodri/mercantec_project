@@ -27,17 +27,17 @@ function Profile() {
                 body: JSON.stringify({
                     arg: 'checkUserLoggedIn'
                 }),
-                credentials: 'include', // Asegurarse de enviar las cookies
+                credentials: 'include', // Esto es crítico para enviar las cookies
             });
-   
-            const text = await response.text(); // Leer la respuesta como texto para verificar la salida
-            console.log('Respuesta recibida del servidor:', text); // Mostrar qué devuelve el servidor
-   
+    
+            const text = await response.text(); 
+            console.log('Respuesta recibida del servidor:', text);
+    
             if (text.trim() === "") {
                 throw new Error("Respuesta vacía desde el servidor.");
             }
-   
-            const data = JSON.parse(text); // Intentar convertir la respuesta en JSON
+    
+            const data = JSON.parse(text);
             if (data.status === "success") {
                 setUsername(data.username || "guest");
                 setIsAdmin(data.is_admin === 1);
@@ -51,7 +51,7 @@ function Profile() {
             setIsAdmin(false);
         }
     };
-   
+    
 
     const handleShowTags = () => {
         setLoading(true);

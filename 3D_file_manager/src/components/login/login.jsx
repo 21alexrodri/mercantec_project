@@ -40,7 +40,7 @@ export const Login = ({ closeLogin }) => {
                 username: dataSend.username,
                 password: dataSend.password
             }),
-            credentials: 'include' // Esto asegura que las cookies de sesión se envíen
+            credentials: 'include' 
         })
         .then(response => response.json())
         .then(data => {

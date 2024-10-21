@@ -90,11 +90,9 @@ function Home() {
 
     return (
         <>
-            <div className="main_block">
+            <home>
             <Filters />
-            <div className="home">
-                {/* <h2>Home</h2> */}
-                <div>
+            <main>
                     {tags.length > 0 ? (
                         <ul className="tags-list">
                             {tags.map((tag, index) => (
@@ -109,9 +107,8 @@ function Home() {
                     ) : (
                         <p>No tags to show</p> 
                     )}
-                </div>
-            </div>
-            </div>
+            </main>
+            </home>
             <div id="upload-button">
                 <p>+</p>
             </div>

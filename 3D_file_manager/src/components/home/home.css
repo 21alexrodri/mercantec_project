@@ -1,10 +1,10 @@
-.main_block {
+home {
     display: flex;
     width: 100%;
     min-height: 100vh; 
 }
 
-.home {
+home main {
     flex: 2;
     padding-left: 1%;
     padding-top: 1%;
@@ -13,17 +13,17 @@
     position: relative;
 }
 
-ul {
+home ul {
     list-style-type: none;
     padding: 0;
 }
 
-.tags-list{
+home .tags-list{
     display: flex;
     flex-direction: column;
 }
 
-.tag-content{
+home .tag-content{
     display: flex;
     flex-direction: column;
     width: calc(100vw - 22%);
@@ -31,7 +31,7 @@ ul {
     position: relative;
 }
 
-.tag-content::after{
+home .tag-content::after{
     content: "";
     position: absolute;
     right: 0;
@@ -41,7 +41,7 @@ ul {
     background: linear-gradient(to right,rgba(1,1,1,0),#f0f0f0);
 }
 
-.job-content{
+home .job-content{
     width: 19vw;
     height: 19vw;
     display: flex;
@@ -56,23 +56,23 @@ ul {
     transition: all 0.3s;
 }
 
-.job-content:hover{
+home .job-content:hover{
     width: 21vw;
     height: 21vw;
     transition: all 0.5s;
     cursor: pointer;
 }
 
-.jobs-container{
+home .jobs-container{
     display: flex;
     flex-direction: row;
 }
 
-ul li {
+home ul li {
     padding: 5px 0;
     
 }
-#upload-button{
+home #upload-button{
     position: fixed;
     right: 5%;
     bottom: 5%;
@@ -96,26 +96,26 @@ ul li {
     }
 }
 
-.job-content{
+home .job-content{
     
     transition: all 0.3s;
 }
 
-.job-content:hover{
+home .job-content:hover{
     transition: all 0.5s;
 }
 
-.job-link{
+home .job-link{
     margin: 1.6vw;
     transition: all 0.3s;
 }
 
-.job-link:hover{
+home .job-link:hover{
     margin: 0.6vw;
     transition: all 0.5s;
 }
 
-.job-link:hover .job-content{
+home .job-link:hover .job-content{
     width: 21vw;
     height: 21vw;
     transition: all 0.5s;

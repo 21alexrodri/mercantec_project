@@ -155,11 +155,24 @@ export const NewJob = ({closeNewJob})=>{
                                         selectedUploadMode === "stl"
                                     ) ? (
                                         <>
-                                            {files.map((file, index) => (
-                                                <li key={index} className="nj-file-cont">
-                                                    <p>{file.name}</p><FontAwesomeIcon icon={faTrash} cursor="pointer" onClick={()=>handleDeleteFile(index)} />
-                                                </li>
-                                            ))}
+                                            {(
+                                                files.length==0
+                                            )?(
+                                                <>
+                                                    <li className="nj-file-cont">
+                                                        <p>No files yet...</p>
+                                                    </li>
+                                                </>
+                                            ):(
+                                                <>
+                                                    {files.map((file, index) => (
+                                                        <li key={index} className="nj-file-cont">
+                                                            <p>{file.name}</p><FontAwesomeIcon icon={faTrash} cursor="pointer" onClick={()=>handleDeleteFile(index)} />
+                                                        </li>
+                                                    ))}
+                                                </>
+                                            )}
+                                            
                                             <li className="new-file nj-file">
                                                 <p>+</p>
                                                 <input type="file" accept=".stl" onChange={handleFileChange}/>

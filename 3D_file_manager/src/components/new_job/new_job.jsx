@@ -1,24 +1,27 @@
 import { useCallback, useState, useEffect, useRef} from "react";
 import "./new_job.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faUpload} from '@fortawesome/free-solid-svg-icons';
+import {faUpload,faTrash} from '@fortawesome/free-solid-svg-icons';
 
 export const NewJob = ({closeNewJob})=>{
     const [files,setFiles] = useState([])
+    const [zipFile,setZipFile] = useState(null)
     const imgUploadContainerRef = useRef(null)
+    const zipTrashRef = useRef(null)
     const fileInputRef = useRef(null)
+    const uploadStl = useRef(null)
+    const uploadZip = useRef(null)
+    const zipFileRef = useRef(null)
+    const [selectedUploadMode, setSelectedUploadMode] = useState("stl");
 
     const handleContainerClick = (e) => {
         e.stopPropagation();
     };
 
-    // ESTO ESTÁ MAL, NO ELIMINA EL FILE DEL ARRAY !!!!!!!!
-
-    const handleDeleteFile = (e) => {
-        e.target.style.display = "none"
-        for(let file in files){
-
-        }
+    const handleDeleteFile = (indexToDelete) => {
+        setFiles((prevFiles) => 
+            prevFiles.filter((file, index) => index !== indexToDelete)
+        );
     };
 
     const handleImgChange = (e) => {
@@ -39,14 +42,51 @@ export const NewJob = ({closeNewJob})=>{
             reader.onloadend = () => {
                 let newFile = `url(${reader.result})`
                 setFiles((prevFiles) => [...prevFiles,{"url" : newFile, "name" : file.name}])
+                e.target.value = ""
             }
             reader.readAsDataURL(file);
         }
+    }
+    
+    const handleZipUpload = (e) => {
+        const file = e.target.files[0]
+        if(file){
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                let newFile = `url(${reader.result})`
+                setZipFile(newFile)
+                zipFileRef.current.innerHTML = file.name + "<FontAwesomeIcon icon={faTrash} cursor=\"pointer\" onClick={handleDeleteZip} />"
+                e.target.value = ""
+            }
+            reader.readAsDataURL(file);
+            zipTrashRef.current.classList.remove("hide-trash")
+        }
+    }
+
+    const handleDeleteZip = () => {
+        zipFileRef.current.innerHTML = "No file yet..."
+        setZipFile(null)
+        zipTrashRef.current.classList.add("hide-trash")
     }
 
     const handleClearImg = () => {
         fileInputRef.current.value = ""
         imgUploadContainerRef.current.style.backgroundImage = "none"
+    }
+
+    const setSelected = (e) => {
+        if(e.target == uploadStl.current){
+            uploadZip.current.classList.remove("selected-mode")
+            setSelectedUploadMode("stl")
+        }else{
+            uploadStl.current.classList.remove("selected-mode")
+            setSelectedUploadMode("zip")
+        }
+        e.target.classList.add("selected-mode")
+    }
+
+    const handleUpload = (e) => {
+        
     }
 
     return(
@@ -104,22 +144,52 @@ export const NewJob = ({closeNewJob})=>{
                                 </label>
                             </div>
                         </div>
-                        <div className="files-upload">
-                            <ul class="files-list">
-                                {files.map((file, index) => (
-                                    <li onClick={handleDeleteFile} className="nj-file">
-                                        {file.name}
-                                    </li>
-                                ))}
-                                <li className="nj-file new-file">
-                                    <input type="file" onChange={handleFileChange}/>
-                                </li>
-                            </ul>
+                        <div className="lower">
+                            <div className="files-upload">
+                                <div className="upload-type-selector">
+                                    <p ref={uploadStl} className="upload-stl selected-mode" onClick={setSelected}>Upload files</p>
+                                    <p ref={uploadZip} className="upload-zip" onClick={setSelected}>Upload ZIP</p>
+                                </div>
+                                <ul className="files-list">
+                                    {(
+                                        selectedUploadMode === "stl"
+                                    ) ? (
+                                        <>
+                                            {files.map((file, index) => (
+                                                <li key={index} className="nj-file-cont">
+                                                    <p>{file.name}</p><FontAwesomeIcon icon={faTrash} cursor="pointer" onClick={()=>handleDeleteFile(index)} />
+                                                </li>
+                                            ))}
+                                            <li className="new-file nj-file">
+                                                <p>+</p>
+                                                <input type="file" accept=".stl" onChange={handleFileChange}/>
+                                            </li>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="zip-upload-cont">
+                                                <div className="zip-upload">
+                                                    <p>Upload</p>
+                                                    <input type="file" accept=".zip" onChange={handleZipUpload}/>
+                                                </div>
+                                                <p ref={zipFileRef}>
+                                                    No file yet...
+                                                </p>
+                                                <FontAwesomeIcon ref={zipTrashRef} className="hide-trash" icon={faTrash} cursor="pointer" onClick={handleDeleteZip} />
+                                            </div>
+                                            
+                                            
+                                        </>
+                                    )}
+                                    
+                                </ul>
+                            </div>
+                            <div className="upload-options">
+                                <button className="cancel-button" onClick={closeNewJob}>CANCEL</button>
+                                <button className="upload-button" onClick={handleUpload}>UPLOAD</button>
+                            </div>
                         </div>
-                        <div className="upload-options">
-                            <button onClick={closeNewJob}>CANCEL</button>
-                            <button>UPLOAD</button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

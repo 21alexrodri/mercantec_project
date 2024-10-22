@@ -1,0 +1,117 @@
+#users_table {
+    color: #fff;
+    max-width: 600px;
+    z-index: 1000; 
+    text-align: center;
+    margin:0;
+}
+#users_table .popup_title {
+    width: 100%;
+    margin: 0;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    background-color: #0E38AB;
+    display: block;
+
+    border-color: #0E38AB;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+}
+
+#users_table .popup_title h2 {
+    width: 60%;
+    margin: 0px auto;
+    display: block;
+}
+
+
+#users_table .popup_close {
+    display: inline;
+    float:right;
+    text-align: right;
+}
+
+#users_table .popup_close button{
+    background-color: transparent;
+    border:none;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding:1.4em;
+}
+
+#users_table .users_table_body {
+    display: block;
+    max-width:100%;
+    padding:3em;
+    padding-top:2em;
+    background-color: #fff;
+    text-align: left;
+
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+#users_table .users_table_body input {
+    line-height: 2em;
+    margin-bottom: 0.5em;
+    box-sizing: border-box;
+    background-color:#eee;
+    border-radius: 1em;
+    border:none;
+    width:100%;
+    min-width: 100%;
+    margin: 14px auto;
+    padding-left:1em;
+    padding-right:1em;
+    padding-top:0.2em;
+    padding-bottom:0.2em;
+    font-size: 0.9em;
+}
+
+
+#users_table .users_table_searchbar {
+    width: 100%;
+    border-radius: 0 !important;
+    
+}
+
+#users_table .users_table_results_container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 100%;
+    aspect-ratio: 2;
+    height: 100%;
+}
+
+#users_table .users_table_results_container .result {
+    padding-left:  0.5em;
+    padding-right: 0.5em;
+    display: inline-block;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0 !important;
+    color: black;
+    background-color: #ddd;
+    line-height: 2em;
+    
+    box-size: border-size;
+}
+
+#users_table .users_table_results_container .result.color_b {
+    background-color: #ddd;
+}
+
+#users_table .users_table_results_container .result.color_a {
+    background-color: #ccc;
+}
+
+#users_table_result span {
+    padding-left:  1em;
+    padding-right: 1em;
+    font-size: 0.9em;
+}

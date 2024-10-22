@@ -1,5 +1,6 @@
 import './profile.css';
 import { useEffect, useState } from 'react';
+import  {UserTable } from  '../users_table/users_table';
 
 function Profile() {
     const imageLink = "/3D_printer/Files/img/default-job.png";
@@ -11,6 +12,7 @@ function Profile() {
     const [tags, setTags] = useState([]);
     const [username, setUsername] = useState("guest");  
     const [isAdmin, setIsAdmin] = useState(false);  
+    const [showUserTable, setShowUserTable] = useState(false);
 
     function changeOrder() {
         setRecentsFirst(!recentsFirst);
@@ -164,6 +166,8 @@ function Profile() {
 
     
     const handleEditClick = () => {
+        setShowUserTable(true)
+        
         if (isAdmin) {
             console.log("You are an admin");
         } else {
@@ -179,6 +183,8 @@ function Profile() {
                 <button className="profile_button" id="button1" onClick={handleEditClick}>
                     edit
                 </button>
+            
+                {showUserTable && <UserTable closeUserTable={() => setShowUserTable(false)} />}
             </div>
             <div className="profile_jobs_section">
                 <div className="profile_jobs_section_header">

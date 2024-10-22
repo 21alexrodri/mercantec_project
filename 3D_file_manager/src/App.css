@@ -122,6 +122,7 @@ h1{
     border-radius: 1em;
     border:none;
     width:100%;
+    min-width: 100%;
     margin: 14px auto;
     padding-left:1em;
     padding-right:1em;

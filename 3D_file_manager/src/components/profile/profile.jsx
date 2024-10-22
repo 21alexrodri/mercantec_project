@@ -1,7 +1,8 @@
 import './profile.css';
 import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
-import Error_Page from '../error_page/error_page'
+import Error_Page from '../error_page/error_page'import  {UserTable } from  '../users_table/users_table';
+
 function Profile() {
     const imageLink = "/3D_printer/Files/img/default-job.png";
     const [recentsFirst, setRecentsFirst] = useState(false);
@@ -12,7 +13,8 @@ function Profile() {
     const [tags, setTags] = useState([]);
     const [username, setUsername] = useState("guest");  
     const [isAdmin, setIsAdmin] = useState(false);  
-    const {isLogged, setIsLogged} = useContext(UserContext);
+    const {isLogged, setIsLogged} = useContext(UserContext);    const [showUserTable, setShowUserTable] = useState(false);
+
     function changeOrder() {
         setRecentsFirst(!recentsFirst);
         setButtonText(recentsFirst ? "⯆ recents first" : "⯅ olders first ");
@@ -165,6 +167,8 @@ function Profile() {
 
     
     const handleEditClick = () => {
+        setShowUserTable(true)
+        
         if (isAdmin) {
             console.log("You are an admin");
         } else {
@@ -175,13 +179,15 @@ function Profile() {
     return (
         <>
         {isLogged &&(
-        <div className="profile">
+        <div className="profile_page">
             <div className="profile_left_column">
                 <img className="profile_picture" src={imageLink} alt="" />
                 <h2 className="username_text">{username}</h2> 
                 <button className="profile_button" id="button1" onClick={handleEditClick}>
                     edit
                 </button>
+            
+                {showUserTable && <UserTable closeUserTable={() => setShowUserTable(false)} />}
             </div>
             <div className="profile_jobs_section">
                 <div className="profile_jobs_section_header">

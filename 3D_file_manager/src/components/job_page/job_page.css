@@ -1,40 +1,58 @@
-.job_page {
+#job_page {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding: 20px;
 }
 
-.job_page .job_header {
+#job_page .job_header {
     text-align: center;
 }
 
-.job_page .job_content {
+#job_page .job_content {
     display: flex;
     justify-content: space-between;
+    aspect-ratio: 3.5;
+    width: 100%;
+    height: 100%;
 }
 
-.job_page .job_images {
-    width: 28%;
+#job_page .job_images {
+    width: 25%;
     border: 1px solid #888;
 }
 
-.job_page .job_images .image_scroll {
-    max-height: 300px;
+#job_page .job_images .image_scroll {
     overflow-y: scroll;
+    width: 100%;
+    height: 100%;
 }
 
-.job_page .job_display {
-    width: 40%;
+#job_page .job_images .image_scroll div {
+}
+
+#job_page .job_images .image_scroll div img {
+    display:block;
+    margin: 0 auto;
+    width: 90%;
+}
+
+#job_page .job_display {
     display: flex;
+    width: 45%;
+    
+    background-color: #ddd;
+    border: 1px solid #888;
+    
     justify-content: center;
     align-items: center;
+    
     position: relative;
-    border: 1px solid #888;
-    aspect-ratio: 1.5;
+
+    overflow: hidden;
 }
 
-.job_page .job_display .job_actions {
+#job_page .job_display .job_actions {
     position:absolute;
     right:0;
     bottom:0px;
@@ -42,27 +60,52 @@
     height:103px;
 }
 
-.job_page .job_display .job_actions > * {
+#job_page .job_display .job_actions > * {
     display:block;
     width:  40px;
     height: 40px;
     margin: 5px;
 }
 
-.job_page .job_info {
-    width: 28%;
+#job_page .job_display .job_actions > *:hover {
+    cursor: pointer;
+}
+
+#job_page .job_info {
+    width: 25%;
     border: 1px solid #888;
+    padding: 1em;
 }
 
-.job_page .job_description, .job_comments {
+#job_page .job_info .tag {
+    background-color: #ddd;
+    display:inline-block;
+
+    border-radius: 15px;
+
+    margin-right: 10px;
+    
+    padding-top   : 5px; 
+    padding-bottom: 5px;
+    padding-left  : 10px;
+    padding-right : 10px;
+
+    text-decoration: none;
+}
+
+#job_page .job_info .tag:hover {
+    background-color: #aaa;
+}
+
+#job_page .job_description, .job_comments {
     margin-top: 20px;
 }
 
-.job_page .other_jobs {
+#job_page .other_jobs {
     margin-top: 20px;
 }
 
-.job_page .other_job {
+#job_page .other_job {
     padding: 10px;
     background-color: #f0f0f0;
     margin-bottom: 10px;

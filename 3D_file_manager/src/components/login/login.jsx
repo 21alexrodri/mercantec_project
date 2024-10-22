@@ -1,8 +1,10 @@
+import "./login.css";
 import { useCallback, useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 
 export const Login = ({ closeLogin }) => {
     const [dataSend, setDataSend] = useState({ username: '', password: '' });
+    const [wrongData, setWrongData] = useState(false);
 
     const handleContainerClick = (e) => {
         e.stopPropagation();
@@ -51,7 +53,7 @@ export const Login = ({ closeLogin }) => {
                 localStorage.setItem('isAdmin', data.user.is_admin);
                 window.location.reload();
             } else {
-                alert("Error: " + data.message);
+                setWrongData(true);
             }
         })
         .catch(error => {
@@ -76,6 +78,9 @@ export const Login = ({ closeLogin }) => {
                     <input type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
                     <br />
                     <input onClick={send_data} type="submit" value="LOG IN" className="credentials_submit_button" />
+                    {wrongData &&(
+                        <p className="err_msg">Invalid username or password</p>
+                    )}
                 </div>
             </div>
         </div>

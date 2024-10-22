@@ -1,6 +1,7 @@
 import './profile.css';
-import { useEffect, useState } from 'react';
-
+import { useEffect, useState, useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
+import Error_Page from '../error_page/error_page'
 function Profile() {
     const imageLink = "/3D_printer/Files/img/default-job.png";
     const [recentsFirst, setRecentsFirst] = useState(false);
@@ -11,7 +12,7 @@ function Profile() {
     const [tags, setTags] = useState([]);
     const [username, setUsername] = useState("guest");  
     const [isAdmin, setIsAdmin] = useState(false);  
-
+    const {isLogged, setIsLogged} = useContext(UserContext);
     function changeOrder() {
         setRecentsFirst(!recentsFirst);
         setButtonText(recentsFirst ? "⯆ recents first" : "⯅ olders first ");
@@ -172,6 +173,8 @@ function Profile() {
     };
 
     return (
+        <>
+        {isLogged &&(
         <div className="profile">
             <div className="profile_left_column">
                 <img className="profile_picture" src={imageLink} alt="" />
@@ -190,6 +193,12 @@ function Profile() {
                 {getJobs()}
             </div>
         </div>
+    )}
+        {!isLogged &&(
+        <Error_Page />
+    )}
+    
+    </>
     );
 }
 

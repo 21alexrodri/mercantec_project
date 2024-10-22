@@ -53,7 +53,7 @@ select:focus{
 .filters_applied{
     border-bottom: 2px solid rgb(201, 199, 199);
     height: 5%;
-    min-height: 5%;
+    min-height: 200px;
     max-height: 5%;
     overflow-y: scroll;
     display: flex;

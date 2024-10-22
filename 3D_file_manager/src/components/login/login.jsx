@@ -1,4 +1,5 @@
 import { useCallback, useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 
 export const Login = ({ closeLogin }) => {
     const [dataSend, setDataSend] = useState({ username: '', password: '' });
@@ -40,15 +41,15 @@ export const Login = ({ closeLogin }) => {
                 username: dataSend.username,
                 password: dataSend.password
             }),
-            credentials: 'include' // Esto asegura que las cookies de sesión se envíen
+            credentials: 'include' 
         })
         .then(response => response.json())
         .then(data => {
             console.log('Response:', data);
             if (data.status === "success") {
-                alert("Login successful");
                 localStorage.setItem('userLoggedIn', true);
                 localStorage.setItem('isAdmin', data.user.is_admin);
+                window.location.reload();
             } else {
                 alert("Error: " + data.message);
             }

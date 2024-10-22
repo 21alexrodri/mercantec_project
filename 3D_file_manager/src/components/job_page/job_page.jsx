@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './job_page.css';
 
-export const JobPage = ({ }) => {
+export const JobPage = () => {
     const location = useLocation();
     const { jobId } = location.state || {};
     const [jobData, setJobData] = useState({
@@ -15,6 +14,7 @@ export const JobPage = ({ }) => {
         otherJobs: [],
         comments: []
     });
+    const imageLink = "/3D_printer/Files/img/default-job.png";
 
     useEffect(() => {
         console.log('Job ID:', jobId); // Verificas que jobId llega correctamente
@@ -72,7 +72,7 @@ export const JobPage = ({ }) => {
     
 
     return  (
-        <div className="job_page">
+        <div id="job_page">
             {/* Título y dueño del proyecto */}
             <div className="job_header">
                 <h1>{jobData.title}</h1>
@@ -83,10 +83,16 @@ export const JobPage = ({ }) => {
                 {/* Contenedor de imágenes con scrollbar */}
                 <div className="job_images">
                     <div className="image_scroll">
+                        <div className="image_container"><img src={imageLink}></img></div>
+                        <div className="image_container"><img src={imageLink}></img></div>
+                        <div className="image_container"><img src={imageLink}></img></div>
+                        <div className="image_container"><img src={imageLink}></img></div>
+                        <div className="image_container"><img src={imageLink}></img></div>
                         {jobData.images.map((image, index) => (
-                            <img key={index} src={image} alt={`Job IMG ${index}`} />
+                            <div className="image_container" key={index}>
+                                <img key={index} src={image} alt={`Job IMG ${index}`} />
+                            </div>
                         ))}
-
                     </div>
                 </div>
 
@@ -102,7 +108,11 @@ export const JobPage = ({ }) => {
                 {/* Información del proyecto */}
                 <div className="job_info">
                     <h3>Job Info</h3>
-                    <p>{jobData.info}</p>
+                    <p>text goes here {jobData.info}</p>
+                    <a href="" className="tag">tag</a>
+                    <a href="" className="tag">tag</a>
+                    <a href="" className="tag">tag</a>
+                    <a href="" className="tag">tag</a>
                 </div>
             </div>
 

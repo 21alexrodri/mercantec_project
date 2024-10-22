@@ -172,7 +172,7 @@ function Profile() {
     };
 
     return (
-        <div className="profile">
+        <div className="profile_page">
             <div className="profile_left_column">
                 <img className="profile_picture" src={imageLink} alt="" />
                 <h2 className="username_text">{username}</h2> 

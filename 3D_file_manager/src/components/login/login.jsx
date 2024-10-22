@@ -1,4 +1,5 @@
 import { useCallback, useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 
 export const Login = ({ closeLogin }) => {
     const [dataSend, setDataSend] = useState({ username: '', password: '' });
@@ -46,9 +47,9 @@ export const Login = ({ closeLogin }) => {
         .then(data => {
             console.log('Response:', data);
             if (data.status === "success") {
-                alert("Login successful");
                 localStorage.setItem('userLoggedIn', true);
                 localStorage.setItem('isAdmin', data.user.is_admin);
+                window.location.reload();
             } else {
                 alert("Error: " + data.message);
             }

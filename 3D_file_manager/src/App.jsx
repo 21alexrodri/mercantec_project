@@ -5,11 +5,12 @@ import Header from './components/header/header'
 import Profile from './components/profile/profile'
 import Error_Page from './components/error_page/error_page'
 import JobPage from "./components/job_page/job_page";
-
+import { UserProvider } from './context/UserContext';
 
 function App() {
   return (
     <>
+    <UserProvider>
     <Header />
     <Router>
       <Routes>
@@ -20,6 +21,7 @@ function App() {
         <Route path="*" element={<Error_Page />} />
       </Routes>
     </Router>
+    </UserProvider>
     </>
   )
 }

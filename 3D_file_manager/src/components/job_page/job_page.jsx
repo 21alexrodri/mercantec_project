@@ -18,7 +18,7 @@ export const JobPage = () => {
     const [username, setUsername] = useState(''); // Estado para almacenar el usuario logueado
     const [isLoggedIn, setIsLoggedIn] = useState(true); //CHANGE TO FALSE
     const navigateTo = useNavigate();
-
+    const imageLink = "/3D_printer/Files/img/default-job.png";
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -125,8 +125,9 @@ export const JobPage = () => {
     };
 
     return (
-        <div className="job_page">
-            <div className="job-header">
+        <div id="job_page">
+            <div className="job_header">
+
                 <h1>{jobData.title}</h1>
                 <p>{jobData.owner}</p>
             </div>
@@ -134,8 +135,15 @@ export const JobPage = () => {
                 {/* Contenedor de imágenes con scrollbar */}
                 <div className="job_images">
                     <div className="image_scroll">
+                        <div className="image_container"><img src={imageLink}></img></div>
+                        <div className="image_container"><img src={imageLink}></img></div>
+                        <div className="image_container"><img src={imageLink}></img></div>
+                        <div className="image_container"><img src={imageLink}></img></div>
+                        <div className="image_container"><img src={imageLink}></img></div>
                         {jobData.images.map((image, index) => (
-                            <img key={index} src={image} alt={`Job IMG ${index}`} />
+                            <div className="image_container" key={index}>
+                                <img key={index} src={image} alt={`Job IMG ${index}`} />
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -167,7 +175,7 @@ export const JobPage = () => {
 
             {/* Mostrar el formulario de comentarios si el usuario está logueado */}
             {isLoggedIn ? (
-                <div className="comment-form">
+                <div className="comment_form">
                     <textarea
                         placeholder="Write a new comment"
                         value={newComment}
@@ -179,7 +187,7 @@ export const JobPage = () => {
                 <p>You must be logged in to leave a comment.</p>
             )}
 
-            <div className="job-comments">
+            <div className="job_comments">
                 {/* Renderizado de los comentarios */}
                 {jobData.comments.length > 0 ? (
                     jobData.comments.map((comment, index) => (

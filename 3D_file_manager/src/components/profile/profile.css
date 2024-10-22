@@ -1,10 +1,10 @@
-div.profile {
+.profile_page {
     display: flex;
     flex-wrap: nowrap;
     min-height: 100%;
 }
 
-div.profile_left_column {
+.profile_page .profile_left_column {
     padding-left: 5%;
     padding-right: 5%;
     padding-top: 2em;
@@ -14,21 +14,21 @@ div.profile_left_column {
     height: 100%;
 }
 
-img.profile_picture {
+.profile_page img.profile_picture {
     display: block;
     width: 100%;
     margin: 10px auto;
 
 }
 
-h2.username_text {
+.profile_page h2.username_text {
     display: inline;
     margin-right: 1em;
     margin-bottom: 0;
     line-height: 2em;
 }
 
-button.profile_button {
+.profile_page button.profile_button {
     display: inline;
     line-height: 2em;
     font-size: 0.9em;
@@ -41,11 +41,11 @@ button.profile_button {
     border: none;
 }
 
-button.profile_button#button1 {
+.profile_page button.profile_button#button1 {
     border-radius: 1.2em;
 }
 
-div.profile_jobs_section {
+.profile_page .profile_jobs_section {
     padding-left: 5%;
     padding-right: 5%;
     padding-top: 2em;
@@ -57,17 +57,17 @@ div.profile_jobs_section {
     background-color: #f0f0f0;
 }
 
-div.profile_jobs_section_header {
+.profile_page .profile_jobs_section_header {
     height: 4em;
     display: block;
 }
 
-h3.profile_jobs_section_title {
+.profile_page h3.profile_jobs_section_title {
     display: inline;
     float: left;
 }
 
-button.profile_button#button2 {
+.profile_page button.profile_button#button2 {
     border-radius: 0.3em;
 
     display: inline;
@@ -77,16 +77,14 @@ button.profile_button#button2 {
     margin: 1em;
 }
 
-/*
-div.job_content {
+.profile_page .job_content {
     width: 280px;
     height: 280px;
 
     margin-top: 25px;
 }
-*/
 
-div.job_content img {
+.profile_page .job_content img {
     margin: 10px auto;
     width: 260px;
     height: 260px;
@@ -94,7 +92,7 @@ div.job_content img {
     transition: all 0.3s;
 }
 
-div.job_content:hover img {
+.profile_page .job_content:hover img {
     margin: 0 auto;
     width: 280px;
     height: 280px;
@@ -103,7 +101,7 @@ div.job_content:hover img {
 }
 
 
-div.job_gallery {
+.profile_page .job_gallery {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -111,6 +109,6 @@ div.job_gallery {
     flex-wrap: wrap;
 }
 
-div.job_gallery_container {
+.profile_page .job_gallery_container {
     text-align: center;
 }

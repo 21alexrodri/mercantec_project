@@ -1,5 +1,6 @@
 import './profile.css';
 import { useEffect, useState } from 'react';
+import  {UserTable } from  '../users_table/users_table';
 
 function Profile() {
     const imageLink = "/3D_printer/Files/img/default-job.png";
@@ -9,8 +10,9 @@ function Profile() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [tags, setTags] = useState([]);
-    const [username, setUsername] = useState("guest");  // Estado para almacenar el nombre del usuario
-    const [isAdmin, setIsAdmin] = useState(false);  // Estado para saber si es administrador
+    const [username, setUsername] = useState("guest");  
+    const [isAdmin, setIsAdmin] = useState(false);  
+    const [showUserTable, setShowUserTable] = useState(false);
 
     function changeOrder() {
         setRecentsFirst(!recentsFirst);
@@ -27,17 +29,17 @@ function Profile() {
                 body: JSON.stringify({
                     arg: 'checkUserLoggedIn'
                 }),
-                credentials: 'include', // Asegurarse de enviar las cookies
+                credentials: 'include', 
             });
-   
-            const text = await response.text(); // Leer la respuesta como texto para verificar la salida
-            console.log('Respuesta recibida del servidor:', text); // Mostrar qué devuelve el servidor
-   
+    
+            const text = await response.text(); 
+            console.log('Respuesta recibida del servidor:', text);
+    
             if (text.trim() === "") {
                 throw new Error("Respuesta vacía desde el servidor.");
             }
-   
-            const data = JSON.parse(text); // Intentar convertir la respuesta en JSON
+    
+            const data = JSON.parse(text);
             if (data.status === "success") {
                 setUsername(data.username || "guest");
                 setIsAdmin(data.is_admin === 1);
@@ -51,7 +53,7 @@ function Profile() {
             setIsAdmin(false);
         }
     };
-   
+    
 
     const handleShowTags = () => {
         setLoading(true);
@@ -117,13 +119,13 @@ function Profile() {
         }
     }
 
-    // Comprobar el estado del usuario cuando se carga el componente
+    
     useEffect(() => {
         checkUserStatus();
         handleShowTags();
     }, []);
 
-    // When tags are updated, update jobs for each tag
+    
     useEffect(() => {
         if (tags.length > 0) {
             tags.forEach(tag => {
@@ -162,8 +164,10 @@ function Profile() {
         }
     }
 
-    // Manejar el click en el botón "edit"
+    
     const handleEditClick = () => {
+        setShowUserTable(true)
+        
         if (isAdmin) {
             console.log("You are an admin");
         } else {
@@ -172,13 +176,15 @@ function Profile() {
     };
 
     return (
-        <div className="profile">
+        <div className="profile_page">
             <div className="profile_left_column">
                 <img className="profile_picture" src={imageLink} alt="" />
-                <h2 className="username_text">{username}</h2> {/* Mostrar el nombre de usuario */}
+                <h2 className="username_text">{username}</h2> 
                 <button className="profile_button" id="button1" onClick={handleEditClick}>
                     edit
                 </button>
+            
+                {showUserTable && <UserTable closeUserTable={() => setShowUserTable(false)} />}
             </div>
             <div className="profile_jobs_section">
                 <div className="profile_jobs_section_header">

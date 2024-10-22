@@ -40,7 +40,6 @@ function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
     };
 
     const handleJobClick = (id) => {
-        console.log(id);
         navigateTo('/job_page', { state: { jobId: id } });
     };
     

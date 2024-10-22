@@ -121,3 +121,6 @@
     transition: all 0.5s;
     cursor: pointer;
 }
+.hp_searchedfiles{
+    padding-top: 20px;
+}

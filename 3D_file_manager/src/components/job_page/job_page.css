@@ -110,3 +110,99 @@
     background-color: #f0f0f0;
     margin-bottom: 10px;
 }
+
+.like_button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease, color 0.3s ease; /* Transición para el color y el tamaño */
+}
+
+.like_button .fa-heart {
+    transition: transform 0.3s ease; /* Para animar solo el icono */
+}
+
+.like_button.liked .fa-heart {
+    color: red; /* Cambia el color del icono a rojo cuando está "liked" */
+    transform: scale(1.3); /* Agranda el icono un poco cuando está "liked" */
+}
+
+.like_button.unliked .fa-heart {
+    color: grey; /* Color gris cuando no está "liked" */
+    transform: scale(1); /* Tamaño normal cuando no está "liked" */
+}
+
+.job_files_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.files_scroll {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.file_container {
+    background-color: #444;
+    color: white;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.file_container h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.file_actions {
+    display: flex;
+    gap: 10px;
+}
+
+.preview_button, .download_button {
+    padding: 8px 12px;
+    background-color: #888;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.preview_button:hover, .download_button:hover {
+    background-color: #555;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.popup_content {
+    text-align: center;
+}
+
+.close_popup {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #888;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.close_popup:hover {
+    background-color: #555;
+}

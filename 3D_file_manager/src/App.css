@@ -36,6 +36,10 @@ h1{
     justify-content: center;
 }
 
+.small-font{
+    font-size: small;
+}
+
 
 /*===== popups css =====*/
 

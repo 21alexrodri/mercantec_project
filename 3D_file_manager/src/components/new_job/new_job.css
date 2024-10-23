@@ -1,5 +1,5 @@
 .container{
-    width: 70%;
+    width: 90%;
     height: 90%;
     background-color: white;
     border-radius: 20px;
@@ -10,7 +10,7 @@
 }
 
 .container .main{
-    margin: 5%;
+    margin: 2%;
     width: 80%;
     height: 60%;
     position: relative;
@@ -87,7 +87,7 @@
 .form-container{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: left;
     height: 75%;
 }
 
@@ -321,7 +321,7 @@ input:focus, input:hover{
 
 .files-list{
     width: 100%;
-    height: 130px;
+    height: 150px;
     display: flex;
     flex-direction: column;
     overflow-x: auto;
@@ -426,4 +426,65 @@ input[type="file"]{
 .lower{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+}
+
+.lower-right{
+    /* width: 100%; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nj-select-tags{
+    padding: 5px;
+    height: 30px;
+    border: #0E38AB 1px solid;
+    border-radius: 15px 0 0 15px;
+}
+
+.nj-select-tags:focus{
+    border: #FF8387 1px solid;
+}
+
+.nj-select-tags:hover{
+    border-color: #FF8387;
+}
+
+.nj-select-tags-button{
+    padding: 5px;
+    height: 30px;
+    background-color: #FF8387;
+    color: white;
+    border: #FF8387 1px solid;
+    border-radius: 0 15px 15px 0;
+    transition: all 0.3s ease;
+}
+
+.nj-select-tags-button:hover{
+    background-color: white;
+    color: #FF8387;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nj-tags-cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.suggest-tag{
+    color: #FF8387;
+    cursor: pointer;
+}
+
+.suggest-tag:hover{
+    text-decoration: underline;
+}
+
+.suggest-tag-cont{
+    display: flex;
 }

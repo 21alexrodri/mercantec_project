@@ -38,7 +38,8 @@ export const Login = ({ closeLogin }) => {
     /**
      * This function sends the user's credentials to the server to log in.
      */
-    const send_data = () => {
+    const send_data = (event) => {
+        event.preventDefault()
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -60,6 +61,7 @@ export const Login = ({ closeLogin }) => {
                 window.location.reload();
             } else {
                 setWrongData(true);
+                document.getElementById("password_prompt").focus();
             }
         })
         .catch(error => {
@@ -78,15 +80,17 @@ export const Login = ({ closeLogin }) => {
                     <h2>Log In</h2>
                 </div>
                 <div className="credentials_body">
+                    <form id="login_form" onSubmit={send_data}>
                     <label htmlFor="username">Username</label><br />
-                    <input type="text" name="username" value={dataSend.username} onChange={handleChange} autoFocus /><br />
+                    <input id="username_prompt" type="text" name="username" value={dataSend.username} onChange={handleChange} autoFocus /><br />
                     <label htmlFor="password">Password</label><br />
-                    <input type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
+                    <input id="password_prompt" type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
                     <br />
-                    <input onClick={send_data} type="submit" value="LOG IN" className="credentials_submit_button" />
+                    <input type="submit" value="LOG IN" className="credentials_submit_button" />
                     {wrongData &&(
                         <p className="err_msg">Invalid username or password</p>
                     )}
+                    </form>
                 </div>
             </div>
         </div>

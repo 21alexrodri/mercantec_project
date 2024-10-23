@@ -2,7 +2,7 @@ import './profile.css';
 import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import Error_Page from '../error_page/error_page';
-import  {UserTable } from  '../users_table/users_table';
+import {UserTable } from  '../users_table/users_table';
 
 function Profile() {
     const imageLink = "/3D_printer/Files/img/default-job.png";

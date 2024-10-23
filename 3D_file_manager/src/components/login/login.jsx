@@ -55,6 +55,7 @@ export const Login = ({ closeLogin }) => {
                 window.location.reload();
             } else {
                 setWrongData(true);
+                document.getElementById("password_prompt").focus();
             }
         })
         .catch(error => {
@@ -73,11 +74,11 @@ export const Login = ({ closeLogin }) => {
                     <h2>Log In</h2>
                 </div>
                 <div className="credentials_body">
-                    <form onSubmit={send_data}>
+                    <form id="login_form" onSubmit={send_data}>
                     <label htmlFor="username">Username</label><br />
-                    <input type="text" name="username" value={dataSend.username} onChange={handleChange} autoFocus /><br />
+                    <input id="username_prompt" type="text" name="username" value={dataSend.username} onChange={handleChange} autoFocus /><br />
                     <label htmlFor="password">Password</label><br />
-                    <input type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
+                    <input id="password_prompt" type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
                     <br />
                     <input type="submit" value="LOG IN" className="credentials_submit_button" />
                     {wrongData &&(

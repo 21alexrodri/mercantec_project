@@ -45,8 +45,10 @@ export const Signup = ({ closeSignup }) => {
                 console.log('Response:', data); 
                 if (data.status === "success") {
                     alert("User created successfully");
+                    closeSignup();
                 } else {
                     alert("Error: " + data.message);
+                    document.getElementById("username_prompt").focus();
                 }
             })
             .catch((error) => {
@@ -72,13 +74,13 @@ export const Signup = ({ closeSignup }) => {
                     <h2>Sign Up</h2>
                 </div>
                 <div className="credentials_body">
-                    <form onSubmit={send_data}>
+                    <form id="signup_form" onSubmit={send_data}>
                     <label htmlFor="email">Email</label><br />
-                    <input type="text" name="email" value={dataSend.email} onChange={handleChange} autoFocus /><br />
+                    <input id="email_prompt" type="text" name="email" value={dataSend.email} onChange={handleChange} autoFocus /><br />
                     <label htmlFor="username">Username</label><br />
-                    <input type="text" name="username" value={dataSend.username} onChange={handleChange} /><br />
+                    <input id="username_prompt" type="text" name="username" value={dataSend.username} onChange={handleChange} /><br />
                     <label htmlFor="password">Password</label><br />
-                    <input type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
+                    <input id="password_prompt" type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
                     <br />
                     <input type="submit" value="SIGN UP" className="credentials_submit_button" />
                     </form>

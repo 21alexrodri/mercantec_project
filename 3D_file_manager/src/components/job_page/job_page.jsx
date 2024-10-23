@@ -153,39 +153,42 @@ export const JobPage = () => {
         navigateTo('/job_page', { state: { jobId: id } });
     };
 
-    const handleLikeClick = () => {
-        fetch('/3D_printer/3d_project/query.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                arg: 'toggleLike',
-                jobId: jobId
-            }),
-        })
-        .then((response) => {
+    const handleLikeClick = async () => {
+        try {
+            const response = await fetch('/3D_printer/3d_project/query.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    arg: 'toggleLike',
+                    jobId: jobId
+                }),
+            });
+    
+            // Verifica el contenido de la respuesta antes de procesarla
+            const responseText = await response.text(); // Obtiene la respuesta como texto plano
+            console.log("Raw response text:", responseText);
+    
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            return response.json();
-        })
-        .then((data) => {
+    
+            // Intenta parsear la respuesta solo si no está vacía
+            const data = responseText ? JSON.parse(responseText) : {};
+            console.log("Parsed JSON:", data);
+    
             if (data.status === 'success') {
-                if (liked) {
-                    setLikes(likes - 1); // Si ya estaba liked, quitar un like
-                } else {
-                    setLikes(likes + 1); // Si no estaba liked, añadir un like
-                }
-                setLiked(!liked); // Alternar el estado de liked
+                setLikes(prevLikes => liked ? prevLikes - 1 : prevLikes + 1);
+                setLiked(prevLiked => !prevLiked); // Alternar el estado de liked
             } else {
                 alert(data.message);
             }
-        })
-        .catch((error) => {
+        } catch (error) {
             console.error('Error handling like:', error);
-        });
+        }
     };
+    
 
     const handlePreviewClick = (file) => {
         setSelectedFile(file);

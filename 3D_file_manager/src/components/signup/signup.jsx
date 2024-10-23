@@ -48,7 +48,7 @@ export const Signup = ({ closeSignup }) => {
                     closeSignup();
                 } else {
                     alert("Error: " + data.message);
-                    document.getElementById("username_prompt").focus();
+                    focusInput()
                 }
             })
             .catch((error) => {
@@ -56,6 +56,17 @@ export const Signup = ({ closeSignup }) => {
             });
         
     };
+
+    const focusInput = () => {
+        switch (true) {
+            case document.getElementById("email_prompt").value == "":
+                document.getElementById("email_prompt").focus();
+                break;
+            default:
+                document.getElementById("username_prompt").focus();
+                break;
+        }
+    }
 
     useEffect(() => {
         document.addEventListener("keydown", escFunction, false);

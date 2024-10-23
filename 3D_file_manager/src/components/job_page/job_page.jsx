@@ -208,6 +208,8 @@ export const JobPage = () => {
                 <p>{jobData.owner}</p>
             </div>
             <div className="job_content">
+                <div className='job_images'>
+                    <div className='image_scroll'>
                 {/* Contenedor de archivos con scrollbar */}
                 <div className="job_files_container">
                     <div className="files_scroll">
@@ -226,7 +228,8 @@ export const JobPage = () => {
                         ))}
                     </div>
                 </div>
-
+                </div>
+                </div>
                 {/* Popup para la preview */}
                 {showPopup && (
                     <div className="popup">

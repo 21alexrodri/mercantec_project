@@ -1,8 +1,8 @@
 import './filters.css';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignature, faCalendar, faTag, faBuilding, faPaintBrush, faPenNib} from '@fortawesome/free-solid-svg-icons';
-function Filters() {
+import { faSignature, faCalendar, faTag, faBuilding, faPaintBrush, faPenNib, faCube} from '@fortawesome/free-solid-svg-icons';
+function Filters({ onFiltersAppliedChange }) {
     const [tags, setTags] = useState([]);
     const [customers, setCustomers] = useState([]);
     const [selectedTags, setSelectedTags] = useState([]);
@@ -81,19 +81,26 @@ function Filters() {
 
 
     useEffect(() => {
-
-        setFiltersApplied({
+        const minLayerThickness = minLayerThicknessValue === 0 ? '' : (minLayerThicknessValue / 100).toFixed(2);
+        const maxLayerThickness = maxLayerThicknessValue === 100 ? '' : (maxLayerThicknessValue / 100).toFixed(2);
+    
+        const newFiltersApplied = {
             textname: selectedTextName,
             date: selectedDate,
             tags: selectedTags,
             color: selectedColor,
             customer: selectedCustomer,
-            minlayerthickness: (minLayerThicknessValue / 100).toFixed(2),
-            maxlayerthickness: (maxLayerThicknessValue / 100).toFixed(2),
+            minlayerthickness: minLayerThickness,
+            maxlayerthickness: maxLayerThickness,
             material: selectedMaterial
-        });
+        };
+        setFiltersApplied(newFiltersApplied);
+        console.log(newFiltersApplied);
+        if (onFiltersAppliedChange) {
+            onFiltersAppliedChange(newFiltersApplied);
+        }
     }, [selectedTextName, selectedDate, selectedTags, selectedColor, selectedCustomer, minLayerThicknessValue, maxLayerThicknessValue, selectedMaterial]);
-
+    
     useEffect(() => {
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
@@ -164,11 +171,11 @@ function Filters() {
                 {filtersApplied.minlayerthickness > 0 && (
                     <div id={("min-layerthickness_") + filtersApplied.minlayerthickness} className='filter_style'><p><FontAwesomeIcon icon={faPenNib} /> Min. layer thickness: {filtersApplied.minlayerthickness}</p></div>
                 )}
-                {filtersApplied.maxlayerthickness < 1 && (
+                {filtersApplied.maxlayerthickness && (
                     <div id={("max-layerthickness_") + filtersApplied.maxlayerthickness} className='filter_style'><p><FontAwesomeIcon icon={faPenNib} /> Max. layer thickness: {filtersApplied.maxlayerthickness}</p></div>
                 )}
                 {filtersApplied.material && (
-                    <div id={(material_)+filtersApplied.material} className='filter_style'><p>{filtersApplied.material}</p></div>
+                    <div id={("material_")+filtersApplied.material} className='filter_style'><p><FontAwesomeIcon icon={faCube} /> {filtersApplied.material}</p></div>
                 )}
 
             </div>
@@ -270,7 +277,7 @@ function Filters() {
                 </label>
                 <input
                     style={{ display: isMaterialVisible ? 'block' : 'none' }} 
-                    onChange={handleDateChange}
+                    onChange={handleMaterialChange}
                     id="search_by_material"
                     type="text"
                     placeholder='Search by material...'

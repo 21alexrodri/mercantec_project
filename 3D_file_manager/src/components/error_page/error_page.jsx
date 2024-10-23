@@ -1,7 +1,10 @@
 import './error_page.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+/**
+ * A simple error page that appears when the user enters to a non-existing URL
+ * 
+ */
 function Error_Page() {
     const navigate = useNavigate();
 

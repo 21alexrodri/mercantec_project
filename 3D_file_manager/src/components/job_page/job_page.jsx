@@ -3,7 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './job_page.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-
+/**
+ * The page for displaying a single job.
+ * 
+ */
 export const JobPage = () => {
     const location = useLocation();
     const { jobId } = location.state || {};
@@ -17,19 +20,20 @@ export const JobPage = () => {
         comments: []
     });
     const [newComment, setNewComment] = useState('');
-    const [username, setUsername] = useState(''); // Estado para almacenar el usuario logueado
-    const [isLoggedIn, setIsLoggedIn] = useState(true); // Cambia a false si el usuario no está logueado
+    const [username, setUsername] = useState(''); 
+    const [isLoggedIn, setIsLoggedIn] = useState(true); 
     const navigateTo = useNavigate();
     const imageLink = "/3D_printer/Files/img/default-job.png";
-    const [likes, setLikes] = useState(jobData.info.likes); // Inicia con los likes del backend
+    const [likes, setLikes] = useState(jobData.info.likes); 
     const [liked, setLiked] = useState(false);
-    const [jobFiles, setJobFiles] = useState([]); // Almacenar archivos relacionados con el trabajo
+    const [jobFiles, setJobFiles] = useState([]); 
     const [showPopup, setShowPopup] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
-
+    /**
+     * This function is called when the component is first rendered. It fetches the job data from the backend and sets the state accordingly.
+     */
     useEffect(() => {
         window.scrollTo(0, 0);
-        // Verificar si el usuario está logueado
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -40,17 +44,17 @@ export const JobPage = () => {
             .then((response) => response.json())
             .then((data) => {
                 if (data.status === 'success') {
-                    setUsername(data.user.username); // Guardar el nombre del usuario logueado
-                    setIsLoggedIn(true); // El usuario está logueado
+                    setUsername(data.user.username); 
+                    setIsLoggedIn(true); 
                 } else {
-                    setIsLoggedIn(false); // Cambia a false si no está logueado
+                    setIsLoggedIn(false); 
                 }
             })
             .catch((error) => {
                 console.error('Error verificando el login:', error);
             });
 
-        // Llamada al backend para obtener los datos del proyecto
+       
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -79,7 +83,7 @@ export const JobPage = () => {
                     otherJobs: data.otherJobs,
                     comments: data.job.comments || []
                 });
-                setLikes(data.job.likes); // Inicializar likes desde el backend
+                setLikes(data.job.likes);
             } else {
                 alert("Error: " + data.message);
             }
@@ -88,7 +92,6 @@ export const JobPage = () => {
             console.error('Error fetching job data:', error);
         });
 
-        // Llamada al backend para obtener los archivos relacionados con el trabajo
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -102,7 +105,7 @@ export const JobPage = () => {
         .then((response) => response.json())
         .then((data) => {
             if (data.status === 'success') {
-                setJobFiles(data.files); // Almacenar los archivos obtenidos
+                setJobFiles(data.files); 
             } else {
                 console.error('Error fetching files:', data.message);
             }
@@ -112,14 +115,16 @@ export const JobPage = () => {
         });
     }, [jobId]);
 
-    // Función para enviar un comentario
+    /**
+     * This function is called when the user submits a new comment. It sends the comment to the backend to be saved.
+     * @returns 
+     */
     const handleCommentSubmit = () => {
         if (newComment.trim() === '') {
             alert('Please enter a comment.');
             return;
         }
 
-        // Llamada al backend para guardar el comentario
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -134,12 +139,11 @@ export const JobPage = () => {
         .then((response) => response.json())
         .then((data) => {
             if (data.status === 'success') {
-                // Añadir el nuevo comentario al estado local
                 setJobData((prevState) => ({
                     ...prevState,
                     comments: [...prevState.comments, { username, text: newComment }]
                 }));
-                setNewComment(''); // Limpiar el campo de comentario
+                setNewComment('');
             } else {
                 alert('Error saving comment: ' + data.message);
             }
@@ -152,7 +156,9 @@ export const JobPage = () => {
     const handleJobClick = (id) => {
         navigateTo('/job_page', { state: { jobId: id } });
     };
-
+    /**
+     * This function is called when the user clicks the like button. It sends a request to the backend to toggle the like status of the job.
+     */
     const handleLikeClick = () => {
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
@@ -173,11 +179,11 @@ export const JobPage = () => {
         .then((data) => {
             if (data.status === 'success') {
                 if (liked) {
-                    setLikes(likes - 1); // Si ya estaba liked, quitar un like
+                    setLikes(likes - 1);
                 } else {
-                    setLikes(likes + 1); // Si no estaba liked, añadir un like
+                    setLikes(likes + 1);
                 }
-                setLiked(!liked); // Alternar el estado de liked
+                setLiked(!liked); 
             } else {
                 alert(data.message);
             }
@@ -187,18 +193,26 @@ export const JobPage = () => {
         });
     };
 
+    /**
+     * This function is called when the user clicks the preview button on a file. It sets the selected file and shows the preview popup.
+     * @param {file} The file to preview 
+     */
     const handlePreviewClick = (file) => {
         setSelectedFile(file);
-        setShowPopup(true); // Mostrar popup cuando se haga clic en "Preview"
+        setShowPopup(true); 
     };
 
+    /**
+     * This function is called when the user clicks the download button on a file. It opens a new tab with the file URL.
+     * @param {file} The file to download 
+     */
     const handleDownloadClick = (file) => {
         const fileUrl = `/3D_printer/Files/slt/${file.file_path}`;
-        window.open(fileUrl, '_blank'); // Abrir el archivo en una nueva pestaña para descarga
+        window.open(fileUrl, '_blank'); 
     };
 
     const closePopup = () => {
-        setShowPopup(false); // Cerrar el popup
+        setShowPopup(false); 
     };
 
     return (
@@ -210,12 +224,11 @@ export const JobPage = () => {
             <div className="job_content">
                 <div className='job_images'>
                     <div className='image_scroll'>
-                {/* Contenedor de archivos con scrollbar */}
                 <div className="job_files_container">
                     <div className="files_scroll">
                         {jobFiles.map((file, index) => (
                             <div className="file_container" key={index}>
-                                <h3>Job File {file.id}</h3> {/* Muestra la ID o nombre del archivo */}
+                                <h3>Job File {file.id}</h3> 
                                 <div className="file_actions">
                                     <button className="preview_button" onClick={() => handlePreviewClick(file)}>
                                         Preview
@@ -230,18 +243,15 @@ export const JobPage = () => {
                 </div>
                 </div>
                 </div>
-                {/* Popup para la preview */}
                 {showPopup && (
                     <div className="popup">
                         <div className="popup_content">
                             <h3>3D Preview for {selectedFile.id}</h3>
-                            {/* Aquí en el futuro irá el STL Viewer */}
                             <button className="close_popup" onClick={closePopup}>Close</button>
                         </div>
                     </div>
                 )}
 
-                {/* Thumbnail del proyecto con botones de like y descarga */}
                 <div className="job_display">
                     <img src={`/3D_printer/Files/img/jobs/${jobId}.jpg`} onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'} />
                     <div className="job_actions">
@@ -252,7 +262,6 @@ export const JobPage = () => {
                     </div>
                 </div>
 
-                {/* Información del proyecto */}
                 <div className="job_info">
                     <h3>Job Info</h3>
                     <p>License: {jobData.info.license}</p>
@@ -263,13 +272,11 @@ export const JobPage = () => {
                 </div>
             </div>
 
-            {/* Descripción del proyecto */}
             <div className="job_description">
                 <h3>Job Desc</h3>
                 <p>{jobData.description}</p>
             </div>
 
-            {/* Mostrar el formulario de comentarios si el usuario está logueado */}
             {isLoggedIn ? (
                 <div className="comment_form">
                     <textarea
@@ -284,7 +291,6 @@ export const JobPage = () => {
             )}
 
             <div className="job_comments">
-                {/* Renderizado de los comentarios */}
                 {jobData.comments.length > 0 ? (
                     jobData.comments.map((comment, index) => (
                         <div key={index} className="comment">

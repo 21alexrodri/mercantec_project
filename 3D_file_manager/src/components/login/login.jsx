@@ -1,7 +1,11 @@
 import "./login.css";
 import { useCallback, useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
-
+/**
+ * The login component. It is a popup that appears when the user clicks on the login button.
+ * @param {closeLogin} closeLogin The function to close the login popup. 
+ * @returns A popup with a form to log in.
+ */
 export const Login = ({ closeLogin }) => {
     const [dataSend, setDataSend] = useState({ username: '', password: '' });
     const [wrongData, setWrongData] = useState(false);
@@ -31,9 +35,11 @@ export const Login = ({ closeLogin }) => {
         }));
     };
 
+    /**
+     * This function sends the user's credentials to the server to log in.
+     */
     const send_data = (event) => {
         event.preventDefault()
-        console.log("Datos enviados:", dataSend);
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation,useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './job_page.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 export const JobPage = () => {
     const location = useLocation();
@@ -16,9 +18,14 @@ export const JobPage = () => {
     });
     const [newComment, setNewComment] = useState('');
     const [username, setUsername] = useState(''); // Estado para almacenar el usuario logueado
-    const [isLoggedIn, setIsLoggedIn] = useState(true); //CHANGE TO FALSE
+    const [isLoggedIn, setIsLoggedIn] = useState(true); // Cambia a false si el usuario no está logueado
     const navigateTo = useNavigate();
     const imageLink = "/3D_printer/Files/img/default-job.png";
+    const [likes, setLikes] = useState(jobData.info.likes); // Inicia con los likes del backend
+    const [liked, setLiked] = useState(false);
+    const [jobFiles, setJobFiles] = useState([]); // Almacenar archivos relacionados con el trabajo
+    const [showPopup, setShowPopup] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -36,7 +43,7 @@ export const JobPage = () => {
                     setUsername(data.user.username); // Guardar el nombre del usuario logueado
                     setIsLoggedIn(true); // El usuario está logueado
                 } else {
-                    setIsLoggedIn(true); // CHANGE TO FALSE 
+                    setIsLoggedIn(false); // Cambia a false si no está logueado
                 }
             })
             .catch((error) => {
@@ -56,7 +63,6 @@ export const JobPage = () => {
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
             if (data.status === "success") {
                 setJobData({
                     title: data.job.title,
@@ -73,12 +79,36 @@ export const JobPage = () => {
                     otherJobs: data.otherJobs,
                     comments: data.job.comments || []
                 });
+                setLikes(data.job.likes); // Inicializar likes desde el backend
             } else {
                 alert("Error: " + data.message);
             }
         })
         .catch((error) => {
             console.error('Error fetching job data:', error);
+        });
+
+        // Llamada al backend para obtener los archivos relacionados con el trabajo
+        fetch('/3D_printer/3d_project/query.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                arg: 'getJobFiles',
+                jobId: jobId
+            }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.status === 'success') {
+                setJobFiles(data.files); // Almacenar los archivos obtenidos
+            } else {
+                console.error('Error fetching files:', data.message);
+            }
+        })
+        .catch((error) => {
+            console.error('Error fetching job files:', error);
         });
     }, [jobId]);
 
@@ -96,9 +126,9 @@ export const JobPage = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                arg: 'saveComment', // Asegúrate de usar el argumento correcto
+                arg: 'saveComment',
                 jobId: jobId,
-                text: newComment // No enviamos el username porque se obtiene del servidor
+                text: newComment
             }),
         })
         .then((response) => response.json())
@@ -120,40 +150,106 @@ export const JobPage = () => {
     };
 
     const handleJobClick = (id) => {
-        console.log("ENTRA: "+id)
         navigateTo('/job_page', { state: { jobId: id } });
+    };
+
+    const handleLikeClick = () => {
+        fetch('/3D_printer/3d_project/query.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                arg: 'toggleLike',
+                jobId: jobId
+            }),
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then((data) => {
+            if (data.status === 'success') {
+                if (liked) {
+                    setLikes(likes - 1); // Si ya estaba liked, quitar un like
+                } else {
+                    setLikes(likes + 1); // Si no estaba liked, añadir un like
+                }
+                setLiked(!liked); // Alternar el estado de liked
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch((error) => {
+            console.error('Error handling like:', error);
+        });
+    };
+
+    const handlePreviewClick = (file) => {
+        setSelectedFile(file);
+        setShowPopup(true); // Mostrar popup cuando se haga clic en "Preview"
+    };
+
+    const handleDownloadClick = (file) => {
+        const fileUrl = `/3D_printer/Files/slt/${file.file_path}`;
+        window.open(fileUrl, '_blank'); // Abrir el archivo en una nueva pestaña para descarga
+    };
+
+    const closePopup = () => {
+        setShowPopup(false); // Cerrar el popup
     };
 
     return (
         <div id="job_page">
             <div className="job_header">
-
                 <h1>{jobData.title}</h1>
                 <p>{jobData.owner}</p>
             </div>
             <div className="job_content">
-                {/* Contenedor de imágenes con scrollbar */}
-                <div className="job_images">
-                    <div className="image_scroll">
-                        <div className="image_container"><img src={imageLink}></img></div>
-                        <div className="image_container"><img src={imageLink}></img></div>
-                        <div className="image_container"><img src={imageLink}></img></div>
-                        <div className="image_container"><img src={imageLink}></img></div>
-                        <div className="image_container"><img src={imageLink}></img></div>
-                        {jobData.images.map((image, index) => (
-                            <div className="image_container" key={index}>
-                                <img key={index} src={image} alt={`Job IMG ${index}`} />
+                <div className='job_images'>
+                    <div className='image_scroll'>
+                {/* Contenedor de archivos con scrollbar */}
+                <div className="job_files_container">
+                    <div className="files_scroll">
+                        {jobFiles.map((file, index) => (
+                            <div className="file_container" key={index}>
+                                <h3>Job File {file.id}</h3> {/* Muestra la ID o nombre del archivo */}
+                                <div className="file_actions">
+                                    <button className="preview_button" onClick={() => handlePreviewClick(file)}>
+                                        Preview
+                                    </button>
+                                    <button className="download_button" onClick={() => handleDownloadClick(file)}>
+                                        Download
+                                    </button>
+                                </div>
                             </div>
                         ))}
                     </div>
                 </div>
+                </div>
+                </div>
+                {/* Popup para la preview */}
+                {showPopup && (
+                    <div className="popup">
+                        <div className="popup_content">
+                            <h3>3D Preview for {selectedFile.id}</h3>
+                            {/* Aquí en el futuro irá el STL Viewer */}
+                            <button className="close_popup" onClick={closePopup}>Close</button>
+                        </div>
+                    </div>
+                )}
+
                 {/* Thumbnail del proyecto con botones de like y descarga */}
                 <div className="job_display">
                     <img src={`/3D_printer/Files/img/jobs/${jobId}.jpg`} onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'} />
-                        <div className="job_actions">
-                            <button className="like_button">❤️</button>
-                            <button className="download_button">⬇️</button>
-                        </div>
+                    <div className="job_actions">
+                        <button className={`like_button ${liked ? 'liked' : 'unliked'}`} onClick={handleLikeClick}>
+                            <FontAwesomeIcon icon={faHeart} />
+                        </button>
+                        <button className="download_button">⬇️</button>
+                    </div>
                 </div>
 
                 {/* Información del proyecto */}

@@ -1,5 +1,10 @@
 import { useCallback, useState, useEffect } from "react";
 
+/**
+ * The signup component. It is a popup that appears when the user clicks on the signup button.
+ * @param {closeSignup} the function to close the signup popup 
+ * @returns A popup with a form to sign up.
+ */
 export const Signup = ({ closeSignup }) => {
     const [dataSend, setDataSend] = useState({ email: '', username: '', password: '' });
 
@@ -21,6 +26,9 @@ export const Signup = ({ closeSignup }) => {
         }));
     };
 
+    /**
+     * This function sends the user's credentials to the server to sign up.
+     */
     const send_data = () => {
         console.log("Datos enviados:", dataSend);
         fetch('/3D_printer/3d_project/query.php', {

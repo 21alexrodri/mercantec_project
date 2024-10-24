@@ -124,3 +124,38 @@
 .hp_searchedfiles{
     padding-top: 20px;
 }
+.hp_searchedheader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.order{
+    background-color: #0E38AB;
+    margin-right: 1vw;
+    padding: 1vw;
+    color: white;
+    border-radius: 1vw;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.order:hover{
+    background-color: #1340bc;
+    color: white;
+}
+.order-controls {
+    display: flex;
+    align-items: center;
+}
+
+.order-direction-button {
+    margin-left: 10px;
+    padding: 5px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-size: 50px;
+}
+
+.order-direction-button:hover {
+    color: #007BFF;
+}

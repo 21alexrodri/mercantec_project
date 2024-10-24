@@ -1,0 +1,46 @@
+.job-content-list{
+    width: 5vw;
+    height: 5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transition: all 0.3s;
+    margin: 0.3vw;
+    border-radius: 1vw;
+}
+.job-item-list{
+    margin-top: 2%;
+    background-color:#dedede;
+    border-radius: 1vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.author, .job_likes{
+    display: flex;
+    flex-direction: column;
+    padding-right: 2vw;
+p{
+    margin: 0;
+
+}
+.likes_text{
+    font-size: 1vw;
+}
+}
+.heart{
+    color: red;
+}
+.job_name{
+    font-weight: bold;
+}
+.job_name, .job_username, .job_likes, .job_layerthickness, .job_weight, .job_creation_date{
+    font-size: 1.2vw;
+}

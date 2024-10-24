@@ -4,10 +4,10 @@ import Filters from '../filters/filters'
 import TagTemplate from '../tag-template/tag-template'
 import { NewJob } from '../new_job/new_job';
 import { UserContext } from '../../context/UserContext';
-/**
- * Home component, this component is the main component of the application, it shows the jobs.
- * @returns The jobs ordered by tags or the filtered jobs and the filters to search the jobs.
- */
+import FilteredJob from '../../filtered_job/filtered_job';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSort, faArrowDownShortWide, faArrowDownWideShort } from '@fortawesome/free-solid-svg-icons';
+
 function Home() {
     const [tags, setTags] = useState([]);
     const [jobs, setJobs] = useState({});
@@ -18,18 +18,23 @@ function Home() {
     const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
     const [filtersApplied, setFiltersApplied] = useState([]);
 
-    /**
-     * Function to handle the change of the filters applied.
-     * @param { newFiltersApplied } The filters applied by the user. 
-     */
+    const [orderDirection, setOrderDirection] = useState('ASC'); 
+    const [isOrderDropdownOpen, setIsOrderDropdownOpen] = useState(false);
+    const [orderOption, setOrderOption] = useState('');
+
+    const handleOrderSelection = (option) => {
+        setOrderOption(option);
+        setIsOrderDropdownOpen(false);
+    };
+    const toggleOrderDirection = () => {
+        setOrderDirection(prevDirection => (prevDirection === 'ASC' ? 'DESC' : 'ASC'));
+    };
+    
+
     const handleFiltersAppliedChange = (newFiltersApplied) => {
         setFiltersApplied(newFiltersApplied);
     };
 
-    /**
-     * Function to get the count of the applied filters in order to know if the user is searching for something.
-     * @returns The count of the applied filters.
-     */
     const getAppliedFiltersCount = () => {
         let count = 0;
         for (const key in filtersApplied) {
@@ -46,12 +51,10 @@ function Home() {
     };
 
     const appliedFiltersCount = getAppliedFiltersCount();
-    /**
-     * Function to get the filtered jobs from the database.
-     */
+
     useEffect(() => {
         const appliedFiltersCount = getAppliedFiltersCount();
-        if(appliedFiltersCount >= 1){
+        if (appliedFiltersCount >= 1) {
             fetch('/3D_printer/3d_project/query.php', {
                 method: 'POST',
                 headers: {
@@ -66,11 +69,13 @@ function Home() {
                     customer: filtersApplied.customer,
                     material: filtersApplied.material,
                     maxlayerthickness: filtersApplied.maxlayerthickness,
-                    minlayerthickness: filtersApplied.minlayerthickness
+                    minlayerthickness: filtersApplied.minlayerthickness,
+                    order: orderOption,
+                    orderDirection: orderDirection
                 })
             })
             .then(response => {
-                if(!response.ok){
+                if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response.json();
@@ -84,11 +89,9 @@ function Home() {
                 console.error('Error fetching filtered items:', error);
             });
         }
-    }, [filtersApplied]);
+    }, [filtersApplied, orderOption, orderDirection]); 
+    
 
-    /**
-     * Function to get the tags from the database in order to show the jobs order by tags.
-     */
     const handleShowTags = () => {
         setLoading(true); 
         fetch('/3D_printer/3d_project/query.php', {
@@ -116,11 +119,7 @@ function Home() {
                 setLoading(false);
             });
     };
-    /**
-     * Function to get the jobs from the database in order to show the jobs order by tags.
-     * @param {tagId} 
-     * @param {offset}  
-     */
+
     async function handleShowJobs(tagId, offset) {
         setLoading(true);
 
@@ -177,16 +176,45 @@ function Home() {
                     {jobMenu && <NewJob closeNewJob={() => setNewJobMenu(false)} tags={tags}/>}
                     {appliedFiltersCount >= 1 ? (
                         <>
-                        <h2 className='hp_searchedfiles'>Searched files.</h2>
-                        <div>
+                            <div className='hp_searchedheader'>
+                                <h2 className='hp_searchedfiles'>Searched files.</h2>
+                                <div className='order-controls'>
+                                    <div className='order' onClick={() => setIsOrderDropdownOpen(!isOrderDropdownOpen)}>
+                                        <FontAwesomeIcon icon={faSort} /> Order by
+                                        {isOrderDropdownOpen && (
+                                            <ul className="order-dropdown">
+                                                <li onClick={() => handleOrderSelection('name')}>Name</li>
+                                                <li onClick={() => handleOrderSelection('username')}>Username</li>
+                                                <li onClick={() => handleOrderSelection('date')}>Date</li>
+                                                <li onClick={() => handleOrderSelection('likes')}>Likes</li>
+                                                <li onClick={() => handleOrderSelection('layerthickness')}>Layer Thickness</li>
+                                                <li onClick={() => handleOrderSelection('weight')}>Weight</li>
+                                            </ul>
+                                        )}
+                                    </div>
+                                    <button className='order-direction-button' onClick={toggleOrderDirection}>
+                                        {orderDirection === 'ASC' ? <FontAwesomeIcon icon={faArrowDownShortWide} /> : <FontAwesomeIcon icon={faArrowDownWideShort} />}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div>
                             {filteredItems.length > 0 ? (
                                 filteredItems.map(item => (
-                                    <div key={item.id}>
-                                        <p>{item.project_name} por {item.username}</p>
-                                    </div>
+                                    <FilteredJob
+                                    key={item.id}
+                                    id={item.id}
+                                    name={item.project_name}
+                                    username={item.username}
+                                    creation_date={item.creation_date}
+                                    img_format={item.img_format}
+                                    likes={item.likes}
+                                    layerthickness={item.layer_thickness}
+                                    total_physical_weight={item.total_physical_weight}
+                                    />
                                 ))
                             ) : (
-                                <p>No se encontraron resultados.</p>
+                                <p>No results found.</p>
                             )}
                         </div>
                     </>

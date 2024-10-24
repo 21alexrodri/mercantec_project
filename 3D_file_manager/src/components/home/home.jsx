@@ -173,7 +173,7 @@ function Home() {
             <div id='home'>
                 <Filters onFiltersAppliedChange={handleFiltersAppliedChange} />
                 <main>
-                    {jobMenu && <NewJob closeNewJob={() => setNewJobMenu(false)}/>}
+                    {jobMenu && <NewJob closeNewJob={() => setNewJobMenu(false)} tags={tags}/>}
                     {appliedFiltersCount >= 1 ? (
                         <>
                             <div className='hp_searchedheader'>

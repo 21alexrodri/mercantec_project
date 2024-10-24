@@ -4,7 +4,10 @@ import Filters from '../filters/filters'
 import TagTemplate from '../tag-template/tag-template'
 import { NewJob } from '../new_job/new_job';
 import { UserContext } from '../../context/UserContext';
-
+/**
+ * Home component, this component is the main component of the application, it shows the jobs.
+ * @returns The jobs ordered by tags or the filtered jobs and the filters to search the jobs.
+ */
 function Home() {
     const [tags, setTags] = useState([]);
     const [jobs, setJobs] = useState({});
@@ -15,10 +18,18 @@ function Home() {
     const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
     const [filtersApplied, setFiltersApplied] = useState([]);
 
+    /**
+     * Function to handle the change of the filters applied.
+     * @param { newFiltersApplied } The filters applied by the user. 
+     */
     const handleFiltersAppliedChange = (newFiltersApplied) => {
         setFiltersApplied(newFiltersApplied);
     };
 
+    /**
+     * Function to get the count of the applied filters in order to know if the user is searching for something.
+     * @returns The count of the applied filters.
+     */
     const getAppliedFiltersCount = () => {
         let count = 0;
         for (const key in filtersApplied) {
@@ -35,6 +46,9 @@ function Home() {
     };
 
     const appliedFiltersCount = getAppliedFiltersCount();
+    /**
+     * Function to get the filtered jobs from the database.
+     */
     useEffect(() => {
         const appliedFiltersCount = getAppliedFiltersCount();
         if(appliedFiltersCount >= 1){
@@ -72,6 +86,9 @@ function Home() {
         }
     }, [filtersApplied]);
 
+    /**
+     * Function to get the tags from the database in order to show the jobs order by tags.
+     */
     const handleShowTags = () => {
         setLoading(true); 
         fetch('/3D_printer/3d_project/query.php', {
@@ -99,7 +116,11 @@ function Home() {
                 setLoading(false);
             });
     };
-
+    /**
+     * Function to get the jobs from the database in order to show the jobs order by tags.
+     * @param {tagId} 
+     * @param {offset}  
+     */
     async function handleShowJobs(tagId, offset) {
         setLoading(true);
 

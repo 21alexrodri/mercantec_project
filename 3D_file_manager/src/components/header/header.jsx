@@ -4,11 +4,18 @@ import  { Login } from  '../login/login';
 import { Signup } from  '../signup/signup';
 import { UserContext } from '../../context/UserContext';
 
+/**
+ * The header of the page that is shown to the user, it allows the user to navigate through the page and to log in or sign up as well as log out
+ * @returns The header of the page, with two possible states, one for when the user is logged in and one for when the user is not logged in
+ */
 function Header() {
     const [showLogin, setShowLogin] = useState(false);
     const [showSignup, setShowSignup] = useState(false);
     const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
 
+    /**
+     * This function is used to log out the user, it sends a request to the server to log out the user and updates the state of the user
+     */
     const handleLogout = async () => {
         try {
             const response = await fetch('/3D_printer/3d_project/query.php', {

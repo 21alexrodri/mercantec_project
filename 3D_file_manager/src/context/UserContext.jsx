@@ -2,7 +2,9 @@
 import React, { createContext, useState, useEffect } from 'react';
 
 export const UserContext = createContext();
-
+/**
+ * The provider for the user context. It provides the username, isAdmin, and isLogged states to the children components.
+ */
 export const UserProvider = ({ children }) => {
     const [username, setUsername] = useState("guest");
     const [isAdmin, setIsAdmin] = useState(false);

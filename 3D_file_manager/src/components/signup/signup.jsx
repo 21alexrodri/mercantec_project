@@ -1,5 +1,10 @@
 import { useCallback, useState, useEffect } from "react";
 
+/**
+ * The signup component. It is a popup that appears when the user clicks on the signup button.
+ * @param {closeSignup} the function to close the signup popup 
+ * @returns A popup with a form to sign up.
+ */
 export const Signup = ({ closeSignup }) => {
     const [dataSend, setDataSend] = useState({ email: '', username: '', password: '' });
 
@@ -21,8 +26,11 @@ export const Signup = ({ closeSignup }) => {
         }));
     };
 
-    const send_data = () => {
-        console.log("Datos enviados:", dataSend);
+    /**
+     * This function sends the user's credentials to the server to sign up.
+     */
+    const send_data = (event) => {
+        event.preventDefault()
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -45,8 +53,10 @@ export const Signup = ({ closeSignup }) => {
                 console.log('Response:', data); 
                 if (data.status === "success") {
                     alert("User created successfully");
+                    closeSignup();
                 } else {
                     alert("Error: " + data.message);
+                    focusInput()
                 }
             })
             .catch((error) => {
@@ -54,6 +64,17 @@ export const Signup = ({ closeSignup }) => {
             });
         
     };
+
+    const focusInput = () => {
+        switch (true) {
+            case document.getElementById("email_prompt").value == "":
+                document.getElementById("email_prompt").focus();
+                break;
+            default:
+                document.getElementById("username_prompt").focus();
+                break;
+        }
+    }
 
     useEffect(() => {
         document.addEventListener("keydown", escFunction, false);
@@ -72,14 +93,16 @@ export const Signup = ({ closeSignup }) => {
                     <h2>Sign Up</h2>
                 </div>
                 <div className="credentials_body">
+                    <form id="signup_form" onSubmit={send_data}>
                     <label htmlFor="email">Email</label><br />
-                    <input type="text" name="email" value={dataSend.email} onChange={handleChange} autoFocus /><br />
+                    <input id="email_prompt" type="text" name="email" value={dataSend.email} onChange={handleChange} autoFocus /><br />
                     <label htmlFor="username">Username</label><br />
-                    <input type="text" name="username" value={dataSend.username} onChange={handleChange} /><br />
+                    <input id="username_prompt" type="text" name="username" value={dataSend.username} onChange={handleChange} /><br />
                     <label htmlFor="password">Password</label><br />
-                    <input type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
+                    <input id="password_prompt" type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
                     <br />
-                    <input onClick={send_data} type="submit" value="SIGN UP" className="credentials_submit_button" />
+                    <input type="submit" value="SIGN UP" className="credentials_submit_button" />
+                    </form>
                 </div>
             </div>
         </div>

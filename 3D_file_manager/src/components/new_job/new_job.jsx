@@ -2,7 +2,11 @@ import { useCallback, useState, useEffect, useRef} from "react";
 import "./new_job.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUpload,faTrash} from '@fortawesome/free-solid-svg-icons';
-
+/**
+ * The new job component. It is a popup that appears when the user clicks on the new job button.
+ * @param {closeNewJob} a function to close the new job popup 
+ * @returns A popup to create a new job
+ */
 export const NewJob = ({closeNewJob})=>{
     const [files,setFiles] = useState([])
     const [zipFile,setZipFile] = useState(null)
@@ -18,12 +22,20 @@ export const NewJob = ({closeNewJob})=>{
         e.stopPropagation();
     };
 
+    /**
+     * This function deletes a file from the files array.
+     * @param {indexToDelete} The index of the file to delete 
+     */
     const handleDeleteFile = (indexToDelete) => {
         setFiles((prevFiles) => 
             prevFiles.filter((file, index) => index !== indexToDelete)
         );
     };
 
+    /**
+     * This function handles the change of the image input. It shows the image in the background of the container.
+     * @param {e} The event of the input change 
+     */
     const handleImgChange = (e) => {
         const img = e.target.files[0]
         if(img){
@@ -35,6 +47,10 @@ export const NewJob = ({closeNewJob})=>{
         }
     }
 
+    /**
+     * This function handles the change of the file input. It shows the file in the files array.
+     * @param {e} The event of the input change 
+     */
     const handleFileChange = (e) => {
         const file = e.target.files[0]
         if(file){
@@ -47,7 +63,10 @@ export const NewJob = ({closeNewJob})=>{
             reader.readAsDataURL(file);
         }
     }
-    
+    /**
+     * This function handles the change of the zip input. It shows the zip file in the zipFile state.
+     * @param {e} The event of the input change 
+     */
     const handleZipUpload = (e) => {
         const file = e.target.files[0]
         if(file){
@@ -63,6 +82,9 @@ export const NewJob = ({closeNewJob})=>{
         }
     }
 
+    /**
+     * This function deletes the zip file from the zipFile state.
+     */
     const handleDeleteZip = () => {
         zipFileRef.current.innerHTML = "No file yet..."
         setZipFile(null)
@@ -74,6 +96,10 @@ export const NewJob = ({closeNewJob})=>{
         imgUploadContainerRef.current.style.backgroundImage = "none"
     }
 
+    /**
+     * This function sets the selected upload mode.
+     * @param {e} The event of the click 
+     */
     const setSelected = (e) => {
         if(e.target == uploadStl.current){
             uploadZip.current.classList.remove("selected-mode")
@@ -155,11 +181,24 @@ export const NewJob = ({closeNewJob})=>{
                                         selectedUploadMode === "stl"
                                     ) ? (
                                         <>
-                                            {files.map((file, index) => (
-                                                <li key={index} className="nj-file-cont">
-                                                    <p>{file.name}</p><FontAwesomeIcon icon={faTrash} cursor="pointer" onClick={()=>handleDeleteFile(index)} />
-                                                </li>
-                                            ))}
+                                            {(
+                                                files.length==0
+                                            )?(
+                                                <>
+                                                    <li className="nj-file-cont">
+                                                        <p>No files yet...</p>
+                                                    </li>
+                                                </>
+                                            ):(
+                                                <>
+                                                    {files.map((file, index) => (
+                                                        <li key={index} className="nj-file-cont">
+                                                            <p>{file.name}</p><FontAwesomeIcon icon={faTrash} cursor="pointer" onClick={()=>handleDeleteFile(index)} />
+                                                        </li>
+                                                    ))}
+                                                </>
+                                            )}
+                                            
                                             <li className="new-file nj-file">
                                                 <p>+</p>
                                                 <input type="file" accept=".stl" onChange={handleFileChange}/>

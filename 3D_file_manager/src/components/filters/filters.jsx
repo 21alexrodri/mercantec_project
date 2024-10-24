@@ -2,6 +2,12 @@ import './filters.css';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignature, faCalendar, faTag, faBuilding, faPaintBrush, faPenNib, faCube} from '@fortawesome/free-solid-svg-icons';
+/**
+ * This jsx is responsible for managing the filters, allowing the users to set diferent combinations of filters in order to recover
+ * the files that they are searching for. 
+ * @param { onFiltersAppliedChange } - A function that is called when the filters are applied, used to update the filtersApplied state in the parent component (home.jsx)
+ * @returns The filters applied by the user and the page with the filters that the user can apply
+ */
 function Filters({ onFiltersAppliedChange }) {
     const [tags, setTags] = useState([]);
     const [customers, setCustomers] = useState([]);
@@ -21,6 +27,10 @@ function Filters({ onFiltersAppliedChange }) {
     
     const [minLayerThicknessValue, setMinLayerThicknessValue] = useState(0);
     const [maxLayerThicknessValue, setMaxLayerThicknessValue] = useState(100);
+
+    /**
+     * togglevisibility functions are used to show or hide the filters that the user can apply
+     */
     const toggleTagVisibility = () => {
         setIsTagVisible(!isTagVisible);
     };
@@ -42,6 +52,9 @@ function Filters({ onFiltersAppliedChange }) {
         setIsMaterialVisble(!isMaterialVisible);
     }
 
+    /**
+     * handleChange functions are used to update the selected filters in order to apply them
+     */
     const handleTagChange = (event) => {
         const tag = event.target.value;
         const checked = event.target.checked;
@@ -79,7 +92,9 @@ function Filters({ onFiltersAppliedChange }) {
         setMaxLayerThicknessValue(value);
     };
 
-
+    /**
+     * useEffect is used to update the filtersApplied state when the user applies a filter, saving them into an object that is sent to the parent component
+     */
     useEffect(() => {
         const minLayerThickness = minLayerThicknessValue === 0 ? '' : (minLayerThicknessValue / 100).toFixed(2);
         const maxLayerThickness = maxLayerThicknessValue === 100 ? '' : (maxLayerThicknessValue / 100).toFixed(2);
@@ -101,6 +116,9 @@ function Filters({ onFiltersAppliedChange }) {
         }
     }, [selectedTextName, selectedDate, selectedTags, selectedColor, selectedCustomer, minLayerThicknessValue, maxLayerThicknessValue, selectedMaterial]);
     
+    /**
+     * useEffect is used to fetch the tags and the customers from the database when the component is mounted
+     */
     useEffect(() => {
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
@@ -123,6 +141,9 @@ function Filters({ onFiltersAppliedChange }) {
             });
     }, []);
 
+    /**
+     * useEffect is used to fetch the customers from the database when the component is mounted
+     */
     useEffect(() => {
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
@@ -144,6 +165,7 @@ function Filters({ onFiltersAppliedChange }) {
                 console.error('Error fetching customers:', error);
             });
     }, []);
+
 
     const handleFormSubmit = (event) => {
         event.preventDefault();

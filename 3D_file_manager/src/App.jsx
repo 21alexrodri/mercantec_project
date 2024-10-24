@@ -6,7 +6,10 @@ import Profile from './components/profile/profile'
 import Error_Page from './components/error_page/error_page'
 import JobPage from "./components/job_page/job_page";
 import { UserProvider } from './context/UserContext';
-
+/**
+ * The main component of the application. It contains the routes for the different pages.
+ * 
+ */
 function App() {
   return (
     <>

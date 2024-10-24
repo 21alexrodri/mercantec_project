@@ -3,18 +3,26 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight,} from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-
+/**
+ * The template for the tags. It shows the jobs for each tag.
+ * @param {jobs} jobs The jobs for the tags.
+ * @param {tagId} tagId The id of the tag.
+ * @param {tagName} tagName The name of the tag.
+ * @param {handleShowJobs} handleShowJobs The function to show the jobs for a tag.
+ * @returns 
+ */
 function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
     const [offset,setOffset] = useState(0);
-    const [currentPage, setCurrentPage] = useState(0); // act job page
-    const [direction, setDirection] = useState(null); // animation direction
-    const jobsPerPage = 3; // max visible jobs
+    const [currentPage, setCurrentPage] = useState(0); 
+    const [direction, setDirection] = useState(null); 
+    const jobsPerPage = 3; 
     const [error, setError] = useState(null); 
     const [loading, setLoading] = useState(false);
     const navigateTo = useNavigate();
 
-
-    // Functions created to handle job pages changes
+    /**
+     * This function handles the click on the next page arrow.
+     */
     const handleNextPage = () => {
         const newOffset = ((currentPage+1)*jobsPerPage) 
         setOffset(newOffset)
@@ -26,6 +34,9 @@ function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
             setDirection(null)
         },500)
     };
+    /**
+     * This function handles the click on the previous page arrow.
+     */
     const handlePrevPage = () => {
         const newOffset = (offset - jobsPerPage)
         setOffset(newOffset)

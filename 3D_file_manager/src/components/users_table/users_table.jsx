@@ -1,6 +1,11 @@
 import { useCallback, useState, useEffect } from "react";
 import "./users_table.css"
 
+/**
+ * 
+ * @param { closeUserTable } the function to close the user table 
+ * @returns A popup with a table to edit users. 
+ */
 export const UserTable = ({ closeUserTable }) => {
     const handleContainerClick = (e) => {
         e.stopPropagation();

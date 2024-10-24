@@ -2,8 +2,11 @@ import './profile.css';
 import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import Error_Page from '../error_page/error_page';
-import  {UserTable } from  '../users_table/users_table';
-
+import {UserTable } from  '../users_table/users_table';
+/**
+ * The profile component. It shows the user's profile with their files and information.
+ * @returns The user's profile.
+ */
 function Profile() {
     const imageLink = "/3D_printer/Files/img/default-job.png";
     const [recentsFirst, setRecentsFirst] = useState(false);
@@ -16,11 +19,17 @@ function Profile() {
     const [isAdmin, setIsAdmin] = useState(false);  
     const {isLogged, setIsLogged} = useContext(UserContext);    const [showUserTable, setShowUserTable] = useState(false);
 
+    /**
+     * This function changes the order of the jobs in the profile.
+     */
     function changeOrder() {
         setRecentsFirst(!recentsFirst);
         setButtonText(recentsFirst ? "⯆ recents first" : "⯅ olders first ");
     }
 
+    /**
+     * This function checks if the user is logged in and sets the username and isAdmin state accordingly.
+     */
     const checkUserStatus = async () => {
         try {
             const response = await fetch('/3D_printer/3d_project/query.php', {
@@ -35,10 +44,10 @@ function Profile() {
             });
     
             const text = await response.text(); 
-            console.log('Respuesta recibida del servidor:', text);
+            console.log('Response:', text);
     
             if (text.trim() === "") {
-                throw new Error("Respuesta vacía desde el servidor.");
+                throw new Error("No server response");
             }
     
             const data = JSON.parse(text);
@@ -56,7 +65,9 @@ function Profile() {
         }
     };
     
-
+    /**
+     * This function fetches the tags from the backend and sets the tags state.
+     */
     const handleShowTags = () => {
         setLoading(true);
         fetch('/3D_printer/3d_project/query.php', {
@@ -85,6 +96,11 @@ function Profile() {
             });
     };
 
+    /**
+     * This function fetches the jobs for a specific tag from the backend and sets the jobs state.
+     * @param {tagId}  
+     * @param {offset} 
+     */
     async function handleShowJobs(tagId, offset) {
         console.log("show jobs");
         setLoading(true);
@@ -136,6 +152,10 @@ function Profile() {
         }
     }, [tags]);
 
+    /**
+     * This function gets the jobs for the profile.
+     * @returns The jobs for the profile.
+     */
     function getJobs() {
         if (recentsFirst) {
             return (
@@ -166,7 +186,9 @@ function Profile() {
         }
     }
 
-    
+    /**
+     * This function handles the click event on the edit button.
+     */
     const handleEditClick = () => {
         setShowUserTable(true)
         

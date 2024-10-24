@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './job_page.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faDownload } from '@fortawesome/free-solid-svg-icons';
+import JobPreview from '../job_preview/job_preview';
 
 export const JobPage = () => {
     const location = useLocation();
@@ -25,7 +26,7 @@ export const JobPage = () => {
     const [jobFiles, setJobFiles] = useState([]); 
     const [showPopup, setShowPopup] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
-
+    
     const checkUserLike = () => {
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
@@ -211,13 +212,6 @@ export const JobPage = () => {
         window.open(fileUrl, '_blank'); 
     };
 
-    const closePopup = () => {
-        setShowPopup(false); 
-    };
-
-    const handleJobPreview = (id) => {
-        navigateTo('/job_preview', { state: { jobId: id } });
-    };
 
     return (
         <div id="job_page">
@@ -249,10 +243,13 @@ export const JobPage = () => {
                 </div>
                 {showPopup && (
                     <div className="popup">
-                        <div className="popup_content">
-                            <h3>3D Preview for {selectedFile.id}</h3>
-                            <button className="close_popup" onClick={closePopup}>Close</button>
+                        <div className="new-job-header">
+                            <h2>3D Preview</h2>
                         </div>
+                        <div className="main">
+                            <JobPreview modelPath={`/3D_printer/Files/slt/${selectedFile.file_path}`} />
+                        </div>
+                        <button className="close_popup" onClick={() => setShowPopup(false)}>X</button>
                     </div>
                 )}
 

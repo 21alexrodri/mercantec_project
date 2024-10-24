@@ -11,7 +11,7 @@
 
 .container .main{
     margin: 2%;
-    width: 80%;
+    width: 90%;
     height: 60%;
     position: relative;
     display: flex;
@@ -89,6 +89,11 @@
     flex-direction: row;
     justify-content: left;
     height: 75%;
+
+}
+
+.form-container > div{
+    margin: 15px;
 }
 
 input.project-name{
@@ -117,6 +122,7 @@ input.project-name{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    width: fit-content;
 }
 
 input{
@@ -225,7 +231,7 @@ input:focus, input:hover{
 .img-upload-manager{
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
+    align-items: center;
 }
 .img-upload-manager p {
     font-size: small;
@@ -487,4 +493,40 @@ input[type="file"]{
 
 .suggest-tag-cont{
     display: flex;
+}
+
+.nj-tags-added{
+    overflow: auto;
+    width: 350px;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+}
+
+.nj-tags-added::-webkit-scrollbar{
+    width: 10px;
+}
+
+.nj-tags-added::-webkit-scrollbar-track{
+    background: #ffffff;
+}
+
+.nj-tags-added::-webkit-scrollbar-thumb {
+    background-color: #c5c5c5;
+    border-radius: 10px;
+    border: 5px solid #ffffff;
+}
+
+.nj-tag{
+    background-color: #FF8387;
+    margin: 5px;
+    height: fit-content;
+    padding: 5px 10px 5px 10px;
+    border-radius: 20px;
+    color: #ffffff;
+    text-wrap: nowrap;
+}
+
+.nj-tags-cont{
+    border-left: 2px rgb(201, 199, 199) solid;
 }

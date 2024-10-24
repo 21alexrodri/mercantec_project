@@ -8,25 +8,20 @@ import {faUpload,faTrash} from '@fortawesome/free-solid-svg-icons';
  * @param {closeNewJob} a function to close the new job popup 
  * @returns A popup to create a new job
  */
-export const NewJob = ({closeNewJob})=>{
+export const NewJob = ({closeNewJob, tags: propTags})=>{
     const [files,setFiles] = useState([])
     const [zipFile,setZipFile] = useState(null)
     const [imgFile,setImg] = useState(null)
     const [tags,setTags] = useState([])
     const imgUploadContainerRef = useRef(null)
     const zipTrashRef = useRef(null)
+    const selectTagRef = useRef(null)
     const fileInputRef = useRef(null)
     const uploadStl = useRef(null)
     const uploadZip = useRef(null)
     const zipFileRef = useRef(null)
     const [selectedUploadMode, setSelectedUploadMode] = useState("stl");
     const [selectedValue, setSelectedValue] = useState('');
-
-    // DOM CONTENT LOADED 
-
-    // const test = useState((
-    //     console.log(propTags)
-    // ),[])
 
     const handleSuggestTag = () => {
 
@@ -37,8 +32,13 @@ export const NewJob = ({closeNewJob})=>{
     };
 
     const handleSelectChange = (e) => {
+        console.log(e.target.value)
         setSelectedValue(e.target.value)
     }
+    // useEffect(()=>{
+    //     console.log(selectTagRef.value)
+    //     setSelectedValue(selectTagRef.value)
+    // },[selectTagRef.value])
 
     /**
      * This function deletes a file from the files array.
@@ -212,6 +212,31 @@ export const NewJob = ({closeNewJob})=>{
                                         <input id="form-material" type="text" className=""/>
                                     </label>
                                 </div>
+
+                                <div className="nj-tags-cont">
+                                    <p>Select Tags</p>
+                                    <div>
+                                        <select ref={selectTagRef} className="nj-select-tags" value={selectedValue} onChange={handleSelectChange}>
+                                            <option value="" disabled selected>-- SELECT --</option>
+                                            {propTags.map((tag, index) => (
+                                                <option key={index} value={tag.name_tag}>{tag.name_tag}</option>
+                                            ))}
+                                        </select>
+                                        <button className="nj-select-tags-button" onClick={()=>addNewTag(selectedValue)}>Add tag</button>
+                                    </div>
+                                    <div className="suggest-tag-cont">
+                                        <p className="small-font">No tag matches your project? </p>
+                                        <p onClick={handleSuggestTag} className="small-font suggest-tag">Suggest new tag</p>
+                                    </div>
+                                    <div className="nj-tags-added">
+                                            {tags.map((tag,index) => {
+                                                console.log(tag)
+                                                return <p key={index} className="nj-tag">{tag}</p>
+                                            }
+                                                
+                                            )}
+                                    </div>
+                                </div>
                             </div>
                             <div className="lower">
                                 <div className="files-upload">
@@ -267,22 +292,7 @@ export const NewJob = ({closeNewJob})=>{
                                     </ul>
                                 </div>
                                 <div className="lower-right">
-                                    <div className="nj-tags-cont">
-                                        <p>Select Tags</p>
-                                        <div>
-                                            <select className="nj-select-tags" value={selectedValue} onChange={handleSelectChange}>
-                                                {propTags.map((tag, index) => (
-                                                    <option key={index} value={tag.name_tag}>{tag.name_tag}</option>
-                                                ))}
-                                            </select>
-                                            <button className="nj-select-tags-button" onClick={()=>addNewTag(selectedValue)}>Add tag</button>
-                                        </div>
-                                        <div className="suggest-tag-cont">
-                                            <p className="small-font">No tag matches your project? </p>
-                                            <p onClick={handleSuggestTag} className="small-font suggest-tag">Suggest new tag</p>
-                                        </div>
-                                        {}
-                                    </div>
+                                    
                                     <div className="upload-options">
                                         <button className="cancel-button" onClick={closeNewJob}>CANCEL</button>
                                         <button className="upload-button" onClick={handleUpload}>UPLOAD</button>

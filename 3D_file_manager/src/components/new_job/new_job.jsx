@@ -134,25 +134,53 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
         setTags((prevTags) => [...prevTags,selectedValue])
     }
 
-    const handleUpload = (e) => {
-        fetch('/3D_printer/3d_project/query.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ 
-                arg: 'setNewJob',
-                name: document.getElementById("form-name").value,
-                description: document.getElementById("form-desc").value,
-                img_format: imgFile.name.split('.').pop().toLowerCase(),
-                img_file: imgFile,
-                scale: document.getElementById("form-scale").value,
-                color: document.getElementById("form-color").value,
-                material: document.getElementById("form-material").value,
-                files: files
-            }),
-        })
-    }
+    const handleUpload = async (e) => {
+        e.preventDefault();
+    
+        // Validación de archivos de imagen
+        if (imgFile && !["jpg", "jpeg", "png"].includes(imgFile.name.split('.').pop().toLowerCase())) {
+            alert("Solo se permiten imágenes .jpg, .jpeg y .png.");
+            return;
+        }
+    
+        // Validación de archivos 3D
+        const invalidFiles = files.filter(file => !["stl", "3mf"].includes(file.name.split('.').pop().toLowerCase()));
+        if (invalidFiles.length > 0) {
+            alert("Solo se permiten archivos 3D en formato .stl o .3mf.");
+            return;
+        }
+    
+        // Preparar datos para el envío
+        const formData = new FormData();
+        formData.append('arg', 'setNewJob');
+        formData.append('name', document.getElementById("form-name").value);
+        formData.append('description', document.getElementById("form-desc").value);
+        formData.append('scale', document.getElementById("form-scale").value);
+        formData.append('color', document.getElementById("form-color").value);
+        formData.append('material', document.getElementById("form-material").value);
+    
+        // Añadir archivos de imagen y 3D
+        formData.append('img_file', imgFile);
+        files.forEach((file, index) => {
+            formData.append(`file_${index}`, file);
+        });
+    
+        try {
+            const response = await fetch('/3D_printer/3d_project/query.php', {
+                method: 'POST',
+                body: formData,
+            });
+            const data = await response.json();
+            if (data.success) {
+                alert("Proyecto subido correctamente.");
+            } else {
+                alert("Error al subir el proyecto.");
+            }
+        } catch (error) {
+            console.error("Error en la carga del proyecto:", error);
+            alert("Hubo un problema al cargar el proyecto.");
+        }
+    };
 
     const handleFormSubmit = (e) => {
         e.preventDefault();

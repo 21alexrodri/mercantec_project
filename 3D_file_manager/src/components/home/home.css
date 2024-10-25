@@ -139,6 +139,7 @@
     align-items: center;
     transition: all 0.5s ease;
     cursor:default;
+    overflow: hidden;
 }
 .order:hover{
     background-color: #1340bc;
@@ -150,6 +151,7 @@
 .order-controls {
     display: flex;
     align-items: center;
+    margin-right: 1%;
 }
 
 .order:hover > .order-dropdown{
@@ -190,6 +192,7 @@
     background-color: transparent;
     border: none;
     font-size: 50px;
+    border: 1px transparent solid;
 }
 
 .order-direction-button:hover {

@@ -186,34 +186,26 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                                         <b>Project Description</b>
                                         <textarea id="form-desc" placeholder="Description..."/>
                                     </label>
-                                    <label className="nj-label">
+                                    <div className="responsive_label">
+                                    <label className="nj-label scale_lbl">
                                         <b>Scale</b>
                                         <input id="form-scale" className=""/>
                                     </label>
-                                    <label className="nj-label">
+                                    <label className="nj-label color_lbl">
                                         <b>Color</b>
                                         <div className="input-row">
                                         <input id="form-color" type="" className=""/>
                                         </div>
                                     </label>
+                                    </div>
+                                <label className="nj-label">
+                                    <b>Material</b>
+                                    <input id="form-material" type="text" className="" />
+                                </label>
+                            </div>
 
-                                    {/* TRY TO CALCULATE IT WITH SCALE / MATERIAL */}
-
-                                    {/* <label className="">
-                                        <b>Physical Weight</b>
-                                        <div className="input-row">
-                                            <input type="number" className="" placeholder="0"/>
-                                            <p>g</p>
-                                        </div>
-                                    </label> */}
-
-                                    <label className="nj-label">
-                                        <b>Material</b>
-                                        <input id="form-material" type="text" className=""/>
-                                    </label>
-                                </div>
-
-                                <div className="nj-tags-cont">
+                            <div className="nj-side-cont">
+                                <div className="nj-tags">
                                     <p>Select Tags</p>
                                     <div>
                                         <select ref={selectTagRef} className="nj-select-tags" value={selectedValue} onChange={handleSelectChange}>
@@ -222,23 +214,49 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                                                 <option key={index} value={tag.name_tag}>{tag.name_tag}</option>
                                             ))}
                                         </select>
-                                        <button className="nj-select-tags-button" onClick={()=>addNewTag(selectedValue)}>Add tag</button>
+                                        <button className="nj-select-tags-button" onClick={() => addNewTag(selectedValue)}>Add tag</button>
                                     </div>
                                     <div className="suggest-tag-cont">
                                         <p className="small-font">No tag matches your project? </p>
                                         <p onClick={handleSuggestTag} className="small-font suggest-tag">Suggest new tag</p>
                                     </div>
                                     <div className="nj-tags-added">
-                                            {tags.map((tag,index) => {
-                                                console.log(tag)
-                                                return <p key={index} className="nj-tag">{tag}</p>
-                                            }
-                                                
-                                            )}
+                                        {tags.map((tag, index) => {
+                                            console.log(tag)
+                                            return <p key={index} className="nj-tag">{tag}</p>
+                                        }
+
+                                        )}
+                                    </div>
+                                </div>
+                                <div className="nj-customers">
+                                    <p>Select Customer</p>
+                                    <div>
+                                        <select ref={selectTagRef} className="nj-select-customer" value={selectedValue} onChange={handleSelectChange}>
+                                            <option value="" disabled selected>-- SELECT --</option>
+                                            {propTags.map((tag, index) => (
+                                                <option key={index} value={tag.name_tag}>{tag.name_tag}</option>
+                                            ))}
+                                        </select>
+                                        <button className="nj-select-customer-button" onClick={() => addNewTag(selectedValue)}> Save</button>
+                                    </div>
+                                    <div className="suggest-customer-cont">
+                                        <p className="small-font">No customer matches your project? </p>
+                                        <p onClick={handleSuggestTag} className="small-font suggest-tag">Suggest new customer</p>
+                                    </div>
+                                    <div className="nj-customer-added">
+                                        {tags.map((tag, index) => {
+                                            console.log(tag)
+                                            return <p key={index} className="nj-customer">{tag}</p>
+                                        }
+
+                                        )}
                                     </div>
                                 </div>
                             </div>
-                            <div className="lower">
+
+                        </div>
+                        <div className="lower">
                                 <div className="files-upload">
                                     <div className="upload-type-selector">
                                         <p ref={uploadStl} className="upload-stl selected-mode" onClick={setSelected}>Upload files</p>

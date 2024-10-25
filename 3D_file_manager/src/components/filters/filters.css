@@ -18,6 +18,11 @@
     padding: 10px; 
 }
 
+.filter_form > label:hover,
+.filter_form > fieldset:hover > legend{
+    color: #FF8387;
+}
+
 h2 {
     margin-top: 0;
 }

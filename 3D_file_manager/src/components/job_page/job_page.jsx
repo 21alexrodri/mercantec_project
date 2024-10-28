@@ -20,13 +20,12 @@ export const JobPage = () => {
     const [newComment, setNewComment] = useState('');
     const [username, setUsername] = useState(''); 
     const [isLoggedIn, setIsLoggedIn] = useState(true); 
-    const navigateTo = useNavigate();
-    const [likes, setLikes] = useState(0); // Inicializa a 0
+    const [likes, setLikes] = useState(0);
     const [liked, setLiked] = useState(false);
     const [jobFiles, setJobFiles] = useState([]); 
     const [showPopup, setShowPopup] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
-    
+
     const checkUserLike = () => {
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
@@ -50,7 +49,7 @@ export const JobPage = () => {
             console.error('Error checking like status:', error);
         });
     };
-    
+
     useEffect(() => {
         window.scrollTo(0, 0);
         fetch('/3D_printer/3d_project/query.php', {
@@ -60,18 +59,18 @@ export const JobPage = () => {
             },
             body: JSON.stringify({ arg: 'getUserSession' }),
         })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.status === 'success') {
-                    setUsername(data.user.username); 
-                    setIsLoggedIn(true); 
-                } else {
-                    setIsLoggedIn(false); 
-                }
-            })
-            .catch((error) => {
-                console.error('Error verificando el login:', error);
-            });
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.status === 'success') {
+                setUsername(data.user.username); 
+                setIsLoggedIn(true); 
+            } else {
+                setIsLoggedIn(false); 
+            }
+        })
+        .catch((error) => {
+            console.error('Error verificando el login:', error);
+        });
 
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
@@ -101,7 +100,7 @@ export const JobPage = () => {
                     otherJobs: data.otherJobs,
                     comments: data.job.comments || []
                 });
-                setLikes(data.job.likes); // Actualiza los likes
+                setLikes(data.job.likes); 
             } else {
                 alert("Error: " + data.message);
             }
@@ -110,6 +109,7 @@ export const JobPage = () => {
             console.error('Error fetching job data:', error);
         });
 
+        // Obtener los archivos del jobId
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -123,7 +123,7 @@ export const JobPage = () => {
         .then((response) => response.json())
         .then((data) => {
             if (data.status === 'success') {
-                setJobFiles(data.files); 
+                setJobFiles(data.files); // Guardar los archivos en el estado
             } else {
                 console.error('Error fetching files:', data.message);
             }
@@ -131,7 +131,8 @@ export const JobPage = () => {
         .catch((error) => {
             console.error('Error fetching job files:', error);
         });
-        checkUserLike(); // Llama a la función para verificar el estado de "like"
+
+        checkUserLike(); // Verificar si el usuario ya ha dado "like"
     }, [jobId]);
 
     const handleCommentSubmit = () => {
@@ -208,10 +209,9 @@ export const JobPage = () => {
     };
 
     const handleDownloadClick = (file) => {
-        const fileUrl = `/3D_printer/Files/slt/${file.file_path}`;
+        const fileUrl = `/3D_printer/Files/3d_files/${file.file_path}`;
         window.open(fileUrl, '_blank'); 
     };
-
 
     return (
         <div id="job_page">
@@ -224,6 +224,7 @@ export const JobPage = () => {
                     <div className='image_scroll'>
                         <div className="job_files_container">
                             <div className="files_scroll">
+                                {/* Mostrar los archivos obtenidos del job */}
                                 {jobFiles.map((file, index) => (
                                     <div className="file_container" key={index}>
                                         <h3>Job File {file.id}</h3> 
@@ -241,20 +242,20 @@ export const JobPage = () => {
                         </div>
                     </div>
                 </div>
+
                 {showPopup && (
                     <div className="popup">
-                        <div className="new-job-header">
-                            <h2>3D Preview</h2>
+                        <div className="popup_content">
+                        <h3>3D Preview</h3>
+                        <JobPreview modelPath={`/3D_printer/Files/3d_files/${selectedFile.file_path}`} />
+                        <button className="close_popup" onClick={() => setShowPopup(false)}>Close</button>
                         </div>
-                        <div className="main">
-                            <JobPreview modelPath={`/3D_printer/Files/slt/${selectedFile.file_path}`} />
-                        </div>
-                        <button className="close_popup" onClick={() => setShowPopup(false)}>X</button>
                     </div>
-                )}
+                )}  
+
 
                 <div className="job_display">
-                    <img src={`/3D_printer/Files/img/jobs/${jobId}.jpg`} onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'} />
+                    <img src={`/3D_printer/Files/img/jobs/${jobId}.jpeg`} onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'} />
                     <div className="job_actions">
                         <button className={`like_button ${liked ? 'liked' : 'unliked'}`} onClick={handleLikeClick}>
                             <FontAwesomeIcon icon={faHeart} />

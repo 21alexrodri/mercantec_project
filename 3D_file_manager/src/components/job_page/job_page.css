@@ -177,7 +177,7 @@
     background-color: #555;
 }
 
-.popup {
+#job_page .popup {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -196,7 +196,7 @@
   }
   
   /* Header for the popup */
-  .popup .new-job-header {
+#job_page .popup .new-job-header {
     width: 100%;
     height: 100px;
     background-color: #0E38AB;
@@ -205,24 +205,23 @@
     align-items: center;
   }
   
-  .popup .new-job-header h2 {
+#job_page .popup .new-job-header h2 {
     color: white;
     margin: 0;
   }
   
   /* Main content area */
-  .popup .main {
+#job_page .popup .main {
     margin: 5%;
     width: 80%;
     height: 60%;
     position: relative;
     display: flex;
-    flex-direction: column;
-    align-content: space-between;
+    align-content: center;
   }
   
   /* Close button */
-  .popup .close_popup {
+#job_page .popup .close_popup {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -237,7 +236,7 @@
   
 
 /* Estilo para el botón de previsualización */
-.preview_button {
+#job_page .preview_button {
     background-color: #0E38AB;
     color: white;
     padding: 10px 20px;

@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect, useRef, useContext} from "react";
-import { UserContext } from "../../context/UserContext";
 import "./new_job.css"
+import { UserContext } from "../../context/UserContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUpload,faTrash} from '@fortawesome/free-solid-svg-icons';
 
@@ -14,16 +14,19 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
     const [zipFile,setZipFile] = useState(null)
     const [imgFile,setImg] = useState(null)
     const [tags,setTags] = useState([])
+    const [customers,setCustomers] = useState([])
     const imgUploadContainerRef = useRef(null)
     const zipTrashRef = useRef(null)
     const selectTagRef = useRef(null)
+    const selectCustRef = useRef(null)
     const fileInputRef = useRef(null)
     const uploadStl = useRef(null)
     const uploadZip = useRef(null)
     const zipFileRef = useRef(null)
     const [selectedUploadMode, setSelectedUploadMode] = useState("stl");
     const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
-    const [selectedValue, setSelectedValue] = useState('');
+    const [selectedTag, setSelectedTag] = useState('');
+    const [selectedCust, setSelectedCust] = useState('');
 
     const handleSuggestTag = () => {
 
@@ -34,13 +37,37 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
     };
 
     const handleSelectChange = (e) => {
-        console.log(e.target.value)
-        setSelectedValue(e.target.value)
+        setSelectedTag(e.target.value)
     }
-    // useEffect(()=>{
-    //     console.log(selectTagRef.value)
-    //     setSelectedValue(selectTagRef.value)
-    // },[selectTagRef.value])
+
+    const handleSelectCustChange = (e) => {
+        setSelectedCust(e.target.value)
+    }
+
+    /**
+     * useEffect is used to fetch the customers from the database when the component is mounted
+     */
+    useEffect(() => {
+        fetch('/3D_printer/3d_project/query.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ arg: 'getCustomer' }),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setCustomers(data);
+            })
+            .catch((error) => {
+                console.error('Error fetching customers:', error);
+            });
+    }, []);
 
     /**
      * This function deletes a file from the files array.
@@ -114,6 +141,7 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
 
     const handleClearImg = () => {
         fileInputRef.current.value = ""
+        setImg(null)
         imgUploadContainerRef.current.style.backgroundImage = "none"
     }
 
@@ -133,64 +161,79 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
     }
 
     const addNewTag = () => {
-        setTags((prevTags) => [...prevTags,selectedValue])
+        setTags((prevTags) => [...prevTags,selectedTag])
     }
 
-    const handleUpload = async (e) => {
-        if(!isLogged){
-            return;
-        }
-        e.preventDefault();
-    
-        // if (imgFile && !["jpg", "jpeg", "png"].includes(imgFile.name.split('.').pop().toLowerCase())) {
-        //     alert("Only .jpg, .jpeg and .png files allowed");
-        //     return;
-        // }
-    
-        // const invalidFiles = files.filter(file => !["stl", "3mf"].includes(file.name.split('.').pop().toLowerCase()));
-        // if (invalidFiles.length > 0) {
-        //     alert("Only .stl and .3mf files allowed");
-        //     return;
-        // }
-    
-        // const formData = new FormData();
-        // formData.append('arg', 'setNewJob');
-        // formData.append('username',username);
-        // formData.append('name', document.getElementById("form-name").value);
-        // formData.append('description', document.getElementById("form-desc").value);
-        // formData.append('scale', document.getElementById("form-scale").value);
-        // formData.append('color', document.getElementById("form-color").value);
-        // formData.append('material', document.getElementById("form-material").value);
-    
-        // formData.append('img_file', imgFile);
-        // formData.append('files',files);
+    const handleUpload = (e) => {
 
-        // formData.forEach((value, key) => {
-        //     console.log(key + ": " + value);
-        // });
+        fetch('/3D_printer/3d_project/query.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                arg: 'setNewJob',
+                username: username,
+                customer_name: selectCustRef.current.value,
+                name: document.getElementById("form-name").value,
+                description: document.getElementById("form-desc").value,
+                license: document.getElementById("license").checked ? 1 : 0,
+                layer_thickness: 999,
+                img_format: imgFile ? imgFile.name.split(".").at(-1) : null,
+                scale: document.getElementById("form-scale").value,
+                color: document.getElementById("form-color").value,
+                material: document.getElementById("form-material").value
+            }),
+        }).then(response => {
+            console.log(response)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            } 
+            return response.json();
+        }).then(data=>{
+            if(data.success){
+                alert("New job created with id "+data.generated_id)
+                const formData = new FormData();
 
-        const name = document.getElementById("form-name").value
-        console.log(name)
-    
-        try {
-            const response = await fetch('/3D_printer/3d_project/query.php', {
-                method: 'POST',
-                body: {
-                    arg: "setNewJob",
-                    name: name
+                formData.append("job_id",data.generated_id);
+
+                if(imgFile){
+                    formData.append('img_file', imgFile);
                 }
-            });
-            const data = await response.json();
-            if (data.success) {
-                alert("Proyecto subido correctamente.");
-            } else {
-                alert("Error al subir el proyecto.");
+
+                if(selectedUploadMode == "stl"){
+                    files.forEach((file, index) => {
+                        formData.append(`file_${index}`, file); 
+                    });
+                }else{
+                    formData.append('zip_file', zipFile);
+                }
+                
+
+                fetch('/3D_printer/3d_project/upload.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(
+                    response => response.json()
+                )
+                .then(data => {
+                    if (data.success) {
+                        console.log("Files uploaded successfully:", data);
+                    } else {
+                        console.error("Error:", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            }else{
+                alert("Error creating job.")
+                console.log(data.message)
             }
-        } catch (error) {
-            console.error("Error en la carga del proyecto:", error);
-            alert("Hubo un problema al cargar el proyecto.");
-        }
-    };
+        }).catch(error => {
+            console.error("Error:", error);
+        });
+
+    }
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
@@ -240,19 +283,23 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                                     <b>Material</b>
                                     <input id="form-material" type="text" className="" />
                                 </label>
+                                <lable className="nj-label license_lbl">
+                                    <input id="license" type="checkbox"/>
+                                    <p>Private</p>
+                                </lable>
                             </div>
 
                             <div className="nj-side-cont">
                                 <div className="nj-tags">
                                     <p>Select Tags</p>
                                     <div>
-                                        <select ref={selectTagRef} className="nj-select-tags" value={selectedValue} onChange={handleSelectChange}>
-                                            <option value="" disabled selected>-- SELECT --</option>
+                                        <select ref={selectTagRef} className="nj-select-tags" value={selectedTag} onChange={handleSelectChange}>
+                                            <option value="" disabled>-- SELECT --</option>
                                             {propTags.map((tag, index) => (
                                                 <option key={index} value={tag.name_tag}>{tag.name_tag}</option>
                                             ))}
                                         </select>
-                                        <button className="nj-select-tags-button" onClick={() => addNewTag(selectedValue)}>Add tag</button>
+                                        <button className="nj-select-tags-button" onClick={() => addNewTag(selectedTag)}>Add tag</button>
                                     </div>
                                     <div className="suggest-tag-cont">
                                         <p className="small-font">No tag matches your project? </p>
@@ -270,25 +317,24 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                                 <div className="nj-customers">
                                     <p>Select Customer</p>
                                     <div>
-                                        <select ref={selectTagRef} className="nj-select-customer" value={selectedValue} onChange={handleSelectChange}>
-                                            <option value="" disabled selected>-- SELECT --</option>
-                                            {propTags.map((tag, index) => (
-                                                <option key={index} value={tag.name_tag}>{tag.name_tag}</option>
+                                        <select ref={selectCustRef} className="nj-select-customer" value={selectedCust} onChange={handleSelectCustChange}>
+                                            <option value="" disabled>-- SELECT --</option>
+                                            {console.log(customers)}
+                                            {customers.map((customer, index) => (
+                                                <option key={index} value={customer.customer_name}>{customer.customer_name}</option>
                                             ))}
                                         </select>
-                                        <button className="nj-select-customer-button" onClick={() => addNewTag(selectedValue)}> Save</button>
                                     </div>
                                     <div className="suggest-customer-cont">
-                                        <p className="small-font">No customer matches your project? </p>
-                                        <p onClick={handleSuggestTag} className="small-font suggest-tag">Suggest new customer</p>
+                                        <p className="small-font">Are you working for a new customer? </p>
+                                        <p onClick={handleSuggestTag} className="small-font suggest-customer">Suggest new customer</p>
                                     </div>
                                     <div className="nj-customer-added">
-                                        {tags.map((tag, index) => {
-                                            console.log(tag)
-                                            return <p key={index} className="nj-customer">{tag}</p>
-                                        }
+                                        {/* {customers.map((customer, index) => {
+                                            return <p key={index} className="nj-customer">{customer}</p>
+                                        } */}
 
-                                        )}
+                                        {/* )} */}
                                     </div>
                                 </div>
                             </div>

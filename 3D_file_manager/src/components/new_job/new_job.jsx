@@ -198,7 +198,7 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                                         </div>
                                     </label>
                                     </div>
-                                <label className="nj-label">
+                                <label className="nj-label material_lbl">
                                     <b>Material</b>
                                     <input id="form-material" type="text" className="" />
                                 </label>
@@ -242,15 +242,10 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                                     </div>
                                     <div className="suggest-customer-cont">
                                         <p className="small-font">No customer matches your project? </p>
-                                        <p onClick={handleSuggestTag} className="small-font suggest-tag">Suggest new customer</p>
+                                        <p onClick={handleSuggestTag} className="small-font suggest-customer">Suggest new customer</p>
                                     </div>
                                     <div className="nj-customer-added">
-                                        {tags.map((tag, index) => {
-                                            console.log(tag)
-                                            return <p key={index} className="nj-customer">{tag}</p>
-                                        }
-
-                                        )}
+                                        
                                     </div>
                                 </div>
                             </div>

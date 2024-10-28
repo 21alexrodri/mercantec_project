@@ -1,6 +1,7 @@
 import { useCallback, useState, useEffect } from "react";
 import "./users_table.css"
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
 /**
  * 
  * @param { closeUserTable } the function to close the user table 
@@ -12,6 +13,37 @@ export const UserTable = ({ closeUserTable }) => {
     const handleContainerClick = (e) => {
         e.stopPropagation();
     };
+    const changeUserState = (id, active) => {
+        console.log("Enviando:", { arg: 'changeUserState', id: id, active: active }); 
+        fetch('/3D_printer/3d_project/query.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                arg: 'changeUserState',
+                id: id,
+                active: active
+            }),
+            credentials: 'include',
+        }).then(response => response.json())
+        .then(data => {
+            console.log("Respuesta del servidor:", data); 
+            if (data.status === 'success') {
+                const updatedUsersList = usersList.map(user => 
+                    user.id === id ? { ...user, active: active === 1 ? 0 : 1 } : user
+                );
+                setUsersList(updatedUsersList);
+            } else {
+                console.error('Error changing user state:', data.message);
+            }
+        }).catch(error => {
+            console.error('Error changing user state:', error);
+        });
+    };
+    
+    
+    
 
     const escFunction = useCallback((event) => {
         if (event.key == "Escape") {
@@ -75,7 +107,7 @@ export const UserTable = ({ closeUserTable }) => {
                                         <td>{user.is_admin === 1 ? 'Yes' : 'No'}</td>
                                         <td>{user.email}</td>
                                         <td>{user.date_created}</td>
-                                        <td className={user.active ===1 ? 'user_active' : 'user_inactive'}><FontAwesomeIcon icon={faCircle} /></td>
+                                        <td id={user.id} className={user.active == 1 ? 'user_active' : 'user_inactive'} onClick={() => changeUserState(user.id, user.active)} title={user.active == 1 ? 'User Enabled' : 'User Disabled'}><FontAwesomeIcon icon={faCircle} /></td>
                                     </tr>
                                 );
                             }

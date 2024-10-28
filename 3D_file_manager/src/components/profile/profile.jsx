@@ -15,9 +15,8 @@ function Profile() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [tags, setTags] = useState([]);
-    const [username, setUsername] = useState("guest");  
-    const [isAdmin, setIsAdmin] = useState(false);  
-    const {isLogged, setIsLogged} = useContext(UserContext);    const [showUserTable, setShowUserTable] = useState(false);
+    const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);  
+    const [showUserTable, setShowUserTable] = useState(false);
 
     /**
      * This function changes the order of the jobs in the profile.
@@ -26,45 +25,6 @@ function Profile() {
         setRecentsFirst(!recentsFirst);
         setButtonText(recentsFirst ? "⯆ recents first" : "⯅ olders first ");
     }
-
-    /**
-     * This function checks if the user is logged in and sets the username and isAdmin state accordingly.
-     */
-    const checkUserStatus = async () => {
-        try {
-            const response = await fetch('/3D_printer/3d_project/query.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    arg: 'checkUserLoggedIn'
-                }),
-                credentials: 'include', 
-            });
-    
-            const text = await response.text(); 
-            console.log('Response:', text);
-    
-            if (text.trim() === "") {
-                throw new Error("No server response");
-            }
-    
-            const data = JSON.parse(text);
-            if (data.status === "success") {
-                setUsername(data.username || "guest");
-                setIsAdmin(data.is_admin === 1);
-            } else {
-                setUsername("guest");
-                setIsAdmin(false);
-            }
-        } catch (error) {
-            console.error('Error checking user status:', error);
-            setUsername("guest");
-            setIsAdmin(false);
-        }
-    };
-    
     /**
      * This function fetches the tags from the backend and sets the tags state.
      */
@@ -139,7 +99,6 @@ function Profile() {
 
     
     useEffect(() => {
-        checkUserStatus();
         handleShowTags();
     }, []);
 
@@ -190,12 +149,8 @@ function Profile() {
      * This function handles the click event on the edit button.
      */
     const handleEditClick = () => {
-        setShowUserTable(true)
-        
         if (isAdmin) {
-            console.log("You are an admin");
-        } else {
-            console.log("No admin");
+            setShowUserTable(true)
         }
     };
 
@@ -206,9 +161,11 @@ function Profile() {
             <div className="profile_left_column">
                 <img className="profile_picture" src={imageLink} alt="" />
                 <h2 className="username_text">{username}</h2> 
+                {isAdmin &&(
                 <button className="profile_button" id="button1" onClick={handleEditClick}>
                     edit
                 </button>
+                )}
             
                 {showUserTable && <UserTable closeUserTable={() => setShowUserTable(false)} />}
             </div>

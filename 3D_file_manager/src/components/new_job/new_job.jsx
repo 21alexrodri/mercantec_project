@@ -1,4 +1,5 @@
-import React, { useCallback, useState, useEffect, useRef} from "react";
+import React, { useCallback, useState, useEffect, useRef, useContext} from "react";
+import { UserContext } from "../../context/UserContext";
 import "./new_job.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUpload,faTrash} from '@fortawesome/free-solid-svg-icons';
@@ -21,6 +22,7 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
     const uploadZip = useRef(null)
     const zipFileRef = useRef(null)
     const [selectedUploadMode, setSelectedUploadMode] = useState("stl");
+    const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
     const [selectedValue, setSelectedValue] = useState('');
 
     const handleSuggestTag = () => {
@@ -135,40 +137,48 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
     }
 
     const handleUpload = async (e) => {
+        if(!isLogged){
+            return;
+        }
         e.preventDefault();
     
-        // Validación de archivos de imagen
-        if (imgFile && !["jpg", "jpeg", "png"].includes(imgFile.name.split('.').pop().toLowerCase())) {
-            alert("Solo se permiten imágenes .jpg, .jpeg y .png.");
-            return;
-        }
+        // if (imgFile && !["jpg", "jpeg", "png"].includes(imgFile.name.split('.').pop().toLowerCase())) {
+        //     alert("Only .jpg, .jpeg and .png files allowed");
+        //     return;
+        // }
     
-        // Validación de archivos 3D
-        const invalidFiles = files.filter(file => !["stl", "3mf"].includes(file.name.split('.').pop().toLowerCase()));
-        if (invalidFiles.length > 0) {
-            alert("Solo se permiten archivos 3D en formato .stl o .3mf.");
-            return;
-        }
+        // const invalidFiles = files.filter(file => !["stl", "3mf"].includes(file.name.split('.').pop().toLowerCase()));
+        // if (invalidFiles.length > 0) {
+        //     alert("Only .stl and .3mf files allowed");
+        //     return;
+        // }
     
-        // Preparar datos para el envío
-        const formData = new FormData();
-        formData.append('arg', 'setNewJob');
-        formData.append('name', document.getElementById("form-name").value);
-        formData.append('description', document.getElementById("form-desc").value);
-        formData.append('scale', document.getElementById("form-scale").value);
-        formData.append('color', document.getElementById("form-color").value);
-        formData.append('material', document.getElementById("form-material").value);
+        // const formData = new FormData();
+        // formData.append('arg', 'setNewJob');
+        // formData.append('username',username);
+        // formData.append('name', document.getElementById("form-name").value);
+        // formData.append('description', document.getElementById("form-desc").value);
+        // formData.append('scale', document.getElementById("form-scale").value);
+        // formData.append('color', document.getElementById("form-color").value);
+        // formData.append('material', document.getElementById("form-material").value);
     
-        // Añadir archivos de imagen y 3D
-        formData.append('img_file', imgFile);
-        files.forEach((file, index) => {
-            formData.append(`file_${index}`, file);
-        });
+        // formData.append('img_file', imgFile);
+        // formData.append('files',files);
+
+        // formData.forEach((value, key) => {
+        //     console.log(key + ": " + value);
+        // });
+
+        const name = document.getElementById("form-name").value
+        console.log(name)
     
         try {
             const response = await fetch('/3D_printer/3d_project/query.php', {
                 method: 'POST',
-                body: formData,
+                body: {
+                    arg: "setNewJob",
+                    name: name
+                }
             });
             const data = await response.json();
             if (data.success) {

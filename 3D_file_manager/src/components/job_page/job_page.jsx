@@ -276,22 +276,39 @@ export const JobPage = () => {
                 </div>
             </div>
 
-            <div className="job_description">
-                <h3>Job Desc</h3>
-                <p>{jobData.description}</p>
+            <div className="job_details">
+                <div className="job_description">
+                    <h3>Job Description</h3>
+                    <p>{jobData.description}</p>
+                </div>
+                <div className="other_jobs">
+                    <h3>Other Jobs</h3>
+                    {jobData?.otherJobs?.length > 0 ? (
+                        jobData.otherJobs.map((otherJob, index) => (
+                            <div key={index} className="other_job" onClick={() => handleJobClick(otherJob.id)}>
+                                {otherJob.title}
+                            </div>
+                        ))
+                    ) : (
+                        <div>No hay trabajos disponibles</div>
+                    )}
+                </div>
             </div>
 
             {isLoggedIn ? (
                 <div className="comment_form">
                     <textarea
-                        placeholder="Write a new comment"
+                        placeholder="Escribe un nuevo comentario"
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
                     />
-                    <button onClick={handleCommentSubmit}>Send Comment</button>
+                    <button onClick={handleCommentSubmit}>Enviar comentario</button>
                 </div>
             ) : (
-                <p>You must be logged in to leave a comment.</p>
+                <div className="comment_form disabled">
+                    <textarea disabled placeholder="Escribe un nuevo comentario"></textarea>
+                    <button disabled>Enviar comentario</button>
+                </div>
             )}
 
             <div className="job_comments">
@@ -305,18 +322,7 @@ export const JobPage = () => {
                     <p>There are no comments.</p>
                 )}
             </div>
-            <div className="other_jobs">
-                <h3>Other Jobs</h3>
-                {jobData?.otherJobs?.length > 0 ? (
-                    jobData.otherJobs.map((otherJob, index) => (
-                        <div key={index} className="other_job" onClick={() => handleJobClick(otherJob.id)}>
-                            {otherJob.title}
-                        </div>
-                    ))
-                ) : (
-                    <div>No hay trabajos disponibles</div>
-                )}
-            </div>
+
         </div>
     );
 };

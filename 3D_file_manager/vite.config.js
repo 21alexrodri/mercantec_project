@@ -24,6 +24,10 @@ export default defineConfig({
       '/3D_printer/3d_project': {
         target: 'http://192.168.116.229',
         changeOrigin: true,
+      },
+      '/3D_printer/Files/3d_files': { 
+        target: 'http://192.168.116.229',
+        changeOrigin: true,
       }
     }
     

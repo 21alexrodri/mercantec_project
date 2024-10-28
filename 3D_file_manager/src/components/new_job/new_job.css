@@ -1,7 +1,6 @@
+/* Big Screem */
 @media (min-width: 1430px) {
-    .nj-label textarea {
-        background-color: red !important;
-    }
+  
     .container{
         width: 90%;
         height: 90%;
@@ -549,11 +548,9 @@
 
 
 
-
-@media (min-width: 1000px) and (max-width: 1430px) {
-    .nj-label textarea {
-        background-color: blue !important;
-    }
+/* Small Screen */
+@media (min-width: 999px) and (max-width: 1430px) {
+    
     .container{
         width: 90%;
         height: 90%;
@@ -646,6 +643,7 @@
         justify-content: left;
         height: 75%;
         align-items: center;
+        justify-content: space-between;
     
     }
     
@@ -680,7 +678,7 @@
         flex-direction: column;
         flex-wrap: wrap;
         width: fit-content;
-        margin-top: 7vw;
+        margin-top: 4vw !important;
     }
     .img-upload-manager{
         margin-top: 6vw;
@@ -785,7 +783,7 @@
         opacity: 0.7;
         color: #0E38AB;
         z-index: 1;
-        pointer-events: none; /* Allows the pointer to activate the input (the pointer ignores the icon) */
+        pointer-events: none; 
     }
     
     .img-upload-container:hover {
@@ -1062,9 +1060,6 @@
         text-decoration: underline;
     }
     
-    .suggest-tag-cont{
-        display: flex;
-    }
     
     .nj-tags-added{
         overflow: auto;
@@ -1111,10 +1106,1293 @@
     .scale_lbl, .color_lbl, #form-color{
         width: 13vw;
     }
+    .nj-side-cont{
+        margin-top: 7vw;
+    }
+}
+/* Tablet screen */
+@media (min-width: 672px) and (max-width: 999px) {
+    .form-container{
+        margin-top: 50px;
+    }
+    .container{
+        width: 90%;
+        height: 90%;
+        background-color: white;
+        border-radius: 20px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .new-job-header{
+        width: 100%;
+        height: 100px;
+        background-color: #0E38AB;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2vw;
+    }
+    
+    .new-job-header h2{
+        color: white;
+        margin: 0;
+    }
+    .img-upload-container {
+        width: 200px;
+        height: 200px;
+        background-color: lightgrey;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background-size: cover; 
+        background-position: center;
+    }
+    
+    .img-upload-label {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .img-upload {
+        width: 100%;
+        height: 100%;
+        opacity: 0; 
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+    }
+    
+    .upload-icon {
+        font-size: 50px;
+        padding: 100%;
+        background-color: lightgray;
+        opacity: 0.7;
+        color: #0E38AB;
+        z-index: 1;
+        pointer-events: none; /* Allows the pointer to activate the input (the pointer ignores the icon) */
+    }
+    
+    .img-upload-container:hover {
+        background-color: rgb(232, 232, 232);
+        transition: all 0.3s ease;
+    }
+    
+    .img-upload-manager{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .img-upload-manager p {
+        font-size: small;
+    }
+    .nj-delete-image{
+        background-color: #FF8387;
+        border: 2px #FF8387 solid;
+        border-radius: 30px;
+        padding: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: white;
+    }
+    
+    .nj-delete-image:hover{
+        background: none;
+        transition: all 0.3s ease;
+        color: #FF8387;
+    }
+    .nj-form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    input.project-name{
+        font-size: xx-large;
+        width: fit-content;
+    }
+    input{
+        border: none;
+        border-bottom: 1px solid black;
+    }
+    
+    
+    input:focus, input:hover{
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #FF8387;
+    }
+    label.needed{
+        b{
+            display: none;
+        }
+        textarea{
+            margin-top: 3vw;
+            width: 390px;
+        }
+    }
+    .nj-label textarea:hover,:focus{
+        border: 1px solid #FF8387;
+        outline: none;
+    }
+    .responsive_label{
+        display: flex;
+        flex-direction: column;
+    }
+    .scale_lbl, .color_lbl, .material_lbl{
+        display: flex;
+        flex-direction: row;
+        input{
+            margin-left: 20px;
+            width: 325px;
+        }
+    }
+    .color_lbl, .material_lbl, .scale_lbl{
+        margin-top: 20px;
+    }
+    .material_lbl{
+        margin-right: 20px;
+    }
+    .nj-side-cont{
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        p{
+            text-align: center;
+        }
+    }
+    .nj-select-tags{
+        padding: 5px;
+        height: 30px;
+        border: #0E38AB 1px solid;
+        border-radius: 15px 0 0 15px;
+    }
+    
+    .nj-select-tags:focus{
+        border: #FF8387 1px solid;
+    }
+    
+    .nj-select-tags:hover{
+        border-color: #FF8387;
+    }
+    
+    .nj-select-tags-button{
+        padding: 5px;
+        height: 30px;
+        background-color: #FF8387;
+        color: white;
+        border: #FF8387 1px solid;
+        border-radius: 0 15px 15px 0;
+        transition: all 0.3s ease;
+    }
+    
+    .nj-select-tags-button:hover{
+        background-color: white;
+        color: #FF8387;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+
+
+
+    .nj-select-customer{
+        padding: 5px;
+        height: 30px;
+        border: #0E38AB 1px solid;
+        border-radius: 15px 0 0 15px;
+    }
+    
+    .nj-select-customer:focus{
+        border: #FF8387 1px solid;
+    }
+    
+    .nj-select-customer:hover{
+        border-color: #FF8387;
+    }
+    
+    .nj-select-customer-button{
+        padding: 5px;
+        height: 30px;
+        background-color: #FF8387;
+        color: white;
+        border: #FF8387 1px solid;
+        border-radius: 0 15px 15px 0;
+        transition: all 0.3s ease;
+    }
+    
+    .nj-select-customer-button:hover{
+        background-color: white;
+        color: #FF8387;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .nj-tags-added{
+        overflow: auto;
+        width: 350px;
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .nj-tags-added::-webkit-scrollbar{
+        width: 10px;
+    }
+    
+    .nj-tags-added::-webkit-scrollbar-track{
+        background: #ffffff;
+    }
+    
+    .nj-tags-added::-webkit-scrollbar-thumb {
+        background-color: #c5c5c5;
+        border-radius: 10px;
+        border: 5px solid #ffffff;
+    }
+    
+    .nj-tag{
+        background-color: #FF8387;
+        margin: 5px;
+        height: fit-content;
+        padding: 5px 10px 5px 10px;
+        border-radius: 20px;
+        color: #ffffff;
+        text-wrap: nowrap;
+    }
+    
+    .nj-tags-cont{
+        border-left: 2px rgb(201, 199, 199) solid;
+    }
+    .nj-tags-added{
+        border-right: 2px rgb(201, 199, 199) solid;
+    }
+    .nj-tags{
+        div{
+            select{
+                margin-left: 71px; 
+            }
+           
+        }
+    }
+    .nj-select-customer{
+        margin-left: 13px;
+    }
+    .files-upload{
+        width: 100%;
+        flex: 0 0 60%;
+        border-radius: 10px;
+        margin-top: 4vw;
+    }
+    .upload-type-selector{
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
+        border-top-left-radius: 1vw;
+        border-top-right-radius: 1vw;
+    }
+    .upload-stl, .upload-zip{
+        width: 50%;
+        text-align: center;
+        background-color: #eeeeee;
+        margin: 0;
+        padding: 10px;
+    }
+    .upload-stl{
+        border-top-left-radius: 1vw;
+    }
+    .upload-zip{
+        border-top-right-radius: 1vw;
+    }
+    .selected-mode{
+        background-color: #FF8387;
+        color: white;
+    }
+    .files-list{
+        width: 100%;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        background-color: #c5c5c5;
+        justify-content: space-between;
+        overflow-y: scroll;
+        /* border-bottom-left-radius: 1vw;
+        border-bottom-right-radius: 1vw; */
+    }
+    .nj-file {
+        position: relative;
+        background-color: #FF8387;
+        margin: 0;
+    }
+    
+    .nj-file p {
+        background-color: #FF8387;
+        text-align: center;
+        color: white;
+        padding: 10px;
+        margin: 0; 
+        font-size: 30px;
+    }
+    
+    .nj-file input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0; 
+        cursor: pointer;
+    }
+    .nj-file-cont{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .zip-upload-cont{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .zip-upload {
+        position: relative;
+        background-color: #FF8387;
+        margin: 0;
+        width: 11vw;
+        border-radius: 3vw;
+        overflow: hidden;
+
+    }
+    
+    .zip-upload p {
+        background-color: #FF8387;
+        text-align: center;
+        color: white;
+        padding: 10px;
+        margin: 0; 
+        font-size: 16px;
+    }
+    
+    .zip-upload input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0; 
+        cursor: pointer;
+    }
+    .upload-options{
+        margin-top: 15vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        
+    }
+    .upload-button{
+        margin: 0 15px 0 15px;
+        background-color: #FF8387;
+        border: 1px #FF8387 solid;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100px;
+        height: 40px;
+        transition: all 0.3s ease;
+        color: white;
+    }
+    .upload-button:hover{
+        background-color: #ffffff;
+        color:#FF8387;
+        transition: all 0.3s ease;
+    }
+    
+    .cancel-button{
+        margin: 0 15px 0 15px;
+        background-color: lightgray;
+        border: 1px lightgray solid;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100px;
+        height: 40px;
+        transition: all 0.3s ease;
+        color: white;
+    }
+    .cancel-button:hover{
+        background-color: #ffffff;
+        color:gray;
+        transition: all 0.3s ease;
+    }
+    .lower{
+        margin-bottom: 20px;
+    }
     
 }
 
+/* Mobile screen 1 */
+@media (min-width: 487px) and (max-width: 672px) {
+    .form-container{
+        margin-top: 50px;
+    }
+    .container{
+        width: 90%;
+        height: 90%;
+        background-color: white;
+        border-radius: 20px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .new-job-header{
+        width: 100%;
+        height: 100px;
+        background-color: #0E38AB;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2vw;
+    }
+    
+    .new-job-header h2{
+        color: white;
+        margin: 0;
+    }
+    .img-upload-container {
+        width: 200px;
+        height: 200px;
+        background-color: lightgrey;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background-size: cover; 
+        background-position: center;
+    }
+    
+    .img-upload-label {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .img-upload {
+        width: 100%;
+        height: 100%;
+        opacity: 0; 
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+    }
+    
+    .upload-icon {
+        font-size: 50px;
+        padding: 100%;
+        background-color: lightgray;
+        opacity: 0.7;
+        color: #0E38AB;
+        z-index: 1;
+        pointer-events: none; /* Allows the pointer to activate the input (the pointer ignores the icon) */
+    }
+    
+    .img-upload-container:hover {
+        background-color: rgb(232, 232, 232);
+        transition: all 0.3s ease;
+    }
+    
+    .img-upload-manager{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .img-upload-manager p {
+        font-size: small;
+    }
+    .nj-delete-image{
+        background-color: #FF8387;
+        border: 2px #FF8387 solid;
+        border-radius: 30px;
+        padding: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: white;
+    }
+    
+    .nj-delete-image:hover{
+        background: none;
+        transition: all 0.3s ease;
+        color: #FF8387;
+    }
+    .nj-form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    input.project-name{
+        font-size: xx-large;
+        width: fit-content;
+    }
+    input{
+        border: none;
+        border-bottom: 1px solid black;
+    }
+    
+    
+    input:focus, input:hover{
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #FF8387;
+    }
+    label.needed{
+        b{
+            display: none;
+        }
+        textarea{
+            margin-top: 3vw;
+            width: 390px;
+        }
+    }
+    .nj-label textarea:hover,:focus{
+        border: 1px solid #FF8387;
+        outline: none;
+    }
+    .responsive_label{
+        display: flex;
+        flex-direction: column;
+    }
+    .scale_lbl, .color_lbl, .material_lbl{
+        display: flex;
+        flex-direction: row;
+        input{
+            margin-left: 20px;
+            width: 325px;
+        }
+    }
+    .color_lbl, .material_lbl, .scale_lbl{
+        margin-top: 20px;
+    }
+    .material_lbl{
+        margin-right: 20px;
+    }
+    .nj-side-cont{
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        p{
+            text-align: center;
+        }
+    }
+    .nj-select-tags{
+        padding: 5px;
+        height: 30px;
+        border: #0E38AB 1px solid;
+        border-radius: 15px 0 0 15px;
+    }
+    
+    .nj-select-tags:focus{
+        border: #FF8387 1px solid;
+    }
+    
+    .nj-select-tags:hover{
+        border-color: #FF8387;
+    }
+    
+    .nj-select-tags-button{
+        padding: 5px;
+        height: 30px;
+        background-color: #FF8387;
+        color: white;
+        border: #FF8387 1px solid;
+        border-radius: 0 15px 15px 0;
+        transition: all 0.3s ease;
+    }
+    
+    .nj-select-tags-button:hover{
+        background-color: white;
+        color: #FF8387;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
 
 
+
+    .nj-select-customer{
+        padding: 5px;
+        height: 30px;
+        border: #0E38AB 1px solid;
+        border-radius: 15px 0 0 15px;
+    }
+    
+    .nj-select-customer:focus{
+        border: #FF8387 1px solid;
+    }
+    
+    .nj-select-customer:hover{
+        border-color: #FF8387;
+    }
+    
+    .nj-select-customer-button{
+        padding: 5px;
+        height: 30px;
+        background-color: #FF8387;
+        color: white;
+        border: #FF8387 1px solid;
+        border-radius: 0 15px 15px 0;
+        transition: all 0.3s ease;
+    }
+    
+    .nj-select-customer-button:hover{
+        background-color: white;
+        color: #FF8387;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .nj-tags-added{
+        overflow: auto;
+        width: 350px;
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .nj-tags-added::-webkit-scrollbar{
+        width: 10px;
+    }
+    
+    .nj-tags-added::-webkit-scrollbar-track{
+        background: #ffffff;
+    }
+    
+    .nj-tags-added::-webkit-scrollbar-thumb {
+        background-color: #c5c5c5;
+        border-radius: 10px;
+        border: 5px solid #ffffff;
+    }
+    
+    .nj-tag{
+        background-color: #FF8387;
+        margin: 5px;
+        height: fit-content;
+        padding: 5px 10px 5px 10px;
+        border-radius: 20px;
+        color: #ffffff;
+        text-wrap: nowrap;
+    }
+    
+    .nj-tags-cont{
+        border-left: 2px rgb(201, 199, 199) solid;
+    }
+    .nj-tags-added{
+        border-right: 2px rgb(201, 199, 199) solid;
+    }
+    .nj-tags{
+        div{
+            select{
+                margin-left: 71px; 
+            }
+           
+        }
+    }
+    .nj-select-customer{
+        margin-left: 13px;
+    }
+    .files-upload{
+        width: 100%;
+        flex: 0 0 60%;
+        border-radius: 10px;
+        margin-top: 4vw;
+    }
+    .upload-type-selector{
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
+        border-top-left-radius: 1vw;
+        border-top-right-radius: 1vw;
+    }
+    .upload-stl, .upload-zip{
+        width: 50%;
+        text-align: center;
+        background-color: #eeeeee;
+        margin: 0;
+        padding: 10px;
+    }
+    .upload-stl{
+        border-top-left-radius: 1vw;
+    }
+    .upload-zip{
+        border-top-right-radius: 1vw;
+    }
+    .selected-mode{
+        background-color: #FF8387;
+        color: white;
+    }
+    .files-list{
+        width: 100%;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        background-color: #c5c5c5;
+        justify-content: space-between;
+        overflow-y: scroll;
+        /* border-bottom-left-radius: 1vw;
+        border-bottom-right-radius: 1vw; */
+    }
+    .nj-file {
+        position: relative;
+        background-color: #FF8387;
+        margin: 0;
+    }
+    
+    .nj-file p {
+        background-color: #FF8387;
+        text-align: center;
+        color: white;
+        padding: 10px;
+        margin: 0; 
+        font-size: 30px;
+    }
+    
+    .nj-file input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0; 
+        cursor: pointer;
+    }
+    .nj-file-cont{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .zip-upload-cont{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .zip-upload {
+        position: relative;
+        background-color: #FF8387;
+        margin: 0;
+        width: 11vw;
+        border-radius: 3vw;
+        overflow: hidden;
+    }
+    
+    .zip-upload p {
+        background-color: #FF8387;
+        text-align: center;
+        color: white;
+        padding: 10px;
+        margin: 0; 
+        font-size: 2vw;
+    }
+    
+    .zip-upload input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0; 
+        cursor: pointer;
+    }
+    .upload-options{
+        margin-top: 15vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        
+    }
+    .upload-button{
+        margin: 0 15px 0 15px;
+        background-color: #FF8387;
+        border: 1px #FF8387 solid;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100px;
+        height: 40px;
+        transition: all 0.3s ease;
+        color: white;
+    }
+    .upload-button:hover{
+        background-color: #ffffff;
+        color:#FF8387;
+        transition: all 0.3s ease;
+    }
+    
+    .cancel-button{
+        margin: 0 15px 0 15px;
+        background-color: lightgray;
+        border: 1px lightgray solid;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100px;
+        height: 40px;
+        transition: all 0.3s ease;
+        color: white;
+    }
+    .cancel-button:hover{
+        background-color: #ffffff;
+        color:gray;
+        transition: all 0.3s ease;
+    }
+    .lower{
+        margin-bottom: 20px;
+    }
+    
+}
+
+/* Mobile screen 2 */
+
+@media (min-width: 487px) and (max-width: 672px) {
+    .form-container{
+        margin-top: 50px;
+    }
+    .container{
+        width: 90%;
+        height: 90%;
+        background-color: white;
+        border-radius: 20px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .new-job-header{
+        width: 100%;
+        height: 100px;
+        background-color: #0E38AB;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2vw;
+    }
+    
+    .new-job-header h2{
+        color: white;
+        margin: 0;
+    }
+    .img-upload-container {
+        width: 200px;
+        height: 200px;
+        background-color: lightgrey;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background-size: cover; 
+        background-position: center;
+    }
+    
+    .img-upload-label {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .img-upload {
+        width: 100%;
+        height: 100%;
+        opacity: 0; 
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+    }
+    
+    .upload-icon {
+        font-size: 50px;
+        padding: 100%;
+        background-color: lightgray;
+        opacity: 0.7;
+        color: #0E38AB;
+        z-index: 1;
+        pointer-events: none; /* Allows the pointer to activate the input (the pointer ignores the icon) */
+    }
+    
+    .img-upload-container:hover {
+        background-color: rgb(232, 232, 232);
+        transition: all 0.3s ease;
+    }
+    
+    .img-upload-manager{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .img-upload-manager p {
+        font-size: small;
+    }
+    .nj-delete-image{
+        background-color: #FF8387;
+        border: 2px #FF8387 solid;
+        border-radius: 30px;
+        padding: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: white;
+    }
+    
+    .nj-delete-image:hover{
+        background: none;
+        transition: all 0.3s ease;
+        color: #FF8387;
+    }
+    .nj-form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    input.project-name{
+        font-size: xx-large;
+        width: fit-content;
+    }
+    input{
+        border: none;
+        border-bottom: 1px solid black;
+    }
+    
+    
+    input:focus, input:hover{
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #FF8387;
+    }
+    label.needed{
+        b{
+            display: none;
+        }
+        textarea{
+            margin-top: 3vw;
+            width: 390px;
+        }
+    }
+    .nj-label textarea:hover,:focus{
+        border: 1px solid #FF8387;
+        outline: none;
+    }
+    .responsive_label{
+        display: flex;
+        flex-direction: column;
+    }
+    .scale_lbl, .color_lbl, .material_lbl{
+        display: flex;
+        flex-direction: row;
+        input{
+            margin-left: 20px;
+            width: 325px;
+        }
+    }
+    .color_lbl, .material_lbl, .scale_lbl{
+        margin-top: 20px;
+    }
+    .material_lbl{
+        margin-right: 20px;
+    }
+    .nj-side-cont{
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        p{
+            text-align: center;
+        }
+    }
+    .nj-select-tags{
+        padding: 5px;
+        height: 30px;
+        border: #0E38AB 1px solid;
+        border-radius: 15px 0 0 15px;
+    }
+    
+    .nj-select-tags:focus{
+        border: #FF8387 1px solid;
+    }
+    
+    .nj-select-tags:hover{
+        border-color: #FF8387;
+    }
+    
+    .nj-select-tags-button{
+        padding: 5px;
+        height: 30px;
+        background-color: #FF8387;
+        color: white;
+        border: #FF8387 1px solid;
+        border-radius: 0 15px 15px 0;
+        transition: all 0.3s ease;
+    }
+    
+    .nj-select-tags-button:hover{
+        background-color: white;
+        color: #FF8387;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+
+
+
+    .nj-select-customer{
+        padding: 5px;
+        height: 30px;
+        border: #0E38AB 1px solid;
+        border-radius: 15px 0 0 15px;
+    }
+    
+    .nj-select-customer:focus{
+        border: #FF8387 1px solid;
+    }
+    
+    .nj-select-customer:hover{
+        border-color: #FF8387;
+    }
+    
+    .nj-select-customer-button{
+        padding: 5px;
+        height: 30px;
+        background-color: #FF8387;
+        color: white;
+        border: #FF8387 1px solid;
+        border-radius: 0 15px 15px 0;
+        transition: all 0.3s ease;
+    }
+    
+    .nj-select-customer-button:hover{
+        background-color: white;
+        color: #FF8387;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .nj-tags-added{
+        overflow: auto;
+        width: 350px;
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .nj-tags-added::-webkit-scrollbar{
+        width: 10px;
+    }
+    
+    .nj-tags-added::-webkit-scrollbar-track{
+        background: #ffffff;
+    }
+    
+    .nj-tags-added::-webkit-scrollbar-thumb {
+        background-color: #c5c5c5;
+        border-radius: 10px;
+        border: 5px solid #ffffff;
+    }
+    
+    .nj-tag{
+        background-color: #FF8387;
+        margin: 5px;
+        height: fit-content;
+        padding: 5px 10px 5px 10px;
+        border-radius: 20px;
+        color: #ffffff;
+        text-wrap: nowrap;
+    }
+    
+    .nj-tags-cont{
+        border-left: 2px rgb(201, 199, 199) solid;
+    }
+    .nj-tags-added{
+        border-right: 2px rgb(201, 199, 199) solid;
+    }
+    .nj-tags{
+        div{
+            select{
+                margin-left: 71px; 
+            }
+           
+        }
+    }
+    .nj-select-customer{
+        margin-left: 13px;
+    }
+    .files-upload{
+        width: 80%;
+        border-radius: 10px;
+        margin-top: 4vw;
+    }
+    .upload-type-selector{
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
+        border-top-left-radius: 1vw;
+        border-top-right-radius: 1vw;
+    }
+    .upload-stl, .upload-zip{
+        width: 50%;
+        text-align: center;
+        background-color: #eeeeee;
+        margin: 0;
+        padding: 10px;
+    }
+    .upload-stl{
+        border-top-left-radius: 1vw;
+    }
+    .upload-zip{
+        border-top-right-radius: 1vw;
+    }
+    .selected-mode{
+        background-color: #FF8387;
+        color: white;
+    }
+    .files-list{
+        width: 100%;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        background-color: #c5c5c5;
+        justify-content: space-between;
+        overflow-y: scroll;
+        /* border-bottom-left-radius: 1vw;
+        border-bottom-right-radius: 1vw; */
+    }
+    .nj-file {
+        position: relative;
+        background-color: #FF8387;
+        margin: 0;
+    }
+    
+    .nj-file p {
+        background-color: #FF8387;
+        text-align: center;
+        color: white;
+        padding: 10px;
+        margin: 0; 
+        font-size: 30px;
+    }
+    
+    .nj-file input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0; 
+        cursor: pointer;
+    }
+    .nj-file-cont{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .zip-upload-cont{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .zip-upload {
+        position: relative;
+        background-color: #FF8387;
+        margin: 0;
+        width: 11vw;
+        border-radius: 3vw;
+        overflow: hidden;
+    }
+    
+    .zip-upload p {
+        background-color: #FF8387;
+        text-align: center;
+        color: white;
+        padding: 10px;
+        margin: 0; 
+        font-size: 2vw;
+    }
+    
+    .zip-upload input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0; 
+        cursor: pointer;
+    }
+    .upload-options{
+        margin-top: 15vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        
+    }
+    .upload-button{
+        margin: 0 15px 0 15px;
+        background-color: #FF8387;
+        border: 1px #FF8387 solid;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100px;
+        height: 40px;
+        transition: all 0.3s ease;
+        color: white;
+    }
+    .upload-button:hover{
+        background-color: #ffffff;
+        color:#FF8387;
+        transition: all 0.3s ease;
+    }
+    
+    .cancel-button{
+        margin: 0 15px 0 15px;
+        background-color: lightgray;
+        border: 1px lightgray solid;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100px;
+        height: 40px;
+        transition: all 0.3s ease;
+        color: white;
+    }
+    .cancel-button:hover{
+        background-color: #ffffff;
+        color:gray;
+        transition: all 0.3s ease;
+    }
+    .lower{
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+}
 
 

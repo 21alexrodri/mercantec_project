@@ -279,7 +279,7 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                                         </div>
                                     </label>
                                     </div>
-                                <label className="nj-label">
+                                <label className="nj-label material_lbl">
                                     <b>Material</b>
                                     <input id="form-material" type="text" className="" />
                                 </label>

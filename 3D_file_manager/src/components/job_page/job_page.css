@@ -11,7 +11,7 @@
 
 #job_page .job_content {
     display: flex;
-    justify-content: space-between;
+    justify-content:space-evenly;
     aspect-ratio: 3.5;
     width: 100%;
     height: 100%;
@@ -69,31 +69,52 @@
     cursor: pointer;
 }
 
-#job_page .job_info {
-    width: 25%;
-    border: 1px solid #888;
-    padding: 1em;
+.job_info {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 35px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
 }
 
-#job_page .job_info .tag {
-    background-color: #ddd;
-    display:inline-block;
-
-    border-radius: 15px;
-
-    margin-right: 10px;
-    
-    padding-top   : 5px; 
-    padding-bottom: 5px;
-    padding-left  : 10px;
-    padding-right : 10px;
-
-    text-decoration: none;
+.job_info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
 }
 
-#job_page .job_info .tag:hover {
-    background-color: #aaa;
+.job_info_item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s;
 }
+
+.job_info_item:hover {
+    background-color: #f0f0f0;
+}
+
+.job_info_label {
+    font-weight: bold;
+    color: #555;
+    padding: 3px;
+    font-size: 1rem;
+}
+
+.job_info_value {
+    font-size: 0.95rem;
+    color: #777;
+    text-align: right;
+    flex-shrink: 0;
+}
+
 
 .job_details {
     display: flex;
@@ -110,6 +131,10 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.job_box{
+    width: 70%;
+}
+
 .other_jobs {
     flex: 1;
     background-color: #f9f9f9;
@@ -117,19 +142,49 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 30%;
 }
 
 .other_job {
+    display: flex;
+    align-items: center;
+    gap: 15px;
     padding: 10px;
-    background-color: #f0f0f0;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
     cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .other_job:hover {
-    background-color: #e0e0e0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.other_job_image {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.other_job_details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.other_job_title {
+    font-size: 1rem;
+    color: #333;
+    margin: 0;
+}
+
+.other_job_likes {
+    font-size: 0.9rem;
+    color: #777;
 }
 
 
@@ -158,6 +213,8 @@
 .job_files_container {
     display: flex;
     flex-direction: column;
+    gap: 15px;
+    padding: 10px;
 }
 
 .files_scroll {
@@ -166,14 +223,27 @@
 }
 
 .file_container {
-    background-color: #444;
-    color: white;
-    margin-bottom: 15px;
-    padding: 10px;
-    border-radius: 5px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.file_container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.file_title {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
 .file_container h3 {
@@ -184,20 +254,21 @@
 .file_actions {
     display: flex;
     gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+    justify-content: space-around;
 }
 
 .preview_button, .download_button {
-    padding: 8px 12px;
-    background-color: #888;
+    padding: 7px 15px;
+    background-color: #0E38AB;
     color: white;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.preview_button:hover, .download_button:hover {
-    background-color: #555;
-}
 .popup {
     position: fixed;
     top: 0;
@@ -299,4 +370,64 @@
     text-align: center;
     display: block;
     margin-top: 10px;
+}
+
+.job_comments {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin-top: 20px;
+}
+
+.comment {
+    padding: 10px 0;
+    border-bottom: 1px solid #000; /* Línea divisoria entre comentarios */
+}
+
+.comment:last-child {
+    border-bottom: none; /* Elimina la línea en el último comentario */
+}
+
+.comment_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.comment_username {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment_date {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.comment_text {
+    font-size: 1rem;
+    color: #444;
+    margin-top: 0;
+}
+
+.comment_username {
+    font-weight: bold;
+    color: #0E38AB;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.comment_username:hover {
+    color: #0C2A84;
+    text-decoration: underline;
 }

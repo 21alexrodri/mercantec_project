@@ -4,9 +4,11 @@ import './job_page.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faDownload } from '@fortawesome/free-solid-svg-icons';
 import JobPreview from '../job_preview/job_preview';
+import { OrthographicCamera } from 'three';
 
 export const JobPage = () => {
     const location = useLocation();
+    const navigateTo = useNavigate();
     const { jobId } = location.state || {};
     const [jobData, setJobData] = useState({
         title: '',
@@ -19,6 +21,7 @@ export const JobPage = () => {
     });
     const [newComment, setNewComment] = useState('');
     const [username, setUsername] = useState(''); 
+    const [date, setDate] = useState(''); 
     const [isLoggedIn, setIsLoggedIn] = useState(true); 
     const [likes, setLikes] = useState(0);
     const [liked, setLiked] = useState(false);
@@ -85,6 +88,7 @@ export const JobPage = () => {
         .then((response) => response.json())
         .then((data) => {
             if (data.status === "success") {
+                const shuffledOtherJobs = data.otherJobs.sort(() => Math.random() - 0.5);
                 setJobData({
                     title: data.job.title,
                     owner: data.job.owner,
@@ -97,9 +101,10 @@ export const JobPage = () => {
                         creation_date: data.job.creation_date,
                         color: data.job.color
                     },
-                    otherJobs: data.otherJobs,
+                    otherJobs: shuffledOtherJobs,
                     comments: data.job.comments || []
                 });
+                console.log(jobData.comments)
                 setLikes(data.job.likes); 
             } else {
                 alert("Error: " + data.message);
@@ -108,7 +113,6 @@ export const JobPage = () => {
         .catch((error) => {
             console.error('Error fetching job data:', error);
         });
-
         // Obtener los archivos del jobId
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
@@ -157,9 +161,10 @@ export const JobPage = () => {
             if (data.status === 'success') {
                 setJobData((prevState) => ({
                     ...prevState,
-                    comments: [...prevState.comments, { username, text: newComment }]
+                    comments: [...prevState.comments, { username, text: newComment, date }]
                 }));
                 setNewComment('');
+                setDate('');
             } else {
                 alert('Error saving comment: ' + data.message);
             }
@@ -220,28 +225,25 @@ export const JobPage = () => {
                 <p>{jobData.owner}</p>
             </div>
             <div className="job_content">
-                <div className='job_images'>
-                    <div className='image_scroll'>
-                        <div className="job_files_container">
-                            <div className="files_scroll">
-                                {/* Mostrar los archivos obtenidos del job */}
-                                {jobFiles.map((file, index) => (
-                                    <div className="file_container" key={index}>
-                                        <h3>Job File {file.id}</h3> 
-                                        <div className="file_actions">
-                                            <button className="preview_button" onClick={() => handlePreviewClick(file)}>
-                                                Preview
-                                            </button>
-                                            <button className="download_button" onClick={() => handleDownloadClick(file)}>
-                                                Download
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
+            <div className='job_images'>
+                <div className='image_scroll'>
+                    <div className="job_files_container">
+                        {jobFiles.map((file, index) => (
+                            <div className="file_container" key={index}>
+                                <h3 className="file_title">Job File {file.id}</h3>
+                                <div className="file_actions">
+                                    <button className="preview_button" onClick={() => handlePreviewClick(file)}>
+                                        Preview
+                                    </button>
+                                    <button className="download_button" onClick={() => handleDownloadClick(file)}>
+                                        Download
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
+            </div>
 
                 {showPopup && (
                     <div className="popup">
@@ -265,28 +267,86 @@ export const JobPage = () => {
                         </button>
                     </div>
                 </div>
-
                 <div className="job_info">
                     <h3>Job Info</h3>
-                    <p>License: {jobData.info.license}</p>
-                    <p>Likes: {likes}</p>
-                    <p>Layer Thickness: {jobData.info.layer_thickness}</p>
-                    <p>Creation Date: {jobData.info.creation_date}</p>
-                    <p>Color: {jobData.info.color}</p>
+                    <div className="job_info_item">
+                        <span className="job_info_label">License:</span>
+                        <span className="job_info_value">{jobData.info.license}</span>
+                    </div>
+                    <div className="job_info_item">
+                        <span className="job_info_label">Likes:</span>
+                        <span className="job_info_value">{likes}</span>
+                    </div>
+                    <div className="job_info_item">
+                        <span className="job_info_label">Layer Thickness:</span>
+                        <span className="job_info_value">{jobData.info.layer_thickness}</span>
+                    </div>
+                    <div className="job_info_item">
+                        <span className="job_info_label">Creation Date:</span>
+                        <span className="job_info_value">{jobData.info.creation_date}</span>
+                    </div>
+                    <div className="job_info_item">
+                        <span className="job_info_label">Color:</span>
+                        <span className="job_info_value">{jobData.info.color}</span>
+                    </div>
                 </div>
             </div>
 
             <div className="job_details">
-                <div className="job_description">
-                    <h3>Job Description</h3>
-                    <p>{jobData.description}</p>
+                <div className="job_box">
+                    <div className="job_description">
+                        <h3>Job Description</h3>
+                        <p>{jobData.description}</p>
+                    </div>
+                    {isLoggedIn ? (
+                        <div className="comment_form">
+                            <textarea
+                                placeholder="Write a new comment"
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                            />
+                            <button onClick={handleCommentSubmit}>Send Comment</button>
+                        </div>
+                    ) : (
+                        <div className="comment_form disabled">
+                            <textarea disabled placeholder="Write a new comment"></textarea>
+                            <button disabled>Send Comment</button>
+                        </div>
+                    )}
+
+                    <div className="job_comments">
+                        {jobData.comments.length > 0 ? (
+                            jobData.comments.map((comment, index) => (
+                                <div key={index} className="comment">
+                                    <div className="comment_header">
+                                        <a href={`/profile/${comment.userId}`} className="comment_username">
+                                            {comment.username}
+                                        </a>
+                                        <span className="comment_date">{comment.date}</span>
+                                    </div>
+                                    <p className="comment_text">{comment.text}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <p>There are no comments.</p>
+                        )}
+                    </div>
                 </div>
                 <div className="other_jobs">
                     <h3>Other Jobs</h3>
                     {jobData?.otherJobs?.length > 0 ? (
                         jobData.otherJobs.map((otherJob, index) => (
                             <div key={index} className="other_job" onClick={() => handleJobClick(otherJob.id)}>
-                                {otherJob.title}
+                                <img
+                                    src={`/3D_printer/Files/img/jobs/${otherJob.id}.jpeg`}
+                                    alt={`${otherJob.title} preview`}
+                                    onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'}
+                                    className="other_job_image"
+                                />
+                                <div className="other_job_details">
+                                    <h4 className="other_job_title">{otherJob.title}</h4>
+                                    <p className="other_job_likes">Likes: {otherJob.likes}</p>
+                                </div>
                             </div>
                         ))
                     ) : (
@@ -295,33 +355,7 @@ export const JobPage = () => {
                 </div>
             </div>
 
-            {isLoggedIn ? (
-                <div className="comment_form">
-                    <textarea
-                        placeholder="Escribe un nuevo comentario"
-                        value={newComment}
-                        onChange={(e) => setNewComment(e.target.value)}
-                    />
-                    <button onClick={handleCommentSubmit}>Enviar comentario</button>
-                </div>
-            ) : (
-                <div className="comment_form disabled">
-                    <textarea disabled placeholder="Escribe un nuevo comentario"></textarea>
-                    <button disabled>Enviar comentario</button>
-                </div>
-            )}
-
-            <div className="job_comments">
-                {jobData.comments.length > 0 ? (
-                    jobData.comments.map((comment, index) => (
-                        <div key={index} className="comment">
-                            <p><strong>{comment.username}:</strong> {comment.text}</p>
-                        </div>
-                    ))
-                ) : (
-                    <p>There are no comments.</p>
-                )}
-            </div>
+            
 
         </div>
     );

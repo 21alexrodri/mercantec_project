@@ -88,7 +88,7 @@ export const Login = ({ closeLogin }) => {
                     <br />
                     <input type="submit" value="LOG IN" className="credentials_submit_button" />
                     {wrongData &&(
-                        <p className="err_msg">Invalid username or password</p>
+                        <p className="err_msg">Invalid username, invalid password or user not activated</p>
                     )}
                     </form>
                 </div>

@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect } from "react";
-
+import "./signup.css";
 /**
  * The signup component. It is a popup that appears when the user clicks on the signup button.
  * @param {closeSignup} the function to close the signup popup 
@@ -7,7 +7,7 @@ import { useCallback, useState, useEffect } from "react";
  */
 export const Signup = ({ closeSignup }) => {
     const [dataSend, setDataSend] = useState({ email: '', username: '', password: '' });
-
+    const [errorMsg, setErrorMsg] = useState('');
     const handleContainerClick = (e) => {
         e.stopPropagation();
     };
@@ -50,17 +50,16 @@ export const Signup = ({ closeSignup }) => {
                 return response.json();
             })
             .then((data) => {
-                console.log('Response:', data); 
                 if (data.status === "success") {
                     alert("User created successfully");
                     closeSignup();
                 } else {
-                    alert("Error: " + data.message);
+                    setErrorMsg(data.message);
                     focusInput()
                 }
             })
             .catch((error) => {
-                console.error('Error fetching:', error);
+                setErrorMsg("Error: " + error + ". Please try again later.");
             });
         
     };
@@ -102,6 +101,7 @@ export const Signup = ({ closeSignup }) => {
                     <input id="password_prompt" type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
                     <br />
                     <input type="submit" value="SIGN UP" className="credentials_submit_button" />
+                    {errorMsg != "" ? <p className="error_message">{errorMsg}</p> : ""}
                     </form>
                 </div>
             </div>

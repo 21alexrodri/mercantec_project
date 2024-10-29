@@ -141,3 +141,7 @@ table{
 .color_b{
     background-color: #e0e0e0;
 }
+.users_table_results_container {
+    max-height: 400px; 
+    overflow-y: auto;
+}

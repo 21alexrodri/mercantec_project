@@ -112,40 +112,6 @@ function Profile() {
     }, [tags]);
 
     /**
-     * This function gets the jobs for the profile.
-     * @returns The jobs for the profile.
-     */
-    function getJobs() {
-        if (recentsFirst) {
-            return (
-                <div className="job_gallery">
-                    {tags.map((tag) => (
-                        <div className="job_gallery_container" key={tag.id}>
-                            <div className="job_content">
-                                <img src={imageLink} alt="" />
-                            </div>
-                            <h4>job title {tag.id}</h4>
-                        </div>
-                    )).reverse()}
-                </div>
-            );
-        } else {
-            return (
-                <div className="job_gallery">
-                    {tags.map((tag) => (
-                        <div className="job_gallery_container" key={tag.id}>
-                            <div className="job_content">
-                                <img src={imageLink} alt="" />
-                            </div>
-                            <h4>job title {tag.id}</h4>
-                        </div>
-                    ))}
-                </div>
-            );
-        }
-    }
-
-    /**
      * This function handles the click event on the edit button.
      */
     const handleEditClick = () => {

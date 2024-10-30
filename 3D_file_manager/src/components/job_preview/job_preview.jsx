@@ -22,10 +22,10 @@ const JobPreview = ({ modelPath }) => {
     renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
     mountRef.current.appendChild(renderer.domElement);
 
-    const light = new THREE.DirectionalLight(0xffffff, 0.8);
+    const light = new THREE.DirectionalLight(0xffffff, 1.4);
     light.position.set(1, 1, 1).normalize();
     scene.add(light);
-    scene.add(new THREE.AmbientLight(0xbfbfbf, 1.2));
+    scene.add(new THREE.AmbientLight(0xbfbfbf, 2));
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
@@ -43,7 +43,7 @@ const JobPreview = ({ modelPath }) => {
           // Comprobar si el STL tiene colores
           const material = geometry.hasColors
             ? new THREE.MeshStandardMaterial({ vertexColors: true })
-            : new THREE.MeshStandardMaterial({ color: 0x0077ff }); // Usa azul si no tiene color
+            : new THREE.MeshStandardMaterial({ color: 0x4F4F4F }); 
           
           const mesh = new THREE.Mesh(geometry, material);
           scene.add(mesh);

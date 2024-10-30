@@ -15,6 +15,7 @@
 body{
     margin: 0;
     font-family: 'Montserrat', monospace;
+    overflow-y: scroll;
 }
 
 h1{

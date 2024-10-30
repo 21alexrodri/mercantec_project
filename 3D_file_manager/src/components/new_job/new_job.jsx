@@ -29,7 +29,15 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
     const [selectedCust, setSelectedCust] = useState('');
 
     const handleSuggestTag = () => {
+        
+    }
 
+    /**
+     * This function deletes the tag clicked
+     * @param {e} The event of the click 
+     */
+    const handleDeleteTag = (e) => {
+        setTags(tags.filter(item => item !== e.target.innerHTML))
     }
 
     const handleContainerClick = (e) => {
@@ -161,7 +169,9 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
     }
 
     const addNewTag = () => {
-        setTags((prevTags) => [...prevTags,selectedTag])
+        if(!tags.includes(selectedTag)){
+            setTags((prevTags) => [...prevTags,selectedTag])
+        }
     }
 
     const handleUpload = (e) => {
@@ -179,13 +189,12 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                 description: document.getElementById("form-desc").value,
                 license: document.getElementById("license").checked ? 1 : 0,
                 layer_thickness: 999,
-                img_format: imgFile ? imgFile.name.split(".").at(-1) : null,
+                img_format: imgFile ? "."+imgFile.name.split(".").at(-1) : null,
                 scale: document.getElementById("form-scale").value,
                 color: document.getElementById("form-color").value,
                 material: document.getElementById("form-material").value
             }),
         }).then(response => {
-            console.log(response)
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             } 
@@ -203,10 +212,17 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
 
                 if(selectedUploadMode == "stl"){
                     files.forEach((file, index) => {
-                        formData.append(`file_${index}`, file); 
+                        console.log(`file_${index}`)
+                        formData.append('files[]', file); 
                     });
                 }else{
                     formData.append('zip_file', zipFile);
+                }
+
+                formData.append("type", selectedUploadMode);
+
+                for(let el in formData.entries()){
+                    console.log(el[1])
                 }
                 
 
@@ -283,10 +299,10 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                                     <b>Material</b>
                                     <input id="form-material" type="text" className="" />
                                 </label>
-                                <lable className="nj-label license_lbl">
+                                <label className="license_lbl">
                                     <input id="license" type="checkbox"/>
                                     <p>Private</p>
-                                </lable>
+                                </label>
                             </div>
 
                             <div className="nj-side-cont">
@@ -307,8 +323,7 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                                     </div>
                                     <div className="nj-tags-added">
                                         {tags.map((tag, index) => {
-                                            console.log(tag)
-                                            return <p key={index} className="nj-tag">{tag}</p>
+                                            return <p key={index} className="nj-tag" onClick={handleDeleteTag}>{tag}</p>
                                         }
 
                                         )}
@@ -319,7 +334,6 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                                     <div>
                                         <select ref={selectCustRef} className="nj-select-customer" value={selectedCust} onChange={handleSelectCustChange}>
                                             <option value="" disabled>-- SELECT --</option>
-                                            {console.log(customers)}
                                             {customers.map((customer, index) => (
                                                 <option key={index} value={customer.customer_name}>{customer.customer_name}</option>
                                             ))}
@@ -328,13 +342,6 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                                     <div className="suggest-customer-cont">
                                         <p className="small-font">Are you working for a new customer? </p>
                                         <p onClick={handleSuggestTag} className="small-font suggest-customer">Suggest new customer</p>
-                                    </div>
-                                    <div className="nj-customer-added">
-                                        {/* {customers.map((customer, index) => {
-                                            return <p key={index} className="nj-customer">{customer}</p>
-                                        } */}
-
-                                        {/* )} */}
                                     </div>
                                 </div>
                             </div>

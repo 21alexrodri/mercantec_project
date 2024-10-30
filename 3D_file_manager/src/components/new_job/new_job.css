@@ -459,6 +459,15 @@
         border: #0E38AB 1px solid;
         border-radius: 15px 0 0 15px;
     }
+    .nj-select-customer{
+        padding: 5px;
+        height: 30px;
+        border: #0E38AB 1px solid;
+        border-radius: 15px;
+    }
+    .nj-select-customer:focus{
+        border: #FF8387 1px solid;
+    }
     
     .nj-select-tags:focus{
         border: #FF8387 1px solid;
@@ -494,6 +503,24 @@
     .suggest-tag{
         color: #FF8387;
         cursor: pointer;
+    }
+
+    .suggest-tag-cont > p {
+        margin-right: 5px;
+    }
+    .suggest-customer-cont{
+        display: flex;
+    }
+    .suggest-customer-cont > p{
+        margin-right: 5px;
+    }
+
+    .suggest-customer{
+        color: #FF8387;
+        cursor: pointer;
+    }
+    .suggest-customer:hover{
+        text-decoration: underline;
     }
     
     .suggest-tag:hover{
@@ -534,6 +561,7 @@
         border-radius: 20px;
         color: #ffffff;
         text-wrap: nowrap;
+        cursor: pointer;
     }
     
     .nj-tags-cont{
@@ -1105,6 +1133,10 @@
     }
     .scale_lbl, .color_lbl, #form-color{
         width: 13vw;
+    }
+    .license_lbl{
+        display: flex;
+        flex-direction: row !important;
     }
     .nj-side-cont{
         margin-top: 7vw;

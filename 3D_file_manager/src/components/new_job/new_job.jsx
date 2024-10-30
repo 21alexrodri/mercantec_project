@@ -1,5 +1,6 @@
-import React, { useCallback, useState, useEffect, useRef} from "react";
+import React, { useCallback, useState, useEffect, useRef, useContext} from "react";
 import "./new_job.css"
+import { UserContext } from "../../context/UserContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUpload,faTrash} from '@fortawesome/free-solid-svg-icons';
 
@@ -13,18 +14,30 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
     const [zipFile,setZipFile] = useState(null)
     const [imgFile,setImg] = useState(null)
     const [tags,setTags] = useState([])
+    const [customers,setCustomers] = useState([])
     const imgUploadContainerRef = useRef(null)
     const zipTrashRef = useRef(null)
     const selectTagRef = useRef(null)
+    const selectCustRef = useRef(null)
     const fileInputRef = useRef(null)
     const uploadStl = useRef(null)
     const uploadZip = useRef(null)
     const zipFileRef = useRef(null)
     const [selectedUploadMode, setSelectedUploadMode] = useState("stl");
-    const [selectedValue, setSelectedValue] = useState('');
+    const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
+    const [selectedTag, setSelectedTag] = useState('');
+    const [selectedCust, setSelectedCust] = useState('');
 
     const handleSuggestTag = () => {
+        
+    }
 
+    /**
+     * This function deletes the tag clicked
+     * @param {e} The event of the click 
+     */
+    const handleDeleteTag = (e) => {
+        setTags(tags.filter(item => item !== e.target.innerHTML))
     }
 
     const handleContainerClick = (e) => {
@@ -32,13 +45,37 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
     };
 
     const handleSelectChange = (e) => {
-        console.log(e.target.value)
-        setSelectedValue(e.target.value)
+        setSelectedTag(e.target.value)
     }
-    // useEffect(()=>{
-    //     console.log(selectTagRef.value)
-    //     setSelectedValue(selectTagRef.value)
-    // },[selectTagRef.value])
+
+    const handleSelectCustChange = (e) => {
+        setSelectedCust(e.target.value)
+    }
+
+    /**
+     * useEffect is used to fetch the customers from the database when the component is mounted
+     */
+    useEffect(() => {
+        fetch('/3D_printer/3d_project/query.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ arg: 'getCustomer' }),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setCustomers(data);
+            })
+            .catch((error) => {
+                console.error('Error fetching customers:', error);
+            });
+    }, []);
 
     /**
      * This function deletes a file from the files array.
@@ -75,8 +112,8 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
         if(file){
             const reader = new FileReader();
             reader.onloadend = () => {
-                let newFile = `url(${reader.result})`
-                setFiles((prevFiles) => [...prevFiles,{"url" : newFile, "name" : file.name}])
+                let newFile = file
+                setFiles((prevFiles) => [...prevFiles,newFile])
                 e.target.value = ""
             }
             reader.readAsDataURL(file);
@@ -112,6 +149,7 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
 
     const handleClearImg = () => {
         fileInputRef.current.value = ""
+        setImg(null)
         imgUploadContainerRef.current.style.backgroundImage = "none"
     }
 
@@ -131,27 +169,84 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
     }
 
     const addNewTag = () => {
-        setTags((prevTags) => [...prevTags,selectedValue])
+        if(!tags.includes(selectedTag)){
+            setTags((prevTags) => [...prevTags,selectedTag])
+        }
     }
 
     const handleUpload = (e) => {
+
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 arg: 'setNewJob',
+                username: username,
+                customer_name: selectCustRef.current.value,
                 name: document.getElementById("form-name").value,
                 description: document.getElementById("form-desc").value,
-                img_format: imgFile.name.split('.').pop().toLowerCase(),
-                img_file: imgFile,
+                license: document.getElementById("license").checked ? 1 : 0,
+                layer_thickness: 999,
+                img_format: imgFile ? "."+imgFile.name.split(".").at(-1) : null,
                 scale: document.getElementById("form-scale").value,
                 color: document.getElementById("form-color").value,
-                material: document.getElementById("form-material").value,
-                files: files
+                material: document.getElementById("form-material").value
             }),
-        })
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            } 
+            return response.json();
+        }).then(data=>{
+            if(data.success){
+                alert("New job created with id "+data.generated_id)
+                const formData = new FormData();
+
+                formData.append("job_id",data.generated_id);
+
+                if(imgFile){
+                    console.log(imgFile)
+                    formData.append('img_file', imgFile);
+                }
+                
+
+                if(selectedUploadMode == "stl"){
+                    files.forEach((file, index) => {
+                        console.log(file)
+                        formData.append('files[]', file);
+                    });
+                }else{
+                    formData.append('zip_file', zipFile);
+                }
+
+                formData.append("type", selectedUploadMode);
+                
+
+                fetch('/3D_printer/3d_project/upload.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(
+                    response => response.json()
+                )
+                .then(data => {
+                    if (data.success) {
+                        console.log("Files uploaded successfully:", data);
+                    } else {
+                        console.error("Error:", data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            }else{
+                alert("Error creating job.")
+                console.log(data.message)
+            }
+        }).catch(error => {
+            console.error("Error:", error);
+        });
+
     }
 
     const handleFormSubmit = (e) => {
@@ -202,19 +297,23 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                                     <b>Material</b>
                                     <input id="form-material" type="text" className="" />
                                 </label>
+                                <label className="license_lbl">
+                                    <input id="license" type="checkbox"/>
+                                    <p>Private</p>
+                                </label>
                             </div>
 
                             <div className="nj-side-cont">
                                 <div className="nj-tags">
                                     <p>Select Tags</p>
                                     <div>
-                                        <select ref={selectTagRef} className="nj-select-tags" value={selectedValue} onChange={handleSelectChange}>
-                                            <option value="" disabled selected>-- SELECT --</option>
+                                        <select ref={selectTagRef} className="nj-select-tags" value={selectedTag} onChange={handleSelectChange}>
+                                            <option value="" disabled>-- SELECT --</option>
                                             {propTags.map((tag, index) => (
                                                 <option key={index} value={tag.name_tag}>{tag.name_tag}</option>
                                             ))}
                                         </select>
-                                        <button className="nj-select-tags-button" onClick={() => addNewTag(selectedValue)}>Add tag</button>
+                                        <button className="nj-select-tags-button" onClick={() => addNewTag(selectedTag)}>Add tag</button>
                                     </div>
                                     <div className="suggest-tag-cont">
                                         <p className="small-font">No tag matches your project? </p>
@@ -222,8 +321,7 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                                     </div>
                                     <div className="nj-tags-added">
                                         {tags.map((tag, index) => {
-                                            console.log(tag)
-                                            return <p key={index} className="nj-tag">{tag}</p>
+                                            return <p key={index} className="nj-tag" onClick={handleDeleteTag}>{tag}</p>
                                         }
 
                                         )}
@@ -232,20 +330,16 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                                 <div className="nj-customers">
                                     <p>Select Customer</p>
                                     <div>
-                                        <select ref={selectTagRef} className="nj-select-customer" value={selectedValue} onChange={handleSelectChange}>
-                                            <option value="" disabled selected>-- SELECT --</option>
-                                            {propTags.map((tag, index) => (
-                                                <option key={index} value={tag.name_tag}>{tag.name_tag}</option>
+                                        <select ref={selectCustRef} className="nj-select-customer" value={selectedCust} onChange={handleSelectCustChange}>
+                                            <option value="" disabled>-- SELECT --</option>
+                                            {customers.map((customer, index) => (
+                                                <option key={index} value={customer.customer_name}>{customer.customer_name}</option>
                                             ))}
                                         </select>
-                                        <button className="nj-select-customer-button" onClick={() => addNewTag(selectedValue)}> Save</button>
                                     </div>
                                     <div className="suggest-customer-cont">
-                                        <p className="small-font">No customer matches your project? </p>
+                                        <p className="small-font">Are you working for a new customer? </p>
                                         <p onClick={handleSuggestTag} className="small-font suggest-customer">Suggest new customer</p>
-                                    </div>
-                                    <div className="nj-customer-added">
-                                        
                                     </div>
                                 </div>
                             </div>

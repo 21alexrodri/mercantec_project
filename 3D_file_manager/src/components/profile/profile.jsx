@@ -2,7 +2,9 @@ import './profile.css';
 import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import Error_Page from '../error_page/error_page';
-import {UserTable } from  '../users_table/users_table';
+import { UserTable } from '../users_table/users_table';
+import FilteredJob from '../../filtered_job/filtered_job';
+
 /**
  * The profile component. It shows the user's profile with their files and information.
  * @returns The user's profile.
@@ -10,224 +12,109 @@ import {UserTable } from  '../users_table/users_table';
 function Profile() {
     const imageLink = "/3D_printer/Files/img/default-job.png";
     const [recentsFirst, setRecentsFirst] = useState(false);
-    const [buttonText, setButtonText] = useState("⯆ recents first");
-    const [jobs, setJobs] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [tags, setTags] = useState([]);
-    const [username, setUsername] = useState("guest");  
-    const [isAdmin, setIsAdmin] = useState(false);  
-    const {isLogged, setIsLogged} = useContext(UserContext);    const [showUserTable, setShowUserTable] = useState(false);
-
-    /**
-     * This function changes the order of the jobs in the profile.
-     */
-    function changeOrder() {
-        setRecentsFirst(!recentsFirst);
-        setButtonText(recentsFirst ? "⯆ recents first" : "⯅ olders first ");
-    }
-
-    /**
-     * This function checks if the user is logged in and sets the username and isAdmin state accordingly.
-     */
-    const checkUserStatus = async () => {
-        try {
-            const response = await fetch('/3D_printer/3d_project/query.php', {
+    const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);  
+    const [showUserTable, setShowUserTable] = useState(false);
+    const [filteredItems, setFilteredItems] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    
+    useEffect(() => {
+        if (isLogged && username) {  
+            setLoading(true);  
+            fetch('/3D_printer/3d_project/query.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    arg: 'checkUserLoggedIn'
-                }),
-                credentials: 'include', 
-            });
-    
-            const text = await response.text(); 
-            console.log('Response:', text);
-    
-            if (text.trim() === "") {
-                throw new Error("No server response");
-            }
-    
-            const data = JSON.parse(text);
-            if (data.status === "success") {
-                setUsername(data.username || "guest");
-                setIsAdmin(data.is_admin === 1);
-            } else {
-                setUsername("guest");
-                setIsAdmin(false);
-            }
-        } catch (error) {
-            console.error('Error checking user status:', error);
-            setUsername("guest");
-            setIsAdmin(false);
-        }
-    };
-    
-    /**
-     * This function fetches the tags from the backend and sets the tags state.
-     */
-    const handleShowTags = () => {
-        setLoading(true);
-        fetch('/3D_printer/3d_project/query.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ arg: "getTags" }),
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
+                body: JSON.stringify({ arg: 'getJobsByUsername', username }),
             })
-            .then(data => {
-                setTags(data);
-                setError(null);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                setError(error.message);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    };
-
-    /**
-     * This function fetches the jobs for a specific tag from the backend and sets the jobs state.
-     * @param {tagId}  
-     * @param {offset} 
-     */
-    async function handleShowJobs(tagId, offset) {
-        console.log("show jobs");
-        setLoading(true);
-
-        try {
-            const response = await fetch('/3D_printer/3d_project/query.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    arg: "getJobs",
-                    tag_id: tagId,
-                    offset: offset,
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            console.log("Jobs:", data);
-            setJobs(prevJobs => ({
-                ...prevJobs,
-                [tagId]: data,
-            }));
-            setError(null);
-        } catch (error) {
-            console.error('Error:', error);
-            setError(error.message);
-        } finally {
-            setLoading(false);
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    setFilteredItems(data);
+                    setLoading(false); 
+                })
+                .catch((error) => {
+                    console.error('Error fetching categories:', error);
+                    setError(error);
+                    setLoading(false); 
+                });
         }
-    }
-
+    }, [username, isLogged]);
     
-    useEffect(() => {
-        checkUserStatus();
-        handleShowTags();
-    }, []);
-
-    
-    useEffect(() => {
-        if (tags.length > 0) {
-            tags.forEach(tag => {
-                handleShowJobs(tag.id, 0);
-            });
-        }
-    }, [tags]);
-
-    /**
-     * This function gets the jobs for the profile.
-     * @returns The jobs for the profile.
-     */
-    function getJobs() {
-        if (recentsFirst) {
-            return (
-                <div className="job_gallery">
-                    {tags.map((tag) => (
-                        <div className="job_gallery_container" key={tag.id}>
-                            <div className="job_content">
-                                <img src={imageLink} alt="" />
-                            </div>
-                            <h4>job title {tag.id}</h4>
-                        </div>
-                    )).reverse()}
-                </div>
-            );
-        } else {
-            return (
-                <div className="job_gallery">
-                    {tags.map((tag) => (
-                        <div className="job_gallery_container" key={tag.id}>
-                            <div className="job_content">
-                                <img src={imageLink} alt="" />
-                            </div>
-                            <h4>job title {tag.id}</h4>
-                        </div>
-                    ))}
-                </div>
-            );
-        }
-    }
-
     /**
      * This function handles the click event on the edit button.
      */
     const handleEditClick = () => {
-        setShowUserTable(true)
-        
         if (isAdmin) {
-            console.log("You are an admin");
-        } else {
-            console.log("No admin");
+            setShowUserTable(true)
         }
     };
 
+    const filteredResults = filteredItems.filter(item =>
+        item.project_name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <>
-        {isLogged &&(
-        <div className="profile_page">
-            <div className="profile_left_column">
-                <img className="profile_picture" src={imageLink} alt="" />
-                <h2 className="username_text">{username}</h2> 
-                <button className="profile_button" id="button1" onClick={handleEditClick}>
-                    edit
-                </button>
-            
-                {showUserTable && <UserTable closeUserTable={() => setShowUserTable(false)} />}
-            </div>
-            <div className="profile_jobs_section">
-                <div className="profile_jobs_section_header">
-                    <h3 className="profile_jobs_section_title">Your files</h3>
-                    <button className="profile_button" id="button2" onClick={changeOrder}>
-                        {buttonText}
-                    </button>
+        {isLogged && (
+            <div className="profile_page">
+                <div className="profile_left_column">
+                    <img className="profile_picture" src={imageLink} alt="" />
+                    <h2 className="username_text">{username}</h2> 
+                    {isAdmin && (
+                        <button className="profile_button" id="button1" onClick={handleEditClick}>
+                            edit
+                        </button>
+                    )}
+                    {showUserTable && <UserTable closeUserTable={() => setShowUserTable(false)} />}
                 </div>
-                {getJobs()}
+                <div className="profile_jobs_section">
+                    <div className="profile_jobs_section_header">
+                        <h3 className="profile_jobs_section_title">Your files</h3>
+                        <input
+                            type="text"
+                            placeholder="Search by project name"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        {loading ? (
+                            <p>Loading...</p>
+                        ) : error ? (
+                            <p>Error: {error.message}</p>
+                        ) : filteredResults.length > 0 ? (
+                            filteredResults.map(item => (
+                                <FilteredJob
+                                    key={item.id}
+                                    id={item.id}
+                                    name={item.project_name}
+                                    username={item.username}
+                                    creation_date={item.creation_date}
+                                    img_format={item.img_format}
+                                    likes={item.likes}
+                                    layerthickness={item.layer_thickness}
+                                    total_physical_weight={item.total_physical_weight}
+                                />
+                            ))
+                        ) : (
+                            <p>No results found.</p>
+                        )}
+                    </div>
+                </div>
             </div>
-        </div>
-    )}
-        {!isLogged &&(
-        <Error_Page />
-    )}
-    
-    </>
+        )}
+        {!isLogged && (
+            <Error_Page />
+        )}
+        </>
     );
 }
 

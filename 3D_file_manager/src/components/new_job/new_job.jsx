@@ -108,7 +108,9 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
      * @param {e} The event of the input change 
      */
     const handleFileChange = (e) => {
-        const file = e.target.files[0]
+        const file = e.target.files[0];
+        console.log("esto: ");
+        console.log(file)
         if(file){
             const reader = new FileReader();
             reader.onloadend = () => {

@@ -59,7 +59,13 @@
 
 .profile_page .profile_jobs_section_header {
     height: 4em;
-    display: block;
+    display: flex;
+    align-items: center;
+
+    input{
+        margin-left: 2vw;
+        background: none;
+    }
 }
 
 .profile_page h3.profile_jobs_section_title {
@@ -111,4 +117,13 @@
 
 .profile_page .job_gallery_container {
     text-align: center;
+}
+
+.profile_jobs_section_header{
+    display: flex;
+    align-items: center;
+
+    input{
+        margin-left: 1vw;
+    }
 }

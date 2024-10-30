@@ -115,3 +115,33 @@
     padding-right: 1em;
     font-size: 0.9em;
 }
+table{
+    color: black;
+    text-align: center;
+    padding: 10px;
+    thead{
+        background-color: #0E38AB;
+        color: white;
+    }
+}
+.user_active{
+    color: rgb(59, 146, 6);
+
+}
+.user_inactive{
+    color: rgb(211, 2, 2);
+}
+.user_active, .user_inactive{
+    cursor: pointer;
+    
+}
+.color_a{
+    background-color: #f1f0f0;
+}
+.color_b{
+    background-color: #e0e0e0;
+}
+.users_table_results_container {
+    max-height: 400px; 
+    overflow-y: auto;
+}

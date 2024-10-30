@@ -319,9 +319,7 @@ export const JobPage = () => {
                             jobData.comments.map((comment, index) => (
                                 <div key={index} className="comment">
                                     <div className="comment_header">
-                                        <a href={`/profile/${comment.userId}`} className="comment_username">
-                                            {comment.username}
-                                        </a>
+                                        <h3>{comment.username}</h3>
                                         <span className="comment_date">{comment.date}</span>
                                     </div>
                                     <p className="comment_text">{comment.text}</p>

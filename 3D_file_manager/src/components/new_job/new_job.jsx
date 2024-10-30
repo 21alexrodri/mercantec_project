@@ -112,8 +112,8 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
         if(file){
             const reader = new FileReader();
             reader.onloadend = () => {
-                let newFile = `url(${reader.result})`
-                setFiles((prevFiles) => [...prevFiles,{"url" : newFile, "name" : file.name}])
+                let newFile = file
+                setFiles((prevFiles) => [...prevFiles,newFile])
                 e.target.value = ""
             }
             reader.readAsDataURL(file);
@@ -207,23 +207,21 @@ export const NewJob = ({closeNewJob, tags: propTags})=>{
                 formData.append("job_id",data.generated_id);
 
                 if(imgFile){
+                    console.log(imgFile)
                     formData.append('img_file', imgFile);
                 }
+                
 
                 if(selectedUploadMode == "stl"){
                     files.forEach((file, index) => {
-                        console.log(`file_${index}`)
-                        formData.append('files[]', file); 
+                        console.log(file)
+                        formData.append('files[]', file);
                     });
                 }else{
                     formData.append('zip_file', zipFile);
                 }
 
                 formData.append("type", selectedUploadMode);
-
-                for(let el in formData.entries()){
-                    console.log(el[1])
-                }
                 
 
                 fetch('/3D_printer/3d_project/upload.php', {

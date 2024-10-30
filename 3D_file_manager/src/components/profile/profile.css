@@ -31,18 +31,14 @@
 .profile_page button.profile_button {
     display: inline;
     line-height: 2em;
-    font-size: 0.9em;
-
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
+    font-size: 1vw;
 
     border: none;
-}
-
-.profile_page button.profile_button#button1 {
-    border-radius: 1.2em;
+    background-color: #0E38AB;
+    color: #f0f0f0;
+    border-radius: 999vw;
+    width: 2.2vw;
+    height: 2.2vw;
 }
 
 .profile_page .profile_jobs_section {
@@ -127,3 +123,4 @@
         margin-left: 1vw;
     }
 }
+

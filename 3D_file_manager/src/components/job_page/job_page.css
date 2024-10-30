@@ -143,6 +143,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 30%;
+    height: 100%;
 }
 
 .other_job {
@@ -365,7 +366,7 @@
 }
 
 .comment_form.disabled:after {
-    content: 'Debes iniciar sesión para comentar.';
+    content: 'You must log in to comment.';
     color: #555;
     text-align: center;
     display: block;

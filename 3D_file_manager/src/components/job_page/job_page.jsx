@@ -21,7 +21,6 @@ export const JobPage = () => {
     });
     const [newComment, setNewComment] = useState('');
     const [username, setUsername] = useState(''); 
-    const [date, setDate] = useState(''); 
     const [isLoggedIn, setIsLoggedIn] = useState(true); 
     const [likes, setLikes] = useState(0);
     const [liked, setLiked] = useState(false);
@@ -104,7 +103,7 @@ export const JobPage = () => {
                     otherJobs: shuffledOtherJobs,
                     comments: data.job.comments || []
                 });
-                console.log(jobData.comments)
+                console.log(data.job.comments)
                 setLikes(data.job.likes); 
             } else {
                 alert("Error: " + data.message);
@@ -144,7 +143,10 @@ export const JobPage = () => {
             alert('Please enter a comment.');
             return;
         }
-
+    
+        // Inicializar 'date' con la fecha actual en formato ISO
+        const date = new Date().toISOString();
+    
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -153,7 +155,8 @@ export const JobPage = () => {
             body: JSON.stringify({
                 arg: 'saveComment',
                 jobId: jobId,
-                text: newComment
+                text: newComment,
+                date: date
             }),
         })
         .then((response) => response.json())
@@ -164,7 +167,6 @@ export const JobPage = () => {
                     comments: [...prevState.comments, { username, text: newComment, date }]
                 }));
                 setNewComment('');
-                setDate('');
             } else {
                 alert('Error saving comment: ' + data.message);
             }
@@ -218,6 +220,13 @@ export const JobPage = () => {
         window.open(fileUrl, '_blank'); 
     };
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        if (isNaN(date)) return ""; // Verifica si la fecha es válida
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+        return date.toLocaleDateString('es-ES', options);
+    };
+    
     return (
         <div id="job_page">
             <div className="job_header">
@@ -320,7 +329,7 @@ export const JobPage = () => {
                                 <div key={index} className="comment">
                                     <div className="comment_header">
                                         <h3>{comment.username}</h3>
-                                        <span className="comment_date">{comment.date}</span>
+                                        <span className="comment_date">{formatDate(comment.date)}</span>
                                     </div>
                                     <p className="comment_text">{comment.text}</p>
                                 </div>

@@ -22,6 +22,7 @@
     flex-direction: row;
     align-items: center;
     margin-right: 1%;
+    cursor: pointer;
 }
 
 .job-item-list > li {

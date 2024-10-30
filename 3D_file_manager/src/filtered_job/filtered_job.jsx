@@ -47,7 +47,7 @@ function FilteredJob({id,name,username, creation_date,img_format, likes, layerth
     
     return (
         <>
-           <ul className='job-item-list' id={id}>
+           <ul className='job-item-list' id={id} onClick={()=>handleJobClick(id)}>
                 <li>
                 {(
                 img_format!=null 

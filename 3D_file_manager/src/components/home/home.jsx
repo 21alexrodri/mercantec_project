@@ -180,8 +180,8 @@ function Home() {
                                 <h2 className='hp_searchedfiles'>Searched files.</h2>
                                 <div className='order-controls'>
                                     <div className='order' onClick={() => setIsOrderDropdownOpen(!isOrderDropdownOpen)}>
-                                        <FontAwesomeIcon icon={faSort} /> Order by
-                                        {isOrderDropdownOpen && (
+                                        <FontAwesomeIcon icon={faSort} /> <p className='order-by-text'>Order by</p>
+                                        
                                             <ul className="order-dropdown">
                                                 <li onClick={() => handleOrderSelection('name')}>Name</li>
                                                 <li onClick={() => handleOrderSelection('username')}>Username</li>
@@ -190,7 +190,7 @@ function Home() {
                                                 <li onClick={() => handleOrderSelection('layerthickness')}>Layer Thickness</li>
                                                 <li onClick={() => handleOrderSelection('weight')}>Weight</li>
                                             </ul>
-                                        )}
+                                        
                                     </div>
                                     <button className='order-direction-button' onClick={toggleOrderDirection}>
                                         {orderDirection === 'ASC' ? <FontAwesomeIcon icon={faArrowDownShortWide} /> : <FontAwesomeIcon icon={faArrowDownWideShort} />}

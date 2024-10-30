@@ -47,23 +47,33 @@ function FilteredJob({id,name,username, creation_date,img_format, likes, layerth
     
     return (
         <>
-           <div className='job-item-list' id={id}>
-            {(
-               img_format!=null 
-            )?(
-                <img className='job-content-list'  src={`/3D_printer/Files/img/jobs/${id + img_format}`} alt="" />
-            ):(
-                <img className='job-content-list' src={'/3D_printer/Files/img/default-job.png'}></img>
-            )}
-            <div className='author'>
-            <p className='job_name'>{name}</p>
-            <p className='job_username'>{username}</p>
-            </div>
-            <p className='job_creation_date' title='creation date'>{creation_date}</p>
-            <p className='job_layerthickness' title='layer thickness'>{layerthickness}mm</p>
-            <p className='job_weight' title='weight'>{(total_physical_weight).toFixed(2)}kg</p>
-            <p className='job_likes' title='likes'><FontAwesomeIcon className='heart' icon={faHeart} ></FontAwesomeIcon><span className='likes_text'>{likes}</span></p> 
-           </div>
+           <ul className='job-item-list' id={id}>
+                <li>
+                {(
+                img_format!=null 
+                )?(
+                    <img className='job-content-list'  src={`/3D_printer/Files/img/jobs/${id + img_format}`} alt="" />
+                ):(
+                    <img className='job-content-list' src={'/3D_printer/Files/img/default-job.png'}></img>
+                )}
+                </li>
+                <li className='author'>
+                    <p className='job_name'>{name}</p>
+                    <p className='job_username'>{username}</p>
+                </li>
+                <li>
+                    <p className='job_creation_date' title='creation date'>{creation_date}</p>
+                </li>
+                <li>
+                <p className='job_layerthickness' title='layer thickness'>{layerthickness}mm</p>
+                </li>
+                <li>
+                <p className='job_weight' title='weight'>{(total_physical_weight).toFixed(2)}kg</p>
+                </li>
+                <li>
+                <p className='job_likes' title='likes'><FontAwesomeIcon className='heart' icon={faHeart} ></FontAwesomeIcon><span className='likes_text'>{likes}</span></p>
+                </li>
+           </ul>
         </>
     );
         

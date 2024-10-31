@@ -1,10 +1,14 @@
 import './filtered_job.css'
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { UserContext } from '../context/UserContext';
 
-function FilteredJob({id,name,username, creation_date,img_format, likes, layerthickness, total_physical_weight}) {
+
+function FilteredJob({id,name,job_user, creation_date,img_format, likes, layerthickness, total_physical_weight, delete_mode}) {
+    const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
+
     const [offset,setOffset] = useState(0);
     const [currentPage, setCurrentPage] = useState(0); 
     const [direction, setDirection] = useState(null); 
@@ -47,7 +51,7 @@ function FilteredJob({id,name,username, creation_date,img_format, likes, layerth
     
     return (
         <>
-           <ul className='job-item-list' id={id} onClick={()=>handleJobClick(id)}>
+           <ul className={`job-item-list ${(delete_mode) ? "delete-enabled" : ""}`} id={id} onClick={()=>handleJobClick(id)}>
                 <li>
                 {(
                 img_format!=null 
@@ -59,7 +63,7 @@ function FilteredJob({id,name,username, creation_date,img_format, likes, layerth
                 </li>
                 <li className='author'>
                     <p className='job_name'>{name}</p>
-                    <p className='job_username'>{username}</p>
+                    <p className='job_username'>{job_user}</p>
                 </li>
                 <li>
                     <p className='job_creation_date' title='creation date'>{creation_date}</p>

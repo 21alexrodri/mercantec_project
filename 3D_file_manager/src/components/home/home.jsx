@@ -200,19 +200,30 @@ function Home() {
 
                             <div>
                             {filteredItems.length > 0 ? (
-                                filteredItems.map(item => (
-                                    <FilteredJob
-                                    key={item.id}
-                                    id={item.id}
-                                    name={item.project_name}
-                                    username={item.username}
-                                    creation_date={item.creation_date}
-                                    img_format={item.img_format}
-                                    likes={item.likes}
-                                    layerthickness={item.layer_thickness}
-                                    total_physical_weight={item.total_physical_weight}
-                                    />
-                                ))
+                                <>
+                                    <ul className='usr-key'>
+                                        <li></li>
+                                        <li className='author'>Project</li>
+                                        <li>Project date</li>
+                                        <li>Layer thickness</li>
+                                        <li>Weight</li>
+                                        <li className='job_likes_key'></li>
+                                    </ul>
+                                    {filteredItems.map(item => (
+                                        <FilteredJob
+                                        key={item.id}
+                                        id={item.id}
+                                        name={item.project_name}
+                                        job_user={item.username}
+                                        creation_date={item.creation_date}
+                                        img_format={item.img_format}
+                                        likes={item.likes}
+                                        layerthickness={item.layer_thickness}
+                                        total_physical_weight={item.total_physical_weight}
+                                        />
+                                    ))}
+                                </>
+                                
                             ) : (
                                 <p>No results found.</p>
                             )}

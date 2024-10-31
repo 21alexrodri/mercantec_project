@@ -127,3 +127,39 @@
         margin-left: 1vw;
     }
 }
+
+.usr-key{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 1%;
+}
+
+.usr-key > li{
+    width: 14.5%;
+    display: inline-block;
+}
+
+.job-delete-btt{
+    background-color:red;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    margin-left: 5%;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+
+.job-delete-btt:hover{
+    background-color:rgb(129, 0, 0);
+    transition: all 0.3s ease;
+}
+
+.activated-btt{
+    background-color: #0E38AB !important;
+}
+
+.activated-btt:hover{
+    background-color: #071d5b !important;
+}

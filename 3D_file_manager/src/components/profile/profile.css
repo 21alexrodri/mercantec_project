@@ -122,6 +122,10 @@
 .profile_jobs_section_header{
     display: flex;
     align-items: center;
+    position: sticky;
+    top: 0;
+    background-color: #f0f0f0;
+    z-index: 999;
 
     input{
         margin-left: 1vw;
@@ -142,6 +146,8 @@
 
 .job-delete-btt{
     background-color:red;
+    border: 2px red solid;
+    font-weight: bold;
     color: white;
     padding: 10px;
     border-radius: 20px;
@@ -152,14 +158,18 @@
 }
 
 .job-delete-btt:hover{
-    background-color:rgb(129, 0, 0);
+    background-color:transparent;
+    color: red;
     transition: all 0.3s ease;
 }
 
 .activated-btt{
     background-color: #0E38AB !important;
+    border: 2px #0E38AB solid;
+    color: white;
 }
 
 .activated-btt:hover{
-    background-color: #071d5b !important;
+    background-color: transparent !important;
+    color: #0E38AB;
 }

@@ -24,6 +24,7 @@
     margin-right: 1%;
     cursor: pointer;
     transition: all 0.3s ease;
+    height: 120px;
 }
 .job-item-list:hover{
     background-color:#bdbdbd;
@@ -59,11 +60,12 @@ p{
 }
 
 .delete-enabled{
-    background-color: rgb(252, 107, 107) ;
+    background-color: rgb(255, 54, 54) ;
     animation: shake 0.2s ease-in-out infinite;
+    color: white;
 }
 .delete-enabled:hover{
-    background-color: rgb(214, 69, 69);
+    background-color: #FF8387;
 }
 
 @keyframes shake {

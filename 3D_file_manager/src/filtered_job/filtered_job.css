@@ -36,6 +36,57 @@
     display: inline-block;
 }
 
+.deleting-job{
+    margin-top: 2%;
+    background-color:#dedede;
+    border-radius: 1vw;
+    overflow: hidden;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.deleting-job-opts{
+    display: flex;
+    flex-direction: row;
+}
+.deleting-job-opts > .yes{
+    background-color: red;
+    color:white;
+    padding: 7%;
+    border-radius: 100vw;
+    border: red 2px solid;
+    cursor: pointer;
+    margin-right: 15px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.deleting-job-opts > .yes:hover{
+    background-color: transparent;
+    color: red;
+    transition: all 0.3s ease;
+}
+
+.deleting-job-opts > .no{
+    background-color: #0E38AB;
+    color:white;
+    padding: 7%;
+    border-radius: 100vw;
+    border: #0E38AB 2px solid;
+    cursor: pointer;
+    margin-left: 15px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.deleting-job-opts > .no:hover{
+    background-color: transparent;
+    color:#0E38AB;
+    transition: all 0.3s ease;
+}
+
+
 .author, .job_likes{
     display: flex;
     align-items: center;

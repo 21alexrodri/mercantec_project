@@ -21,6 +21,7 @@ function Home() {
     const [orderDirection, setOrderDirection] = useState('ASC'); 
     const [isOrderDropdownOpen, setIsOrderDropdownOpen] = useState(false);
     const [orderOption, setOrderOption] = useState('');
+    const [deleteJobState,setDeleteJobState] = useState(false);
 
     const handleOrderSelection = (option) => {
         setOrderOption(option);
@@ -82,8 +83,8 @@ function Home() {
             })
             .then(data => {
                 setFilteredItems(data);
-                console.log("resultado: ");
-                console.log(filteredItems);
+                // console.log("resultado: ");
+                // console.log(filteredItems);
             })
             .catch(error => {
                 console.error('Error fetching filtered items:', error);
@@ -164,9 +165,31 @@ function Home() {
             tags.forEach(tag => {
                 handleShowJobs(tag.id, 0);
             });
-            console.log(jobs)
+            // console.log(jobs)
         }
     }, [tags]);
+
+    useEffect(()=>{
+        if(appliedFiltersCount>=1){
+            document.querySelector("#home main").style.overflow = "visible"
+        }else{
+            document.querySelector("#home main").style.overflow = "hidden"
+        }
+    },[appliedFiltersCount])
+
+    const handleDeleteButton = (e) => {
+        e.target.classList.toggle("activated-btt")
+        if(e.target.innerHTML == "Delete jobs"){
+            e.target.innerHTML = "Return to default"
+        }else{
+            e.target.innerHTML = "Delete jobs"
+        }
+        setDeleteJobState(!deleteJobState);
+    }
+
+    const onDeleteJob = (id) => {
+        setFilteredItems((prevItems) => prevItems.filter(item => item.id !== id));
+    }
 
     return (
         <>
@@ -175,29 +198,29 @@ function Home() {
                 <main>
                     {jobMenu && <NewJob closeNewJob={() => setNewJobMenu(false)} tags={tags}/>}
                     {appliedFiltersCount >= 1 ? (
-                        <>
+                        <div>
                             <div className='hp_searchedheader'>
                                 <h2 className='hp_searchedfiles'>Searched files.</h2>
-                                <div className='order-controls'>
-                                    <div className='order' onClick={() => setIsOrderDropdownOpen(!isOrderDropdownOpen)}>
-                                        <FontAwesomeIcon icon={faSort} /> <p className='order-by-text'>Order by</p>
-                                        
-                                            <ul className="order-dropdown">
-                                                <li onClick={() => handleOrderSelection('name')}>Name</li>
-                                                <li onClick={() => handleOrderSelection('username')}>Username</li>
-                                                <li onClick={() => handleOrderSelection('date')}>Date</li>
-                                                <li onClick={() => handleOrderSelection('likes')}>Likes</li>
-                                                <li onClick={() => handleOrderSelection('layerthickness')}>Layer Thickness</li>
-                                                <li onClick={() => handleOrderSelection('weight')}>Weight</li>
-                                            </ul>
-                                        
+                                    <div className='order-controls'>
+                                        <div className='order' onClick={() => setIsOrderDropdownOpen(!isOrderDropdownOpen)}>
+                                            <FontAwesomeIcon icon={faSort} /> <p className='order-by-text'>Order by</p>
+                                            
+                                                <ul className="order-dropdown">
+                                                    <li onClick={() => handleOrderSelection('name')}>Name</li>
+                                                    <li onClick={() => handleOrderSelection('username')}>Username</li>
+                                                    <li onClick={() => handleOrderSelection('date')}>Date</li>
+                                                    <li onClick={() => handleOrderSelection('likes')}>Likes</li>
+                                                    <li onClick={() => handleOrderSelection('layerthickness')}>Layer Thickness</li>
+                                                    <li onClick={() => handleOrderSelection('weight')}>Weight</li>
+                                                </ul>
+                                            
+                                        </div>
+                                        <button className='order-direction-button' onClick={toggleOrderDirection}>
+                                            {orderDirection === 'ASC' ? <FontAwesomeIcon icon={faArrowDownShortWide} /> : <FontAwesomeIcon icon={faArrowDownWideShort} />}
+                                        </button>
                                     </div>
-                                    <button className='order-direction-button' onClick={toggleOrderDirection}>
-                                        {orderDirection === 'ASC' ? <FontAwesomeIcon icon={faArrowDownShortWide} /> : <FontAwesomeIcon icon={faArrowDownWideShort} />}
-                                    </button>
-                                </div>
+                                    <div className='job-delete-btt' onClick={handleDeleteButton}>Delete jobs</div>
                             </div>
-
                             <div>
                             {filteredItems.length > 0 ? (
                                 <>
@@ -220,6 +243,8 @@ function Home() {
                                         likes={item.likes}
                                         layerthickness={item.layer_thickness}
                                         total_physical_weight={item.total_physical_weight}
+                                        delete_mode={deleteJobState}
+                                        onDeleteJob={onDeleteJob}
                                         />
                                     ))}
                                 </>
@@ -228,7 +253,7 @@ function Home() {
                                 <p>No results found.</p>
                             )}
                         </div>
-                    </>
+                    </div>
                     ) : (
                         <div>
                         {tags.length > 0 ? (

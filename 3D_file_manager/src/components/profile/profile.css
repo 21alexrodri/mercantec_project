@@ -153,8 +153,10 @@
     border-radius: 20px;
     margin-left: 5%;
     cursor: pointer;
+    width: max-content;
     user-select: none;
     transition: all 0.3s ease;
+    text-wrap: nowrap;
 }
 
 .job-delete-btt:hover{

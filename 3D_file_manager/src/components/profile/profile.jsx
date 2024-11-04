@@ -74,6 +74,10 @@ function Profile() {
         setDeleteJobState(!deleteJobState);
     }
 
+    const onDeleteJob = (id) => {
+        setFilteredItems((prevItems) => prevItems.filter(item => item.id !== id));
+    }
+
     return (
         <>
         {isLogged && (
@@ -126,6 +130,7 @@ function Profile() {
                                         layerthickness={item.layer_thickness}
                                         total_physical_weight={item.total_physical_weight}
                                         delete_mode={deleteJobState}
+                                        onDeleteJob={onDeleteJob}
                                     />
                                 ))}
                             </div>

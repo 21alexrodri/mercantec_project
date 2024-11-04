@@ -6,7 +6,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../context/UserContext';
 
 
-function FilteredJob({id,name,job_user, creation_date,img_format, likes, layerthickness, total_physical_weight, delete_mode}) {
+function FilteredJob({id,name,job_user, creation_date,img_format, likes, layerthickness, total_physical_weight, delete_mode, onDeleteJob }) {
     const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
 
     const [deleting,setDeleting] = useState(false);
@@ -28,25 +28,27 @@ function FilteredJob({id,name,job_user, creation_date,img_format, likes, layerth
 
     const handleDeleteJob = (id)=> {
         console.log("Entra")
-        // fetch('/3D_printer/3d_project/query.php', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({ 
-        //         arg: 'deleteJobById', 
-        //         id
-        //     }),
-        // })
-        // .then((response) => {
-        //     console.log(response)
-        //     if (!response.ok) {
-        //         throw new Error(`HTTP error! status: ${response.status}`);
-        //     }
-        //     return response.json();
-        // }).catch(error => {
-        //     console.log("ERROR: ",error)
-        // })
+        fetch('/3D_printer/3d_project/query.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                arg: 'deleteJobById', 
+                id
+            }),
+        })
+        .then((response) => {
+            console.log(response)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        }).then(() => {
+            onDeleteJob(id);
+        }).catch(error => {
+            console.log("ERROR: ",error)
+        })
     }
 
     const handleDisableSelecting = () => {

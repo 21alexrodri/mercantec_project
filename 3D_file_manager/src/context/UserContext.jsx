@@ -7,6 +7,7 @@ export const UserContext = createContext();
  */
 export const UserProvider = ({ children }) => {
     const [username, setUsername] = useState("guest");
+    const [userId, setUserId] = useState(0);
     const [isAdmin, setIsAdmin] = useState(false);
     const [isLogged, setIsLogged] = useState(false);
 
@@ -32,6 +33,7 @@ export const UserProvider = ({ children }) => {
 
                 const data = JSON.parse(text);
                 if (data.status === "success") {
+                    setUserId(data.user_id || 0);
                     setUsername(data.username || "guest");
                     setIsAdmin(data.is_admin === 1);
                     setIsLogged(true);
@@ -51,7 +53,7 @@ export const UserProvider = ({ children }) => {
     }, []);
 
     return (
-        <UserContext.Provider value={{ username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged }}>
+        <UserContext.Provider value={{ userId, username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged }}>
             {children}
         </UserContext.Provider>
     );

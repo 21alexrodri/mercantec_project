@@ -29,7 +29,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     const [selectedTag, setSelectedTag] = useState('');
     const [selectedCust, setSelectedCust] = useState('');
 
-    const handleSuggestTag = () => {}
+    const handleSuggestTag = () => { }
 
     const handleDeleteTag = (id) => {
         setTags(tags.filter(tag => tag.id !== id));
@@ -207,15 +207,15 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                     method: 'POST',
                     body: formData
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Files uploaded successfully:", data);
-                    } else {
-                        console.error("Error:", data.message);
-                    }
-                })
-                .catch(error => console.error("Error:", error));
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log("Files uploaded successfully:", data);
+                        } else {
+                            console.error("Error:", data.message);
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
             } else {
                 alert("Error creating job.");
                 console.log(data.message);
@@ -251,7 +251,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
 
                             <div className="name_box">
                                 <label className="name_lbl">Name</label>
-                                <input id="form-name" type="text" className="name_input" placeholder="Project Name..."/>
+                                <input id="form-name" type="text" className="name_input" placeholder="Project Name..." />
                             </div>
                             <div className="description_box">
                                 <label className="description_lbl">Description</label>
@@ -349,17 +349,31 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                                         <p>{file.name}</p>
                                                         <FontAwesomeIcon icon={faTrash} cursor="pointer" onClick={() => handleDeleteFile(index)} />
 
+                                                        {/* Campo para seleccionar color */}
                                                         <label>Color:</label>
-                                                        <input
-                                                            type="text"
+                                                        <select
                                                             value={fileDetails[index]?.color || ""}
                                                             onChange={(e) => {
                                                                 const updatedDetails = [...fileDetails];
                                                                 updatedDetails[index].color = e.target.value;
                                                                 setFileDetails(updatedDetails);
                                                             }}
-                                                        />
+                                                        >
+                                                            <option value="">Undefined</option>
+                                                            <option value="White">White</option>
+                                                            <option value="Black">Black</option>
+                                                            <option value="Red">Red</option>
+                                                            <option value="Green">Green</option>
+                                                            <option value="Blue">Blue</option>
+                                                            <option value="Yellow">Yellow</option>
+                                                            <option value="Purple">Purple</option>
+                                                            <option value="Orange">Orange</option>
+                                                            <option value="Pink">Pink</option>
+                                                            <option value="Brown">Brown</option>
+                                                            <option value="Grey">Grey</option>
+                                                        </select>
 
+                                                        {/* Campo para scale */}
                                                         <label>Scale:</label>
                                                         <input
                                                             type="text"
@@ -371,6 +385,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                                             }}
                                                         />
 
+                                                        {/* Campo para physical weight */}
                                                         <label>Physical Weight:</label>
                                                         <input
                                                             type="number"
@@ -380,8 +395,10 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                                                 updatedDetails[index].weight = e.target.value;
                                                                 setFileDetails(updatedDetails);
                                                             }}
+                                                            min={0.1} step={0.1}
                                                         />
                                                     </li>
+
                                                 ))
                                             )}
                                             <li className="new-file nj-file add-button">

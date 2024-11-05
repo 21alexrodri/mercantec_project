@@ -13,14 +13,13 @@ import { faUsers} from '@fortawesome/free-solid-svg-icons';
  */
 function Profile() {
     const imageLink = "/3D_printer/Files/img/profile/default_profile.png";
-    const [recentsFirst, setRecentsFirst] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [tags, setTags] = useState([]);
     const {userId, username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);  
     const [showUserTable, setShowUserTable] = useState(false);
     const [filteredItems, setFilteredItems] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [deleteJobState,setDeleteJobState] = useState(false);
     
     useEffect(() => {
         if (isLogged && username) {  
@@ -63,6 +62,24 @@ function Profile() {
         item.project_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    /**
+     * This function handles the click event on the delete jobs button
+     * @param {e} Event of the click 
+     */
+    const handleDeleteButton = (e) => {
+        e.target.classList.toggle("activated-btt")
+        if(e.target.innerHTML == "Delete jobs"){
+            e.target.innerHTML = "Return to default"
+        }else{
+            e.target.innerHTML = "Delete jobs"
+        }
+        setDeleteJobState(!deleteJobState);
+    }
+
+    const onDeleteJob = (id) => {
+        setFilteredItems((prevItems) => prevItems.filter(item => item.id !== id));
+    }
+
     return (
         <>
         {isLogged && (
@@ -86,6 +103,7 @@ function Profile() {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
+                        <div className='job-delete-btt' onClick={handleDeleteButton}>Delete jobs</div>
                     </div>
                     <div>
                         {loading ? (
@@ -93,19 +111,31 @@ function Profile() {
                         ) : error ? (
                             <p>Error: {error.message}</p>
                         ) : filteredResults.length > 0 ? (
-                            filteredResults.map(item => (
-                                <FilteredJob
-                                    key={item.id}
-                                    id={item.id}
-                                    name={item.project_name}
-                                    username={item.username}
-                                    creation_date={item.creation_date}
-                                    img_format={item.img_format}
-                                    likes={item.likes}
-                                    layerthickness={item.layer_thickness}
-                                    total_physical_weight={item.total_physical_weight}
-                                />
-                            ))
+                            <div className="usr-jobs-list">
+                                <ul className='usr-key'>
+                                    <li></li>
+                                    <li className='author'>Project</li>
+                                    <li>Project date</li>
+                                    <li>Layer thickness</li>
+                                    <li>Weight</li>
+                                    <li className='job_likes_key'></li>
+                                </ul>
+                                {filteredResults.map(item => (
+                                    <FilteredJob
+                                        key={item.id}
+                                        id={item.id}
+                                        name={item.project_name}
+                                        job_user={item.username}
+                                        creation_date={item.creation_date}
+                                        img_format={item.img_format}
+                                        likes={item.likes}
+                                        layerthickness={item.layer_thickness}
+                                        total_physical_weight={item.total_physical_weight}
+                                        delete_mode={deleteJobState}
+                                        onDeleteJob={onDeleteJob}
+                                    />
+                                ))}
+                            </div>
                         ) : (
                             <p>No results found.</p>
                         )}

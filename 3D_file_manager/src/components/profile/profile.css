@@ -122,8 +122,56 @@
 .profile_jobs_section_header{
     display: flex;
     align-items: center;
+    position: sticky;
+    top: 0;
+    background-color: #f0f0f0;
+    z-index: 999;
 
     input{
         margin-left: 1vw;
     }
+}
+
+.usr-key{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 1%;
+}
+
+.usr-key > li{
+    width: 14.5%;
+    display: inline-block;
+}
+
+.job-delete-btt{
+    background-color:red;
+    border: 2px red solid;
+    font-weight: bold;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    margin-left: 5%;
+    cursor: pointer;
+    width: max-content;
+    user-select: none;
+    transition: all 0.3s ease;
+    text-wrap: nowrap;
+}
+
+.job-delete-btt:hover{
+    background-color:transparent;
+    color: red;
+    transition: all 0.3s ease;
+}
+
+.activated-btt{
+    background-color: #0E38AB !important;
+    border: 2px #0E38AB solid;
+    color: white;
+}
+
+.activated-btt:hover{
+    background-color: transparent !important;
+    color: #0E38AB;
 }

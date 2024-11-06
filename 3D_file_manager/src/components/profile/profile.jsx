@@ -4,16 +4,18 @@ import { UserContext } from '../../context/UserContext';
 import Error_Page from '../error_page/error_page';
 import { UserTable } from '../users_table/users_table';
 import FilteredJob from '../../filtered_job/filtered_job';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUsers} from '@fortawesome/free-solid-svg-icons';
 
 /**
  * The profile component. It shows the user's profile with their files and information.
  * @returns The user's profile.
  */
 function Profile() {
-    const imageLink = "/3D_printer/Files/img/default-job.png";
+    const imageLink = "/3D_printer/Files/img/profile/default_profile.png";
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);  
+    const {userId, username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);  
     const [showUserTable, setShowUserTable] = useState(false);
     const [filteredItems, setFilteredItems] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -87,7 +89,7 @@ function Profile() {
                     <h2 className="username_text">{username}</h2> 
                     {isAdmin && (
                         <button className="profile_button" id="button1" onClick={handleEditClick}>
-                            edit
+                            <FontAwesomeIcon icon={faUsers} />
                         </button>
                     )}
                     {showUserTable && <UserTable closeUserTable={() => setShowUserTable(false)} />}

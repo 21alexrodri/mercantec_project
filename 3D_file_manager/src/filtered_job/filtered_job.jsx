@@ -22,37 +22,38 @@ function FilteredJob({id,name,job_user, creation_date,img_format, likes, layerth
 
     useEffect(() => {
         if (!delete_mode) {
-            setDeleting(false); // Resetear estado cuando delete_mode es false
+            setDeleting(false); 
         }
     }, [delete_mode]);
 
     const handleDeleteJob = (id)=> {
         console.log("Entra")
-        fetch('/3D_printer/3d_project/query.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ 
-                arg: 'deleteJobById', 
-                id
-            }),
-        })
-        .then((response) => {
-            console.log(response)
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        }).then(() => {
-            onDeleteJob(id);
-        }).catch(error => {
-            console.log("ERROR: ",error)
-        })
+        if(isAdmin || username == job_user){
+            fetch('/3D_printer/3d_project/query.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    arg: 'deleteJobById', 
+                    id
+                }),
+            })
+            .then((response) => {
+                console.log(response)
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            }).then(() => {
+                onDeleteJob(id);
+            }).catch(error => {
+                console.log("ERROR: ",error)
+            })
+        }
     }
 
     const handleDisableSelecting = () => {
-        console.log("Entra disable")
         setDeleting(false)
     }
 

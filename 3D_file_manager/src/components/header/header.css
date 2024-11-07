@@ -47,6 +47,7 @@ li.link_li a:hover{
 #mercantec_header{
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 #mercantec_logo{
     margin-left: 0;

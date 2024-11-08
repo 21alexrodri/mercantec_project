@@ -36,15 +36,20 @@ legend{
     padding-left: 0;
     margin-bottom: -5px;
 }
+
+.customer_label {
+    margin-top: 5px;
+}
 legend, .color_label, .customer_label, .range_label, .likes_label, .date_label, .material_label{
     color: #0E38AB;
     font-weight: bolder;
     font-size: 23px;
     width: fit-content;
-    
+    user-select: none;
 }
 select{
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     border-radius: 5px;
     border: 2px solid #0E38AB;
 }
@@ -57,9 +62,10 @@ select:focus{
 }
 .filters_applied{
     border-bottom: 2px solid rgb(201, 199, 199);
-    height: 5%;
-    min-height: 200px;
-    max-height: 5%;
+    height: 20vh;
+    min-height: 20vh;
+    max-height: 20vh;
+    margin-top: 1vh;
     overflow-y: scroll;
     display: flex;
     flex-wrap: wrap;
@@ -102,4 +108,18 @@ select:focus{
         border: none;
         border-bottom: 2px solid #FF8387;
     }
+}
+
+
+.tags-filters{
+    margin-top: 15px;
+}
+
+.tags-filters > div {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.tags-filters > div > input {
+    margin-right: 5px;
 }

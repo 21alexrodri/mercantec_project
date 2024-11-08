@@ -22,6 +22,12 @@ h1{
     font-family: 'Montserrat Bold', monospace;
 }
 
+p{
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+
 .col{
     display: flex;
     flex-direction: column;

@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, act } from "react";
 import "./users_table.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +13,9 @@ export const UserTable = ({ closeUserTable }) => {
     };
 
     const changeUserState = (id, active) => {
+
+        console.log(active)
+
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -27,7 +30,9 @@ export const UserTable = ({ closeUserTable }) => {
         })
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             if (data.status === 'success') {
+                console.log("ENTRA: "+active)
                 const updatedUsersList = usersList.map(user => 
                     user.id === id ? { ...user, active: active === 1 ? 0 : 1 } : user
                 );
@@ -126,7 +131,9 @@ export const UserTable = ({ closeUserTable }) => {
                                         <td 
                                             id={user.id} 
                                             className={user.active == 1 ? 'user_active' : 'user_inactive'} 
-                                            onClick={() => changeUserState(user.id, user.active)} 
+                                            onClick={() => {
+                                                changeUserState(user.id, user.active);
+                                            }} 
                                             title={user.active == 1 ? 'User Enabled' : 'User Disabled'}
                                         >
                                             <FontAwesomeIcon icon={faCircle} />

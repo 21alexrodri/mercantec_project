@@ -224,7 +224,7 @@ function Filters({ onFiltersAppliedChange }) {
                     <legend onClick={toggleTagVisibility} style={{ cursor: 'pointer' }}>
                         Tags {isTagVisible ? '▲' : '▼'}
                     </legend>
-                    <div style={{ display: isTagVisible ? 'block' : 'none' }}>
+                    <div className='tags-filters' style={{ display: isTagVisible ? 'block' : 'none' }}>
                         {tags.map((tag) => (
                             <div key={tag.id}>
                                 <input

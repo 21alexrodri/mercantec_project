@@ -74,6 +74,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 35px;
+    padding-top: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 300px;
 }
@@ -143,6 +144,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 30%;
+    height: 100%;
 }
 
 .other_job {
@@ -184,9 +186,15 @@
 
 .other_job_likes {
     font-size: 0.9rem;
-    color: #777;
+    color: black; /* Cambia el color del icono a rojo cuando está "liked" */
+    padding-left: 6px;
 }
 
+.like_container{
+    color: red; /* Cambia el color del icono a rojo cuando está "liked" */
+    display: flex;
+    padding: 0.4rem;
+}
 
 .like_button {
     background-color: transparent;
@@ -269,6 +277,7 @@
     transition: background-color 0.3s ease;
 }
 
+  
 .popup {
     position: fixed;
     top: 0;
@@ -279,27 +288,71 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
-  }
+    z-index: 999;
+}
   
-  .popup_content {
-    width: 70%;
+.popup_content {
+    width: 73%;
+    max-width: 80%;
     height: 80%;
     background-color: #fff;
     border-radius: 15px;
+    padding: 20px;
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    overflow: hidden;
-  }
-  
-  #3d-preview {
+}
+
+.popup_main {
+    display: flex;
+    gap: 20px;
+    height: 100%;
+}
+
+#3d-preview {
+    flex: 2;
     width: 100%;
-    height: calc(100% - 60px);
-    border-radius: 15px;
-    overflow: hidden;
-  }
+    height: 100%;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file_details {
+    flex: 1;
+    padding: 20px;
+    
+    padding-right: 2rem;
+    border-left: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-wrap: nowrap;
+}
+
+.close_popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s;
+    background-color: red;
+    border-radius: 20%;
+    transition: 0.25s ease;
+}
+
+.close_popup:hover {
+    color: #ff5555;
+    transition: 0.25s ease;
+    background-color: white;
+}
+
 
 /* Estilo para el botón de previsualización */
 #job_page .preview_button {
@@ -365,7 +418,7 @@
 }
 
 .comment_form.disabled:after {
-    content: 'Debes iniciar sesión para comentar.';
+    content: 'You must log in to comment.';
     color: #555;
     text-align: center;
     display: block;
@@ -374,7 +427,7 @@
 
 .job_comments {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 10px;
     background-color: #f9f9f9;
     padding: 15px;
@@ -387,11 +440,11 @@
 
 .comment {
     padding: 10px 0;
-    border-bottom: 1px solid #000; /* Línea divisoria entre comentarios */
+    border-top: 1px solid #000; /* Línea divisoria entre comentarios */
 }
 
 .comment:last-child {
-    border-bottom: none; /* Elimina la línea en el último comentario */
+    border-top: none; /* Elimina la línea en el último comentario */
 }
 
 .comment_header {

@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-const JobPreview = ({ modelPath }) => {
+const JobPreview = ({ modelPath, fileColor }) => {
   const mountRef = useRef(null);
 
   useEffect(() => {
@@ -32,19 +32,22 @@ const JobPreview = ({ modelPath }) => {
 
     const loader = new STLLoader();
 
-    // URL completa al archivo STL en el servidor
     const absolutePath = modelPath;
     console.log("Attempting to load model from:", absolutePath);
+    console.log("color: "+ fileColor)
 
     loader.load(
       absolutePath,
       (geometry) => {
         try {
-          // Comprobar si el STL tiene colores
+          // Convertir fileColor a un valor compatible con THREE.js si es necesario
+          const materialColor = new THREE.Color(fileColor);
+
+          // Crear el material con el color dinámico o vertexColors si están presentes en la geometría
           const material = geometry.hasColors
             ? new THREE.MeshStandardMaterial({ vertexColors: true })
-            : new THREE.MeshStandardMaterial({ color: 0x4F4F4F }); 
-          
+            : new THREE.MeshStandardMaterial({ color: materialColor });
+
           const mesh = new THREE.Mesh(geometry, material);
           scene.add(mesh);
 
@@ -59,7 +62,7 @@ const JobPreview = ({ modelPath }) => {
           const maxDim = Math.max(size.x, size.y, size.z);
           const fov = camera.fov * (Math.PI / 180);
           const distance = Math.abs(maxDim / (2 * Math.tan(fov / 2)));
-          
+
           camera.position.set(center.x, center.y, distance);
           camera.lookAt(center);
           controls.target.copy(center);
@@ -100,7 +103,7 @@ const JobPreview = ({ modelPath }) => {
         mountRef.current.removeChild(renderer.domElement);
       }
     };
-  }, [modelPath]);
+  }, [modelPath, fileColor]);
 
   return <div ref={mountRef} style={{ width: '100%', height: '100%', borderRadius: '15px', overflow: 'hidden' }}></div>;
 };

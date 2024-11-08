@@ -103,7 +103,6 @@ export const JobPage = () => {
                     otherJobs: shuffledOtherJobs,
                     comments: data.job.comments || []
                 });
-                console.log(data.job.comments)
                 setLikes(data.job.likes); 
             } else {
                 alert("Error: " + data.message);
@@ -126,7 +125,7 @@ export const JobPage = () => {
         .then((response) => response.json())
         .then((data) => {
             if (data.status === 'success') {
-                setJobFiles(data.files); // Guardar los archivos en el estado
+                setJobFiles(data.files); 
             } else {
                 console.error('Error fetching files:', data.message);
             }
@@ -212,6 +211,7 @@ export const JobPage = () => {
 
     const handlePreviewClick = (file) => {
         setSelectedFile(file);
+        console.log(selectedFile.color)
         setShowPopup(true); 
     };
 
@@ -222,9 +222,9 @@ export const JobPage = () => {
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        if (isNaN(date)) return ""; // Verifica si la fecha es válida
-        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        return date.toLocaleDateString('es-ES', options);
+        if (isNaN(date)) return ""; 
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('da-DK', options);
     };
     
     return (
@@ -234,36 +234,44 @@ export const JobPage = () => {
                 <p>{jobData.owner}</p>
             </div>
             <div className="job_content">
-            <div className='job_images'>
-                <div className='image_scroll'>
-                    <div className="job_files_container">
-                        {jobFiles.map((file, index) => (
-                            <div className="file_container" key={index}>
-                                <h3 className="file_title">Job File {file.id}</h3>
-                                <div className="file_actions">
-                                    <button className="preview_button" onClick={() => handlePreviewClick(file)}>
-                                        Preview
-                                    </button>
-                                    <button className="download_button" onClick={() => handleDownloadClick(file)}>
-                                        Download
-                                    </button>
+                <div className='job_images'>
+                    <div className='image_scroll'>
+                        <div className="job_files_container">
+                            {jobFiles.map((file, index) => (
+                                <div className="file_container" key={index}>
+                                    <h3 className="file_title">Job File {file.id}</h3>
+                                    <div className="file_actions">
+                                        <button className="preview_button" onClick={() => handlePreviewClick(file)}>
+                                            Preview
+                                        </button>
+                                        <button className="download_button" onClick={() => handleDownloadClick(file)}>
+                                            Download
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
 
                 {showPopup && (
                     <div className="popup">
                         <div className="popup_content">
-                        <h3>3D Preview</h3>
-                        <JobPreview modelPath={`/3D_printer/Files/3d_files/${selectedFile.file_path}`} />
-                        <button className="close_popup" onClick={() => setShowPopup(false)}>Close</button>
+                            <button className="close_popup" onClick={() => setShowPopup(false)}>✕</button>
+                            <div className="popup_main">
+                                    <JobPreview modelPath={`/3D_printer/Files/3d_files/${selectedFile.file_path}`} fileColor={selectedFile.color} />
+                                <div className="file_details">
+                                    <h3>File Details</h3>
+                                    <p><strong>Color:</strong> {selectedFile.color}</p>
+                                    <p><strong>Scale:</strong> {selectedFile.scale}</p>
+                                    <p><strong>Physical Weight:</strong> {selectedFile.physical_weight} g</p>
+                                    <p><strong>File Weight:</strong> {selectedFile.file_weight} MB</p>
+                                    <p><strong>Material:</strong> {selectedFile.material}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                )}  
-
+                )}
 
                 <div className="job_display">
                     <img src={`/3D_printer/Files/img/jobs/${jobId}.jpeg`} onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'} />
@@ -352,7 +360,10 @@ export const JobPage = () => {
                                 />
                                 <div className="other_job_details">
                                     <h4 className="other_job_title">{otherJob.title}</h4>
-                                    <p className="other_job_likes">Likes: {otherJob.likes}</p>
+                                    <div className="like_container">
+                                        <FontAwesomeIcon icon={faHeart}/>
+                                        <div className="other_job_likes">{otherJob.likes}</div>
+                                    </div>
                                 </div>
                             </div>
                         ))

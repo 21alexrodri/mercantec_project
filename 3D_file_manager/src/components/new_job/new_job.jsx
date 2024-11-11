@@ -28,7 +28,8 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
     const [selectedTag, setSelectedTag] = useState('');
     const [selectedCust, setSelectedCust] = useState('');
-
+    const [jobUploaded, setJobUploaded] = useState(false);
+    const [filesUploaded, setFilesUploaded] = useState(false);
     const handleSuggestTag = () => { }
 
     const handleDeleteTag = (id) => {
@@ -87,20 +88,42 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     }
 
     const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setFiles((prevFiles) => [...prevFiles, file]);
-            setFileDetails((prevDetails) => [
-                ...prevDetails,
-                {
+        const selectedFiles = Array.from(e.target.files);
+        const allowedExtensions = ['stl', '3mf'];
+        const validFiles = [];
+        const validDetails = [];
+    
+        selectedFiles.forEach(file => {
+            const fileExtension = file.name.split('.').pop().toLowerCase();
+            if (allowedExtensions.includes(fileExtension)) {
+                validFiles.push(file);
+                validDetails.push({
+                    name: file.name.split('.').slice(0, -1).join('.'),
+                    extension: fileExtension,
                     color: document.getElementById("form-color").value || "",
                     scale: document.getElementById("form-scale").value || "",
                     weight: "",
-                },
-            ]);
-            e.target.value = "";
-        }
-    }
+                });
+            } else {
+                alert(`El archivo ${file.name} tiene una extensión no soportada y no será subido.`);
+            }
+        });
+    
+        setFiles((prevFiles) => [...prevFiles, ...validFiles]);
+        setFileDetails((prevDetails) => [...prevDetails, ...validDetails]);
+        e.target.value = "";
+    };
+    
+
+    const handleFileNameChange = (index, newName) => {
+        setFileDetails((prevDetails) => {
+            const updatedDetails = [...prevDetails];
+            updatedDetails[index].name = newName;
+            return updatedDetails;
+        });
+    };
+
+
 
     const handleZipUpload = (e) => {
         const file = e.target.files[0]
@@ -148,15 +171,19 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     }
 
     const handleUpload = (e) => {
+        if (selectedUploadMode === "stl" && files.length === 0) {
+            alert("Please select at least one file to upload.");
+            return;
+        } 
         const tagIds = tags.map(tag => tag.id);
 
         const fileDetailsArray = files.map((file, index) => ({
-            name: file.name,
-            color: fileDetails[index]?.color || document.getElementById("form-color").value,
-            scale: fileDetails[index]?.scale || document.getElementById("form-scale").value,
-            weight: fileDetails[index]?.weight || "",
+            name: `${fileDetails[index].name}.${fileDetails[index].extension}`, 
+            color: fileDetails[index]?.color || document.getElementById("form-color").value || "undefined",
+            scale: parseFloat(fileDetails[index]?.scale || document.getElementById("form-scale").value || 1),
+            weight: parseFloat(fileDetails[index]?.weight || 1), 
         }));
-        console.log(fileDetailsArray);
+        
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -184,6 +211,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
             return response.json();
         }).then(data => {
             if (data.success) {
+                setJobUploaded(true);
                 alert("New job created with id " + data.generated_id);
                 const formData = new FormData();
 
@@ -210,20 +238,28 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
+                            setFilesUploaded(true);
                             console.log("Files uploaded successfully:", data);
+                        
                         } else {
-                            console.error("Error:", data.message);
+                            alert("Error. " + data.message)
                         }
                     })
                     .catch(error => console.error("Error:", error));
             } else {
-                alert("Error creating job.");
-                console.log(data.message);
+                alert("Error. " + data.message)
             }
         }).catch(error => {
-            console.error("Error:", error);
+            alert("Error. " + error)
         });
     }
+
+    useEffect(() => {
+        if (jobUploaded && filesUploaded) {
+            setTimeout(() => window.location.reload(), 500);
+        }
+    }, [jobUploaded, filesUploaded]);
+
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
@@ -259,7 +295,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                             </div>
                             <div className="scale_box">
                                 <label className="scale_lbl">Scale</label>
-                                <input id="form-scale" type="text" className="scale_input" />
+                                <input id="form-scale" type="number" className="scale_input" min={0.1} step={0.1} />
                             </div>
                             <div className="color_box">
                                 <label className="color_lbl">Color</label>
@@ -346,12 +382,17 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                             ) : (
                                                 files.map((file, index) => (
                                                     <li key={index} className="nj-file-cont">
-                                                        <p>{file.name}</p>
+                                                        <input
+                                                            className="name_file_input"
+                                                            type="text"
+                                                            value={fileDetails[index]?.name || ""}
+                                                            onChange={(e) => handleFileNameChange(index, e.target.value)}
+                                                        />
+                                                        <span>.{fileDetails[index]?.extension}</span> {/* Mostrar la extensión */}
                                                         <FontAwesomeIcon icon={faTrash} cursor="pointer" onClick={() => handleDeleteFile(index)} />
-
                                                         {/* Campo para seleccionar color */}
-                                                        <label>Color:</label>
-                                                        <select
+                                                        <label className="color_file_lbl">Color:</label>
+                                                        <select className="color_file_select"
                                                             value={fileDetails[index]?.color || ""}
                                                             onChange={(e) => {
                                                                 const updatedDetails = [...fileDetails];
@@ -374,20 +415,22 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                                         </select>
 
                                                         {/* Campo para scale */}
-                                                        <label>Scale:</label>
+                                                        <label className="scale_file_lbl">Scale:</label>
                                                         <input
-                                                            type="text"
+                                                            className="scale_file_input"
+                                                            type="number"
                                                             value={fileDetails[index]?.scale || ""}
                                                             onChange={(e) => {
                                                                 const updatedDetails = [...fileDetails];
                                                                 updatedDetails[index].scale = e.target.value;
                                                                 setFileDetails(updatedDetails);
                                                             }}
+                                                            min={0.1} step={0.1}
                                                         />
 
                                                         {/* Campo para physical weight */}
-                                                        <label>Physical Weight:</label>
-                                                        <input
+                                                        <label className="physical_file_lbl">Physical Weight <span>(g)</span>:</label>
+                                                        <input className="physical_file_input"
                                                             type="number"
                                                             value={fileDetails[index]?.weight || ""}
                                                             onChange={(e) => {
@@ -403,7 +446,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                             )}
                                             <li className="new-file nj-file add-button">
                                                 <p>+</p>
-                                                <input type="file" accept=".stl" onChange={handleFileChange} />
+                                                <input type="file" accept=".stl,.3mf" onChange={handleFileChange} multiple />
                                             </li>
                                         </>
                                     ) : (

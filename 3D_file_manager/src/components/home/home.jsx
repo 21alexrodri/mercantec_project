@@ -180,7 +180,7 @@ function Home() {
     const handleDeleteButton = (e) => {
         e.target.classList.toggle("activated-btt")
         if(e.target.innerHTML == "Delete jobs"){
-            e.target.innerHTML = "Return to default"
+            e.target.innerHTML = "Cancel"
         }else{
             e.target.innerHTML = "Delete jobs"
         }

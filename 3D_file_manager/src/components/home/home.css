@@ -8,6 +8,7 @@
     flex: 2;
     padding-left: 1%;
     padding-top: 1%;
+    padding-bottom: 1%;
     background-color: #f0f0f0; 
     overflow: hidden;
     position: relative;
@@ -130,7 +131,8 @@
     justify-content: space-between;
     position: sticky;
     top: 0;
-    z-index: 999;
+    z-index: 998;
+    background-color: #f0f0f0;
 }
 .order{
     background-color: #0E38AB;
@@ -154,8 +156,9 @@
 .order-controls {
     display: flex;
     align-items: center;
+    justify-content: end;
     margin-right: 1%;
-    width: max-content;
+    width: 70%;
 }
 
 .order:hover > .order-dropdown{

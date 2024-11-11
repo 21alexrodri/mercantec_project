@@ -201,7 +201,9 @@ function Home() {
                         <div>
                             <div className='hp_searchedheader'>
                                 <h2 className='hp_searchedfiles'>Searched files.</h2>
+                                    
                                     <div className='order-controls'>
+                                    
                                         <div className='order' onClick={() => setIsOrderDropdownOpen(!isOrderDropdownOpen)}>
                                             <FontAwesomeIcon icon={faSort} /> <p className='order-by-text'>Order by</p>
                                             
@@ -218,8 +220,9 @@ function Home() {
                                         <button className='order-direction-button' onClick={toggleOrderDirection}>
                                             {orderDirection === 'ASC' ? <FontAwesomeIcon icon={faArrowDownShortWide} /> : <FontAwesomeIcon icon={faArrowDownWideShort} />}
                                         </button>
+                                        {(isAdmin) ? (<div className='job-delete-btt' onClick={handleDeleteButton}>Delete jobs</div>) : (<></>)}
                                     </div>
-                                    <div className='job-delete-btt' onClick={handleDeleteButton}>Delete jobs</div>
+                                    
                             </div>
                             <div>
                             {filteredItems.length > 0 ? (

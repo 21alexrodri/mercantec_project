@@ -39,6 +39,8 @@
     border-radius: 999vw;
     width: 2.2vw;
     height: 2.2vw;
+
+    cursor: pointer;
 }
 
 .profile_page .profile_jobs_section {

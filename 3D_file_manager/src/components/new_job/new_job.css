@@ -99,11 +99,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .new-job-header h2{
     color: white;
     margin: 0;
+    text-transform: uppercase;
+    font-size: 2.3vw;
+}
+.new-job-header p{
+    color: white;
+    margin: 0;
+    font-weight: 900;
 }
 
 .form-main{

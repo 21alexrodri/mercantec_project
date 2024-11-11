@@ -28,8 +28,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
     const [selectedTag, setSelectedTag] = useState('');
     const [selectedCust, setSelectedCust] = useState('');
-    const [jobUploaded, setJobUploaded] = useState(false);
-    const [filesUploaded, setFilesUploaded] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
     const handleSuggestTag = () => { }
 
     const handleDeleteTag = (id) => {
@@ -105,7 +104,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                     weight: "",
                 });
             } else {
-                alert(`El archivo ${file.name} tiene una extensión no soportada y no será subido.`);
+                setErrorMsg(`Error. One or more files have an invalid extension. Only .stl and .3mf files are accepted.`);
             }
         });
     
@@ -171,12 +170,14 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     }
 
     const handleUpload = (e) => {
+        e.preventDefault();
+    
         if (selectedUploadMode === "stl" && files.length === 0) {
-            alert("Please select at least one file to upload.");
+            setErrorMsg("Please select at least one file to upload.");
             return;
         } 
         const tagIds = tags.map(tag => tag.id);
-
+    
         const fileDetailsArray = files.map((file, index) => ({
             name: `${fileDetails[index].name}.${fileDetails[index].extension}`, 
             color: fileDetails[index]?.color || document.getElementById("form-color").value || "undefined",
@@ -204,23 +205,18 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                 tags: tagIds,
                 files: fileDetailsArray
             }),
-        }).then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        }).then(data => {
+        })
+        .then(response => response.json())
+        .then(data => {
             if (data.success) {
-                setJobUploaded(true);
-                alert("New job created with id " + data.generated_id);
                 const formData = new FormData();
-
+    
                 formData.append("job_id", data.generated_id);
-
+    
                 if (imgFile) {
                     formData.append('img_file', imgFile);
                 }
-
+    
                 if (selectedUploadMode === "stl") {
                     files.forEach((file) => {
                         formData.append('files[]', file);
@@ -228,37 +224,36 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                 } else {
                     formData.append('zip_file', zipFile);
                 }
-
+    
                 formData.append("type", selectedUploadMode);
-
+    
                 fetch('/3D_printer/3d_project/upload.php', {
                     method: 'POST',
                     body: formData
                 })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            setFilesUploaded(true);
-                            console.log("Files uploaded successfully:", data);
-                        
-                        } else {
-                            alert("Error. " + data.message)
-                        }
-                    })
-                    .catch(error => console.error("Error:", error));
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Files uploaded successfully:", data);
+                        window.location.href = '/home';
+                    } else {
+                        setErrorMsg("Error. " + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    window.location.href = '/home';
+                });
             } else {
-                alert("Error. " + data.message)
+                setErrorMsg("Error. " + data.message);
             }
-        }).catch(error => {
-            alert("Error. " + error)
+        })
+        .catch(error => {
+            setErrorMsg("Error. " + error);
         });
-    }
-
-    useEffect(() => {
-        if (jobUploaded && filesUploaded) {
-            setTimeout(() => window.location.reload(), 500);
-        }
-    }, [jobUploaded, filesUploaded]);
+    };
+    
+    
 
 
     const handleFormSubmit = (e) => {
@@ -271,6 +266,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                 <div onClick={handleContainerClick} className="container">
                     <div className="new-job-header">
                         <h2>new job</h2>
+                        {errorMsg && <p className="error-msg">! {errorMsg}</p>}
                     </div>
                     <form className="form-main" onSubmit={handleFormSubmit}>
                         <div className="form-container">

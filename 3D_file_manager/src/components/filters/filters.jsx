@@ -2,6 +2,8 @@ import './filters.css';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignature, faCalendar, faTag, faBuilding, faPaintBrush, faPenNib, faCube} from '@fortawesome/free-solid-svg-icons';
+import { useTranslation } from 'react-i18next';
+
 /**
  * This jsx is responsible for managing the filters, allowing the users to set diferent combinations of filters in order to recover
  * the files that they are searching for. 
@@ -9,6 +11,7 @@ import { faSignature, faCalendar, faTag, faBuilding, faPaintBrush, faPenNib, faC
  * @returns The filters applied by the user and the page with the filters that the user can apply
  */
 function Filters({ onFiltersAppliedChange }) {
+    const { t } = useTranslation();
     const [tags, setTags] = useState([]);
     const [customers, setCustomers] = useState([]);
     const [selectedTags, setSelectedTags] = useState([]);
@@ -173,7 +176,7 @@ function Filters({ onFiltersAppliedChange }) {
 
     return (
         <div className="filter">
-            <h2>Filters Applied</h2>
+            <h2>{t("filters_applied")}</h2>
             <div className='filters_applied'>
                 {filtersApplied.textname && (
                     <div id={("name_") + filtersApplied.textname} className='filter_style'><p><FontAwesomeIcon icon={faSignature} title='Name Filter' /> {filtersApplied.textname}</p></div>
@@ -202,16 +205,16 @@ function Filters({ onFiltersAppliedChange }) {
 
             </div>
 
-            <h2 className='filter_title'>Filters</h2>
+            <h2 className='filter_title'>{t('filters')}</h2>
             <form className="filter_form" onSubmit={handleFormSubmit}>
                 <input
                     onChange={handleTextChange}
                     id="search_by_name"
                     type="text"
-                    placeholder='Search by printjob name...'
+                    placeholder={t('search_by_name')}
                 />
                 <label className='date_label' onClick={toggleDateVisibility} style={{ cursor: 'pointer' }}>
-                    Date {isDateVisible ? '▲' : '▼'}
+                    {t('date')} {isDateVisible ? '▲' : '▼'}
                 </label>
                 <input
                     style={{ display: isDateVisible ? 'block' : 'none' }} 
@@ -222,7 +225,7 @@ function Filters({ onFiltersAppliedChange }) {
                 /> 
                 <fieldset>
                     <legend onClick={toggleTagVisibility} style={{ cursor: 'pointer' }}>
-                        Tags {isTagVisible ? '▲' : '▼'}
+                        {t('tags')} {isTagVisible ? '▲' : '▼'}
                     </legend>
                     <div className='tags-filters' style={{ display: isTagVisible ? 'block' : 'none' }}>
                         {tags.map((tag) => (
@@ -241,11 +244,11 @@ function Filters({ onFiltersAppliedChange }) {
                 </fieldset>
 
                 <label className='customer_label' onClick={toggleCustomerVisibility} style={{ cursor: 'pointer' }}>
-                    Customer {isCustomerVisible ? '▲' : '▼'}
+                    {t('customer')} {isCustomerVisible ? '▲' : '▼'}
                 </label>
                 <div style={{ display: isCustomerVisible ? 'block' : 'none' }}>
                     <select name='customer_form' value={selectedCustomer} onChange={handleCustomerChange}>
-                        <option value="">No customer selected</option>
+                        <option value="">{t('no_customer_selected')}</option>
                         {customers.map((customer) => (
                             <option key={customer.id} value={customer.customer_name}>{customer.customer_name}</option>
                         ))}
@@ -253,27 +256,27 @@ function Filters({ onFiltersAppliedChange }) {
                 </div>
 
                 <label className='color_label' onClick={toggleColorVisibility} style={{ cursor: 'pointer' }}>
-                    Colors {isColorsVisible ? '▲' : '▼'}
+                    {t('colors')} {isColorsVisible ? '▲' : '▼'}
                 </label>
 
                 <div style={{ display: isColorsVisible ? 'block' : 'none' }}>
                     <select name="colors_form" value={selectedColor} onChange={handleColorChange}>
-                        <option value=''>No color selected</option>
-                        <option value='red'>Red</option>
-                        <option value='blue'>Blue</option>
-                        <option value='green'>Green</option>
-                        <option value='purple'>Purple</option>
-                        <option value='pink'>Pink</option>
-                        <option value='yellow'>Yellow</option>
-                        <option value='white'>White</option>
-                        <option value='black'>Black</option>
-                        <option value='grey'>Grey</option>
-                        <option value='orange'>Orange</option>
-                        <option value='brown'>Brown</option>
+                        <option value=''>{t("no_color_selected")}</option>
+                        <option value='red'>{t("red")}</option>
+                        <option value='blue'>{t("blue")}</option>
+                        <option value='green'>{t("green")}</option>
+                        <option value='purple'>{t("purple")}</option>
+                        <option value='pink'>{t("pink")}</option>
+                        <option value='yellow'>{t("yellow")}</option>
+                        <option value='orange'>{t("orange")}</option>
+                        <option value='brown'>{t("brown")}</option>
+                        <option value='grey'>{t("grey")}</option>
+                        <option value='white'>{t("white")}</option>
+                        <option value='black'>{t("black")}</option>
                     </select>
                 </div>
                 <label className='range_label' onClick={toggleLayerThicknessVisibility} style={{ cursor: 'pointer' }}>
-                    Layer Thickness {isLayerThicknessVisible ? '▲' : '▼'}
+                    {t("layer_thickness")} {isLayerThicknessVisible ? '▲' : '▼'}
                 </label>
                 <div className="range-slider" style={{ display: isLayerThicknessVisible ? 'block' : 'none' }}>
                     <input
@@ -292,10 +295,10 @@ function Filters({ onFiltersAppliedChange }) {
                         onChange={handleMaxChange}
                         className="max-range"
                     />
-                    <p>Selected Layer Thickness Range: {(minLayerThicknessValue / 100).toFixed(2)} - {(maxLayerThicknessValue / 100).toFixed(2)}</p>
+                    <p>{t("layer_thickness_range")}: {(minLayerThicknessValue / 100).toFixed(2)} - {(maxLayerThicknessValue / 100).toFixed(2)}</p>
                 </div>
                 <label className='material_label' onClick={toggleMaterialVisibility} style={{ cursor: 'pointer' }}>
-                    Material {isMaterialVisible ? '▲' : '▼'}
+                    {t("material")} {isMaterialVisible ? '▲' : '▼'}
                 </label>
                 <input
                     style={{ display: isMaterialVisible ? 'block' : 'none' }} 

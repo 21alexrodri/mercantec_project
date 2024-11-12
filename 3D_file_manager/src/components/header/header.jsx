@@ -3,12 +3,14 @@ import { useState, useContext } from "react";
 import  { Login } from  '../login/login';
 import { Signup } from  '../signup/signup';
 import { UserContext } from '../../context/UserContext';
+import { useTranslation } from 'react-i18next';
 
 /**
  * The header of the page that is shown to the user, it allows the user to navigate through the page and to log in or sign up as well as log out
  * @returns The header of the page, with two possible states, one for when the user is logged in and one for when the user is not logged in
  */
 function Header() {
+    const { i18n } = useTranslation();
     const [showLogin, setShowLogin] = useState(false);
     const [showSignup, setShowSignup] = useState(false);
     const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
@@ -43,6 +45,10 @@ function Header() {
             console.error('Error logging out:', error);
         }
     };
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+        console.log(i18n.language);
+      };
     return (
         <>
         {!isLogged &&(
@@ -51,6 +57,7 @@ function Header() {
             <a target='_blank' className= "logo" href="https://www.mercantec.dk/"><img id="mercantec_logo" src="/3D_printer/Files/img/logo.svg"></img></a>
             <h1 className='header_title'>3D Print Archive</h1>
             </div>
+            <div className='header_left'>
             <nav className='header_navbar'>
                 <ul>
                     <li className='link_li'><a href='/home'>Home</a></li>
@@ -61,6 +68,21 @@ function Header() {
                     </li>
                 </ul>
             </nav>
+            <div>
+                {i18n.language === 'en' && (
+                    <>
+                    <button className='btn_lang' onClick={() => changeLanguage('en')}><img src="/3D_printer/Files/img/en.jpg" alt='English'/></button> 
+                    <button className='btn_lang not_selected' onClick={() => changeLanguage('dk')}><img src="/3D_printer/Files/img/dk.jpg" alt='Dansk'/></button>
+                    </>
+                )}
+                {i18n.language === 'dk' && (
+                    <>
+                    <button className='btn_lang not_selected' onClick={() => changeLanguage('en')}><img src="/3D_printer/Files/img/en.jpg" alt='English'/></button>
+                    <button className='btn_lang' onClick={() => changeLanguage('dk')}><img src="/3D_printer/Files/img/dk.jpg" alt='Dansk'/></button>
+                    </>
+                )}
+            </div>
+            </div>
         </header>
         )}
         {isLogged &&(

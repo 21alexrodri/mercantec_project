@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import Error_Page from '../error_page/error_page';
 import { UserTable } from '../users_table/users_table';
-import FilteredJob from '../../filtered_job/filtered_job';
+import FilteredJob from '../filtered_job/filtered_job';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers} from '@fortawesome/free-solid-svg-icons';
 
@@ -69,7 +69,7 @@ function Profile() {
     const handleDeleteButton = (e) => {
         e.target.classList.toggle("activated-btt")
         if(e.target.innerHTML == "Delete jobs"){
-            e.target.innerHTML = "Return to default"
+            e.target.innerHTML = "Cancel"
         }else{
             e.target.innerHTML = "Delete jobs"
         }
@@ -98,6 +98,7 @@ function Profile() {
                     <div className="profile_jobs_section_header">
                         <h3 className="profile_jobs_section_title">Your files</h3>
                         <input
+                            className='profile-search-project-name'
                             type="text"
                             placeholder="Search by project name"
                             value={searchQuery}

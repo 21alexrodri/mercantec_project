@@ -114,6 +114,11 @@ p{
     background-color: rgb(255, 54, 54) ;
     animation: shake 0.2s ease-in-out infinite;
     color: white;
+    li:last-child{
+        .heart{
+            color: white;
+        }
+    }
 }
 .delete-enabled:hover{
     background-color: #FF8387;

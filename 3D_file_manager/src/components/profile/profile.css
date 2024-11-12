@@ -123,7 +123,7 @@
     position: sticky;
     top: 0;
     background-color: #f0f0f0;
-    z-index: 999;
+    z-index: 998;
 
     input{
         margin-left: 1vw;
@@ -174,3 +174,8 @@
     color: #0E38AB;
 }
 
+.profile-search-project-name{
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #0E38AB;
+}

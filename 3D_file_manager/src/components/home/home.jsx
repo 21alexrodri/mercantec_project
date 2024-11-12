@@ -1,14 +1,16 @@
 import './home.css';
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState, useContext } from 'react';
 import Filters from '../filters/filters'
 import TagTemplate from '../tag-template/tag-template'
 import { NewJob } from '../new_job/new_job';
 import { UserContext } from '../../context/UserContext';
-import FilteredJob from '../../filtered_job/filtered_job';
+import FilteredJob from '../filtered_job/filtered_job';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faArrowDownShortWide, faArrowDownWideShort } from '@fortawesome/free-solid-svg-icons';
 
 function Home() {
+    const { t } = useTranslation();
     const [tags, setTags] = useState([]);
     const [jobs, setJobs] = useState({});
     const [filteredItems, setFilteredItems] = useState({})
@@ -17,7 +19,6 @@ function Home() {
     const [loading, setLoading] = useState(false); 
     const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
     const [filtersApplied, setFiltersApplied] = useState([]);
-
     const [orderDirection, setOrderDirection] = useState('ASC'); 
     const [isOrderDropdownOpen, setIsOrderDropdownOpen] = useState(false);
     const [orderOption, setOrderOption] = useState('');
@@ -180,7 +181,7 @@ function Home() {
     const handleDeleteButton = (e) => {
         e.target.classList.toggle("activated-btt")
         if(e.target.innerHTML == "Delete jobs"){
-            e.target.innerHTML = "Return to default"
+            e.target.innerHTML = "Cancel"
         }else{
             e.target.innerHTML = "Delete jobs"
         }
@@ -200,7 +201,7 @@ function Home() {
                     {appliedFiltersCount >= 1 ? (
                         <div>
                             <div className='hp_searchedheader'>
-                                <h2 className='hp_searchedfiles'>Searched files.</h2>
+                                <h2 className='hp_searchedfiles'>{t('searched_files')}</h2>
                                     
                                     <div className='order-controls'>
                                     

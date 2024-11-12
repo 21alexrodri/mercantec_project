@@ -4,7 +4,8 @@ import './job_page.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faDownload } from '@fortawesome/free-solid-svg-icons';
 import JobPreview from '../job_preview/job_preview';
-import { OrthographicCamera } from 'three';
+import JSZip from 'jszip';
+
 
 export const JobPage = () => {
     const location = useLocation();
@@ -27,6 +28,9 @@ export const JobPage = () => {
     const [jobFiles, setJobFiles] = useState([]); 
     const [showPopup, setShowPopup] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedColor, setSelectedColor] = useState(null);
+    const [loading, setLoading] = useState(false);
+
 
     const checkUserLike = () => {
         fetch('/3D_printer/3d_project/query.php', {
@@ -51,6 +55,12 @@ export const JobPage = () => {
             console.error('Error checking like status:', error);
         });
     };
+
+    useEffect(() => {
+        if (selectedFile) {
+            setSelectedColor(selectedFile.color); // Establece el color predeterminado del archivo seleccionado
+        }
+    }, [selectedFile]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -211,7 +221,6 @@ export const JobPage = () => {
 
     const handlePreviewClick = (file) => {
         setSelectedFile(file);
-        console.log(selectedFile.color)
         setShowPopup(true); 
     };
 
@@ -226,7 +235,59 @@ export const JobPage = () => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return date.toLocaleDateString('da-DK', options);
     };
-    
+
+    const handleDownloadZip = async () => {
+        setLoading(true);
+        
+        try {
+            // Obtener la lista de archivos desde el backend
+            const response = await fetch('/3D_printer/3d_project/query.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    arg: 'getJobFilesZip',
+                    jobId: jobId,
+                }),
+            });
+            
+            const data = await response.json();
+            
+            if (data.status !== 'success') {
+                alert(data.message || 'Error fetching files');
+                setLoading(false);
+                return;
+            }
+
+            const zip = new JSZip();
+            const filePromises = data.files.map(file =>
+                fetch(file.file_url)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Error fetching file');
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        zip.file(file.file_name, blob); // Añade cada archivo al ZIP con su nombre
+                    })
+            );
+
+            // Espera a que todos los archivos se descarguen y se añadan al ZIP
+            await Promise.all(filePromises);
+
+            // Genera el archivo ZIP y lo descarga
+            zip.generateAsync({ type: 'blob' }).then((content) => {
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(content);
+                link.download = `job_${jobId}_files.zip`;
+                link.click();
+                setLoading(false);
+            });
+        } catch (error) {
+            console.error('Error creating ZIP:', error);
+            alert('Error creating ZIP');
+            setLoading(false);
+        }
+    };
+
     return (
         <div id="job_page">
             <div className="job_header">
@@ -255,11 +316,14 @@ export const JobPage = () => {
                 </div>
 
                 {showPopup && (
-                    <div className="popup">
-                        <div className="popup_content">
+                    <div className="popup_background" onClick={() => setShowPopup(false)}>
+                        <div className="popup_content" onClick={(e) => e.stopPropagation()}>
                             <button className="close_popup" onClick={() => setShowPopup(false)}>✕</button>
                             <div className="popup_main">
-                                    <JobPreview modelPath={`/3D_printer/Files/3d_files/${selectedFile.file_path}`} fileColor={selectedFile.color} />
+                                <JobPreview 
+                                    modelPath={`/3D_printer/Files/3d_files/${selectedFile.file_path}`} 
+                                    fileColor={selectedColor} 
+                                />
                                 <div className="file_details">
                                     <h3>File Details</h3>
                                     <p><strong>Color:</strong> {selectedFile.color}</p>
@@ -267,6 +331,20 @@ export const JobPage = () => {
                                     <p><strong>Physical Weight:</strong> {selectedFile.physical_weight} g</p>
                                     <p><strong>File Weight:</strong> {selectedFile.file_weight} MB</p>
                                     <p><strong>Material:</strong> {selectedFile.material}</p>
+                                    <div className="color-buttons">
+                                        <div className="color-default">
+                                            <button className="color-button default" onClick={() => setSelectedColor(selectedFile.color)}>
+                                                Default file color
+                                            </button>
+                                        </div>
+                                        <button className="color-button yellow" onClick={() => setSelectedColor("Yellow")}></button>
+                                        <button className="color-button red" onClick={() => setSelectedColor("Red")}></button>
+                                        <button className="color-button blue" onClick={() => setSelectedColor("Blue")}></button>
+                                        <button className="color-button green" onClick={() => setSelectedColor("Green")}></button>
+                                        <button className="color-button black" onClick={() => setSelectedColor("Black")}></button>
+                                        <button className="color-button white" onClick={() => setSelectedColor("White")}></button>
+                                        <button className="color-button grey" onClick={() => setSelectedColor("Grey")}></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -279,7 +357,7 @@ export const JobPage = () => {
                         <button className={`like_button ${liked ? 'liked' : 'unliked'}`} onClick={handleLikeClick}>
                             <FontAwesomeIcon icon={faHeart} />
                         </button>
-                        <button className="download_button">
+                        <button className="download_button" onClick={handleDownloadZip} disabled={loading}>
                             <FontAwesomeIcon icon={faDownload} />
                         </button>
                     </div>

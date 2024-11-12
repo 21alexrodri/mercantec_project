@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import Error_Page from '../error_page/error_page';
 import { UserTable } from '../users_table/users_table';
-import FilteredJob from '../../filtered_job/filtered_job';
+import FilteredJob from '../filtered_job/filtered_job';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers} from '@fortawesome/free-solid-svg-icons';
 

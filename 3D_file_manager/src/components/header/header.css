@@ -52,3 +52,24 @@ li.link_li a:hover{
 #mercantec_logo{
     margin-left: 0;
 }
+.btn_lang {
+    background: none;
+    border: none;
+    margin: 0.4vw;
+    cursor: pointer;
+}
+
+.btn_lang img {
+    width: 2vw; 
+    height: auto;
+    display: block;
+    border-radius: 0.3vw;
+}
+.not_selected img{
+    filter: grayscale(100%);
+}
+.header_left{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}

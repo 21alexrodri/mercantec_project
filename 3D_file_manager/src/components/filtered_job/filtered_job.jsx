@@ -3,7 +3,7 @@ import { useEffect, useState,useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../../context/UserContext';
 
 
 function FilteredJob({id,name,job_user, creation_date,img_format, likes, layerthickness, total_physical_weight, delete_mode, onDeleteJob }) {

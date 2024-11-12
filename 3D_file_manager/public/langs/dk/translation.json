@@ -1,0 +1,27 @@
+{
+    "searched_files": "Søgte Filer",
+    "filters_applied": "Filtre Anvendt",
+    "filters": "Filtre",
+    "search_by_name": "Søg efter printjob navn...",
+    "date": "Dato",
+    "tags": "Tags",
+    "customer": "Kunde",
+    "no_customer_selected": "Ingen kunde valgt",
+    "colors": "Farver",
+    "no_color_selected": "Ingen farve valgt",
+    "red": "Rød",
+    "blue": "Blå",
+    "green": "Grøn",
+    "purple": "Lilla",
+    "pink": "Pink",
+    "yellow": "Gul",
+    "orange": "Orange",
+    "brown": "Brun",
+    "grey": "Grå",
+    "white": "Hvid",
+    "black": "Sort",
+    "layer_thickness": "Lagtykkelse",
+    "layer_thickness_range": "Valgt lagtykkelsesområde",
+    "material": "Materiale"
+  }
+  

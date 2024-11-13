@@ -3,6 +3,7 @@ import "./new_job.css"
 import { UserContext } from "../../context/UserContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { useTranslation } from 'react-i18next';
 
 /**
  * The new job component. It is a popup that appears when the user clicks on the new job button.
@@ -10,6 +11,7 @@ import { faUpload, faTrash } from '@fortawesome/free-solid-svg-icons';
  * @returns A popup to create a new job
  */
 export const NewJob = ({ closeNewJob, tags: propTags }) => {
+    const { t } = useTranslation();
     const [files, setFiles] = useState([])
     const [zipFile, setZipFile] = useState(null)
     const [imgFile, setImg] = useState(null)
@@ -266,7 +268,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
             <div onClick={closeNewJob} className="blur_content">
                 <div onClick={handleContainerClick} className="container">
                     <div className="new-job-header">
-                        <h2>new job</h2>
+                        <h2>{t("new_job")}</h2>
                         {errorMsg && <p className="error-msg">! {errorMsg}</p>}
                     </div>
                     <form className="form-main" onSubmit={handleFormSubmit}>
@@ -283,60 +285,60 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                             </div>
 
                             <div className="name_box">
-                                <label className="name_lbl">Name</label>
+                                <label className="name_lbl">{t("name")}</label>
                                 <input id="form-name" type="text" className="name_input" placeholder="Project Name..." />
                             </div>
                             <div className="description_box">
-                                <label className="description_lbl">Description</label>
+                                <label className="description_lbl">{t("job_desc")}</label>
                                 <textarea id="form-desc" className="description_input" placeholder="Description..." />
                             </div>
                             <div className="scale_box">
-                                <label className="scale_lbl">Scale</label>
+                                <label className="scale_lbl">{t("scale")}</label>
                                 <input id="form-scale" type="number" className="scale_input" min={0.1} step={0.1} />
                             </div>
                             <div className="color_box">
-                                <label className="color_lbl">Color</label>
+                                <label className="color_lbl">{t("color")}</label>
                                 <select name="form-color" id="form-color">
-                                    <option defaultValue="undefined" value="" selected>Undefined</option>
-                                    <option value="White">White</option>
-                                    <option value="Black">Black</option>
-                                    <option value="Red">Red</option>
-                                    <option value="Green">Green</option>
-                                    <option value="Blue">Blue</option>
-                                    <option value="Yellow">Yellow</option>
-                                    <option value="Purple">Purple</option>
-                                    <option value="Orange">Orange</option>
-                                    <option value="Pink">Pink</option>
-                                    <option value="Brown">Brown</option>
-                                    <option value="Grey">Grey</option>
+                                    <option defaultValue="undefined" value="" selected>{t("undefined")}</option>
+                                    <option value="White">{t("white")}</option>
+                                    <option value="Black">{t("black")}</option>
+                                    <option value="Red">{t("red")}</option>
+                                    <option value="Green">{t("green")}</option>
+                                    <option value="Blue">{t("blue")}</option>
+                                    <option value="Yellow">{t("yellow")}</option>
+                                    <option value="Purple">{t("purple")}</option>
+                                    <option value="Orange">{t("orange")}</option>
+                                    <option value="Pink">{t("pink")}</option>
+                                    <option value="Brown">{t("brown")}</option>
+                                    <option value="Grey">{t("grey")}</option>
                                 </select>
                             </div>
                             <div className="material_box">
-                                <label className="material_lbl">Material</label>
+                                <label className="material_lbl">{t("material")}</label>
                                 <input id="form-material" type="text" className="material_input" />
                             </div>
                             <div className="licence_box">
-                                <label className="licence_lbl">Private</label>
+                                <label className="licence_lbl">{t("private")}</label>
                                 <input id="license" type="checkbox" />
                             </div>
                             <div className="layerThickness_box">
-                                <label className="layerThickness_lbl">Layer Thickness</label>
+                                <label className="layerThickness_lbl">{t("layer_thickness")}</label>
                                 <input id="form-layerThickness" type="number" min={0.01} max={1} step={0.01} />
                             </div>
 
                             <div className="tags_box">
-                                <p className="title_tags">Select Tags</p>
+                                <p className="title_tags">{t("sel_tags")}</p>
                                 <div>
                                     <select ref={selectTagRef} className="nj-select-tags" value={selectedTag} onChange={handleSelectChange}>
-                                        <option value="" disabled>-- SELECT --</option>
+                                        <option value="" disabled>-- {t("select_caps")} --</option>
                                         {propTags.map((tag, index) => (
                                             <option key={index} value={tag.name_tag}>{tag.name_tag}</option>
                                         ))}
                                     </select>
-                                    <button className="nj-select-tags-button" onClick={() => addNewTag(selectedTag)}>Add tag</button>
+                                    <button className="nj-select-tags-button" onClick={() => addNewTag(selectedTag)}>{t("add_tag")}</button>
                                 </div>
                                 <div className="suggest-tag-cont">
-                                    <p className="small-font">No tag matches your project? </p>
+                                    <p className="small-font">{t['no_tag_matches']}</p>
                                     <p onClick={() => {setShowSuggestTag(true)}} className="small-font suggest-tag">Suggest new tag</p>
                                 </div>
                                 <div className="nj-tags-added">
@@ -348,33 +350,32 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                 </div>
                             </div>
                             <div className="customers_box">
-                                <p>Select Customer</p>
+                                <p>{t("select_customer")}</p>
                                 <div>
                                     <select ref={selectCustRef} className="nj-select-customer" value={selectedCust} onChange={handleSelectCustChange}>
-                                        <option defaultValue="undefined" value="undefined" selected>Undefined</option>
+                                        <option defaultValue="undefined" value="undefined" selected>{t("undefined")}</option>
                                         {customers.map((customer, index) => (
                                             <option key={index} value={customer.customer_name}>{customer.customer_name}</option>
                                         ))}
                                     </select>
                                 </div>
                                 <div className="suggest-customer-cont">
-                                    <p className="small-font">Are you working for a new customer? </p>
-                                    <p onClick={handleSuggestTag} className="small-font suggest-customer">Suggest new customer</p>
+                                    <p className="small-font">{t("new_customer")}</p>
+                                    <p onClick={handleSuggestTag} className="small-font suggest-customer">{t("suggest_customer")}</p>
                                 </div>
                             </div>
                         </div>
                         <div className="lower">
                             <div className="files-upload">
                                 <div className="upload-type-selector">
-                                    <p ref={uploadStl} className="upload-stl selected-mode" onClick={setSelected}>Upload files</p>
-                                    <p ref={uploadZip} className="upload-zip" onClick={setSelected}>Upload ZIP</p>
+                                    <p ref={uploadStl} className="upload-stl selected-mode" onClick={setSelected}>{t("upload_files")}</p>
                                 </div>
                                 <ul className="files-list">
                                     {selectedUploadMode === "stl" ? (
                                         <>
                                             {files.length === 0 ? (
                                                 <li className="nj-file-cont">
-                                                    <p>No files yet...</p>
+                                                    <p>{t("no_files")}</p>
                                                 </li>
                                             ) : (
                                                 files.map((file, index) => (
@@ -385,10 +386,10 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                                             value={fileDetails[index]?.name || ""}
                                                             onChange={(e) => handleFileNameChange(index, e.target.value)}
                                                         />
-                                                        <span>.{fileDetails[index]?.extension}</span> {/* Mostrar la extensión */}
+                                                        <span>.{fileDetails[index]?.extension}</span> 
                                                         <FontAwesomeIcon icon={faTrash} cursor="pointer" onClick={() => handleDeleteFile(index)} />
-                                                        {/* Campo para seleccionar color */}
-                                                        <label className="color_file_lbl">Color:</label>
+                                                        
+                                                        <label className="color_file_lbl">{t("color")}:</label>
                                                         <select className="color_file_select"
                                                             value={fileDetails[index]?.color || ""}
                                                             onChange={(e) => {
@@ -397,22 +398,21 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                                                 setFileDetails(updatedDetails);
                                                             }}
                                                         >
-                                                            <option value="">Undefined</option>
-                                                            <option value="White">White</option>
-                                                            <option value="Black">Black</option>
-                                                            <option value="Red">Red</option>
-                                                            <option value="Green">Green</option>
-                                                            <option value="Blue">Blue</option>
-                                                            <option value="Yellow">Yellow</option>
-                                                            <option value="Purple">Purple</option>
-                                                            <option value="Orange">Orange</option>
-                                                            <option value="Pink">Pink</option>
-                                                            <option value="Brown">Brown</option>
-                                                            <option value="Grey">Grey</option>
+                                                            <option value="">{t("undefined")}</option>
+                                                            <option value="White">{t("white")}</option>
+                                                            <option value="Black">{t("black")}</option>
+                                                            <option value="Red">{t("red")}</option>
+                                                            <option value="Green">{t("green")}</option>
+                                                            <option value="Blue">{t("blue")}</option>
+                                                            <option value="Yellow">{t("yellow")}</option>
+                                                            <option value="Purple">{t("purple")}</option>
+                                                            <option value="Orange">{t("orange")}</option>
+                                                            <option value="Pink">{t("pink")}</option>
+                                                            <option value="Brown">{t("brown")}</option>
+                                                            <option value="Grey">{t("grey")}</option>
                                                         </select>
 
-                                                        {/* Campo para scale */}
-                                                        <label className="scale_file_lbl">Scale:</label>
+                                                        <label className="scale_file_lbl">{t("scale")}:</label>
                                                         <input
                                                             className="scale_file_input"
                                                             type="number"
@@ -426,7 +426,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                                         />
 
                                                         {/* Campo para physical weight */}
-                                                        <label className="physical_file_lbl">Physical Weight <span>(g)</span>:</label>
+                                                        <label className="physical_file_lbl">{t("physical")} {t("weight")} <span>(g)</span>:</label>
                                                         <input className="physical_file_input"
                                                             type="number"
                                                             value={fileDetails[index]?.weight || ""}
@@ -449,10 +449,10 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                     ) : (
                                         <div className="zip-upload-cont">
                                             <div className="zip-upload">
-                                                <p>Upload</p>
+                                                <p>{t("upload")}</p>
                                                 <input type="file" accept=".zip" onChange={handleZipUpload} />
                                             </div>
-                                            <p ref={zipFileRef}>No file yet...</p>
+                                            <p ref={zipFileRef}>{t("no_files")}</p>
                                             <FontAwesomeIcon ref={zipTrashRef} className="hide-trash" icon={faTrash} cursor="pointer" onClick={handleDeleteZip} />
                                         </div>
                                     )}
@@ -460,8 +460,8 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                             </div>
                             <div className="lower-right">
                                 <div className="upload-options">
-                                    <button className="cancel-button" onClick={closeNewJob}>CANCEL</button>
-                                    <button className="upload-button" onClick={handleUpload}>UPLOAD</button>
+                                    <button className="cancel-button" onClick={closeNewJob}>{t("cancel")}</button>
+                                    <button className="upload-button" onClick={handleUpload}>{t("upload")}</button>
                                 </div>
                             </div>
                         </div>

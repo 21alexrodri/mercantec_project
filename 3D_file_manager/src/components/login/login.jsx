@@ -1,4 +1,5 @@
 import "./login.css";
+import { useTranslation } from 'react-i18next';
 import { useCallback, useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 /**
@@ -9,6 +10,7 @@ import { Navigate } from "react-router-dom";
 export const Login = ({ closeLogin }) => {
     const [dataSend, setDataSend] = useState({ username: '', password: '' });
     const [wrongData, setWrongData] = useState(false);
+    const { t } = useTranslation();
 
     const handleContainerClick = (e) => {
         e.stopPropagation();
@@ -77,18 +79,18 @@ export const Login = ({ closeLogin }) => {
                     <button onClick={closeLogin}>X</button>
                 </div>
                 <div className="credentials_title">
-                    <h2>Log In</h2>
+                    <h2>{t("login")}</h2>
                 </div>
                 <div className="credentials_body">
                     <form id="login_form" onSubmit={send_data}>
-                    <label htmlFor="username">Username</label><br />
+                    <label htmlFor="username">{t("username")}</label><br />
                     <input id="username_prompt" type="text" name="username" value={dataSend.username} onChange={handleChange} autoFocus /><br />
-                    <label htmlFor="password">Password</label><br />
+                    <label htmlFor="password">{t("password")}</label><br />
                     <input id="password_prompt" type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
                     <br />
                     <input type="submit" value="LOG IN" className="credentials_submit_button" />
                     {wrongData &&(
-                        <p className="err_msg">Invalid username, invalid password or user not activated</p>
+                        <p className="err_msg">{t("login_invalid")}</p>
                     )}
                     </form>
                 </div>

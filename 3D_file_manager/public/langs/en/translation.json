@@ -1,0 +1,28 @@
+{
+    "searched_files": "Searched Files",
+    "filters_applied": "Filters Applied",
+    "filters": "Filters",
+    "search_by_name": "Search by printjob name...",
+    "date": "Date",
+    "tags": "Tags",
+    "customer": "Customer",
+    "no_customer_selected": "No customer selected",
+    "colors": "Colors",
+    "no_color_selected": "No color selected",
+    "red": "Red",
+    "blue": "Blue",
+    "green": "Green",
+    "purple": "Purple",
+    "pink": "Pink",
+    "yellow": "Yellow",
+    "orange": "Orange",
+    "brown": "Brown",
+    "grey": "Grey",
+    "white": "White",
+    "black": "Black",
+    "layer_thickness": "Layer Thickness",
+    "layer_thickness_range": "Selected layer thickness range",
+    "material": "Material"
+
+  }
+  

@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
  * @returns A popup to create a new job
  */
 export const NewJob = ({ closeNewJob, tags: propTags }) => {
-    const { i18n } = useTranslation();
+    const { t } = useTranslation();
     const [files, setFiles] = useState([])
     const [zipFile, setZipFile] = useState(null)
     const [imgFile, setImg] = useState(null)
@@ -334,7 +334,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                             <option key={index} value={tag.name_tag}>{tag.name_tag}</option>
                                         ))}
                                     </select>
-                                    <button className="nj-select-tags-button" onClick={() => addNewTag(selectedTag)}>{("add_tag")}</button>
+                                    <button className="nj-select-tags-button" onClick={() => addNewTag(selectedTag)}>{t("add_tag")}</button>
                                 </div>
                                 <div className="suggest-tag-cont">
                                     <p className="small-font">{t("no_tag_matches")} </p>

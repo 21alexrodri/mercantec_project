@@ -5,7 +5,8 @@ import Error_Page from '../error_page/error_page';
 import { UserTable } from '../users_table/users_table';
 import FilteredJob from '../../filtered_job/filtered_job';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers} from '@fortawesome/free-solid-svg-icons';
+import { faUsers, faTags} from '@fortawesome/free-solid-svg-icons';
+import { TagsProposals } from '../tags_proposals/tags_proposals';
 
 /**
  * The profile component. It shows the user's profile with their files and information.
@@ -17,9 +18,16 @@ function Profile() {
     const [error, setError] = useState(null);
     const {userId, username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);  
     const [showUserTable, setShowUserTable] = useState(false);
+    const [showTagsProposals, setShowTagsProposals] = useState(false);
     const [filteredItems, setFilteredItems] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [deleteJobState,setDeleteJobState] = useState(false);
+
+    const handleCustomerSuggestion = () => {
+        fetch('/3D_printer/3d_project/query.php',{
+            
+        })
+    }
     
     useEffect(() => {
         if (isLogged && username) {  
@@ -52,11 +60,17 @@ function Profile() {
     /**
      * This function handles the click event on the edit button.
      */
-    const handleEditClick = () => {
+    const handleUsersClick = () => {
         if (isAdmin) {
             setShowUserTable(true)
         }
     };
+
+    const handleTagsClick = () => {
+        if (isAdmin) {
+            setShowTagsProposals(true)
+        }
+    }
 
     const filteredResults = filteredItems.filter(item =>
         item.project_name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -87,12 +101,52 @@ function Profile() {
                 <div className="profile_left_column">
                     <img className="profile_picture" src={imageLink} alt="" />
                     <h2 className="username_text">{username}</h2> 
-                    {isAdmin && (
-                        <button className="profile_button" id="button1" onClick={handleEditClick}>
-                            <FontAwesomeIcon icon={faUsers} />
-                        </button>
-                    )}
+                    <div className='admin_ctrl_panel'>
+                        {isAdmin && (
+                            <button className="profile_button" id="button1" onClick={handleUsersClick} title='Users'>
+                                <FontAwesomeIcon icon={faUsers} />
+                            </button>
+                        )}
+                        {isAdmin && (
+                            <button className="profile_button" id="button1" onClick={handleTagsClick} title='Suggested tags'>
+                                <FontAwesomeIcon icon={faTags} />
+                            </button>
+                        )}
+                    </div>
+                    <div className='suggestions'>
+                        <div className='suggest-container'>
+                            <b>Suggest new tag</b>
+                            <div className='suggest-tag-input'>
+                                <input type='text' placeholder='new tag...'/>
+                                <button>Suggest tag</button>
+                            </div>
+                        </div>
+                        <div className='suggest-container'>
+                            <b>Suggest new customer</b>
+                            <form className='suggest-customer-form' onSubmit={handleCustomerSuggestion}>
+                                <div>
+                                    <label className="customer-name-lbl">Name</label>
+                                    <input id="nc-name" type='text' placeholder='new customer name...'/>
+                                </div>
+                                <div>
+                                    <label className='customer-email-lbl'>e-mail</label>
+                                    <input id="nc-email" type='email' placeholder='new customer e-mail...'/>
+                                </div>
+                                <div>
+                                    <label className='customer-phone-lbl'>Phone number</label>
+                                    <input id="nc-phone" type='tel' placeholder='new customer phone...'/>
+                                </div>
+                                <div>
+                                    <label className='customer-desc-lbl'>Description</label>
+                                    <textarea id="nc-desc" placeholder='new customer description'/>
+                                </div>
+                                <button onClick={handleCustomerSuggestion}>Suggest customer</button>
+                            </form>
+                        </div>
+                    </div>
+                    
                     {showUserTable && <UserTable closeUserTable={() => setShowUserTable(false)} />}
+                    {showTagsProposals && <TagsProposals closeUserTable={() => setShowTagsProposals(false)} />}
                 </div>
                 <div className="profile_jobs_section">
                     <div className="profile_jobs_section_header">

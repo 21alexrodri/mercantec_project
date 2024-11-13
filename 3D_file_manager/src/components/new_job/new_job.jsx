@@ -16,6 +16,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     const [tags, setTags] = useState([])
     const [customers, setCustomers] = useState([])
     const [fileDetails, setFileDetails] = useState([])
+    const [showSuggestTag,setShowSuggestTag] = useState(false)
     const imgUploadContainerRef = useRef(null)
     const zipTrashRef = useRef(null)
     const selectTagRef = useRef(null)
@@ -304,7 +305,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                 </div>
                                 <div className="suggest-tag-cont">
                                     <p className="small-font">No tag matches your project? </p>
-                                    <p onClick={handleSuggestTag} className="small-font suggest-tag">Suggest new tag</p>
+                                    <p onClick={() => {setShowSuggestTag(true)}} className="small-font suggest-tag">Suggest new tag</p>
                                 </div>
                                 <div className="nj-tags-added">
                                     {tags.map((tag, index) => (

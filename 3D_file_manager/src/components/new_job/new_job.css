@@ -620,6 +620,7 @@
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-transform: uppercase;
 }
 
 .upload-options .cancel-button:hover,

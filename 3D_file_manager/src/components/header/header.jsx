@@ -69,17 +69,27 @@ function Header() {
                 </ul>
             </nav>
             <div>
-                {i18n.language === 'en' && (
-                    <>
-                    <button className='btn_lang' onClick={() => changeLanguage('en')}><img src="/3D_printer/Files/img/en.jpg" alt='English'/></button> 
-                    <button className='btn_lang not_selected' onClick={() => changeLanguage('dk')}><img src="/3D_printer/Files/img/dk.jpg" alt='Dansk'/></button>
-                    </>
+            {i18n.language === 'en' && (
+                    <div>
+                    <button className='btn_lang' onClick={() => changeLanguage('en')}>
+                        <img src="/3D_printer/Files/img/en.jpg" alt='English' />
+                    </button>
+                    <button className='btn_lang not_selected' onClick={() => changeLanguage('dk')}>
+                        <img src="/3D_printer/Files/img/dk.jpg" alt='Dansk' />
+                    </button>
+                </div>
+                
                 )}
                 {i18n.language === 'dk' && (
-                    <>
-                    <button className='btn_lang not_selected' onClick={() => changeLanguage('en')}><img src="/3D_printer/Files/img/en.jpg" alt='English'/></button>
-                    <button className='btn_lang' onClick={() => changeLanguage('dk')}><img src="/3D_printer/Files/img/dk.jpg" alt='Dansk'/></button>
-                    </>
+                    <div>
+                    <button className='btn_lang not_selected' onClick={() => changeLanguage('en')}>
+                        <img src="/3D_printer/Files/img/en.jpg" alt='English' />
+                    </button>
+                    <button className='btn_lang' onClick={() => changeLanguage('dk')}>
+                        <img src="/3D_printer/Files/img/dk.jpg" alt='Dansk' />
+                    </button>
+                </div>
+                
                 )}
             </div>
             </div>
@@ -92,6 +102,7 @@ function Header() {
 
             <h1 className='header_title'>3D Print Archive</h1>
             </div>
+            <div className='header_left'> 
             <nav className='header_navbar'>
                 <ul>
                     <li className='link_li'><a href='/home'>Home</a></li>
@@ -99,6 +110,32 @@ function Header() {
                     <button className='login_btn' onClick={handleLogout}>Log Out</button>
                 </ul>
             </nav>
+            <div>
+                {i18n.language === 'en' && (
+                    <div>
+                    <button className='btn_lang' onClick={() => changeLanguage('en')}>
+                        <img src="/3D_printer/Files/img/en.jpg" alt='English' />
+                    </button>
+                    <button className='btn_lang not_selected' onClick={() => changeLanguage('dk')}>
+                        <img src="/3D_printer/Files/img/dk.jpg" alt='Dansk' />
+                    </button>
+                </div>
+                
+                )}
+                {i18n.language === 'dk' && (
+                    <div>
+                    <button className='btn_lang not_selected' onClick={() => changeLanguage('en')}>
+                        <img src="/3D_printer/Files/img/en.jpg" alt='English' />
+                    </button>
+                    <button className='btn_lang' onClick={() => changeLanguage('dk')}>
+                        <img src="/3D_printer/Files/img/dk.jpg" alt='Dansk' />
+                    </button>
+                </div>
+                
+                )}
+            </div>
+            </div> 
+            
         </header>
         )}
 

@@ -6,6 +6,8 @@ import { UserTable } from '../users_table/users_table';
 import FilteredJob from '../filtered_job/filtered_job';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers} from '@fortawesome/free-solid-svg-icons';
+import { useTranslation } from 'react-i18next';
+
 
 /**
  * The profile component. It shows the user's profile with their files and information.
@@ -20,6 +22,7 @@ function Profile() {
     const [filteredItems, setFilteredItems] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [deleteJobState,setDeleteJobState] = useState(false);
+    const { t } = useTranslation();
     
     useEffect(() => {
         if (isLogged && username) {  
@@ -96,7 +99,7 @@ function Profile() {
                 </div>
                 <div className="profile_jobs_section">
                     <div className="profile_jobs_section_header">
-                        <h3 className="profile_jobs_section_title">Your files</h3>
+                        <h3 className="profile_jobs_section_title">{t("your_files")}</h3>
                         <input
                             className='profile-search-project-name'
                             type="text"
@@ -104,21 +107,21 @@ function Profile() {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
-                        <div className='job-delete-btt' onClick={handleDeleteButton}>Delete jobs</div>
+                        <div className='job-delete-btt' onClick={handleDeleteButton}>{t("del_jobs")}</div>
                     </div>
                     <div>
                         {loading ? (
-                            <p>Loading...</p>
+                            <p>{t("loading")}</p>
                         ) : error ? (
-                            <p>Error: {error.message}</p>
+                            <p>Error. {error.message}</p>
                         ) : filteredResults.length > 0 ? (
                             <div className="usr-jobs-list">
                                 <ul className='usr-key'>
                                     <li></li>
-                                    <li className='author'>Project</li>
-                                    <li>Project date</li>
-                                    <li>Layer thickness</li>
-                                    <li>Weight</li>
+                                    <li className='author'>{t("project")}</li>
+                                    <li>{t("project")} {t("date")}</li>
+                                    <li>{t("layer_thickness")}</li>
+                                    <li>{t("weight")}</li>
                                     <li className='job_likes_key'></li>
                                 </ul>
                                 {filteredResults.map(item => (
@@ -138,7 +141,7 @@ function Profile() {
                                 ))}
                             </div>
                         ) : (
-                            <p>No results found.</p>
+                            <p>{t("no_results")}</p>
                         )}
                     </div>
                 </div>

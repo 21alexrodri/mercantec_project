@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../../context/UserContext';
+import { useTranslation } from 'react-i18next';
 
 
 function FilteredJob({id,name,job_user, creation_date,img_format, likes, layerthickness, total_physical_weight, delete_mode, onDeleteJob }) {
     const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
-
+    const { t } = useTranslation();
     const [deleting,setDeleting] = useState(false);
     const navigateTo = useNavigate();
 
@@ -27,7 +28,6 @@ function FilteredJob({id,name,job_user, creation_date,img_format, likes, layerth
     }, [delete_mode]);
 
     const handleDeleteJob = (id)=> {
-        console.log("Entra")
         if(isAdmin || username == job_user){
             fetch('/3D_printer/3d_project/query.php', {
                 method: 'POST',
@@ -62,10 +62,10 @@ function FilteredJob({id,name,job_user, creation_date,img_format, likes, layerth
             {(deleting && delete_mode) ? (
                 <>
                     <div className="deleting-job" id={id}>
-                        <b>Are you sure you want to delete the job "{name}"?</b>
+                        <b>{t("confirm_delete_job")} "{name}"?</b>
                         <div className='deleting-job-opts'>
-                            <p className='yes' onClick={()=>handleDeleteJob(id)}>Delete</p>
-                            <p className='no' onClick={()=>handleDisableSelecting()}>Cancel</p>
+                            <p className='yes' onClick={()=>handleDeleteJob(id)}>{t("delete")}</p>
+                            <p className='no' onClick={()=>handleDisableSelecting()}>{t("cancel")}</p>
                         </div>
                     </div>
                 </>
@@ -92,7 +92,7 @@ function FilteredJob({id,name,job_user, creation_date,img_format, likes, layerth
                         <p className='job_layerthickness' title='layer thickness'>{layerthickness}mm</p>
                         </li>
                         <li>
-                        <p className='job_weight' title='weight'>{(total_physical_weight).toFixed(2)}kg</p>
+                        <p className='job_weight' title='weight'>{(total_physical_weight).toFixed(2)}g</p>
                         </li>
                         <li>
                         <p className='job_likes' title='likes'><FontAwesomeIcon className='heart' icon={faHeart} ></FontAwesomeIcon><span className='likes_text'>{likes}</span></p>

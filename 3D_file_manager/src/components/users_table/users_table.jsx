@@ -2,11 +2,12 @@ import { useCallback, useState, useEffect, act } from "react";
 import "./users_table.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
-
+import { useTranslation } from 'react-i18next';
 export const UserTable = ({ closeUserTable }) => {
     const [search, setSearch] = useState('');
     const [usersList, setUsersList] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
+    const { t } = useTranslation();
 
     const handleContainerClick = (e) => {
         e.stopPropagation();
@@ -100,7 +101,7 @@ export const UserTable = ({ closeUserTable }) => {
                     <button onClick={closeUserTable}>X</button>
                 </div>
                 <div className="popup_title">
-                    <h2>Edit Users</h2>
+                    <h2>{t("edit_users")}</h2>
                 </div>
                 <div className="users_table_body">
                     <input 
@@ -114,11 +115,11 @@ export const UserTable = ({ closeUserTable }) => {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Username</th>
-                                    <th>Admin</th>
-                                    <th>Email</th>
-                                    <th>Date Created</th>
-                                    <th>Active</th>
+                                    <th>{t("username")}</th>
+                                    <th>{t("admin")}</th>
+                                    <th>{t("email")}</th>
+                                    <th>{t("date")} {t("created")}</th>
+                                    <th>{t("active")}</th>
                                 </tr>
                             </thead>
                             <tbody>

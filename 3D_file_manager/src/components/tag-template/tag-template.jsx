@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight,} from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 /**
  * The template for the tags. It shows the jobs for each tag.
  * @param {jobs} jobs The jobs for the tags.
@@ -12,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
  * @returns 
  */
 function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
+    const { t } = useTranslation();
     const [offset,setOffset] = useState(0);
     const [currentPage, setCurrentPage] = useState(0); 
     const [direction, setDirection] = useState(null); 
@@ -94,10 +96,10 @@ function TagTemplate({jobs,tagId,tagName,handleShowJobs}){
                                 }
                             </>
                         ) : (
-                            <p>No jobs</p> 
+                            <p>{t("no_jobs")}</p> 
                         )
                     ) : (
-                        <p>Loading jobs...</p>
+                        <p>{t("loading")}</p>
                     )}
                     
             </div>

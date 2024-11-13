@@ -24,8 +24,76 @@ function Profile() {
     const [deleteJobState,setDeleteJobState] = useState(false);
 
     const handleCustomerSuggestion = () => {
+        let customerName = document.getElementById("nc-name").value
+        let customerMail = document.getElementById("nc-email").value
+        let willReturn = false
+
+        if(!isLogged){
+            return
+        }
+
+        if(customerName == ""){
+            alert("You must introduce a customer name")
+            willReturn = true
+        }
+        if(customerMail == ""){
+            alert("You must introduce the customer email")
+            willReturn = true
+        }
+
+        if(willReturn){
+            return
+        }
+
         fetch('/3D_printer/3d_project/query.php',{
-            
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'appliaction/json'
+            },
+            body: JSON.stringify({
+                arg: 'newCustomer',
+                admin: isAdmin,
+                name: customerName,
+                email: customerMail,
+                phone: document.getElementById("nc-phone").value,
+                desc: document.getElementById("nc-desc").value
+            })
+        })
+    }
+
+    const handleTagSuggestion = () => {
+        let tagName = document.getElementById("new-tag-input").value
+
+        if(!isLogged){
+            return
+        }
+
+        if(tagName == ""){
+            alert("You must introduce a tag name")
+            return
+        }
+
+        console.log("PASA");
+
+        fetch('/3D_printer/3d_project/query.php',{
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                arg: 'newTag',
+                admin: isAdmin,
+                name: tagName
+            })
+        }).then((response) => {
+            if(!response.ok){
+                throw new Error(`HTTP error! status: ${response.status}`)
+            }
+            return response.json()
+        }).then((data) => {
+            if(data){
+
+            }
         })
     }
     
@@ -117,13 +185,13 @@ function Profile() {
                         <div className='suggest-container'>
                             <b>Suggest new tag</b>
                             <div className='suggest-tag-input'>
-                                <input type='text' placeholder='new tag...'/>
-                                <button>Suggest tag</button>
+                                <input id="new-tag-input" type='text' placeholder='new tag...'/>
+                                <button onClick={handleTagSuggestion}>Suggest tag</button>
                             </div>
                         </div>
                         <div className='suggest-container'>
                             <b>Suggest new customer</b>
-                            <form className='suggest-customer-form' onSubmit={handleCustomerSuggestion}>
+                            <form className='suggest-customer-form'>
                                 <div>
                                     <label className="customer-name-lbl">Name</label>
                                     <input id="nc-name" type='text' placeholder='new customer name...'/>

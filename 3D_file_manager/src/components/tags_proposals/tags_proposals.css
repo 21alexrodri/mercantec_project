@@ -69,3 +69,73 @@
     padding-bottom:0.2em;
     font-size: 0.9em;
 }
+
+.to-accept:nth-child(odd){
+    background-color: #8cabff !important;
+
+}
+.to-accept:nth-child(even){
+    background-color: #a9c0ff !important;
+}
+
+.to-accept button, .accepted button{
+    padding: 5px;
+    margin: 2px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.to-accept button.decline{
+    background-color: red;
+    border: 2px solid red;
+    transition: all 0.2s ease;
+}
+.to-accept button.decline:hover{
+    background-color: transparent;
+    color:red;
+    transition: all 0.2s ease;
+}
+
+.to-accept button.accept{
+    background-color: green;
+    border: 2px solid green;
+    transition: all 0.2s ease;
+}
+.to-accept button.accept:hover{
+    background-color: transparent;
+    color:green;
+    transition: all 0.2s ease;
+}
+
+.accepted button.delete{
+    background-color: red;
+    border: 2px solid red;
+    transition: all 0.2s ease;
+}
+.accepted button.delete:hover{
+    background-color: transparent;
+    color:red;
+    transition: all 0.2s ease;
+}
+
+.accepted button.disable{
+    background-color: rgb(255, 166, 0);
+    border: 2px solid rgb(255, 166, 0);
+    transition: all 0.2s ease;
+}
+.accepted button.disable:hover{
+    background-color: transparent;
+    color:rgb(255, 166, 0);
+    transition: all 0.2s ease;
+}
+
+.tags_table_results_container{
+    overflow: auto;
+    max-height: 15em;
+}
+
+.tags_table_body tr:nth-child(odd){
+    background-color: #eee;
+}

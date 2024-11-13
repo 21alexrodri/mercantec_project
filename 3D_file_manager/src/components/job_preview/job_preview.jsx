@@ -22,19 +22,26 @@ const JobPreview = ({ modelPath, fileColor }) => {
     renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
     mountRef.current.appendChild(renderer.domElement);
 
-    const light = new THREE.DirectionalLight(0xffffff, 1.4);
-    light.position.set(1, 1, 1).normalize();
-    scene.add(light);
-    scene.add(new THREE.AmbientLight(0xbfbfbf, 2));
+    // Luz hemisférica para una iluminación más equilibrada
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
+    hemiLight.position.set(0, 200, 0);
+    scene.add(hemiLight);
+
+    // Luz direccional ajustada para destacar el modelo
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+    dirLight.position.set(1, 1, 1).normalize();
+    scene.add(dirLight);
+
+    // Luz ambiental ajustada para suavizar el efecto global de luz
+    scene.add(new THREE.AmbientLight(0xbfbfbf, 0.5));
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
 
     const loader = new STLLoader();
-
     const absolutePath = modelPath;
     console.log("Attempting to load model from:", absolutePath);
-    console.log("color: "+ fileColor)
+    console.log("color: " + fileColor);
 
     loader.load(
       absolutePath,
@@ -43,10 +50,10 @@ const JobPreview = ({ modelPath, fileColor }) => {
           // Convertir fileColor a un valor compatible con THREE.js si es necesario
           const materialColor = new THREE.Color(fileColor);
 
-          // Crear el material con el color dinámico o vertexColors si están presentes en la geometría
+          // Crear el material con MeshPhysicalMaterial para mayor realismo
           const material = geometry.hasColors
-            ? new THREE.MeshStandardMaterial({ vertexColors: true })
-            : new THREE.MeshStandardMaterial({ color: materialColor });
+            ? new THREE.MeshPhysicalMaterial({ vertexColors: true, roughness: 0.6, metalness: 0.5 })
+            : new THREE.MeshPhysicalMaterial({ color: materialColor, roughness: 0.6, metalness: 0.5 });
 
           const mesh = new THREE.Mesh(geometry, material);
           scene.add(mesh);

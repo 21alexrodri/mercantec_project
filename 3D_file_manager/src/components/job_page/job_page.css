@@ -74,7 +74,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 35px;
-    padding-top: 10px;
+    padding-top: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 300px;
 }
@@ -132,6 +132,29 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.filter_style{
+    background-color: #FF8387;
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+
+    overflow: hidden;
+    text-wrap: nowrap;
+    padding: 15px 12px 20px 12px;
+
+    color: white;
+    font-weight: 900;
+    font-size: 15px;   
+}
+
+.job_tags {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
 .job_box{
     width: 70%;
 }
@@ -290,6 +313,19 @@
     align-items: center;
     z-index: 999;
 }
+
+.popup_background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro y semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
   
 .popup_content {
     width: 73%;
@@ -301,8 +337,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    z-index: 1000; /* Asegura que el contenido esté encima del fondo */
 }
-
 .popup_main {
     display: flex;
     gap: 20px;
@@ -345,6 +381,8 @@
     background-color: red;
     border-radius: 20%;
     transition: 0.25s ease;
+    padding-right: 5px;
+    padding-left: 6px;
 }
 
 .close_popup:hover {
@@ -364,6 +402,32 @@
     cursor: pointer;
 }
 
+.download_zip_button {
+    position: relative;
+    background-color: #0E38AB;
+    color: white;
+    padding: 11px 13px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+}
+
+.download_zip_button.loading {
+    background-color: #555; 
+    cursor: wait;
+}
+
+.download_zip_button .fa-spinner {
+    margin-right: 8px; 
+    animation: spin 1s linear infinite; 
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
 /* Estilo de la caja de comentarios */
 .comment_form {
@@ -483,4 +547,48 @@
 .comment_username:hover {
     color: #0C2A84;
     text-decoration: underline;
+}
+
+.color-buttons {
+    display: flex;
+    gap: 10px; /* Espacio entre botones */
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.color-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #ddd; /* Borde sutil */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s; /* Animación de interacción */
+}
+
+.color-button:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.color-button.default {
+    width: auto;
+    height: 40px;
+    padding: 0 15px; /* Espaciado para acomodar el texto */
+    border-radius: 20px; /* Forma redondeada para diferenciarlo */
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.color-button.yellow { background-color: yellow; }
+.color-button.red { background-color: red; }
+.color-button.blue { background-color: blue; }
+.color-button.green { background-color: green; }
+.color-button.black { background-color: black; }
+.color-button.white { background-color: white; border: 2px solid #ccc; } /* Borde gris para resaltar */
+.color-button.grey { background-color: grey; }
+
+.color-default{
+    padding-right: 100%;
 }

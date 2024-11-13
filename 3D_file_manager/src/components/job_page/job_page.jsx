@@ -5,11 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faDownload, faSpinner, faTag } from '@fortawesome/free-solid-svg-icons';
 import JobPreview from '../job_preview/job_preview';
 import JSZip from 'jszip';
+import { useTranslation } from 'react-i18next';
 
 export const JobPage = () => {
     const location = useLocation();
     const navigateTo = useNavigate();
     const { jobId } = location.state || {};
+    const { t } = useTranslation();
     const [jobData, setJobData] = useState({
         title: '',
         owner: '',
@@ -335,13 +337,13 @@ export const JobPage = () => {
                         <div className="job_files_container">
                             {jobFiles.map((file, index) => (
                                 <div className="file_container" key={index}>
-                                    <h3 className="file_title">Job File {file.id}</h3>
+                                    <h3 className="file_title">{t("job_file")} {file.id}</h3>
                                     <div className="file_actions">
                                         <button className="preview_button" onClick={() => handlePreviewClick(file)}>
-                                            Preview
+                                            {t("preview")}
                                         </button>
                                         <button className="download_button" onClick={() => handleDownloadClick(file)}>
-                                            Download
+                                            {t("download")}
                                         </button>
                                     </div>
                                 </div>
@@ -360,12 +362,12 @@ export const JobPage = () => {
                                     fileColor={selectedColor} 
                                 />
                                 <div className="file_details">
-                                    <h3>File Details</h3>
-                                    <p><strong>Color:</strong> {selectedFile.color}</p>
-                                    <p><strong>Scale:</strong> {selectedFile.scale}</p>
-                                    <p><strong>Physical Weight:</strong> {selectedFile.physical_weight} g</p>
-                                    <p><strong>File Weight:</strong> {selectedFile.file_weight} MB</p>
-                                    <p><strong>Material:</strong> {selectedFile.material}</p>
+                                    <h3>{t("file_details")}</h3>
+                                    <p><strong>{t("color")}:</strong> {selectedFile.color}</p>
+                                    <p><strong>{t("scale")}:</strong> {selectedFile.scale}</p>
+                                    <p><strong>{t("physical_weight")}:</strong> {selectedFile.physical_weight} g</p>
+                                    <p><strong>{t("file")} {t("weight")}:</strong> {selectedFile.file_weight} MB</p>
+                                    <p><strong>{t("material")}:</strong> {selectedFile.material}</p>
                                     <div className="color-buttons">
                                         <div className="color-default">
                                             <button className="color-button default" onClick={() => setSelectedColor(selectedFile.color)}>
@@ -406,9 +408,9 @@ export const JobPage = () => {
                     </div>
                 </div>
                 <div className="job_info">
-                    <h3>Job Info</h3>
+                    <h3>{t("job_info")}</h3>
                     <div className="job_info_item">
-                        <span className="job_info_label">License:</span>
+                        <span className="job_info_label">{t("license")}:</span>
                         <span className="job_info_value">{jobData.info.license}</span>
                     </div>
                     <div className="job_info_item">
@@ -416,15 +418,15 @@ export const JobPage = () => {
                         <span className="job_info_value">{likes}</span>
                     </div>
                     <div className="job_info_item">
-                        <span className="job_info_label">Layer Thickness:</span>
+                        <span className="job_info_label">{t("layer_thickness")}:</span>
                         <span className="job_info_value">{jobData.info.layer_thickness}</span>
                     </div>
                     <div className="job_info_item">
-                        <span className="job_info_label">Creation Date:</span>
+                        <span className="job_info_label">{t("creation_date")}:</span>
                         <span className="job_info_value">{jobData.info.creation_date}</span>
                     </div>
                     <div className="job_info_item">
-                        <span className="job_info_label">Color:</span>
+                        <span className="job_info_label">{t("color")}:</span>
                         <span className="job_info_value">{jobData.info.color}</span>
                     </div>
                 </div>
@@ -445,6 +447,10 @@ export const JobPage = () => {
                                 </div>
                             )}
                         </div>
+                    <div className="job_description">
+                        <h3>{("job_desc")}</h3>
+                        <p>{jobData.description}</p>
+                    </div>
                     {isLoggedIn ? (
                         <div className="comment_form">
                             <textarea
@@ -452,12 +458,12 @@ export const JobPage = () => {
                                 value={newComment}
                                 onChange={(e) => setNewComment(e.target.value)}
                             />
-                            <button onClick={handleCommentSubmit}>Send Comment</button>
+                            <button onClick={handleCommentSubmit}>{t("send_comment")}</button>
                         </div>
                     ) : (
                         <div className="comment_form disabled">
                             <textarea disabled placeholder="Write a new comment"></textarea>
-                            <button disabled>Send Comment</button>
+                            <button disabled>{t("send_comment")}</button>
                         </div>
                     )}
 
@@ -473,12 +479,12 @@ export const JobPage = () => {
                                 </div>
                             ))
                         ) : (
-                            <p>There are no comments.</p>
+                            <p>{t("no_comments")}</p>
                         )}
                     </div>
                 </div>
                 <div className="other_jobs">
-                    <h3>Other Jobs</h3>
+                    <h3>{t("other_jobs")}</h3>
                     {jobData?.otherJobs?.length > 0 ? (
                         jobData.otherJobs.map((otherJob, index) => (
                             <div key={index} className="other_job" onClick={() => handleJobClick(otherJob.id)}>
@@ -498,7 +504,7 @@ export const JobPage = () => {
                             </div>
                         ))
                     ) : (
-                        <div>No hay trabajos disponibles</div>
+                        <div>{t("no_jobs")}</div>
                     )}
                 </div>
             </div>

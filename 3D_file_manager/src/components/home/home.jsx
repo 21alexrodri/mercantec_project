@@ -206,22 +206,22 @@ function Home() {
                                     <div className='order-controls'>
                                     
                                         <div className='order' onClick={() => setIsOrderDropdownOpen(!isOrderDropdownOpen)}>
-                                            <FontAwesomeIcon icon={faSort} /> <p className='order-by-text'>Order by</p>
+                                            <FontAwesomeIcon icon={faSort} /> <p className='order-by-text'>{t("order_by")}</p>
                                             
                                                 <ul className="order-dropdown">
-                                                    <li onClick={() => handleOrderSelection('name')}>Name</li>
-                                                    <li onClick={() => handleOrderSelection('username')}>Username</li>
-                                                    <li onClick={() => handleOrderSelection('date')}>Date</li>
-                                                    <li onClick={() => handleOrderSelection('likes')}>Likes</li>
-                                                    <li onClick={() => handleOrderSelection('layerthickness')}>Layer Thickness</li>
-                                                    <li onClick={() => handleOrderSelection('weight')}>Weight</li>
+                                                    <li onClick={() => handleOrderSelection('name')}>{t("name")}</li>
+                                                    <li onClick={() => handleOrderSelection('username')}>{t("username")}</li>
+                                                    <li onClick={() => handleOrderSelection('date')}>{t("date")}</li>
+                                                    <li onClick={() => handleOrderSelection('likes')}>{t("likes")}</li>
+                                                    <li onClick={() => handleOrderSelection('layerthickness')}>{t("layer_thickness")}</li>
+                                                    <li onClick={() => handleOrderSelection('weight')}>{t("weight")}</li>
                                                 </ul>
                                             
                                         </div>
                                         <button className='order-direction-button' onClick={toggleOrderDirection}>
                                             {orderDirection === 'ASC' ? <FontAwesomeIcon icon={faArrowDownShortWide} /> : <FontAwesomeIcon icon={faArrowDownWideShort} />}
                                         </button>
-                                        {(isAdmin) ? (<div className='job-delete-btt' onClick={handleDeleteButton}>Delete jobs</div>) : (<></>)}
+                                        {(isAdmin) ? (<div className='job-delete-btt' onClick={handleDeleteButton}>{t("del_jobs")}</div>) : (<></>)}
                                     </div>
                                     
                             </div>
@@ -230,10 +230,10 @@ function Home() {
                                 <>
                                     <ul className='usr-key'>
                                         <li></li>
-                                        <li className='author'>Project</li>
-                                        <li>Project date</li>
-                                        <li>Layer thickness</li>
-                                        <li>Weight</li>
+                                        <li className='author'>{t("project")}</li>
+                                        <li>{t("project")} {t("date")}</li>
+                                        <li>{t("layer_thickness")}</li>
+                                        <li>{t("weight")}</li>
                                         <li className='job_likes_key'></li>
                                     </ul>
                                     {filteredItems.map(item => (
@@ -254,7 +254,7 @@ function Home() {
                                 </>
                                 
                             ) : (
-                                <p>No results found.</p>
+                                <p>{t("no_results")}</p>
                             )}
                         </div>
                     </div>
@@ -273,7 +273,7 @@ function Home() {
                                 ))}
                             </ul>
                         ) : (
-                            <p>No tags to show</p> 
+                            <p>{t("no_tags")}</p> 
                         )}
                     </div>
                     )}

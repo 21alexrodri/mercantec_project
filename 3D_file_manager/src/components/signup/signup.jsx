@@ -1,4 +1,5 @@
 import { useCallback, useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import "./signup.css";
 /**
  * The signup component. It is a popup that appears when the user clicks on the signup button.
@@ -6,6 +7,7 @@ import "./signup.css";
  * @returns A popup with a form to sign up.
  */
 export const Signup = ({ closeSignup }) => {
+    const { t } = useTranslation();
     const [dataSend, setDataSend] = useState({ email: '', username: '', password: '' });
     const [errorMsg, setErrorMsg] = useState('');
     const handleContainerClick = (e) => {
@@ -59,7 +61,7 @@ export const Signup = ({ closeSignup }) => {
                 }
             })
             .catch((error) => {
-                setErrorMsg("Error: " + error + ". Please try again later.");
+                setErrorMsg("Error " + error + ". Please try again later.");
             });
         
     };
@@ -89,15 +91,15 @@ export const Signup = ({ closeSignup }) => {
                     <button onClick={closeSignup}>X</button>
                 </div>
                 <div className="credentials_title">
-                    <h2>Sign Up</h2>
+                    <h2>{t("sign_up")}</h2>
                 </div>
                 <div className="credentials_body">
                     <form id="signup_form" onSubmit={send_data}>
-                    <label htmlFor="email">Email</label><br />
+                    <label htmlFor="email">{t("email")}</label><br />
                     <input id="email_prompt" type="text" name="email" value={dataSend.email} onChange={handleChange} autoFocus /><br />
-                    <label htmlFor="username">Username</label><br />
+                    <label htmlFor="username">{t("username")}</label><br />
                     <input id="username_prompt" type="text" name="username" value={dataSend.username} onChange={handleChange} /><br />
-                    <label htmlFor="password">Password</label><br />
+                    <label htmlFor="password">{t("password")}</label><br />
                     <input id="password_prompt" type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
                     <br />
                     <input type="submit" value="SIGN UP" className="credentials_submit_button" />

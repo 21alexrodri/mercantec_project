@@ -132,6 +132,29 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.filter_style{
+    background-color: #FF8387;
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+
+    overflow: hidden;
+    text-wrap: nowrap;
+    padding: 15px 12px 20px 12px;
+
+    color: white;
+    font-weight: 900;
+    font-size: 15px;   
+}
+
+.job_tags {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
 .job_box{
     width: 70%;
 }
@@ -379,6 +402,32 @@
     cursor: pointer;
 }
 
+.download_zip_button {
+    position: relative;
+    background-color: #0E38AB;
+    color: white;
+    padding: 11px 13px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+}
+
+.download_zip_button.loading {
+    background-color: #555; 
+    cursor: wait;
+}
+
+.download_zip_button .fa-spinner {
+    margin-right: 8px; 
+    animation: spin 1s linear infinite; 
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
 /* Estilo de la caja de comentarios */
 .comment_form {

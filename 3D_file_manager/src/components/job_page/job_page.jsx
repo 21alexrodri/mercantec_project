@@ -447,10 +447,6 @@ export const JobPage = () => {
                                 </div>
                             )}
                         </div>
-                    <div className="job_description">
-                        <h3>{("job_desc")}</h3>
-                        <p>{jobData.description}</p>
-                    </div>
                     {isLoggedIn ? (
                         <div className="comment_form">
                             <textarea

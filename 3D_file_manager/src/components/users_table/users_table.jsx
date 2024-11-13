@@ -14,9 +14,12 @@ export const UserTable = ({ closeUserTable }) => {
     };
 
     const changeUserState = (id, active) => {
+        console.log("AL PRESIONAR ESTÁ: "+active)
 
-        console.log(active)
+        const newActiveState = active == 1 ? 0 : 1;
 
+        console.log("MÁS TARDE ESTARÁ: "+newActiveState)
+    
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -31,17 +34,18 @@ export const UserTable = ({ closeUserTable }) => {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             if (data.status === 'success') {
-                console.log("ENTRA: "+active)
-                const updatedUsersList = usersList.map(user => 
-                    user.id === id ? { ...user, active: active === 1 ? 0 : 1 } : user
+                setUsersList(prevUsersList => 
+                    prevUsersList.map(user => 
+                        user.id === id ? { ...user, active: newActiveState } : user
+                    )
                 );
-                setUsersList(updatedUsersList);
-                setFilteredUsers(updatedUsersList.filter(user => 
-                    user.username.toLowerCase().includes(search.toLowerCase()) ||
-                    user.email.toLowerCase().includes(search.toLowerCase())
-                ));
+    
+                setFilteredUsers(prevFilteredUsers => 
+                    prevFilteredUsers.map(user => 
+                        user.id === id ? { ...user, active: newActiveState } : user
+                    )
+                );
             } else {
                 console.error('Error changing user state:', data.message);
             }
@@ -131,10 +135,10 @@ export const UserTable = ({ closeUserTable }) => {
                                         <td>{user.date_created}</td>
                                         <td 
                                             id={user.id} 
-                                            className={user.active == 1 ? 'user_active' : 'user_inactive'} 
                                             onClick={() => {
                                                 changeUserState(user.id, user.active);
                                             }} 
+                                            className={user.active == 1 ? 'user_active' : 'user_inactive'} 
                                             title={user.active == 1 ? 'User Enabled' : 'User Disabled'}
                                         >
                                             <FontAwesomeIcon icon={faCircle} />

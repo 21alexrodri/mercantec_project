@@ -18,6 +18,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     const [tags, setTags] = useState([])
     const [customers, setCustomers] = useState([])
     const [fileDetails, setFileDetails] = useState([])
+    const [showSuggestTag,setShowSuggestTag] = useState(false)
     const imgUploadContainerRef = useRef(null)
     const zipTrashRef = useRef(null)
     const selectTagRef = useRef(null)
@@ -337,8 +338,8 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                     <button className="nj-select-tags-button" onClick={() => addNewTag(selectedTag)}>{t("add_tag")}</button>
                                 </div>
                                 <div className="suggest-tag-cont">
-                                    <p className="small-font">{t("no_tag_matches")} </p>
-                                    <p onClick={handleSuggestTag} className="small-font suggest-tag">{t("suggest_tag")}</p>
+                                    <p className="small-font">{t['no_tag_matches']}</p>
+                                    <p onClick={() => {setShowSuggestTag(true)}} className="small-font suggest-tag">Suggest new tag</p>
                                 </div>
                                 <div className="nj-tags-added">
                                     {tags.map((tag, index) => (

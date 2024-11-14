@@ -82,6 +82,16 @@
     "loading": "Loading...",
     "sign_up": "Sign Up",
     "email": "Email",
-    "edit_users": "Edit Users"
+    "edit_users": "Edit Users",
+    "decline": "Decline",
+    "accept": "Accept",
+    "disable": "Disable",
+    "tag-name": "Tag name",
+    "actions": "Actions",
+    "edit-tags": "Edit tags",
+    "search-tag": "Search tag...",
+    "home": "Home",
+    "edit-tags-legend-blue": "Unaccepted tags",
+    "edit-tags-legend-white": "Existing tags"
   }
   

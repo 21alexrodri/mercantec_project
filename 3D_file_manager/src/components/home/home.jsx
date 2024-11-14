@@ -245,6 +245,7 @@ function Home() {
                                         creation_date={item.creation_date}
                                         img_format={item.img_format}
                                         likes={item.likes}
+                                        license={item.license}
                                         layerthickness={item.layer_thickness}
                                         total_physical_weight={item.total_physical_weight}
                                         delete_mode={deleteJobState}

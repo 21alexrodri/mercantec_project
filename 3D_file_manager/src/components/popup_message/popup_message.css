@@ -1,0 +1,73 @@
+.popup-message-container {
+    position: fixed;
+    top: 1vw;
+    right: 2vw;
+    width: 30vw;
+    height: 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    border-radius: 1vw;
+    opacity: 1;
+    animation: fadeOut 3s forwards;
+    overflow: hidden;
+    background-color: rgba(42, 42, 42, 0.726);
+}
+.status_success {
+    background-color: rgba(0, 128, 0, 0.8); 
+}
+
+.status_alert {
+    background-color: rgba(92, 73, 9, 0.726);
+}
+
+.status_warning {
+    background-color: rgba(92, 9, 9, 0.726);
+}
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.popup-message {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 1vw;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+    font-size: 1.1vw;
+}
+
+.popup-message-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.popup-message-close {
+    cursor: pointer;
+    color: white;
+}
+
+.popup-message-body {
+    padding-top: 0.5vw;
+}
+
+.progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 0.4vw;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    animation: progressBar 3s linear forwards;
+    border-radius: 0 0 1vw 1vw;
+}
+
+@keyframes progressBar {
+    from { width: 100%; }
+    to { width: 0; }
+}

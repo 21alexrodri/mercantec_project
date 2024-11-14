@@ -7,12 +7,15 @@ import { UserContext } from '../../context/UserContext';
 import { useTranslation } from 'react-i18next';
 
 
-function FilteredJob({id,name,job_user, creation_date,img_format, likes, layerthickness, total_physical_weight, delete_mode, onDeleteJob }) {
+function FilteredJob({id,name,job_user, creation_date,img_format, likes, license, layerthickness, total_physical_weight, delete_mode, onDeleteJob }) {
     const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
     const { t } = useTranslation();
     const [deleting,setDeleting] = useState(false);
     const navigateTo = useNavigate();
 
+    if (license === 1 && !isLogged) {
+        return null;
+    }
     const handleJobClick = (evt,id) => {
         if(evt.currentTarget.classList.contains("delete-enabled")){
             setDeleting(true)
@@ -71,6 +74,8 @@ function FilteredJob({id,name,job_user, creation_date,img_format, likes, layerth
                 </>
             ) : (
                 <>
+
+                
                     <ul className={`job-item-list ${(delete_mode) ? "delete-enabled" : ""}`} id={id} onClick={(evt)=>handleJobClick(evt,id)}>
                         <li>
                         {(
@@ -96,7 +101,8 @@ function FilteredJob({id,name,job_user, creation_date,img_format, likes, layerth
                         </li>
                         <li>
                         <p className='job_likes' title='likes'><FontAwesomeIcon className='heart' icon={faHeart} ></FontAwesomeIcon><span className='likes_text'>{likes}</span></p>
-                    </li>
+                        <p className='private'>{(license)}</p>
+                        </li>
             </ul>
                 </>
             )}

@@ -1,6 +1,7 @@
 #suggested_tags_table {
     color: #fff;
-    max-width: 600px;
+    width: 30%;
+    height: 55%;
     z-index: 1000; 
     text-align: center;
     margin:0;
@@ -41,6 +42,7 @@
 .suggested_tags_table_body{
     display: block;
     max-width:100%;
+    height: 100%;
     padding:3em;
     padding-top:2em;
     background-color: #fff;
@@ -136,6 +138,32 @@
     max-height: 15em;
 }
 
+.tags_table_results_container table{
+    width: 100%;
+}
+
 .tags_table_body tr:nth-child(odd){
     background-color: #eee;
+}
+
+.legend p{
+    color: black;
+    margin-left: 1rem;
+}
+
+.legend span {
+    display: flex;
+    align-items: center;
+}
+
+.blue-legend{
+    color: #8cabff;
+}
+
+.white-legend{
+    color: #eee;
+}
+
+.loading-txt{
+    color: #0E38AB;
 }

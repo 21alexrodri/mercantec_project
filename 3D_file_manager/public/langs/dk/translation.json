@@ -84,7 +84,15 @@
     "loading": "Indlæser...",
     "sign_up": "Tilmeld",
     "Email": "Email",
-    "edit_users": "Rediger Brugeres"
-
+    "edit_users": "Rediger Brugeres",
+    "decline": "Afvise",
+    "accept": "Acceptere",
+    "disable": "Deaktivere",
+    "tag-name": "Tag navn",
+    "actions": "Handlinger",
+    "edit-tags": "Rediger tags",
+    "search-tag": "Søg tag...",
+    "edit-tags-legend-blue": "Uaccepterede tags",
+    "edit-tags-legend-white": "Eksisterende tags"
   }
   

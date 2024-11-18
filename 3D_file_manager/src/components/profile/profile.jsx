@@ -5,8 +5,9 @@ import Error_Page from '../error_page/error_page';
 import { UserTable } from '../users_table/users_table';
 import FilteredJob from '../filtered_job/filtered_job';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers, faTags} from '@fortawesome/free-solid-svg-icons';
+import { faUsers, faTags, faBuilding} from '@fortawesome/free-solid-svg-icons';
 import { TagsProposals } from '../tags_proposals/tags_proposals';
+import { CustomersProposals } from '../customers_proposals/customers_proposals';
 
 /**
  * The profile component. It shows the user's profile with their files and information.
@@ -19,6 +20,7 @@ function Profile() {
     const {userId, username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);  
     const [showUserTable, setShowUserTable] = useState(false);
     const [showTagsProposals, setShowTagsProposals] = useState(false);
+    const [showCustomersProposals,setShowCustomersProposals] = useState(false);
     const [filteredItems, setFilteredItems] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [deleteJobState,setDeleteJobState] = useState(false);
@@ -140,6 +142,12 @@ function Profile() {
         }
     }
 
+    const handleCustomersClick = () => {
+        if (isAdmin) {
+            setShowCustomersProposals(true)
+        }
+    }
+
     const filteredResults = filteredItems.filter(item =>
         item.project_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -180,6 +188,11 @@ function Profile() {
                                 <FontAwesomeIcon icon={faTags} />
                             </button>
                         )}
+                        {isAdmin && (
+                            <button className="profile_button" id="button1" onClick={handleCustomersClick} title='Suggested tags'>
+                                <FontAwesomeIcon icon={faBuilding} />
+                            </button>
+                        )}
                     </div>
                     <div className='suggestions'>
                         <div className='suggest-container'>
@@ -197,7 +210,7 @@ function Profile() {
                                     <input id="nc-name" type='text' placeholder='new customer name...'/>
                                 </div>
                                 <div>
-                                    <label className='customer-email-lbl'>e-mail</label>
+                                    <label className='customer-email-lbl'>E-mail</label>
                                     <input id="nc-email" type='email' placeholder='new customer e-mail...'/>
                                 </div>
                                 <div>
@@ -206,7 +219,7 @@ function Profile() {
                                 </div>
                                 <div>
                                     <label className='customer-desc-lbl'>Description</label>
-                                    <textarea id="nc-desc" placeholder='new customer description'/>
+                                    <textarea id="nc-desc" placeholder='new customer description...'/>
                                 </div>
                                 <button onClick={handleCustomerSuggestion}>Suggest customer</button>
                             </form>
@@ -215,6 +228,7 @@ function Profile() {
                     
                     {showUserTable && <UserTable closeUserTable={() => setShowUserTable(false)} />}
                     {showTagsProposals && <TagsProposals closeUserTable={() => setShowTagsProposals(false)} />}
+                    {showCustomersProposals && <CustomersProposals closeUserTable={() => setShowCustomersProposals(false)}/>}
                 </div>
                 <div className="profile_jobs_section">
                     <div className="profile_jobs_section_header">

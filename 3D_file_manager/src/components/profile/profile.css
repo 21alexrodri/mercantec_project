@@ -24,7 +24,7 @@
 
 .profile_page img.profile_picture {
     display: block;
-    width: 100%;
+    width: 80%;
     margin: 10px auto;
 
 }
@@ -40,7 +40,7 @@
     line-height: 2em;
     font-size: 1vw;
 
-    border: none;
+    border: 2px #0E38AB solid;
     background-color: #0E38AB;
     color: #f0f0f0;
     border-radius: 999vw;
@@ -48,6 +48,15 @@
     height: 2.2vw;
 
     cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.profile_page button.profile_button:hover {
+    background-color: transparent;
+    color: #0E38AB;
+
+    transition: all 0.2s ease;
 }
 
 .profile_page .profile_jobs_section {
@@ -185,4 +194,73 @@
     outline: none;
     border: none;
     border-bottom: 2px solid #0E38AB;
+}
+
+.suggest-tag-input > button {
+    border: 2px #0E38AB solid;
+    background-color: #0E38AB;
+    color: white;
+    font-weight: bold;
+    font-family: "Montserrat";
+    padding: 0.5rem;
+    border-radius: 0px 1rem 1rem 0px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.suggest-tag-input > button:hover {
+    background-color: transparent;
+    color: #0E38AB;
+    transition: all 0.2s ease;
+}
+
+.suggest-tag-input > input{
+    height: 2.2rem;
+    border: none;
+    border-radius: 1rem 0 0 1rem;
+    padding-left: 1rem;
+    background-color: lightgray;
+}
+
+.suggest-tag-input {
+    margin: 0.5rem 0 1rem 0;
+}
+
+.suggest-customer-form > div {
+    margin: 0.5rem 0 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.suggest-customer-form > div > input, .suggest-customer-form > div > textarea {
+    margin: 0.2rem 0 0.2rem 0;
+    border: none;
+    border-radius: 1rem;
+    
+    background-color: lightgray;
+
+    padding: 0.5rem;
+}
+
+.suggest-customer-form > div > textarea {
+    resize: none;
+    font-family: Arial;
+}
+
+.suggest-customer-form > button {
+    border: 2px #0E38AB solid;
+    background-color: #0E38AB;
+    color: white;
+    font-weight: bold;
+    font-family: "Montserrat";
+    padding: 0.5rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.suggest-customer-form > button:hover {
+    background-color: transparent;
+    color: #0E38AB;
+    transition: all 0.2s ease;
 }

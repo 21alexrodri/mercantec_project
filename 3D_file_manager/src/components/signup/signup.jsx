@@ -1,15 +1,20 @@
+
 import { useCallback, useState, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import "./signup.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import { Popup } from '../popup_message/popup_message';
 /**
  * The signup component. It is a popup that appears when the user clicks on the signup button.
  * @param {closeSignup} the function to close the signup popup 
  * @returns A popup with a form to sign up.
  */
-export const Signup = ({ closeSignup }) => {
+export const Signup = ({ closeSignup, onUserCreated }) => {
     const { t } = useTranslation();
     const [dataSend, setDataSend] = useState({ email: '', username: '', password: '' });
     const [errorMsg, setErrorMsg] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
     const handleContainerClick = (e) => {
         e.stopPropagation();
     };
@@ -32,7 +37,28 @@ export const Signup = ({ closeSignup }) => {
      * This function sends the user's credentials to the server to sign up.
      */
     const send_data = (event) => {
-        event.preventDefault()
+        event.preventDefault();
+        if (showPopup) return;
+
+        if (dataSend.email.trim() === '' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dataSend.email)) {
+            setShowPopup(true);
+            setErrorMsg('Invalid email format');
+            setTimeout(() => setShowPopup(false), 3000);
+            return;
+        }
+        if (!/^[a-zA-Z0-9_-]{3,20}$/.test(dataSend.username)) {
+            setShowPopup(true);
+            setErrorMsg('Invalid username format');
+            setTimeout(() => setShowPopup(false), 3000);
+            return;
+        }
+        if (dataSend.password.length < 8) {
+            setShowPopup(true);
+            setErrorMsg('Password must be at least 8 characters long');
+            setTimeout(() => setShowPopup(false), 3000);
+            return;
+        }
+
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -42,7 +68,7 @@ export const Signup = ({ closeSignup }) => {
                 arg: 'insertUser',
                 email: dataSend.email,
                 username: dataSend.username,
-                password: dataSend.password
+                password: dataSend.password,
             }),
         })
             .then((response) => {
@@ -53,17 +79,20 @@ export const Signup = ({ closeSignup }) => {
             })
             .then((data) => {
                 if (data.status === "success") {
-                    alert("User created successfully");
+                    onUserCreated();
                     closeSignup();
                 } else {
+                    setShowPopup(true);
                     setErrorMsg(data.message);
-                    focusInput()
+                    setTimeout(() => setShowPopup(false), 3000);
+                    focusInput();
                 }
             })
             .catch((error) => {
+                setShowPopup(true);
                 setErrorMsg("Error " + error + ". Please try again later.");
+                setTimeout(() => setShowPopup(false), 3000);
             });
-        
     };
 
     const focusInput = () => {
@@ -95,7 +124,17 @@ export const Signup = ({ closeSignup }) => {
                 </div>
                 <div className="credentials_body">
                     <form id="signup_form" onSubmit={send_data}>
-                    <label htmlFor="email">{t("email")}</label><br />
+                    <label className="username-lbl" htmlFor="email">{t("email")}
+                    <span className="tooltip-container">
+                        <span className="tooltip-icon">?</span>
+                        <span className="tooltip-text">
+                            RULES FOR SIGN UP<br /> <br />
+                            <FontAwesomeIcon icon={faCaretRight} /> No spacebar<br />
+                            <FontAwesomeIcon icon={faCaretRight} /> Do not use special characters like: &lt;, &gt;, ", '...<br />
+                            <FontAwesomeIcon icon={faCaretRight} /> Password must be at least 8 characters long
+                        </span>
+                    </span>    
+                    </label>
                     <input id="email_prompt" type="text" name="email" value={dataSend.email} onChange={handleChange} autoFocus /><br />
                     <label htmlFor="username">{t("username")}</label><br />
                     <input id="username_prompt" type="text" name="username" value={dataSend.username} onChange={handleChange} /><br />
@@ -103,7 +142,9 @@ export const Signup = ({ closeSignup }) => {
                     <input id="password_prompt" type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
                     <br />
                     <input type="submit" value="SIGN UP" className="credentials_submit_button" />
-                    {errorMsg != "" ? <p className="error_message">{errorMsg}</p> : ""}
+                    {showPopup && (
+                    <Popup message={errorMsg} status="warning"/>
+                )}
                     </form>
                 </div>
             </div>

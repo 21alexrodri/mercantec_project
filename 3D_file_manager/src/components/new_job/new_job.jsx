@@ -4,6 +4,7 @@ import { UserContext } from "../../context/UserContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
+import { Popup } from '../popup_message/popup_message';
 
 /**
  * The new job component. It is a popup that appears when the user clicks on the new job button.
@@ -32,6 +33,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     const [selectedTag, setSelectedTag] = useState('');
     const [selectedCust, setSelectedCust] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
     const handleSuggestTag = () => { }
 
     const handleDeleteTag = (id) => {
@@ -107,7 +109,9 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                     weight: "",
                 });
             } else {
+                setShowPopup(true);
                 setErrorMsg(`Error. One or more files have an invalid extension. Only .stl and .3mf files are accepted.`);
+                setTimeout(() => setShowPopup(false), 3000);
             }
         });
     
@@ -176,7 +180,9 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
         e.preventDefault();
     
         if (selectedUploadMode === "stl" && files.length === 0) {
+            setShowPopup(true);
             setErrorMsg("Please select at least one file to upload.");
+            setTimeout(() => setShowPopup(false), 3000);
             return;
         } 
         const tagIds = tags.map(tag => tag.id);
@@ -240,7 +246,9 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                         console.log("Files uploaded successfully:", data);
                         window.location.href = '/home';
                     } else {
+                        setShowPopup(true);
                         setErrorMsg("Error. " + data.message);
+                        setTimeout(() => setShowPopup(false), 3000);
                     }
                 })
                 .catch(error => {
@@ -248,11 +256,15 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                     window.location.href = '/home';
                 });
             } else {
+                setShowPopup(true);
                 setErrorMsg("Error. " + data.message);
+                setTimeout(() => setShowPopup(false), 3000);
             }
         })
         .catch(error => {
+            setShowPopup(true);
             setErrorMsg("Error. " + error);
+            setTimeout(() => setShowPopup(false), 3000);
         });
     };
     
@@ -269,7 +281,6 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                 <div onClick={handleContainerClick} className="container">
                     <div className="new-job-header">
                         <h2>{t("new_job")}</h2>
-                        {errorMsg && <p className="error-msg">! {errorMsg}</p>}
                     </div>
                     <form className="form-main" onSubmit={handleFormSubmit}>
                         <div className="form-container">
@@ -424,8 +435,6 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                                             }}
                                                             min={0.1} step={0.1}
                                                         />
-
-                                                        {/* Campo para physical weight */}
                                                         <label className="physical_file_lbl">{t("physical")} {t("weight")} <span>(g)</span>:</label>
                                                         <input className="physical_file_input"
                                                             type="number"
@@ -465,6 +474,9 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                 </div>
                             </div>
                         </div>
+                        {showPopup && (
+                            <Popup message={errorMsg} status="warning"/>
+                        )}
                     </form>
                 </div>
             </div>

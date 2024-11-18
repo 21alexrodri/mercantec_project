@@ -4,6 +4,7 @@ import  { Login } from  '../login/login';
 import { Signup } from  '../signup/signup';
 import { UserContext } from '../../context/UserContext';
 import { useTranslation } from 'react-i18next';
+import { Popup } from '../popup_message/popup_message';
 
 /**
  * The header of the page that is shown to the user, it allows the user to navigate through the page and to log in or sign up as well as log out
@@ -14,6 +15,16 @@ function Header() {
     const [showLogin, setShowLogin] = useState(false);
     const [showSignup, setShowSignup] = useState(false);
     const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+
+
+
+    const handleUserCreated = () => {
+        setShowSuccessPopup(true);
+        setTimeout(() => {
+            setShowSuccessPopup(false);
+        }, 3000);
+    };
 
     /**
      * This function is used to log out the user, it sends a request to the server to log out the user and updates the state of the user
@@ -63,29 +74,31 @@ function Header() {
                     <li className='link_li'><a href='/home'>Home</a></li>
                     <li><button className='login_btn' onClick={() => setShowLogin(true)}>Log In</button>
                     {showLogin && <Login closeLogin={() => setShowLogin(false)} />}</li>
-                    <li><button className='signup_btn' onClick={() => setShowSignup(true)}> Sign Up</button>
-                    {showSignup && <Signup closeSignup={() => setShowSignup(false)} />}
-                    </li>
+                    <li>
+                                <button className='signup_btn' onClick={() => setShowSignup(true)}> Sign Up</button>
+                                {showSignup && (
+                                    <Signup
+                                        closeSignup={() => setShowSignup(false)}
+                                        onUserCreated={handleUserCreated} 
+                                    />
+                                )}
+                            </li>
                 </ul>
             </nav>
             <div>
             {i18n.language === 'en' && (
                     <div>
-                    <button className='btn_lang' onClick={() => changeLanguage('en')}>
+                    <button className='btn_lang' onClick={() => changeLanguage('dk')}>
                         <img src="/3D_printer/Files/img/en.jpg" alt='English' />
                     </button>
-                    <button className='btn_lang not_selected' onClick={() => changeLanguage('dk')}>
-                        <img src="/3D_printer/Files/img/dk.jpg" alt='Dansk' />
-                    </button>
+                    
                 </div>
                 
                 )}
                 {i18n.language === 'dk' && (
                     <div>
-                    <button className='btn_lang not_selected' onClick={() => changeLanguage('en')}>
-                        <img src="/3D_printer/Files/img/en.jpg" alt='English' />
-                    </button>
-                    <button className='btn_lang' onClick={() => changeLanguage('dk')}>
+                    
+                    <button className='btn_lang' onClick={() => changeLanguage('en')}>
                         <img src="/3D_printer/Files/img/dk.jpg" alt='Dansk' />
                     </button>
                 </div>
@@ -93,6 +106,9 @@ function Header() {
                 )}
             </div>
             </div>
+            {showSuccessPopup && (
+                        <Popup message="User created successfully" status="success" />
+                    )}
         </header>
         )}
         {isLogged &&(

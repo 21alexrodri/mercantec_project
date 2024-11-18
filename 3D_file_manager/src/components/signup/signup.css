@@ -1,7 +1,34 @@
-.error_message {
-    color: red;
-    font-size: 1vw;
-    margin-top: 0.5rem;
-    margin-bottom: 0;
-    text-align: center;
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: #0E38AB;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    background-color: #344185e0;
+    color: white;
+    text-align: left;
+    padding: 10px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 1.5vw;
+    left: 15vw;
+    transform: translateX(-50%);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    width: 30vw;
+}
+
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.username-lbl{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

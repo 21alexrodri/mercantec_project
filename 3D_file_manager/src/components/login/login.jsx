@@ -81,27 +81,29 @@ export const Login = ({ closeLogin }) => {
 
     return (
         <div onClick={closeLogin} className="blur_content">
-            <div onClick={handleContainerClick} className="credentials_popup_container">
-                <div className="credentials_popup_close">
-                    <button onClick={closeLogin}>X</button>
-                </div>
-                <div className="credentials_title">
-                    <h2>{t("login")}</h2>
-                </div>
-                <div className="credentials_body">
-                    <form id="login_form" onSubmit={send_data}>
-                        <label htmlFor="username">{t("username")}</label><br />
-                        <input id="username_prompt" type="text" name="username" value={dataSend.username} onChange={handleChange} autoFocus /><br />
-                        <label htmlFor="password">{t("password")}</label><br />
-                        <input id="password_prompt" type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
-                        <br />
-                        <input type="submit" value="LOG IN" className="credentials_submit_button" />
-                        {showPopup && (
-                            <Popup message={t("login_invalid")} status="warning"/>
-                        )}
-                    </form>
-                </div>
-            </div>
+    <div onClick={handleContainerClick} className="credentials_popup_container">
+        <div className="credentials_popup_close">
+            <button onClick={closeLogin}>X</button>
         </div>
+        <div className="credentials_title">
+            <h2>{t("login")}</h2>
+        </div>
+        <div className="credentials_body">
+            <form id="login_form" onSubmit={send_data}>
+                <label className="username-lbl" htmlFor="username">
+                    {t("username")} 
+                </label><br />
+                <input id="username_prompt" type="text" name="username" value={dataSend.username} onChange={handleChange} autoFocus /><br />
+                <label htmlFor="password">{t("password")}</label><br />
+                <input id="password_prompt" type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
+                <br />
+                <input type="submit" value="LOG IN" className="credentials_submit_button" />
+                {showPopup && (
+                    <Popup message={t("login_invalid")} status="warning"/>
+                )}
+            </form>
+        </div>
+    </div>
+</div>
     );
 };

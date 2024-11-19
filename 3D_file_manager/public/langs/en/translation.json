@@ -92,6 +92,9 @@
     "search-tag": "Search tag...",
     "home": "Home",
     "edit-tags-legend-blue": "Unaccepted tags",
-    "edit-tags-legend-white": "Existing tags"
+    "edit-tags-legend-white": "Existing tags",
+    "edit-customers": "Edit customers",
+    "search-customers": "Search customers...",
+    "customer-name": "Customer name"
   }
   

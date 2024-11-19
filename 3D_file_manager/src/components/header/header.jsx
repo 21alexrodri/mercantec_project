@@ -129,21 +129,17 @@ function Header() {
             <div>
                 {i18n.language === 'en' && (
                     <div>
-                    <button className='btn_lang' onClick={() => changeLanguage('en')}>
+                    <button className='btn_lang' onClick={() => changeLanguage('dk')}>
                         <img src="/3D_printer/Files/img/en.jpg" alt='English' />
                     </button>
-                    <button className='btn_lang not_selected' onClick={() => changeLanguage('dk')}>
-                        <img src="/3D_printer/Files/img/dk.jpg" alt='Dansk' />
-                    </button>
+                    
                 </div>
                 
                 )}
                 {i18n.language === 'dk' && (
                     <div>
-                    <button className='btn_lang not_selected' onClick={() => changeLanguage('en')}>
-                        <img src="/3D_printer/Files/img/en.jpg" alt='English' />
-                    </button>
-                    <button className='btn_lang' onClick={() => changeLanguage('dk')}>
+                   
+                    <button className='btn_lang' onClick={() => changeLanguage('en')}>
                         <img src="/3D_printer/Files/img/dk.jpg" alt='Dansk' />
                     </button>
                 </div>

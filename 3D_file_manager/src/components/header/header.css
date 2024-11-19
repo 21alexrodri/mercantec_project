@@ -64,6 +64,7 @@ li.link_li a:hover{
     height: auto;
     display: block;
     border-radius: 0.3vw;
+    border: 2px solid white;
 }
 .not_selected img{
     filter: grayscale(100%);

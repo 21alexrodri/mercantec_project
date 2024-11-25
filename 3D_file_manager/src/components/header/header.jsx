@@ -1,5 +1,6 @@
 import './header.css';
 import { useState, useContext } from "react";
+import { useNavigate } from 'react-router-dom';
 import  { Login } from  '../login/login';
 import { Signup } from  '../signup/signup';
 import { UserContext } from '../../context/UserContext';
@@ -14,6 +15,7 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
  */
 function Header() {
     const { i18n } = useTranslation();
+    const navigateTo = useNavigate();
     const [showLogin, setShowLogin] = useState(false);
     const [showSignup, setShowSignup] = useState(false);
     const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
@@ -49,10 +51,12 @@ function Header() {
                 setUsername('guest');
                 setIsAdmin(false);
                 setIsLogged(false);
+                navigateTo('/home');
                 localStorage.clear();
                 window.location.reload();
             } else {
                 console.error('Error logging out:', data.message);
+                window.location.href = '/home';
             }
         } catch (error) {
             console.error('Error logging out:', error);

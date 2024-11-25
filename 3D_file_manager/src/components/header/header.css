@@ -5,29 +5,35 @@ header{
     padding: 10px 70px;
     background-color: #0E38AB;
 }
+
 .header_title{
     font-size: 24px;
     color: white;
     padding-left: 25px;
 }
+
 ul{
     display: flex;
     list-style: none;
 }
+
 li{
     margin: 0 10px;
 }
+
 li.link_li a {
-    display:block;
+    display: block;
     color: #FF8387;
     font-size: 17px;
     font-weight: 900;
     text-decoration: none;
 }
+
 li.link_li a:hover{
     text-decoration: underline;
     color: white;
 }
+
 .login_btn, .signup_btn{
    background-color: transparent;
    border: 2px solid rgb(237, 123, 191);
@@ -36,22 +42,30 @@ li.link_li a:hover{
     color: #FF8387;
     font-size: 17px;
 }
+
 .login_btn:hover, .signup_btn:hover{
     background-color: rgb(237, 123, 191);
     color: white;
 }
+
 .link_li{
     display: flex;
     align-items: center;
 }
+
 #mercantec_header{
     display: flex;
     flex-direction: row;
     align-items: center;
 }
+
 #mercantec_logo{
     margin-left: 0;
+    padding-top: 2px;
+    padding-right: 4rem;
+    margin-left: -14px;
 }
+
 .btn_lang {
     background: none;
     border: none;
@@ -66,20 +80,95 @@ li.link_li a:hover{
     border-radius: 0.3vw;
     border: 2px solid white;
 }
+
 .not_selected img{
     filter: grayscale(100%);
 }
+
 .header_left{
     display: flex;
     align-items: center;
     flex-direction: row;
 }
-.l_h_box{
-    display: flex;
-    align-items: center;
+
+/* Estilos Responsive */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 20px;
+    }
+
+    .header_title {
+        font-size: 20px;
+        padding-left: 0;
+        margin-bottom: 10px;
+    }
+
+    ul {
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+    }
+
+    li {
+        margin: 5px 0;
+    }
+
+    li.link_li a {
+        font-size: 18px;
+    }
+
+    .login_btn, .signup_btn {
+        font-size: 16px;
+        padding: 8px 15px;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    #mercantec_header {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    #mercantec_logo {
+        padding-right: 0;
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .header_left {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .btn_lang img {
+        width: 6vw;
+    }
 }
-.help_direction{
-    color: white;
-    font-size: 30px;
-    margin-left: 1.5vw;
+
+@media (max-width: 480px) {
+    header {
+        padding: 10px;
+    }
+
+    .header_title {
+        font-size: 18px;
+    }
+
+    li.link_li a {
+        font-size: 16px;
+    }
+
+    .login_btn, .signup_btn {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+
+    .btn_lang img {
+        width: 8vw;
+    }
 }

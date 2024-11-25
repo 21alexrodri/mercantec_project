@@ -11,72 +11,71 @@
 
 #job_page .job_content {
     display: flex;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
     aspect-ratio: 3.5;
     width: 100%;
-    height: 100%;
+    height: auto;
+    max-height: 500px; /* Ajusta la altura máxima */
+    gap: 20px;
+    flex-wrap: wrap;
+    overflow: hidden; /* Oculta cualquier contenido que se salga de la altura máxima */
 }
 
 #job_page .job_images {
     width: 25%;
-    border: 1px solid #888;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    height: 100%; /* Asegura que el elemento se ajuste al contenedor */
 }
 
 #job_page .job_images .image_scroll {
     overflow-y: scroll;
     width: 100%;
-    height: 100%;
-}
-
-
-#job_page .job_images .image_scroll div img {
-    display:block;
-    margin: 0 auto;
-    width: 90%;
+    height: 100%; /* Ajusta la altura para que ocupe solo el espacio disponible */
 }
 
 #job_page .job_display {
     display: flex;
-    width: 45%;
-    
+    width: 100%;
+    max-width: 600px;
     background-color: #ddd;
-    border: 1px solid #888;
-    
+    border: 2px solid #888;
     justify-content: center;
     align-items: center;
-    
     position: relative;
-
     overflow: hidden;
+    aspect-ratio: 16 / 9;
+    height: auto; /* Deja que el contenedor se ajuste al contenido */
+    max-height: 100%; /* Ajusta al 100% de la altura del contenedor */
 }
 
-#job_page .job_display .job_actions {
-    position:absolute;
-    right:0;
-    bottom:0px;
-    width:60px;
-    height:103px;
-}
+/* Media Query para pantallas pequeñas */
+@media (max-width: 768px) {
+    #job_page .job_content {
+        flex-direction: column;
+        align-items: center;
+        max-height: none; /* Elimina la restricción de altura en pantallas pequeñas */
+        height: auto;
+    }
 
-#job_page .job_display .job_actions > * {
-    display:block;
-    width:  40px;
-    height: 40px;
-    margin: 5px;
-}
+    #job_page .job_images {
+        width: 80%;
+    }
 
-#job_page .job_display .job_actions > *:hover {
-    cursor: pointer;
+    #job_page .job_display {
+        max-width: 100%;
+    }
 }
 
 .job_info {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 35px;
-    padding-top: 50px;
+    padding: 20px; /* Ajuste del padding para un diseño más compacto */
+    padding-top: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 300px;
+    max-width: 300px; /* Mantiene un ancho máximo en pantallas grandes */
+    width: 100%; /* Ocupa todo el ancho disponible en pantallas pequeñas */
 }
 
 .job_info h3 {
@@ -114,6 +113,33 @@
     color: #777;
     text-align: right;
     flex-shrink: 0;
+}
+
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 768px) {
+    .job_info {
+        padding: 15px;
+        max-width: 100%; /* Ocupa todo el ancho disponible */
+    }
+
+    .job_info h3 {
+        font-size: 1.1rem; /* Reduce el tamaño del título */
+    }
+
+    .job_info_item {
+        flex-direction: column; /* Apila el contenido en lugar de alinearlo horizontalmente */
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .job_info_label {
+        font-size: 0.9rem;
+    }
+
+    .job_info_value {
+        font-size: 0.9rem;
+        text-align: left; /* Alinea el texto a la izquierda en pantallas pequeñas */
+    }
 }
 
 
@@ -441,15 +467,17 @@
     border-radius: 8px;
     padding: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 .comment_form textarea {
     width: 99%;
     padding: 10px;
+    padding-bottom: 30px; /* Agrega espacio para el contador */
     border: 1px solid #ccc;
     border-radius: 5px;
     resize: none;
-    min-height: 80px;
+    min-height: 100px;
     font-size: 1rem;
     color: #333;
     transition: border-color 0.3s ease;
@@ -489,6 +517,19 @@
     margin-top: 10px;
 }
 
+.character_count {
+    position: absolute;
+    bottom: 70px; /* Ajusta según el tamaño del padding en textarea */
+    right: 30px;
+    font-size: 13px;
+    color: #666;
+    pointer-events: none;
+}
+
+.character_count.limit-reached {
+    color: red; /* Cambia el color a rojo cuando se alcanza el límite */
+}
+
 .job_comments {
     display: flex;
     flex-direction: column-reverse;
@@ -522,7 +563,15 @@
 
 .comment_username {
     font-weight: bold;
-    color: #333;
+    color: #0E38AB;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.comment_username:hover {
+    color: #0C2A84;
+    text-decoration: underline;
 }
 
 .comment_date {
@@ -534,19 +583,53 @@
     font-size: 1rem;
     color: #444;
     margin-top: 0;
+    word-wrap: break-word; /* Asegura que el texto se ajuste y no desborde */
 }
 
-.comment_username {
-    font-weight: bold;
-    color: #0E38AB;
-    text-decoration: none;
-    cursor: pointer;
-    transition: color 0.3s ease;
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 768px) {
+    .job_comments {
+        padding: 10px; /* Reduce el padding para más espacio */
+        gap: 5px; /* Menor separación entre comentarios */
+    }
+
+    .comment {
+        padding: 5px 0; /* Reduce el padding entre comentarios */
+    }
+
+    .comment_header {
+        flex-direction: column; /* Apila el contenido */
+        align-items: flex-start; /* Alinea a la izquierda en lugar de justificar */
+        gap: 2px;
+        font-size: 0.8rem; /* Reduce el tamaño de fuente */
+    }
+
+    .comment_username {
+        font-size: 0.85rem;
+    }
+
+    .comment_date {
+        font-size: 0.75rem;
+    }
+
+    .comment_text {
+        font-size: 0.9rem; /* Reduce el tamaño del texto */
+    }
 }
 
-.comment_username:hover {
-    color: #0C2A84;
-    text-decoration: underline;
+/* Media Queries para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .job_comments {
+        padding: 8px;
+    }
+
+    .comment_header {
+        gap: 5px;
+    }
+
+    .comment_text {
+        font-size: 0.85rem;
+    }
 }
 
 .color-buttons {

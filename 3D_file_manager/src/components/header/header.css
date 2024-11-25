@@ -91,6 +91,17 @@ li.link_li a:hover{
     flex-direction: row;
 }
 
+.l_h_box{
+    display: flex;
+    align-items: center;
+}
+
+.help_direction{
+    color: white;
+    font-size: 30px;
+    margin-left: 1.5vw;
+}
+
 /* Estilos Responsive */
 @media (max-width: 768px) {
     header {

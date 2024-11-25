@@ -134,7 +134,8 @@ function Home() {
                 body: JSON.stringify({
                     arg: "getJobs",
                     tag_id: tagId,
-                    offset: offset
+                    offset: offset,
+                    is_logged: isLogged
                 }),
             });
 

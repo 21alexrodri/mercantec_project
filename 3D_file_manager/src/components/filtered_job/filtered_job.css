@@ -131,6 +131,15 @@ p{
     75% { transform: rotate(-0.5deg); }
     100% { transform: rotate(0deg); }
 }
-
+.likes_priv{
+    display: flex !important; 
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.private_cell{
+    font-size: 2vw;
+    color: #676767;
+}
 .delete-enabled:nth-child(odd) { animation-delay: 0s; }
 .delete-enabled:nth-child(even) { animation-delay: 0.15s; }

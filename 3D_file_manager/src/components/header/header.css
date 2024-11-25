@@ -64,6 +64,7 @@ li.link_li a:hover{
     height: auto;
     display: block;
     border-radius: 0.3vw;
+    border: 2px solid white;
 }
 .not_selected img{
     filter: grayscale(100%);
@@ -72,4 +73,13 @@ li.link_li a:hover{
     display: flex;
     align-items: center;
     flex-direction: row;
+}
+.l_h_box{
+    display: flex;
+    align-items: center;
+}
+.help_direction{
+    color: white;
+    font-size: 30px;
+    margin-left: 1.5vw;
 }

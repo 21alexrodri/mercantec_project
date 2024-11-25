@@ -74,3 +74,12 @@ li.link_li a:hover{
     align-items: center;
     flex-direction: row;
 }
+.l_h_box{
+    display: flex;
+    align-items: center;
+}
+.help_direction{
+    color: white;
+    font-size: 30px;
+    margin-left: 1.5vw;
+}

@@ -123,3 +123,20 @@ select:focus{
 .tags-filters > div > input {
     margin-right: 5px;
 }
+
+.clearFilter-button{
+    background-color: #FF8387;
+    color: white;
+    border: none;
+    border-radius: 0.3vw;
+    cursor: pointer;
+    width: 2vw;
+    height: 2vw;
+    align-self: flex-end;
+    margin-bottom: 1vw;
+    transition: all 0.3s; 
+
+&:hover{
+    background-color: #0E38AB;
+}
+}

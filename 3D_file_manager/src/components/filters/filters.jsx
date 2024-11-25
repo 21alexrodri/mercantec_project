@@ -1,7 +1,7 @@
 import './filters.css';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignature, faCalendar, faTag, faBuilding, faPaintBrush, faPenNib, faCube} from '@fortawesome/free-solid-svg-icons';
+import { faSignature, faCalendar, faTag, faBuilding, faPaintBrush, faPenNib, faCube, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 
 /**
@@ -173,6 +173,24 @@ function Filters({ onFiltersAppliedChange }) {
     const handleFormSubmit = (event) => {
         event.preventDefault();
     };
+    const clearFilters = () => {
+        setSelectedTags([]);
+        setSelectedColor('');
+        setSelectedTextName('');
+        setSelectedDate('');
+        setSelectedMaterial('');
+        setSelectedCustomer('');
+        setMinLayerThicknessValue(0);
+        setMaxLayerThicknessValue(100);
+
+        document.getElementById('search_by_name').value = '';
+        document.getElementById('search_by_date').value = '';
+        document.getElementById('search_by_material').value = '';
+        document.getElementById('search_by_color').value = '';
+        document.getElementById('search_by_customer').value = '';
+        document.getElementById('search_by_minlayerthickness').value = 0;
+        document.getElementById('search_by_maxlayerthickness').value = 100;
+    };
 
     return (
         <div className="filter">
@@ -207,6 +225,7 @@ function Filters({ onFiltersAppliedChange }) {
 
             <h2 className='filter_title'>{t('filters')}</h2>
             <form className="filter_form" onSubmit={handleFormSubmit}>
+                <button title='Delete all filters' className='clearFilter-button' onClick={clearFilters}><FontAwesomeIcon icon={faTrash} /></button>
                 <input
                     onChange={handleTextChange}
                     id="search_by_name"
@@ -247,7 +266,7 @@ function Filters({ onFiltersAppliedChange }) {
                     {t('customer')} {isCustomerVisible ? '▲' : '▼'}
                 </label>
                 <div style={{ display: isCustomerVisible ? 'block' : 'none' }}>
-                    <select name='customer_form' value={selectedCustomer} onChange={handleCustomerChange}>
+                    <select id='search_by_customer' name='customer_form' value={selectedCustomer} onChange={handleCustomerChange}>
                         <option value="">{t('no_customer_selected')}</option>
                         {customers.map((customer) => (
                             <option key={customer.id} value={customer.customer_name}>{customer.customer_name}</option>
@@ -260,7 +279,7 @@ function Filters({ onFiltersAppliedChange }) {
                 </label>
 
                 <div style={{ display: isColorsVisible ? 'block' : 'none' }}>
-                    <select name="colors_form" value={selectedColor} onChange={handleColorChange}>
+                    <select id="search_by_color" name="colors_form" value={selectedColor} onChange={handleColorChange}>
                         <option value=''>{t("no_color_selected")}</option>
                         <option value='red'>{t("red")}</option>
                         <option value='blue'>{t("blue")}</option>
@@ -286,6 +305,7 @@ function Filters({ onFiltersAppliedChange }) {
                         value={minLayerThicknessValue}
                         onChange={handleMinChange}
                         className="min-range"
+                        id='search_by_minlayerthickness'
                     />
                     <input
                         type="range"
@@ -294,6 +314,7 @@ function Filters({ onFiltersAppliedChange }) {
                         value={maxLayerThicknessValue}
                         onChange={handleMaxChange}
                         className="max-range"
+                        id='search_by_maxlayerthickness'
                     />
                     <p>{t("layer_thickness_range")}: {(minLayerThicknessValue / 100).toFixed(2)} - {(maxLayerThicknessValue / 100).toFixed(2)}</p>
                 </div>

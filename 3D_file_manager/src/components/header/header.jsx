@@ -5,6 +5,8 @@ import { Signup } from  '../signup/signup';
 import { UserContext } from '../../context/UserContext';
 import { useTranslation } from 'react-i18next';
 import { Popup } from '../popup_message/popup_message';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * The header of the page that is shown to the user, it allows the user to navigate through the page and to log in or sign up as well as log out
@@ -85,7 +87,7 @@ function Header() {
                             </li>
                 </ul>
             </nav>
-            <div>
+            <div className='l_h_box'>
             {i18n.language === 'en' && (
                     <div>
                     <button className='btn_lang' onClick={() => changeLanguage('dk')}>
@@ -104,11 +106,14 @@ function Header() {
                 </div>
                 
                 )}
+                <a className='help_direction' href='help'><FontAwesomeIcon icon={faCircleInfo} /></a>
             </div>
             </div>
             {showSuccessPopup && (
                         <Popup message="User created successfully" status="success" />
                     )}
+
+            
         </header>
         )}
         {isLogged &&(
@@ -126,7 +131,7 @@ function Header() {
                     <button className='login_btn' onClick={handleLogout}>Log Out</button>
                 </ul>
             </nav>
-            <div>
+            <div className='l_h_box'>
                 {i18n.language === 'en' && (
                     <div>
                     <button className='btn_lang' onClick={() => changeLanguage('dk')}>
@@ -145,6 +150,7 @@ function Header() {
                 </div>
                 
                 )}
+                <a className='help_direction' href='help'><FontAwesomeIcon icon={faCircleInfo} /></a>
             </div>
             </div> 
             

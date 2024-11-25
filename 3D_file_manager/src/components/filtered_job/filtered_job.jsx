@@ -2,7 +2,7 @@ import './filtered_job.css'
 import { useEffect, useState,useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faIdCard } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../../context/UserContext';
 import { useTranslation } from 'react-i18next';
 
@@ -99,9 +99,9 @@ function FilteredJob({id,name,job_user, creation_date,img_format, likes, license
                         <li>
                         <p className='job_weight' title='weight'>{(total_physical_weight).toFixed(2)}g</p>
                         </li>
-                        <li>
+                        <li className='likes_priv'>
                         <p className='job_likes' title='likes'><FontAwesomeIcon className='heart' icon={faHeart} ></FontAwesomeIcon><span className='likes_text'>{likes}</span></p>
-                        <p className='private'>{(license)}</p>
+                        {license === 1 && <p className='private_cell' title="This project is only visible for logged in users."><FontAwesomeIcon icon={faIdCard} /></p>}
                         </li>
             </ul>
                 </>

@@ -21,7 +21,7 @@ export const JobPage = () => {
         otherJobs: [],
         comments: [],
     });
-    const [tags, setTags] = useState([]); // Estado para las tags del trabajo
+    const [tags, setTags] = useState([]); 
     const [newComment, setNewComment] = useState('');
     const [username, setUsername] = useState(''); 
     const [isLoggedIn, setIsLoggedIn] = useState(true); 
@@ -375,7 +375,7 @@ export const JobPage = () => {
                                     <div className="color-buttons">
                                         <div className="color-default">
                                             <button className="color-button default" onClick={() => setSelectedColor(selectedFile.color)}>
-                                                Default file color
+                                                {t("default_file_color")}
                                             </button>
                                         </div>
                                         <button className="color-button yellow" onClick={() => setSelectedColor("Yellow")}></button>
@@ -418,7 +418,7 @@ export const JobPage = () => {
                         <span className="job_info_value">{jobData.info.license}</span>
                     </div>
                     <div className="job_info_item">
-                        <span className="job_info_label">Likes:</span>
+                        <span className="job_info_label">{t("likes")}:</span>
                         <span className="job_info_value">{likes}</span>
                     </div>
                     <div className="job_info_item">
@@ -443,7 +443,7 @@ export const JobPage = () => {
             <div className="job_details">
                 <div className="job_box">
                        <div className="job_description">
-                            <h3>Description</h3>
+                            <h3>{t("description")}</h3>
                             <p>{jobData.description}</p>
                             {tags.length > 0 && (
                                 <div className="job_tags">
@@ -458,11 +458,11 @@ export const JobPage = () => {
                     {isLoggedIn ? (
                         <div className="comment_form" style={{ position: "relative" }}>
                             <textarea
-                                placeholder="Write a new comment"
+                                placeholder={t("write_comment")}
                                 value={newComment}
                                 onChange={(e) => setNewComment(e.target.value)}
                                 maxLength={maxCharacters}
-                                style={{ paddingBottom: "20px" }} // Agrega espacio para el contador
+                                style={{ paddingBottom: "20px" }} 
                             />
                             <span className={`character_count ${newComment.length >= maxCharacters ? 'limit-reached' : ''}`}
                             >
@@ -472,7 +472,7 @@ export const JobPage = () => {
                         </div>
                     ) : (
                         <div className="comment_form disabled">
-                            <textarea disabled placeholder="Write a new comment"></textarea>
+                            <textarea disabled placeholder={t("write_comment")}></textarea>
                             <button disabled>{t("send_comment")}</button>
                         </div>
                     )}

@@ -281,6 +281,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                 <div onClick={handleContainerClick} className="container">
                     <div className="new-job-header">
                         <h2>{t("new_job")}</h2>
+                        <p onClick={closeNewJob}>X</p>
                     </div>
                     <form className="form-main" onSubmit={handleFormSubmit}>
                         <div className="form-container">
@@ -350,7 +351,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                 </div>
                                 <div className="suggest-tag-cont">
                                     <p className="small-font">{t['no_tag_matches']}</p>
-                                    <p onClick={() => {setShowSuggestTag(true)}} className="small-font suggest-tag">Suggest new tag</p>
+                                    <p onClick={() => {setShowSuggestTag(true)}} className="small-font suggest-tag"><a href="/profile">{t("suggest-tag")}</a></p>
                                 </div>
                                 <div className="nj-tags-added">
                                     {tags.map((tag, index) => (
@@ -372,7 +373,9 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                 </div>
                                 <div className="suggest-customer-cont">
                                     <p className="small-font">{t("new_customer")}</p>
-                                    <p onClick={handleSuggestTag} className="small-font suggest-customer">{t("suggest_customer")}</p>
+                                    <p onClick={handleSuggestTag} className="small-font suggest-customer">
+                                        <a href="/profile">{t("suggest_customer")}</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>

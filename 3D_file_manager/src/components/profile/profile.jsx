@@ -17,7 +17,7 @@ function Profile() {
     const imageLink = "/3D_printer/Files/img/profile/default_profile.png";
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const {userId, username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);  
+    const {userId, username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged} = useContext(UserContext);  
     const [showUserTable, setShowUserTable] = useState(false);
     const [showTagsProposals, setShowTagsProposals] = useState(false);
     const [showCustomersProposals,setShowCustomersProposals] = useState(false);

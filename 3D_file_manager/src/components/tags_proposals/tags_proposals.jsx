@@ -57,6 +57,11 @@ export const TagsProposals = ({ closeUserTable }) => {
         }
     }, [closeUserTable]);
 
+    const handleSearch = (e) => {
+        const value = e.target.value
+        setFilteredTags(tagsList.filter(tag => tag.name_tag.toLowerCase().includes(value)))
+    }
+
     useEffect(() => {
         document.addEventListener("keydown", escFunction, false);
         return () => {
@@ -108,7 +113,8 @@ export const TagsProposals = ({ closeUserTable }) => {
                 </div>
                 <div className="suggested_tags_table_body">
                     <input 
-                        type="text" 
+                        onChange={handleSearch}
+                        type="text"
                         placeholder={t("search-tag")}
                         className="suggested_tags_table_searchbar"
                     />

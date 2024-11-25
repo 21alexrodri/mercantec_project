@@ -96,6 +96,8 @@
     "edit-tags-legend-white": "Eksisterende tags",
     "edit-customers": "Rediger kunder",
     "search-customers": "Søg kunder...",
-    "customer-name": "Kundenavn"
+    "customer-name": "Kundenavn",
+    "cancel_del_jobs": "Annuller",
+    "suggest-tag": "Foreslå en ny tag"
   }
   

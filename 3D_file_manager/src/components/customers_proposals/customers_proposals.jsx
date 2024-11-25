@@ -8,10 +8,10 @@ import { UserContext } from "../../context/UserContext";
 
 export const CustomersProposals = ({ closeUserTable }) => {
 
-    const [tagsList,setTagsList] = useState([])
+    const [customersList,setcustomersList] = useState([])
     const { t } = useTranslation();
-    const [filteredList,setFilteredTags] = useState([])
-    const [updateTagList,setUpdateTagList] = useState(false)
+    const [filteredList,setFilteredCustomers] = useState([])
+    const [updateTagList,setUpdateCustomerList] = useState(false)
     const [loading,setLoading] = useState(true)
     const {userId, username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);  
 
@@ -42,7 +42,7 @@ export const CustomersProposals = ({ closeUserTable }) => {
                 throw new Error("ERROR modifying customers")
             }
 
-            setUpdateTagList(!updateTagList);
+            setUpdateCustomerList(!updateTagList);
             setLoading(false)
         })
         .catch(error => {
@@ -57,6 +57,11 @@ export const CustomersProposals = ({ closeUserTable }) => {
         }
     }, [closeUserTable]);
 
+    const handleSearch = (e) => {
+        const value = e.target.value;
+        setFilteredCustomers(customersList.filter(customer => customer.customer_name.toLowerCase().includes(value)))
+    }
+
     useEffect(() => {
         document.addEventListener("keydown", escFunction, false);
         return () => {
@@ -66,6 +71,8 @@ export const CustomersProposals = ({ closeUserTable }) => {
 
     useEffect(() => {
         setLoading(true)
+
+        console.log(isAdmin)
 
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
@@ -79,8 +86,8 @@ export const CustomersProposals = ({ closeUserTable }) => {
         })
         .then(response => response.json())
         .then(data => {
-            setTagsList(data);
-            setFilteredTags(data);
+            setcustomersList(data);
+            setFilteredCustomers(data);
             setLoading(false)
         })
         .catch(error => {
@@ -89,13 +96,13 @@ export const CustomersProposals = ({ closeUserTable }) => {
         });
     }, [,updateTagList]);
 
-    const sortTagsList = () => {
-        setFilteredTags([...tagsList].sort((a, b) => a.accepted - b.accepted));
+    const sortcustomersList = () => {
+        setFilteredCustomers([...customersList].sort((a, b) => a.accepted - b.accepted));
     };
 
     useEffect(() => {
-        sortTagsList();
-    }, [tagsList]);
+        sortcustomersList();
+    }, [customersList]);
 
     return (
         <div onClick={closeUserTable} className="blur_content">
@@ -108,6 +115,7 @@ export const CustomersProposals = ({ closeUserTable }) => {
                 </div>
                 <div className="suggested_customers_table_body">
                     <input 
+                        onChange={handleSearch}
                         type="text" 
                         placeholder={t("search-customers")}
                         className="suggested_customers_table_searchbar"

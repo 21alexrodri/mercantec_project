@@ -95,6 +95,8 @@
     "edit-tags-legend-white": "Existing tags",
     "edit-customers": "Edit customers",
     "search-customers": "Search customers...",
-    "customer-name": "Customer name"
+    "customer-name": "Customer name",
+    "cancel_del_jobs": "Cancel",
+    "suggest-tag":"Suggest a new tag"
   }
   

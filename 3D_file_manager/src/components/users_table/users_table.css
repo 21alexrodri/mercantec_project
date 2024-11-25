@@ -150,3 +150,7 @@ table{
     max-height: 400px; 
     overflow-y: auto;
 }
+
+.users_table_results_container tr {
+    height: 30px;
+}

@@ -55,6 +55,24 @@ export const UserTable = ({ closeUserTable }) => {
         });
     };
 
+    const toggleAdmin = (id) => {
+        fetch("/3D_printer/3d_project/query.php", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                arg: 'toggleAdmin',
+                id: id,
+            }),
+            credentials: 'include',
+        })
+        .then(response => response.json())
+        .catch(error => {
+            console.error('Error getting all users:', error);
+        });
+    }
+
     const handleSearch = (e) => {
         const value = e.target.value.toLowerCase();
         setSearch(value);
@@ -124,6 +142,7 @@ export const UserTable = ({ closeUserTable }) => {
                                     <th>{t("email")}</th>
                                     <th>{t("date")} {t("created")}</th>
                                     <th>{t("active")}</th>
+                                    <th>{t("admin")}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -142,6 +161,9 @@ export const UserTable = ({ closeUserTable }) => {
                                             title={user.active == 1 ? 'User Enabled' : 'User Disabled'}
                                         >
                                             <FontAwesomeIcon icon={faCircle} />
+                                        </td>
+                                        <td onClick={() => toggleAdmin(user.id)}>
+                                            <input type="checkbox"></input>
                                         </td>
                                     </tr>
                                 ))}

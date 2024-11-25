@@ -1,6 +1,6 @@
 #users_table {
     color: #fff;
-    max-width: 600px;
+    width: 48.5rem;
     z-index: 1000; 
     text-align: center;
     margin:0;
@@ -86,6 +86,11 @@
     width: 100%;
     aspect-ratio: 2;
     height: 100%;
+}
+
+.users_table_results_container th{
+    padding: 0.5rem;
+    text-wrap: nowrap;
 }
 
 #users_table .users_table_results_container .result {

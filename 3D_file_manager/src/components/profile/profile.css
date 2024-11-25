@@ -206,6 +206,14 @@
     border-radius: 0px 1rem 1rem 0px;
     cursor: pointer;
     transition: all 0.2s ease;
+    width: 40%;
+    font-size: 80%;
+    text-wrap: nowrap;
+}
+
+.suggestions {
+    position: sticky;
+    top: 0;
 }
 
 .suggest-tag-input > button:hover {
@@ -220,6 +228,8 @@
     border-radius: 1rem 0 0 1rem;
     padding-left: 1rem;
     background-color: lightgray;
+    width: 60%;
+    font-size: 0.8rem;
 }
 
 .suggest-tag-input {

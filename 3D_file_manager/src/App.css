@@ -17,6 +17,14 @@ body{
     font-family: 'Montserrat', monospace;
     overflow-y: scroll;
 }
+footer{
+    background-color: #0E38AB;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    bottom: 0;
+    width: 100%;
+}
 
 h1{
     font-family: 'Montserrat Bold', monospace;

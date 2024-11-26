@@ -499,7 +499,7 @@ export const JobPage = () => {
                         jobData.otherJobs.map((otherJob, index) => (
                             <div key={index} className="other_job" onClick={() => handleJobClick(otherJob.id)}>
                                 <img
-                                    src={`/3D_printer/Files/img/jobs/${otherJob.id}.jpeg`}
+                                    src={`/3D_printer/Files/img/jobs/${otherJob.id}${otherJob.img_format}`}
                                     alt={`${otherJob.title} preview`}
                                     onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'}
                                     className="other_job_image"

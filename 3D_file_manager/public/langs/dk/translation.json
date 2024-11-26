@@ -83,7 +83,7 @@
     "your_files": "Dine Filer",
     "loading": "Indlæser...",
     "sign_up": "Tilmeld",
-    "Email": "Email",
+    "Email": "E-mail",
     "Adress": "Adresse",
     "edit_users": "Rediger Brugeres",
     "decline": "Afvise",
@@ -230,11 +230,30 @@
     "ck_utcp": "6. Opdateringer til denne cookiepolitik",
     "ck_utcp_t1": "Vi kan opdatere denne cookiepolitik fra tid til anden. Eventuelle ændringer vil blive offentliggjort på denne side med en opdateret 'Gældende dato'.",
     "ck_cntct": "7. Kontakt",
-    "ck_cntct_t1": "Hvis du har spørgsmål om denne cookiepolitik, bedes du kontakte os på:"
-
-
-
-
-
+    "ck_cntct_t1": "Hvis du har spørgsmål om denne cookiepolitik, bedes du kontakte os på:",
+    "cancel_del_jobs": "Annuller",
+    "suggest-tag": "Foreslå en ny tag",
+    "default_file_color": "Standard filfarve",
+    "description": "Beskrivelse",
+    "suggest_new_tag": "Foreslå nyt tag",
+    "new_tag": "nyt tag...",
+    "suggest_new_customer": "Foreslå en ny kunde",
+    "new_customer_email": "nyt kundenavn...",
+    "new_customer_name": "nyt kundenavn e-mail...",
+    "phone_number": "Telefonnummer",
+    "new_customer_phone": "nyt telefonnummer...",
+    "new_customer_description": "ny kundebeskrivelse...",
+    "suggest_customer_submit": "Foreslå kunde",
+    "search": "Søg efter projektnavn",
+    "delete_jobs": "Slet jobs",
+    "project_date": "Projektdato",
+    "rules_signup": "REGLER FOR TILMELDING",
+    "spacebar": "Ingen mellemrumstasten",
+    "special_char": "Brug ikke specialtegn som f.eks:",
+    "min_char": "Adgangskoden skal være på mindst 8 tegn",
+    "min_layer_thickness": "Min. lagtykkelse",
+    "max_layer_thickness": "Maks. lagtykkelse",
+    "search_material": "Søg efter materiale...",
+    "write_comment": "Skriv en ny kommentar"
   }
   

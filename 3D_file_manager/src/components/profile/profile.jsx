@@ -1,13 +1,14 @@
 import './profile.css';
 import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
-import Error_Page from '../error_page/error_page';
+import Home from '../home/home';
 import { UserTable } from '../users_table/users_table';
 import FilteredJob from '../filtered_job/filtered_job';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers, faTags, faBuilding} from '@fortawesome/free-solid-svg-icons';
 import { TagsProposals } from '../tags_proposals/tags_proposals';
 import { CustomersProposals } from '../customers_proposals/customers_proposals';
+import { useTranslation } from 'react-i18next';
 
 /**
  * The profile component. It shows the user's profile with their files and information.
@@ -24,6 +25,7 @@ function Profile() {
     const [filteredItems, setFilteredItems] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [deleteJobState,setDeleteJobState] = useState(false);
+    const { t } = useTranslation();
 
     const handleCustomerSuggestion = () => {
         let customerName = document.getElementById("nc-name").value
@@ -196,32 +198,32 @@ function Profile() {
                     </div>
                     <div className='suggestions'>
                         <div className='suggest-container'>
-                            <b>Suggest new tag</b>
+                            <b>{t("suggest_new_tag")}</b>
                             <div className='suggest-tag-input'>
-                                <input id="new-tag-input" type='text' placeholder='new tag...'/>
-                                <button onClick={handleTagSuggestion}>Suggest tag</button>
+                                <input id="new-tag-input" type='text' placeholder={t("new_tag")}/>
+                                <button onClick={handleTagSuggestion}>{t("suggest_tag")}</button>
                             </div>
                         </div>
                         <div className='suggest-container'>
-                            <b>Suggest new customer</b>
+                            <b>{t("suggest_new_customer")}</b>
                             <form className='suggest-customer-form'>
                                 <div>
-                                    <label className="customer-name-lbl">Name</label>
-                                    <input id="nc-name" type='text' placeholder='new customer name...'/>
+                                    <label className="customer-name-lbl">{t("name")}</label>
+                                    <input id="nc-name" type='text' placeholder={t("new_customer_name")}/>
                                 </div>
                                 <div>
-                                    <label className='customer-email-lbl'>E-mail</label>
-                                    <input id="nc-email" type='email' placeholder='new customer e-mail...'/>
+                                    <label className='customer-email-lbl'>{t("email")}</label>
+                                    <input id="nc-email" type='email' placeholder={t("new_customer_email")}/>
                                 </div>
                                 <div>
-                                    <label className='customer-phone-lbl'>Phone number</label>
-                                    <input id="nc-phone" type='tel' placeholder='new customer phone...'/>
+                                    <label className='customer-phone-lbl'>{t("phone_number")}</label>
+                                    <input id="nc-phone" type='tel' placeholder={t("new_customer_phone")}/>
                                 </div>
                                 <div>
-                                    <label className='customer-desc-lbl'>Description</label>
-                                    <textarea id="nc-desc" placeholder='new customer description...'/>
+                                    <label className='customer-desc-lbl'>{t("description")}</label>
+                                    <textarea id="nc-desc" placeholder={t("new_customer_description")}/>
                                 </div>
-                                <button onClick={handleCustomerSuggestion}>Suggest customer</button>
+                                <button onClick={handleCustomerSuggestion}>{t("suggest_customer_submit")}</button>
                             </form>
                         </div>
                     </div>
@@ -232,29 +234,29 @@ function Profile() {
                 </div>
                 <div className="profile_jobs_section">
                     <div className="profile_jobs_section_header">
-                        <h3 className="profile_jobs_section_title">Your files</h3>
+                        <h3 className="profile_jobs_section_title">{t("your_files")}</h3>
                         <input
                             className='profile-search-project-name'
                             type="text"
-                            placeholder="Search by project name"
+                            placeholder={t("search")}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
-                        <div className='job-delete-btt' onClick={handleDeleteButton}>Delete jobs</div>
+                        <div className='job-delete-btt' onClick={handleDeleteButton}>{t("delete_jobs")}</div>
                     </div>
                     <div>
                         {loading ? (
-                            <p>Loading...</p>
+                            <p>{t("loading")}</p>
                         ) : error ? (
                             <p>Error: {error.message}</p>
                         ) : filteredResults.length > 0 ? (
                             <div className="usr-jobs-list">
                                 <ul className='usr-key'>
                                     <li></li>
-                                    <li className='author'>Project</li>
-                                    <li>Project date</li>
-                                    <li>Layer thickness</li>
-                                    <li>Weight</li>
+                                    <li className='author'>{t("project")}</li>
+                                    <li>{t("project_date")}</li>
+                                    <li>{t("layer_thickness")}</li>
+                                    <li>{t("weight")}</li>
                                     <li className='job_likes_key'></li>
                                 </ul>
                                 {filteredResults.map(item => (
@@ -274,14 +276,14 @@ function Profile() {
                                 ))}
                             </div>
                         ) : (
-                            <p>No results found.</p>
+                            <p>{t("no_results")}</p>
                         )}
                     </div>
                 </div>
             </div>
         )}
         {!isLogged && (
-            <Error_Page />
+            <Home />
         )}
         </>
     );

@@ -21,7 +21,7 @@ export const JobPage = () => {
         otherJobs: [],
         comments: [],
     });
-    const [tags, setTags] = useState([]); // Estado para las tags del trabajo
+    const [tags, setTags] = useState([]); 
     const [newComment, setNewComment] = useState('');
     const [username, setUsername] = useState(''); 
     const [isLoggedIn, setIsLoggedIn] = useState(true); 
@@ -32,6 +32,7 @@ export const JobPage = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [selectedColor, setSelectedColor] = useState(null);
     const [loading, setLoading] = useState(false);
+    const maxCharacters = 255;
 
 
     const checkUserLike = () => {
@@ -139,11 +140,14 @@ export const JobPage = () => {
                         likes: data.job.likes,
                         layer_thickness: data.job.layer_thickness,
                         creation_date: data.job.creation_date,
-                        color: data.job.color
+                        color: data.job.color,
+                        img_format: data.job.img_format,
+                        customer_name: data.job.customer
                     },
                     otherJobs: shuffledOtherJobs,
                     comments: data.job.comments || []
                 });
+                console.log(jobData)
                 setLikes(data.job.likes); 
             } else {
                 alert("Error: " + data.message);
@@ -371,7 +375,7 @@ export const JobPage = () => {
                                     <div className="color-buttons">
                                         <div className="color-default">
                                             <button className="color-button default" onClick={() => setSelectedColor(selectedFile.color)}>
-                                                Default file color
+                                                {t("default_file_color")}
                                             </button>
                                         </div>
                                         <button className="color-button yellow" onClick={() => setSelectedColor("Yellow")}></button>
@@ -389,7 +393,7 @@ export const JobPage = () => {
                 )}
 
                 <div className="job_display">
-                    <img src={`/3D_printer/Files/img/jobs/${jobId}.jpeg`} onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'} />
+                    <img src={`/3D_printer/Files/img/jobs/${jobId}${jobData.info.img_format}`} onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'} />
                     <div className="job_actions">
                         <button className={`like_button ${liked ? 'liked' : 'unliked'}`} onClick={handleLikeClick}>
                             <FontAwesomeIcon icon={faHeart} />
@@ -414,7 +418,7 @@ export const JobPage = () => {
                         <span className="job_info_value">{jobData.info.license}</span>
                     </div>
                     <div className="job_info_item">
-                        <span className="job_info_label">Likes:</span>
+                        <span className="job_info_label">{t("likes")}:</span>
                         <span className="job_info_value">{likes}</span>
                     </div>
                     <div className="job_info_item">
@@ -429,13 +433,17 @@ export const JobPage = () => {
                         <span className="job_info_label">{t("color")}:</span>
                         <span className="job_info_value">{jobData.info.color}</span>
                     </div>
+                    <div className="job_info_item">
+                        <span className="job_info_label">{t("customer")}:</span>
+                        <span className="job_info_value">{jobData.info.customer_name}</span>
+                    </div>
                 </div>
             </div>
 
             <div className="job_details">
                 <div className="job_box">
                        <div className="job_description">
-                            <h3>Description</h3>
+                            <h3>{t("description")}</h3>
                             <p>{jobData.description}</p>
                             {tags.length > 0 && (
                                 <div className="job_tags">
@@ -448,17 +456,23 @@ export const JobPage = () => {
                             )}
                         </div>
                     {isLoggedIn ? (
-                        <div className="comment_form">
+                        <div className="comment_form" style={{ position: "relative" }}>
                             <textarea
-                                placeholder="Write a new comment"
+                                placeholder={t("write_comment")}
                                 value={newComment}
                                 onChange={(e) => setNewComment(e.target.value)}
+                                maxLength={maxCharacters}
+                                style={{ paddingBottom: "20px" }} 
                             />
+                            <span className={`character_count ${newComment.length >= maxCharacters ? 'limit-reached' : ''}`}
+                            >
+                                {newComment.length}/{maxCharacters}
+                            </span>
                             <button onClick={handleCommentSubmit}>{t("send_comment")}</button>
                         </div>
                     ) : (
                         <div className="comment_form disabled">
-                            <textarea disabled placeholder="Write a new comment"></textarea>
+                            <textarea disabled placeholder={t("write_comment")}></textarea>
                             <button disabled>{t("send_comment")}</button>
                         </div>
                     )}
@@ -480,7 +494,7 @@ export const JobPage = () => {
                     </div>
                 </div>
                 <div className="other_jobs">
-                    <h3>{t("other_jobs")}</h3>
+                    <h3>{t("other_jobs")}</h3><br/>
                     {jobData?.otherJobs?.length > 0 ? (
                         jobData.otherJobs.map((otherJob, index) => (
                             <div key={index} className="other_job" onClick={() => handleJobClick(otherJob.id)}>

@@ -212,10 +212,10 @@ function Filters({ onFiltersAppliedChange }) {
                     <div id={("customer") + filtersApplied.customer} className='filter_style'><p><FontAwesomeIcon icon={faBuilding} title='Customer Filter'/> {filtersApplied.customer}</p></div>
                 )}
                 {filtersApplied.minlayerthickness > 0 && (
-                    <div id={("min-layerthickness_") + filtersApplied.minlayerthickness} className='filter_style'><p><FontAwesomeIcon icon={faPenNib} /> Min. layer thickness: {filtersApplied.minlayerthickness}</p></div>
+                    <div id={("min-layerthickness_") + filtersApplied.minlayerthickness} className='filter_style'><p><FontAwesomeIcon icon={faPenNib} /> {t("min_layer_thickness")}: {filtersApplied.minlayerthickness}</p></div>
                 )}
                 {filtersApplied.maxlayerthickness && (
-                    <div id={("max-layerthickness_") + filtersApplied.maxlayerthickness} className='filter_style'><p><FontAwesomeIcon icon={faPenNib} /> Max. layer thickness: {filtersApplied.maxlayerthickness}</p></div>
+                    <div id={("max-layerthickness_") + filtersApplied.maxlayerthickness} className='filter_style'><p><FontAwesomeIcon icon={faPenNib} /> {t("max_layer_thickness")}: {filtersApplied.maxlayerthickness}</p></div>
                 )}
                 {filtersApplied.material && (
                     <div id={("material_")+filtersApplied.material} className='filter_style'><p><FontAwesomeIcon icon={faCube} /> {filtersApplied.material}</p></div>
@@ -326,7 +326,7 @@ function Filters({ onFiltersAppliedChange }) {
                     onChange={handleMaterialChange}
                     id="search_by_material"
                     type="text"
-                    placeholder='Search by material...'
+                    placeholder= {t("search_material")}
                 /> 
                 
 

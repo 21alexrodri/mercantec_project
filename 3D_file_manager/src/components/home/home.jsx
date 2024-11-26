@@ -125,37 +125,38 @@ function Home() {
     async function handleShowJobs(tagId, offset) {
         setLoading(true);
 
-        try {
-            const response = await fetch('/3D_printer/3d_project/query.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    arg: "getJobs",
-                    tag_id: tagId,
-                    offset: offset,
-                    is_logged: isLogged
-                }),
-            });
-
-            if (!response.ok) {
+        fetch('/3D_printer/3d_project/query.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                arg: "getJobs",
+                tag_id: tagId,
+                offset: offset,
+                is_logged: isLogged
+            }),
+        })
+        .then((response)=>{
+            if(!response.ok){
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-
-            const data = await response.json();
+            return response.json()
+        })
+        .then((data)=>{
             setJobs(prevJobs => ({
                 ...prevJobs,
                 [tagId]: data,
             }));
-
-            setError(null);
-        } catch (error) {
+        })
+        .catch((error)=>{
             console.error('Error:', error);
             setError(error.message);
-        } finally {
-            setLoading(false);
-        }
+        })
+        .finally(()=>{
+            setLoading(false)
+            console.log("HA ACABADO DE CARGAR JOBS")
+        })
     }
 
     useEffect(() => {
@@ -167,7 +168,6 @@ function Home() {
             tags.forEach(tag => {
                 handleShowJobs(tag.id, 0);
             });
-            // console.log(jobs)
         }
     }, [tags]);
 
@@ -271,6 +271,7 @@ function Home() {
                                         tagId={tag.id} 
                                         tagName={tag.name_tag}
                                         handleShowJobs={handleShowJobs}
+                                        loadingJobs={loading}
                                     />
                                 ))}
                             </ul>

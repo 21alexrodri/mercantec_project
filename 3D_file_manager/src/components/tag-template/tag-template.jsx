@@ -14,7 +14,7 @@ import { UserContext } from '../../context/UserContext';
  * @param {handleShowJobs} handleShowJobs The function to show the jobs for a tag.
  * @returns 
  */
-function TagTemplate({ jobs, tagId, tagName, handleShowJobs }) {
+function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
     const { isLogged } = useContext(UserContext);
     const { t } = useTranslation();
     const [offset, setOffset] = useState(0);
@@ -23,6 +23,7 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs }) {
     const jobsPerPage = 3; 
     const [error, setError] = useState(null); 
     const [loading, setLoading] = useState(false);
+    const [timeoutFinished,setTimeoutFinished] = useState(false)
     const navigateTo = useNavigate();
 
     /**
@@ -30,13 +31,17 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs }) {
      */
     const handleNextPage = () => {
         const newOffset = ((currentPage + 1) * jobsPerPage);
-        setOffset(newOffset);
+        // setOffset(newOffset);
 
         setDirection("left");
+        setLoading(true)
+
         setTimeout(() => {
+            setOffset(newOffset);
             handleShowJobs(tagId, newOffset);
-            setCurrentPage(prevPage => prevPage + 1);
-            setDirection(null);
+            setCurrentPage(prevPage => prevPage + 1)
+            setTimeoutFinished(true)
+            setLoading(false)
         }, 500);
     };
 
@@ -45,19 +50,31 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs }) {
      */
     const handlePrevPage = () => {
         const newOffset = (offset - jobsPerPage);
-        setOffset(newOffset);
+        // setOffset(newOffset);
 
         setDirection("right");
+        setLoading(true)
+        
         setTimeout(() => {
+            setOffset(newOffset);
             handleShowJobs(tagId, newOffset);
-            setCurrentPage(prevPage => prevPage - 1);
-            setDirection(null);
+            setCurrentPage(prevPage => prevPage - 1)
+            setTimeoutFinished(true)
+            setLoading(false)
         }, 500);
     };
 
     const handleJobClick = (id) => {
         navigateTo('/job_page', { state: { jobId: id } });
     };
+
+    useEffect(()=>{
+        if((!loadingJobs)){
+            console.log("ACABA DE CARGAR")
+            setDirection(null);
+            setTimeoutFinished(false)
+        }
+    },[loadingJobs,timeoutFinished])
 
     return (
         <>
@@ -67,24 +84,50 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs }) {
                     {jobs[tagId] ? (
                         jobs[tagId].jobs.length > 0 ? (
                             <>
-                                {offset > 0 && (
+                                {offset > 0 && !loading && !loadingJobs  && (
                                     <FontAwesomeIcon className='arrow arrow-left' onClick={() => handlePrevPage(tagId, currentPage * jobsPerPage)} icon={faCaretLeft} />
                                 )}
-                                {jobs[tagId].jobs
+                                {
+                                (
+                                    offset == 0
+                                ) ? (
+                                    <>
+                                        <div className='col'>
+                                            <div className='job-link'>
+                                                <img className='job-content'></img>
+                                            </div>
+                                        </div>
+                                        <div className='col'>
+                                            <div className='job-link'>
+                                                <img className='job-content'></img>
+                                            </div>
+                                        </div>
+                                        <div className='col'>
+                                            <div className='job-link'>
+                                                <img className='job-content'></img>
+                                            </div>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                                {
+                                    jobs[tagId].jobs
                                     .filter(job => job.license === 0 || (job.license === 1 && isLogged))
                                     .map((job, i) => (
-                                        <div key={i} className={`col ${direction === "left" ? "slide-left" : ""} ${direction === "right" ? "slide-right" : ""} `}>
+                                        <div key={i} className={`col ${(direction === "left") ? "slide-left" : ""} ${direction === "right" ? "slide-right" : ""} `}>
                                             <div id={job.id} className='job-link' onClick={() => handleJobClick(job.id)}>
                                                 {job.img_format != null ? (
-                                                    <img className='job-content' src={`/3D_printer/Files/img/jobs/${job.id + job.img_format}`} alt="" onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'}/>
+                                                    <img className='job-content' src={`/3D_printer/Files/img/jobs/${job.id + job.img_format}`} alt="" />
                                                 ) : (
                                                     <img className='job-content' src={'/3D_printer/Files/img/default-job.png'} alt="" />
                                                 )}
                                             </div>
                                             <b>{job.project_name}</b><p>{job.username} - {job.creation_date}</p>
                                         </div>
-                                    ))}
-                                {jobs[tagId].count > (currentPage + 1) * jobsPerPage && (
+                                    ))
+                                }
+                                {jobs[tagId].count > (currentPage + 1) * jobsPerPage && !loading && !loadingJobs && (
                                     <FontAwesomeIcon className='arrow arrow-right' onClick={() => handleNextPage(tagId, currentPage * jobsPerPage)} icon={faCaretRight} />
                                 )}
                             </>

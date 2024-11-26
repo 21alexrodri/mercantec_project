@@ -21,19 +21,40 @@
     transition: all 0.2s;
 }
 
-.slide-right{
-    transform: translateX(300%);
-    transition: transform 0.5s ease-in-out;
+.col.slide-right{
+    animation: slide-right 0.5s forwards;
 }
 
-.slide-left{
-    transform: translateX(-300%);
-    transition: transform 0.5s ease-in-out;
+.col.slide-left{
+    animation: slide-left 0.5s forwards;
 }
 
 .jobs-container {
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     overflow: hidden;
     width: 100%;
+}
+
+.jobs-container .col{
+    transform: translateX(-300%);
+}
+
+@keyframes slide-right {
+    0% {
+        transform: translateX(-300%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+@keyframes slide-left {
+    0% {
+        transform: translateX(-300%);
+    }
+    100% {
+        transform: translateX(-600%);
+    }
 }

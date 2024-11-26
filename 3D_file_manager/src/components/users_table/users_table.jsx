@@ -14,11 +14,7 @@ export const UserTable = ({ closeUserTable }) => {
     };
 
     const changeUserState = (id, active) => {
-        console.log("AL PRESIONAR ESTÁ: "+active)
-
         const newActiveState = active == 1 ? 0 : 1;
-
-        console.log("MÁS TARDE ESTARÁ: "+newActiveState)
     
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
@@ -55,7 +51,9 @@ export const UserTable = ({ closeUserTable }) => {
         });
     };
 
-    const toggleAdmin = (id) => {
+    const toggleAdmin = (id,admin) => {
+        const newAdminState = admin == 1 ? 0 : 1;
+
         fetch("/3D_printer/3d_project/query.php", {
             method: "POST",
             headers: {
@@ -68,6 +66,22 @@ export const UserTable = ({ closeUserTable }) => {
             credentials: 'include',
         })
         .then(response => response.json())
+        .then(data => {
+            if(data.success){
+                console.log("ENTRA EN SUCCESS")
+                setUsersList(prevUsersList => 
+                    prevUsersList.map(user =>
+                        user.id === id ? { ...user, is_admin: newAdminState } : user
+                    )
+                );
+                
+                setFilteredUsers(prevFilteredUsers => 
+                    prevFilteredUsers.map(user =>
+                        user.id === id ? { ...user, is_admin: newAdminState} : user
+                    )
+                );
+            }
+        })
         .catch(error => {
             console.error('Error getting all users:', error);
         });
@@ -162,8 +176,15 @@ export const UserTable = ({ closeUserTable }) => {
                                         >
                                             <FontAwesomeIcon icon={faCircle} />
                                         </td>
-                                        <td onClick={() => toggleAdmin(user.id)}>
-                                            <input type="checkbox"></input>
+                                        <td
+                                            id={user.id} 
+                                            onClick={() => {
+                                                toggleAdmin(user.id, user.is_admin)
+                                            }} 
+                                            className={user.is_admin == 1 ? 'user_active' : 'user_inactive'} 
+                                            title={user.is_admin == 1 ? 'Admin user' : 'Non admin user'}
+                                        >
+                                            <FontAwesomeIcon icon={faCircle} />
                                         </td>
                                     </tr>
                                 ))}

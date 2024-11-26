@@ -76,7 +76,7 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs }) {
                                         <div key={i} className={`col ${direction === "left" ? "slide-left" : ""} ${direction === "right" ? "slide-right" : ""} `}>
                                             <div id={job.id} className='job-link' onClick={() => handleJobClick(job.id)}>
                                                 {job.img_format != null ? (
-                                                    <img className='job-content' src={`/3D_printer/Files/img/jobs/${job.id + job.img_format}`} alt="" />
+                                                    <img className='job-content' src={`/3D_printer/Files/img/jobs/${job.id + job.img_format}`} alt="" onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'}/>
                                                 ) : (
                                                     <img className='job-content' src={'/3D_printer/Files/img/default-job.png'} alt="" />
                                                 )}

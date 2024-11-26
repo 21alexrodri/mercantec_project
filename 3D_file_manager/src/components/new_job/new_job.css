@@ -99,7 +99,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
+}
+
+.new-job-header p {
+    flex: 1;
+    cursor: pointer;
+    font-size: x-large;
+}
+
+.new-job-header h2 {
+    flex: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .new-job-header h2{
@@ -529,6 +542,20 @@
 .add-button p {
     margin: 0;
     font-size: 1.5rem;
+}
+
+.suggest-customer > a {
+    color: #0E38AB;
+}
+.suggest-customer > a:hover {
+    color: #FF5A5E;
+}
+
+.suggest-tag > a {
+    color: #0E38AB;
+}
+.suggest-tag > a:hover {
+    color: #FF5A5E;
 }
 
 .add-button input[type="file"] {

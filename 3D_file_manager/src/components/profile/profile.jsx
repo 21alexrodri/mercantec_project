@@ -18,7 +18,7 @@ function Profile() {
     const imageLink = "/3D_printer/Files/img/profile/default_profile.png";
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const {userId, username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);  
+    const {userId, username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged} = useContext(UserContext);  
     const [showUserTable, setShowUserTable] = useState(false);
     const [showTagsProposals, setShowTagsProposals] = useState(false);
     const [showCustomersProposals,setShowCustomersProposals] = useState(false);
@@ -160,10 +160,10 @@ function Profile() {
      */
     const handleDeleteButton = (e) => {
         e.target.classList.toggle("activated-btt")
-        if(e.target.innerHTML == "Delete jobs"){
-            e.target.innerHTML = "Cancel"
+        if(e.target.classList.contains("activated-btt")){
+            e.target.innerHTML = t("cancel_del_jobs")
         }else{
-            e.target.innerHTML = "Delete jobs"
+            e.target.innerHTML = t("del_jobs")
         }
         setDeleteJobState(!deleteJobState);
     }

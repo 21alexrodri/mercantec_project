@@ -81,7 +81,7 @@ function FilteredJob({id,name,job_user, creation_date,img_format, likes, license
                         {(
                             img_format!=null 
                         )?(
-                            <img className='job-content-list'  src={`/3D_printer/Files/img/jobs/${id + img_format}`} alt="" />
+                            <img className='job-content-list'  src={`/3D_printer/Files/img/jobs/${id + img_format}`} alt="" onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'}/>
                         ):(
                             <img className='job-content-list' src={'/3D_printer/Files/img/default-job.png'}></img>
                         )}

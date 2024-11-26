@@ -128,10 +128,10 @@ export const Signup = ({ closeSignup, onUserCreated }) => {
                     <span className="tooltip-container">
                         <span className="tooltip-icon">?</span>
                         <span className="tooltip-text">
-                            RULES FOR SIGN UP<br /> <br />
-                            <FontAwesomeIcon icon={faCaretRight} /> No spacebar<br />
-                            <FontAwesomeIcon icon={faCaretRight} /> Do not use special characters like: &lt;, &gt;, ", '...<br />
-                            <FontAwesomeIcon icon={faCaretRight} /> Password must be at least 8 characters long
+                            {t("rules_signup")}<br /> <br />
+                            <FontAwesomeIcon icon={faCaretRight} /> {t("spacebar")}<br />
+                            <FontAwesomeIcon icon={faCaretRight} /> {t("special_char")} &lt;, &gt;, ", '...<br />
+                            <FontAwesomeIcon icon={faCaretRight} /> {t("min_char")}
                         </span>
                     </span>    
                     </label>

@@ -27,6 +27,9 @@ function App() {
         <Route path="*" element={<Error_Page />} />
       </Routes>
     </Router>
+    <footer>
+        <p>&copy; 2024 Mercantec 3D Print Archive. All rights reserved.</p>
+    </footer>
     </UserProvider>
     </>
   )

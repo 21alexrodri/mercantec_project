@@ -34,7 +34,7 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
         // setOffset(newOffset);
         
         
-        handleShowJobs(tagId, newOffset);
+        
         setLoading(true)
         
         setTimeout(() => {
@@ -43,11 +43,11 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
 
         setTimeout(() => {
             setOffset(newOffset);
-            
+            handleShowJobs(tagId, newOffset);
             setCurrentPage(prevPage => prevPage + 1)
             setTimeoutFinished(true)
             setLoading(false)
-        }, 500);
+        }, 1000);
 
         
     };
@@ -59,7 +59,7 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
         const newOffset = (offset - jobsPerPage);
         // setOffset(newOffset);
 
-        handleShowJobs(tagId, newOffset);
+        
         setLoading(true)
 
         setTimeout(() => {
@@ -68,11 +68,11 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
         
         setTimeout(() => {
             setOffset(newOffset);
-            
+            handleShowJobs(tagId, newOffset);
             setCurrentPage(prevPage => prevPage - 1)
             setTimeoutFinished(true)
             setLoading(false)
-        }, 500);
+        }, 1000);
     };
 
     const handleJobClick = (id) => {

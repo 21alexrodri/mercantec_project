@@ -182,6 +182,10 @@ export const JobPage = () => {
         checkUserLike(); // Verificar si el usuario ya ha dado "like"
     }, [jobId]);
 
+    const getLicenseText = () => {
+        return jobData.info.license === 0 ? t('public') : t('private');
+    };
+
     const handleCommentSubmit = () => {
         if (newComment.trim() === '') {
             alert('Please enter a comment.');
@@ -341,7 +345,7 @@ export const JobPage = () => {
                         <div className="job_files_container">
                             {jobFiles.map((file, index) => (
                                 <div className="file_container" key={index}>
-                                    <h3 className="file_title">{t("job_file")} {file.id}</h3>
+                                    <h3 className="file_title"><strong>{t("job_file")}</strong> <p></p>{file.name}</h3>
                                     <div className="file_actions">
                                         <button className="preview_button" onClick={() => handlePreviewClick(file)}>
                                             {t("preview")}
@@ -415,7 +419,7 @@ export const JobPage = () => {
                     <h3>{t("job_info")}</h3>
                     <div className="job_info_item">
                         <span className="job_info_label">{t("license")}:</span>
-                        <span className="job_info_value">{jobData.info.license}</span>
+                        <span className="job_info_value">{getLicenseText()}</span>
                     </div>
                     <div className="job_info_item">
                         <span className="job_info_label">{t("likes")}:</span>

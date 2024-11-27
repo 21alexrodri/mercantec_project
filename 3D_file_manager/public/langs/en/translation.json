@@ -116,6 +116,8 @@
     "min_char": "Password must be at least 8 characters long",
     "min_layer_thickness": "Min. layer thickness",
     "search_material": "Search by material...",
-    "write_comment": "Write a new comment"
+    "write_comment": "Write a new comment",
+    "physical_weight": "Physical Weight",
+    "public": "Public"
   }
   

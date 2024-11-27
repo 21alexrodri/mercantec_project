@@ -23,55 +23,50 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
     const jobsPerPage = 3; 
     const [error, setError] = useState(null); 
     const [loading, setLoading] = useState(false);
-    const [timeoutFinished,setTimeoutFinished] = useState(false)
+    const [timeoutFinished,setTimeoutFinished] = useState(false);
     const navigateTo = useNavigate();
 
+    const [displayedJobs, setDisplayedJobs] = useState(jobs[tagId]?.jobs || []);
+
     /**
-     * This function handles the click on the next page arrow.
+     * Esta función maneja el clic en la flecha de la siguiente página.
      */
     const handleNextPage = () => {
         const newOffset = ((currentPage + 1) * jobsPerPage);
-        // setOffset(newOffset);
-        
-        
+        setDirection("left");
+        setLoading(true);
         handleShowJobs(tagId, newOffset);
-        setLoading(true)
-        
-        setTimeout(() => {
-            setDirection("left");
-        },50)
 
         setTimeout(() => {
             setOffset(newOffset);
-            
-            setCurrentPage(prevPage => prevPage + 1)
-            setTimeoutFinished(true)
-            setLoading(false)
-        }, 500);
+            setCurrentPage(prevPage => prevPage + 1);
+            setLoading(false);
+            setDirection(null); 
 
-        
+            if (jobs[tagId]?.jobs) {
+                setDisplayedJobs(jobs[tagId].jobs);
+            }
+        }, 500);
     };
 
     /**
-     * This function handles the click on the previous page arrow.
+     * Esta función maneja el clic en la flecha de la página anterior.
      */
     const handlePrevPage = () => {
         const newOffset = (offset - jobsPerPage);
-        // setOffset(newOffset);
+        setDirection("right");
+        setLoading(true);
 
         handleShowJobs(tagId, newOffset);
-        setLoading(true)
 
         setTimeout(() => {
-            setDirection("right");
-        },50)
-        
-        setTimeout(() => {
             setOffset(newOffset);
-            
-            setCurrentPage(prevPage => prevPage - 1)
-            setTimeoutFinished(true)
-            setLoading(false)
+            setCurrentPage(prevPage => prevPage - 1);
+            setLoading(false);
+            setDirection(null); 
+            if (jobs[tagId]?.jobs) {
+                setDisplayedJobs(jobs[tagId].jobs);
+            }
         }, 500);
     };
 
@@ -80,12 +75,15 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
     };
 
     useEffect(()=>{
-        if((!loadingJobs)){
-            console.log("ACABA DE CARGAR")
-            setDirection(null);
-            setTimeoutFinished(false)
+        if(!loadingJobs){
+            console.log("ACABA DE CARGAR");
+            setTimeoutFinished(false);
+            // Solo actualizamos displayedJobs si no estamos animando
+            if (direction === null && jobs[tagId]?.jobs) {
+                setDisplayedJobs(jobs[tagId].jobs);
+            }
         }
-    },[loadingJobs,timeoutFinished])
+    },[loadingJobs,timeoutFinished, jobs, tagId, direction]);
 
     return (
         <>
@@ -96,7 +94,7 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
                         jobs[tagId].jobs.length > 0 ? (
                             <>
                                 {offset > 0 && !loading && !loadingJobs  && (
-                                    <FontAwesomeIcon className='arrow arrow-left' onClick={() => handlePrevPage(tagId, currentPage * jobsPerPage)} icon={faCaretLeft} />
+                                    <FontAwesomeIcon className='arrow arrow-left' onClick={() => handlePrevPage()} icon={faCaretLeft} />
                                 )}
                                 {
                                 (
@@ -123,10 +121,10 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
                                     <></>
                                 )}
                                 {
-                                    jobs[tagId].jobs
+                                    displayedJobs
                                     .filter(job => job.license === 0 || (job.license === 1 && isLogged))
                                     .map((job, i) => (
-                                        <div key={i} className={`col ${(direction === "left") ? "slide-left" : ""} ${direction === "right" ? "slide-right" : ""} `}>
+                                        <div key={job.id} className={`col ${(direction === "left") ? "slide-left" : ""} ${direction === "right" ? "slide-right" : ""} `}>
                                             <div id={job.id} className='job-link' onClick={() => handleJobClick(job.id)}>
                                                 {job.img_format != null ? (
                                                     <img className='job-content' src={`/3D_printer/Files/img/jobs/${job.id + job.img_format}`} alt="" />
@@ -139,7 +137,7 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
                                     ))
                                 }
                                 {jobs[tagId].count > (currentPage + 1) * jobsPerPage && !loading && !loadingJobs && (
-                                    <FontAwesomeIcon className='arrow arrow-right' onClick={() => handleNextPage(tagId, currentPage * jobsPerPage)} icon={faCaretRight} />
+                                    <FontAwesomeIcon className='arrow arrow-right' onClick={() => handleNextPage()} icon={faCaretRight} />
                                 )}
                             </>
                         ) : (

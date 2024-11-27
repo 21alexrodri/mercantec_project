@@ -254,6 +254,7 @@
     "min_layer_thickness": "Min. lagtykkelse",
     "max_layer_thickness": "Maks. lagtykkelse",
     "search_material": "Søg efter materiale...",
-    "write_comment": "Skriv en ny kommentar"
+    "write_comment": "Skriv en ny kommentar",
+    "public": "Offentlig"
   }
   

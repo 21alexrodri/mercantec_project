@@ -32,17 +32,24 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
     const handleNextPage = () => {
         const newOffset = ((currentPage + 1) * jobsPerPage);
         // setOffset(newOffset);
-
-        setDirection("left");
+        
+        
+        handleShowJobs(tagId, newOffset);
         setLoading(true)
+        
+        setTimeout(() => {
+            setDirection("left");
+        },50)
 
         setTimeout(() => {
             setOffset(newOffset);
-            handleShowJobs(tagId, newOffset);
+            
             setCurrentPage(prevPage => prevPage + 1)
             setTimeoutFinished(true)
             setLoading(false)
         }, 500);
+
+        
     };
 
     /**
@@ -52,12 +59,16 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
         const newOffset = (offset - jobsPerPage);
         // setOffset(newOffset);
 
-        setDirection("right");
+        handleShowJobs(tagId, newOffset);
         setLoading(true)
+
+        setTimeout(() => {
+            setDirection("right");
+        },50)
         
         setTimeout(() => {
             setOffset(newOffset);
-            handleShowJobs(tagId, newOffset);
+            
             setCurrentPage(prevPage => prevPage - 1)
             setTimeoutFinished(true)
             setLoading(false)

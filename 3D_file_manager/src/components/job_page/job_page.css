@@ -671,11 +671,14 @@
     gap: 10px; /* Espacio entre botones */
     margin-top: 10px;
     flex-wrap: wrap;
+    width: 100%;
+    height: fit-content;
+    block-size:auto;
 }
 
 .color-button {
-    width: 60px;
-    height: 60px;
+    width: 3.2vw;
+    height: 3.2vw;
     border-radius: 50%;
     border: 2px solid #ddd; /* Borde sutil */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra suave */

@@ -12,70 +12,76 @@
 #job_page .job_content {
     display: flex;
     justify-content: space-evenly;
-    aspect-ratio: 3.5;
     width: 100%;
-    height: auto;
-    max-height: 500px; /* Ajusta la altura máxima */
+    height: 400px;
     gap: 20px;
-    flex-wrap: wrap;
-    overflow: hidden; /* Oculta cualquier contenido que se salga de la altura máxima */
+    /* flex-wrap: wrap; */
+    /* overflow: hidden; */
 }
 
 #job_page .job_images {
-    width: 25%;
+    width: 100%;
+    max-width: 400px;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    height: 100%; /* Asegura que el elemento se ajuste al contenedor */
+    border-radius: 1rem;
+    height: 100%;
 }
 
 #job_page .job_images .image_scroll {
-    overflow-y: scroll;
+    overflow: auto;
     width: 100%;
-    height: 100%; /* Ajusta la altura para que ocupe solo el espacio disponible */
+    height: 100%; 
+    
+}
+
+.disp_info {
+    display: flex;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 100%;
 }
 
 #job_page .job_display {
     display: flex;
-    width: 100%;
-    max-width: 600px;
+    width: 700px;
+    height: 100%;
     background-color: #ddd;
-    border: 2px solid #888;
+    border: none;
+    border-radius: 1rem 0rem 0rem 1rem;
     justify-content: center;
     align-items: center;
     position: relative;
     overflow: hidden;
-    aspect-ratio: 16 / 9;
-    height: auto; /* Deja que el contenedor se ajuste al contenido */
-    max-height: 100%; /* Ajusta al 100% de la altura del contenedor */
 }
 
-/* Media Query para pantallas pequeñas */
-@media (max-width: 768px) {
-    #job_page .job_content {
-        flex-direction: column;
-        align-items: center;
-        max-height: none; /* Elimina la restricción de altura en pantallas pequeñas */
-        height: auto;
-    }
+.job_display > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
 
-    #job_page .job_images {
-        width: 80%;
-    }
+.job_actions {
+    position: absolute;
+    bottom: 15px;
 
-    #job_page .job_display {
-        max-width: 100%;
-    }
+    width: 80px;
+
+    display: flex;
+    justify-content: space-between;
 }
 
 .job_info {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px; /* Ajuste del padding para un diseño más compacto */
+    border-radius: 0rem 1rem 1rem 0rem;
+    padding: 20px; 
     padding-top: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 300px; /* Mantiene un ancho máximo en pantallas grandes */
-    width: 100%; /* Ocupa todo el ancho disponible en pantallas pequeñas */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    max-width: 300px;
+    width: 100%;
 }
 
 .job_info h3 {
@@ -89,7 +95,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 0.5rem;
     margin-bottom: 10px;
     background-color: #fff;
     border-radius: 5px;
@@ -115,32 +121,6 @@
     flex-shrink: 0;
 }
 
-/* Media Queries para pantallas pequeñas */
-@media (max-width: 768px) {
-    .job_info {
-        padding: 15px;
-        max-width: 100%; /* Ocupa todo el ancho disponible */
-    }
-
-    .job_info h3 {
-        font-size: 1.1rem; /* Reduce el tamaño del título */
-    }
-
-    .job_info_item {
-        flex-direction: column; /* Apila el contenido en lugar de alinearlo horizontalmente */
-        align-items: flex-start;
-        gap: 5px;
-    }
-
-    .job_info_label {
-        font-size: 0.9rem;
-    }
-
-    .job_info_value {
-        font-size: 0.9rem;
-        text-align: left; /* Alinea el texto a la izquierda en pantallas pequeñas */
-    }
-}
 
 
 .job_details {
@@ -301,6 +281,7 @@
     color: #333;
     margin-bottom: 10px;
     text-align: center;
+    word-break: break-word;
 }
 
 .file_container h3 {
@@ -320,10 +301,15 @@
     padding: 7px 15px;
     background-color: #0E38AB;
     color: white;
-    border: none;
+    border: 2px solid #0E38AB;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+.preview_button:hover,.download_button:hover {
+    background-color: transparent;
+    color: #0E38AB;
 }
 
   
@@ -392,6 +378,7 @@
     flex-direction: column;
     gap: 10px;
     text-wrap: nowrap;
+    height: 100%;
 }
 
 .close_popup {
@@ -417,16 +404,6 @@
     background-color: white;
 }
 
-
-/* Estilo para el botón de previsualización */
-#job_page .preview_button {
-    background-color: #0E38AB;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
 
 .download_zip_button {
     position: relative;
@@ -586,67 +563,23 @@
     word-wrap: break-word; /* Asegura que el texto se ajuste y no desborde */
 }
 
-/* Media Queries para pantallas pequeñas */
-@media (max-width: 768px) {
-    .job_comments {
-        padding: 10px; /* Reduce el padding para más espacio */
-        gap: 5px; /* Menor separación entre comentarios */
-    }
-
-    .comment {
-        padding: 5px 0; /* Reduce el padding entre comentarios */
-    }
-
-    .comment_header {
-        flex-direction: column; /* Apila el contenido */
-        align-items: flex-start; /* Alinea a la izquierda en lugar de justificar */
-        gap: 2px;
-        font-size: 0.8rem; /* Reduce el tamaño de fuente */
-    }
-
-    .comment_username {
-        font-size: 0.85rem;
-    }
-
-    .comment_date {
-        font-size: 0.75rem;
-    }
-
-    .comment_text {
-        font-size: 0.9rem; /* Reduce el tamaño del texto */
-    }
-}
-
-/* Media Queries para pantallas muy pequeñas */
-@media (max-width: 480px) {
-    .job_comments {
-        padding: 8px;
-    }
-
-    .comment_header {
-        gap: 5px;
-    }
-
-    .comment_text {
-        font-size: 0.85rem;
-    }
-}
 
 .color-buttons {
     display: flex;
-    gap: 10px; /* Espacio entre botones */
-    margin-top: 10px;
-    flex-wrap: wrap;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    width: 120%;
 }
 
 .color-button {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: 2px solid #ddd; /* Borde sutil */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra suave */
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s; /* Animación de interacción */
+    transition: box-shadow 0.2s; 
+    margin: 1rem 0.5rem 0rem 0.5rem;
 }
 
 .color-button:hover {
@@ -674,4 +607,97 @@
 
 .color-default{
     padding-right: 100%;
+}
+
+@media (max-height: 725px) {
+    .color-button {
+        height: 35px;
+        width: 35px;
+        margin: 0.8rem 0.4rem 0rem 0.4rem;
+    }
+}
+
+@media (max-height: 630px) {
+    .color-button {
+        border-radius: 0px;
+        margin: 1rem 0 0 0;
+        flex: 1;
+        transition: flex 0.2s ease;
+    }
+
+    .color-button:hover {
+        flex: 2;
+        transition: flex 0.2s ease;
+    }   
+}
+
+@media (max-height: 570px) {
+    .color-buttons {
+        display: none;
+    }
+}
+
+@media (max-width: 1400px) {
+    .job_content {
+        flex-direction: column-reverse;
+        align-items: center !important;
+        height: auto !important;
+    }
+
+    .job_images .image_scroll .job_files_container {
+        flex-direction: row;
+    }
+
+    .job_images {
+        width: 780px !important;
+        max-width: 780px !important;
+    }
+
+    .disp_info {
+        width: 780px !important;
+    }
+
+    .job_display {
+        height: 100% !important;
+    }
+
+    .file_container {
+        position: relative;
+        min-width: 250px !important;
+        padding-bottom: 5rem;
+    }
+    .file_actions {
+        position: absolute;
+        flex-direction: column;
+        bottom: 1rem;
+        width: 80%;
+    }
+    .disp_info {
+        flex-direction: column;
+        align-items: center;
+    }
+    .job_display {
+        width: 740px !important;
+        border-radius: 1rem 1rem 0rem 0rem !important;
+    }
+    .job_info {
+        display: flex;
+        border-radius: 0rem 0rem 1rem 1rem;
+        width: 740px !important;
+        max-width: 740px !important;
+
+        max-height: 200px;
+
+        flex-direction: column;
+    }
+    .job_info > div {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        width: 100%;
+        height: 100px;
+    }
+    .job_info_item {
+        width: 30%;
+    }
 }

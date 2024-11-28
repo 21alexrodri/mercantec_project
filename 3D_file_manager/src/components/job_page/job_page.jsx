@@ -336,25 +336,7 @@ export const JobPage = () => {
                 <p>{jobData.owner}</p>
             </div>
             <div className="job_content">
-                <div className='job_images'>
-                    <div className='image_scroll'>
-                        <div className="job_files_container">
-                            {jobFiles.map((file, index) => (
-                                <div className="file_container" key={index}>
-                                    <h3 className="file_title">{t("job_file")} {file.id}</h3>
-                                    <div className="file_actions">
-                                        <button className="preview_button" onClick={() => handlePreviewClick(file)}>
-                                            {t("preview")}
-                                        </button>
-                                        <button className="download_button" onClick={() => handleDownloadClick(file)}>
-                                            {t("download")}
-                                        </button>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+                
 
                 {showPopup && (
                     <div className="popup_background" onClick={() => setShowPopup(false)}>
@@ -372,72 +354,97 @@ export const JobPage = () => {
                                     <p><strong>{t("physical_weight")}:</strong> {selectedFile.physical_weight} g</p>
                                     <p><strong>{t("file")} {t("weight")}:</strong> {selectedFile.file_weight} MB</p>
                                     <p><strong>{t("material")}:</strong> {selectedFile.material}</p>
-                                    <div className="color-buttons">
+                                    <ul className="color-buttons">
                                         <div className="color-default">
                                             <button className="color-button default" onClick={() => setSelectedColor(selectedFile.color)}>
                                                 {t("default_file_color")}
                                             </button>
                                         </div>
-                                        <button className="color-button yellow" onClick={() => setSelectedColor("Yellow")}></button>
-                                        <button className="color-button red" onClick={() => setSelectedColor("Red")}></button>
-                                        <button className="color-button blue" onClick={() => setSelectedColor("Blue")}></button>
-                                        <button className="color-button green" onClick={() => setSelectedColor("Green")}></button>
-                                        <button className="color-button black" onClick={() => setSelectedColor("Black")}></button>
-                                        <button className="color-button white" onClick={() => setSelectedColor("White")}></button>
-                                        <button className="color-button grey" onClick={() => setSelectedColor("Grey")}></button>
-                                    </div>
+                                        <li className="color-button yellow" onClick={() => setSelectedColor("Yellow")}></li>
+                                        <li className="color-button red" onClick={() => setSelectedColor("Red")}></li>
+                                        <li className="color-button blue" onClick={() => setSelectedColor("Blue")}></li>
+                                        <li className="color-button green" onClick={() => setSelectedColor("Green")}></li>
+                                        <li className="color-button black" onClick={() => setSelectedColor("Black")}></li>
+                                        <li className="color-button white" onClick={() => setSelectedColor("White")}></li>
+                                        <li className="color-button grey" onClick={() => setSelectedColor("Grey")}></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 )}
 
-                <div className="job_display">
-                    <img src={`/3D_printer/Files/img/jobs/${jobId}${jobData.info.img_format}`} onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'} />
-                    <div className="job_actions">
-                        <button className={`like_button ${liked ? 'liked' : 'unliked'}`} onClick={handleLikeClick}>
-                            <FontAwesomeIcon icon={faHeart} />
-                        </button>
-                        <button 
-                            className={`download_zip_button ${loading ? 'loading' : ''}`} 
-                            onClick={handleDownloadZip} 
-                            disabled={loading}
-                        >
-                            {loading ? (
-                                <FontAwesomeIcon icon={faSpinner} spin />
-                            ) : (
-                                <FontAwesomeIcon icon={faDownload} />
-                            )}
-                        </button>
+                <div className='job_images'>
+                    <div className='image_scroll'>
+                        <div className="job_files_container">
+                            {jobFiles.map((file, index) => (
+                                <div className="file_container" key={index}>
+                                    <h3 className="file_title"><strong>{t("job_file")}</strong> <p></p>{file.name}</h3>
+                                    <div className="file_actions">
+                                        <button className="preview_button" onClick={() => handlePreviewClick(file)}>
+                                            {t("preview")}
+                                        </button>
+                                        <button className="download_button" onClick={() => handleDownloadClick(file)}>
+                                            {t("download")}
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
-                <div className="job_info">
-                    <h3>{t("job_info")}</h3>
-                    <div className="job_info_item">
-                        <span className="job_info_label">{t("license")}:</span>
-                        <span className="job_info_value">{jobData.info.license}</span>
+                <div className='disp_info'>
+                    <div className="job_display">
+                        <img src={`/3D_printer/Files/img/jobs/${jobId}${jobData.info.img_format}`} onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'} />
+                        <div className="job_actions">
+                            <button className={`like_button ${liked ? 'liked' : 'unliked'}`} onClick={handleLikeClick}>
+                                <FontAwesomeIcon icon={faHeart} />
+                            </button>
+                            <button 
+                                className={`download_zip_button ${loading ? 'loading' : ''}`} 
+                                onClick={handleDownloadZip} 
+                                disabled={loading}
+                            >
+                                {loading ? (
+                                    <FontAwesomeIcon icon={faSpinner} spin />
+                                ) : (
+                                    <FontAwesomeIcon icon={faDownload} />
+                                )}
+                            </button>
+                        </div>
                     </div>
-                    <div className="job_info_item">
-                        <span className="job_info_label">{t("likes")}:</span>
-                        <span className="job_info_value">{likes}</span>
-                    </div>
-                    <div className="job_info_item">
-                        <span className="job_info_label">{t("layer_thickness")}:</span>
-                        <span className="job_info_value">{jobData.info.layer_thickness}</span>
-                    </div>
-                    <div className="job_info_item">
-                        <span className="job_info_label">{t("creation_date")}:</span>
-                        <span className="job_info_value">{jobData.info.creation_date}</span>
-                    </div>
-                    <div className="job_info_item">
-                        <span className="job_info_label">{t("color")}:</span>
-                        <span className="job_info_value">{jobData.info.color}</span>
-                    </div>
-                    <div className="job_info_item">
-                        <span className="job_info_label">{t("customer")}:</span>
-                        <span className="job_info_value">{jobData.info.customer_name}</span>
+                    <div className="job_info">
+                        <h3>{t("job_info")}</h3>
+                        <div>
+                        <div className="job_info_item">
+                            <span className="job_info_label">{t("license")}:</span>
+                            <span className="job_info_value">{jobData.info.license}</span>
+                        </div>
+                        <div className="job_info_item">
+                            <span className="job_info_label">{t("likes")}:</span>
+                            <span className="job_info_value">{likes}</span>
+                        </div>
+                        <div className="job_info_item">
+                            <span className="job_info_label">{t("layer_thickness")}:</span>
+                            <span className="job_info_value">{jobData.info.layer_thickness}</span>
+                        </div>
+                        <div className="job_info_item">
+                            <span className="job_info_label">{t("creation_date")}:</span>
+                            <span className="job_info_value">{jobData.info.creation_date}</span>
+                        </div>
+                        <div className="job_info_item">
+                            <span className="job_info_label">{t("color")}:</span>
+                            <span className="job_info_value">{jobData.info.color}</span>
+                        </div>
+                        <div className="job_info_item">
+                            <span className="job_info_label">{t("customer")}:</span>
+                            <span className="job_info_value">{jobData.info.customer_name}</span>
+                        </div>
+                        </div>
+                        
                     </div>
                 </div>
+                
             </div>
 
             <div className="job_details">

@@ -40,14 +40,6 @@
 .jobs-container .col{
     transform: translateX(-300%);
 }
-/* 
-.jobs-container .col:nth-child(-n+3) {
-    visibility: hidden;
-}
-
-.jobs-container .col:nth-last-child(-n+3) {
-    visibility: hidden;
-} */
 
 @keyframes slide-right {
     0% {

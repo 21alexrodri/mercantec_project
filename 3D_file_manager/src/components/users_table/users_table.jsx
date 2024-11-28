@@ -167,19 +167,31 @@ export const UserTable = ({ closeUserTable }) => {
                                         <td>{user.email}</td>
                                         <td>{user.date_created}</td>
                                         <td 
-                                            id={user.id} 
+                                            id={user.id}
+                                            tabIndex="0"
                                             onClick={() => {
                                                 changeUserState(user.id, user.active);
-                                            }} 
+                                            }}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") {
+                                                    changeUserState(user.id, user.active);
+                                                }
+                                            }}
                                             className={user.active == 1 ? 'user_active' : 'user_inactive'} 
                                             title={user.active == 1 ? 'User Enabled' : 'User Disabled'}
                                         >
                                             <FontAwesomeIcon icon={faCircle} />
                                         </td>
                                         <td
-                                            id={user.id} 
+                                            id={user.id}
+                                            tabIndex="0" 
                                             onClick={() => {
                                                 toggleAdmin(user.id, user.is_admin)
+                                            }}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") {
+                                                    toggleAdmin(user.id, user.is_admin);
+                                                }
                                             }} 
                                             className={user.is_admin == 1 ? 'user_active' : 'user_inactive'} 
                                             title={user.is_admin == 1 ? 'Admin user' : 'Non admin user'}

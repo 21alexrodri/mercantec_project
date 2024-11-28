@@ -242,7 +242,11 @@ function Profile() {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
-                        <div className='job-delete-btt' onClick={handleDeleteButton}>{t("delete_jobs")}</div>
+                        <div className='job-delete-btt' tabIndex="0" onClick={handleDeleteButton} onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            handleDeleteButton(e);
+                        }
+                    }}>{t("delete_jobs")}</div>
                     </div>
                     <div>
                         {loading ? (

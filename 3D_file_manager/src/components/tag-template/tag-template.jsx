@@ -14,16 +14,16 @@ import { UserContext } from '../../context/UserContext';
  * @param {handleShowJobs} handleShowJobs The function to show the jobs for a tag.
  * @returns 
  */
-function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
+function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs }) {
     const { isLogged } = useContext(UserContext);
     const { t } = useTranslation();
     const [offset, setOffset] = useState(0);
-    const [currentPage, setCurrentPage] = useState(0); 
-    const [direction, setDirection] = useState(null); 
-    const jobsPerPage = 3; 
-    const [error, setError] = useState(null); 
+    const [currentPage, setCurrentPage] = useState(0);
+    const [direction, setDirection] = useState(null);
+    const jobsPerPage = 3;
+    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [timeoutFinished,setTimeoutFinished] = useState(false);
+    const [timeoutFinished, setTimeoutFinished] = useState(false);
     const navigateTo = useNavigate();
 
     const [displayedJobs, setDisplayedJobs] = useState(jobs[tagId]?.jobs || []);
@@ -41,7 +41,7 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
             setOffset(newOffset);
             setCurrentPage(prevPage => prevPage + 1);
             setLoading(false);
-            setDirection(null); 
+            setDirection(null);
 
             if (jobs[tagId]?.jobs) {
                 setDisplayedJobs(jobs[tagId].jobs);
@@ -63,7 +63,7 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
             setOffset(newOffset);
             setCurrentPage(prevPage => prevPage - 1);
             setLoading(false);
-            setDirection(null); 
+            setDirection(null);
             if (jobs[tagId]?.jobs) {
                 setDisplayedJobs(jobs[tagId].jobs);
             }
@@ -74,8 +74,8 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
         navigateTo('/job_page', { state: { jobId: id } });
     };
 
-    useEffect(()=>{
-        if(!loadingJobs){
+    useEffect(() => {
+        if (!loadingJobs) {
             console.log("ACABA DE CARGAR");
             setTimeoutFinished(false);
             // Solo actualizamos displayedJobs si no estamos animando
@@ -83,7 +83,7 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
                 setDisplayedJobs(jobs[tagId].jobs);
             }
         }
-    },[loadingJobs,timeoutFinished, jobs, tagId, direction]);
+    }, [loadingJobs, timeoutFinished, jobs, tagId, direction]);
 
     return (
         <>
@@ -93,51 +93,88 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs}) {
                     {jobs[tagId] ? (
                         jobs[tagId].jobs.length > 0 ? (
                             <>
-                                {offset > 0 && !loading && !loadingJobs  && (
-                                    <FontAwesomeIcon className='arrow arrow-left' onClick={() => handlePrevPage()} icon={faCaretLeft} />
+                                {offset > 0 && !loading && !loadingJobs && (
+                                    <FontAwesomeIcon className='arrow arrow-left' onClick={() => handlePrevPage()} icon={faCaretLeft} tabIndex="0" onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            handlePrevPage();
+                                        }
+                                    }} />
                                 )}
                                 {
-                                (
-                                    offset == 0
-                                ) ? (
-                                    <>
-                                        <div className='col'>
-                                            <div className='job-link'>
-                                                <img className='job-content'></img>
+                                    (
+                                        offset == 0
+                                    ) ? (
+                                        <>
+                                            <div className='col'>
+                                                <div className='job-link'>
+                                                    <img className='job-content'></img>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className='col'>
-                                            <div className='job-link'>
-                                                <img className='job-content'></img>
+                                            <div className='col'>
+                                                <div className='job-link'>
+                                                    <img className='job-content'></img>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className='col'>
-                                            <div className='job-link'>
-                                                <img className='job-content'></img>
+                                            <div className='col'>
+                                                <div className='job-link'>
+                                                    <img className='job-content'></img>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <></>
-                                )}
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
                                 {
                                     displayedJobs
-                                    .filter(job => job.license === 0 || (job.license === 1 && isLogged))
-                                    .map((job, i) => (
-                                        <div key={job.id} className={`col ${(direction === "left") ? "slide-left" : ""} ${direction === "right" ? "slide-right" : ""} `}>
-                                            <div id={job.id} className='job-link' onClick={() => handleJobClick(job.id)}>
-                                                {job.img_format != null ? (
-                                                    <img className='job-content' src={`/3D_printer/Files/img/jobs/${job.id + job.img_format}`} alt="" />
-                                                ) : (
-                                                    <img className='job-content' src={'/3D_printer/Files/img/default-job.png'} alt="" />
-                                                )}
-                                            </div>
-                                            <b>{job.project_name}</b><p>{job.username} - {job.creation_date}</p>
-                                        </div>
-                                    ))
+                                        .filter(job => job.license === 0 || (job.license === 1 && isLogged))
+                                        .map((job, i) => {
+                                            const isVisible = i >= offset && i < offset + jobsPerPage; 
+                                            return (
+                                                <div
+                                                    key={job.id}
+                                                    className={`col ${(direction === "left") ? "slide-left" : ""} ${direction === "right" ? "slide-right" : ""}`}
+                                                >
+                                                    <div
+                                                        id={job.id}
+                                                        className='job-link'
+                                                        onClick={() => handleJobClick(job.id)}
+                                                        tabIndex={isVisible ? "0" : "-1"} 
+                                                        onKeyDown={(e) => {
+                                                            if (e.key === "Enter") {
+                                                                handleJobClick(job.id);
+                                                            }
+                                                        }}
+                                                    >
+                                                        {job.img_format != null ? (
+                                                            <img
+                                                                className='job-content'
+                                                                src={`/3D_printer/Files/img/jobs/${job.id + job.img_format}`}
+                                                                alt=""
+                                                            />
+                                                        ) : (
+                                                            <img
+                                                                className='job-content'
+                                                                src={'/3D_printer/Files/img/default-job.png'}
+                                                                alt=""
+                                                            />
+                                                        )}
+                                                    </div>
+                                                    <b>{job.project_name}</b>
+                                                    <p>{job.username} - {job.creation_date}</p>
+                                                </div>
+                                            );
+                                        })
                                 }
+
+
                                 {jobs[tagId].count > (currentPage + 1) * jobsPerPage && !loading && !loadingJobs && (
-                                    <FontAwesomeIcon className='arrow arrow-right' onClick={() => handleNextPage()} icon={faCaretRight} />
+                                    <FontAwesomeIcon className='arrow arrow-right' onClick={() => handleNextPage()} icon={faCaretRight} tabIndex="0" 
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            handleNextPage();
+                                        }
+                                    }}
+                                    />
                                 )}
                             </>
                         ) : (

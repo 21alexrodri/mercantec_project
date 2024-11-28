@@ -7,6 +7,7 @@
 
 #job_page .job_header {
     text-align: center;
+    margin-bottom: 15px;
 }
 
 #job_page .job_content {
@@ -53,8 +54,43 @@
     border-radius: 1rem 0rem 0rem 1rem;
     justify-content: center;
     align-items: center;
-    position: relative;
     overflow: hidden;
+    aspect-ratio: 16 / 9;
+    height: auto;
+}
+
+#job_page .job_display img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+#job_page .job_display .job_actions {
+    position: absolute; /* Superpone los botones sobre la imagen */
+    bottom: 10px; /* Ajusta la distancia desde la parte inferior */
+    left: 50%; /* Centra horizontalmente */
+    transform: translateX(-50%); /* Ajusta para centrar completamente */
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+    z-index: 2; /* Asegura que los botones estén encima de la imagen */
+}
+
+#job_page .job_display .like_button,
+#job_page .job_display .download_zip_button {
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+}
+
+#job_page .job_display .like_button:hover,
+#job_page .job_display .download_zip_button:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo más oscuro al pasar el ratón */
 }
 
 .job_display > img {
@@ -383,25 +419,24 @@
 
 .close_popup {
     position: absolute;
-    top: 10px;
+    top: 8px;
     right: 10px;
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: white;
+    color: red;
     cursor: pointer;
     transition: color 0.3s;
-    background-color: red;
+    background-color: white;
     border-radius: 20%;
     transition: 0.25s ease;
-    padding-right: 5px;
-    padding-left: 6px;
+    padding: 1px 6px 2px 7px;
 }
 
 .close_popup:hover {
-    color: #ff5555;
+    color: white;
     transition: 0.25s ease;
-    background-color: white;
+    background-color: red;
 }
 
 

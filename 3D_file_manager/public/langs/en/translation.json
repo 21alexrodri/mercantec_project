@@ -56,10 +56,12 @@
     "created": "Created",
     "send_comment": "Send Comment",
     "no_comments": "There are no comments",
-    "other_jobs": "Other Jobs",
+    "other_jobs": "Other Jobs from",
     "no_jobs": "No available jobs",
     "login": "Log In",
     "login_invalid": "Invalid username, invalid password or user not activated",
+    "like_invalid": "You have to be logged in to like a job",
+    "comment_invalid": "Please enter a comment.",
     "active": "Active",
     "img_formats": "* Only .jpg, .png and .jpeg accepted",
     "del_img": "Delete Image",
@@ -253,6 +255,8 @@
     "min_char": "Password must be at least 8 characters long",
     "min_layer_thickness": "Min. layer thickness",
     "search_material": "Search by material...",
-    "write_comment": "Write a new comment" 
+    "write_comment": "Write a new comment",
+    "physical_weight": "Physical Weight",
+    "public": "Public"
   }
   

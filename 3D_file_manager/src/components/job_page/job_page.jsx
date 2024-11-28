@@ -4,6 +4,7 @@ import './job_page.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faDownload, faSpinner, faTag } from '@fortawesome/free-solid-svg-icons';
 import JobPreview from '../job_preview/job_preview';
+import { Popup } from '../popup_message/popup_message';
 import JSZip from 'jszip';
 import { useTranslation } from 'react-i18next';
 
@@ -33,6 +34,8 @@ export const JobPage = () => {
     const [selectedColor, setSelectedColor] = useState(null);
     const [loading, setLoading] = useState(false);
     const maxCharacters = 255;
+    const [errorMsg, setErrorMsg] = useState('');
+    const [showErrorPopup, setErrorShowPopup] = useState(false);
 
 
     const checkUserLike = () => {
@@ -91,7 +94,7 @@ export const JobPage = () => {
             .catch((error) => {
                 console.error('Error fetching tags:', error);
             });
-    }, [jobId]); // Incluye jobId como dependencia si cambia dinámicamente
+    }, [jobId]); 
     
     
     useEffect(() => {
@@ -150,7 +153,9 @@ export const JobPage = () => {
                 console.log(jobData)
                 setLikes(data.job.likes); 
             } else {
-                alert("Error: " + data.message);
+                setErrorShowPopup(true);
+                setErrorMsg("Error. " + error);
+                setTimeout(() => setErrorShowPopup(false), 3000);
             }
         })
         .catch((error) => {
@@ -182,9 +187,15 @@ export const JobPage = () => {
         checkUserLike(); // Verificar si el usuario ya ha dado "like"
     }, [jobId]);
 
+    const getLicenseText = () => {
+        return jobData.info.license === 0 ? t('public') : t('private');
+    };
+
     const handleCommentSubmit = () => {
         if (newComment.trim() === '') {
-            alert('Please enter a comment.');
+            setErrorShowPopup(true);
+            setErrorMsg(t("comment_invalid"));
+            setTimeout(() => setErrorShowPopup(false), 3000);
             return;
         }
     
@@ -212,11 +223,15 @@ export const JobPage = () => {
                 }));
                 setNewComment('');
             } else {
-                alert('Error saving comment: ' + data.message);
+                setErrorShowPopup(true);
+                setErrorMsg("Error. " + data.message);
+                setTimeout(() => setErrorShowPopup(false), 3000);
             }
         })
         .catch((error) => {
-            console.error('Error saving comment:', error);
+            setErrorShowPopup(true);
+            setErrorMsg("Error. " + error);
+            setTimeout(() => setErrorShowPopup(false), 3000);
         });
     };
 
@@ -246,11 +261,15 @@ export const JobPage = () => {
                 setLikes(prevLikes => liked ? prevLikes - 1 : prevLikes + 1);
                 setLiked(prevLiked => !prevLiked);
             } else {
-                alert('Error: ' + data.message);
+                setErrorShowPopup(true);
+                setErrorMsg("Error. " + data.message);
+                setTimeout(() => setErrorShowPopup(false), 3000);
             }
         })
         .catch((error) => {
-            console.error('Error handling like:', error);
+            setErrorShowPopup(true);
+            setErrorMsg("Error. " + error);
+            setTimeout(() => setErrorShowPopup(false), 3000);
         });
     };
 
@@ -287,7 +306,9 @@ export const JobPage = () => {
             
             const data = await response.json();
             if (data.status !== 'success') {
-                alert(data.message || 'Error fetching files');
+                setErrorShowPopup(true);
+                setErrorMsg('Error fetching files');
+                setTimeout(() => setErrorShowPopup(false), 3000);
                 setLoading(false);
                 return;
             }
@@ -322,8 +343,9 @@ export const JobPage = () => {
             URL.revokeObjectURL(downloadLink.href);
             
         } catch (error) {
-            console.error('Error creating ZIP:', error);
-            alert('Error creating ZIP');
+            setErrorShowPopup(true);
+            setErrorMsg("Error. " + error);
+            setTimeout(() => setErrorShowPopup(false), 3000);
         } finally {
         setTimeout(() => setLoading(false), 500);
         }
@@ -337,7 +359,6 @@ export const JobPage = () => {
             </div>
             <div className="job_content">
                 
-
                 {showPopup && (
                     <div className="popup_background" onClick={() => setShowPopup(false)}>
                         <div className="popup_content" onClick={(e) => e.stopPropagation()}>
@@ -501,12 +522,12 @@ export const JobPage = () => {
                     </div>
                 </div>
                 <div className="other_jobs">
-                    <h3>{t("other_jobs")}</h3><br/>
+                    <h3>{t("other_jobs")} {jobData.owner}</h3><br/>
                     {jobData?.otherJobs?.length > 0 ? (
                         jobData.otherJobs.map((otherJob, index) => (
                             <div key={index} className="other_job" onClick={() => handleJobClick(otherJob.id)}>
                                 <img
-                                    src={`/3D_printer/Files/img/jobs/${otherJob.id}.jpeg`}
+                                    src={`/3D_printer/Files/img/jobs/${otherJob.id}${otherJob.img_format}`}
                                     alt={`${otherJob.title} preview`}
                                     onError={(e) => e.target.src = '/3D_printer/Files/img/default-job.png'}
                                     className="other_job_image"
@@ -526,7 +547,9 @@ export const JobPage = () => {
                 </div>
             </div>
 
-            
+            {showErrorPopup && (
+                <Popup message={errorMsg} status="warning"/>
+            )}
 
         </div>
     );

@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect, useRef, useContext } from "rea
 import "./new_job.css"
 import { UserContext } from "../../context/UserContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpload, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faUpload, faTrash, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import { Popup } from '../popup_message/popup_message';
 
@@ -35,6 +35,8 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     const [errorMsg, setErrorMsg] = useState('');
     const [showPopup, setShowPopup] = useState(false);
     const handleSuggestTag = () => { }
+    const [isLoading, setIsLoading] = useState(false); // Estado para el spinner
+
 
     const handleDeleteTag = (id) => {
         setTags(tags.filter(tag => tag.id !== id));
@@ -184,7 +186,10 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
             setErrorMsg("Please select at least one file to upload.");
             setTimeout(() => setShowPopup(false), 3000);
             return;
-        } 
+        }
+    
+        setIsLoading(true); // Mostrar spinner
+    
         const tagIds = tags.map(tag => tag.id);
     
         const fileDetailsArray = files.map((file, index) => ({
@@ -193,7 +198,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
             scale: parseFloat(fileDetails[index]?.scale || document.getElementById("form-scale").value || 1),
             weight: parseFloat(fileDetails[index]?.weight || 1), 
         }));
-        
+    
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -215,58 +220,66 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                 files: fileDetailsArray
             }),
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const formData = new FormData();
+            .then(response => response.json())
+            .then(data => { 
+                if (data.success) {
+                    const formData = new FormData();
     
-                formData.append("job_id", data.generated_id);
+                    formData.append("job_id", data.generated_id);
     
-                if (imgFile) {
-                    formData.append('img_file', imgFile);
-                }
-    
-                if (selectedUploadMode === "stl") {
-                    files.forEach((file) => {
-                        formData.append('files[]', file);
-                    });
-                } else {
-                    formData.append('zip_file', zipFile);
-                }
-    
-                formData.append("type", selectedUploadMode);
-    
-                fetch('/3D_printer/3d_project/upload.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("Files uploaded successfully:", data);
-                        window.location.href = '/home';
-                    } else {
-                        setShowPopup(true);
-                        setErrorMsg("Error. " + data.message);
-                        setTimeout(() => setShowPopup(false), 3000);
+                    if (imgFile) {
+                        formData.append('img_file', imgFile);
                     }
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    window.location.href = '/home';
-                });
-            } else {
+    
+                    if (selectedUploadMode === "stl") {
+                        files.forEach((file) => {
+                            formData.append('files[]', file);
+                        });
+                    } else {
+                        formData.append('zip_file', zipFile);
+                    }
+    
+                    formData.append("type", selectedUploadMode);
+    
+                    fetch('/3D_printer/3d_project/upload.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                console.log("Files uploaded successfully:", data);
+                                window.location.href = '/home';
+                            } else {
+                                setShowPopup(true);
+                                setErrorMsg("Error. " + data.message);
+                                setTimeout(() => setShowPopup(false), 3000);
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                            setShowPopup(true);
+                            setErrorMsg("Error. " + error.message);
+                            setTimeout(() => setShowPopup(false), 3000);
+                        })
+                        .finally(() => {
+                            setIsLoading(false); // Ocultar spinner después de la carga
+                        });
+                } else {
+                    setShowPopup(true);
+                    setErrorMsg("Error. " + data.message);
+                    setTimeout(() => setShowPopup(false), 3000);
+                    setIsLoading(false); // Ocultar spinner en caso de error
+                }
+            })
+            .catch(error => {
                 setShowPopup(true);
-                setErrorMsg("Error. " + data.message);
+                setErrorMsg("Error. " + error.message);
                 setTimeout(() => setShowPopup(false), 3000);
-            }
-        })
-        .catch(error => {
-            setShowPopup(true);
-            setErrorMsg("Error. " + error);
-            setTimeout(() => setShowPopup(false), 3000);
-        });
+                setIsLoading(false); // Ocultar spinner en caso de error
+            });
     };
+    
     
     
 

@@ -103,7 +103,7 @@
 }
 
 .new-job-header p {
-    flex: 1;
+    margin-right: 3vw !important;
     cursor: pointer;
     font-size: x-large;
 }
@@ -234,6 +234,10 @@
         margin-right: 1vw;
     }
 }
+.nj-tag:focus, .nj-tag:hover{
+    color:#e52a2d;
+    cursor: pointer;      
+}
 .scale_box{
     grid-column: 1;
     grid-row: 3;
@@ -284,7 +288,6 @@
     border: none;
     border-bottom: 2px solid #0E38AB;
     font-size: 16px;
-    outline: none;
 }
 .material_box{
     grid-column: 3;
@@ -365,7 +368,10 @@
     border-bottom: 2px solid #FF8387;
     outline: none;
 }
-
+.upload-files-btn{
+    outline: 2px solid #57ab0e;
+    outline-offset: 4px;
+}
 
 
 

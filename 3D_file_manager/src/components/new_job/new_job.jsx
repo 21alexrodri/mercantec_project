@@ -11,7 +11,7 @@ import { Popup } from '../popup_message/popup_message';
  * @param {closeNewJob} a function to close the new job popup 
  * @returns A popup to create a new job
  */
-export const NewJob = ({ closeNewJob, tags: propTags }) => {
+export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) => {
     const { t } = useTranslation();
     const [files, setFiles] = useState([])
     const [zipFile, setZipFile] = useState(null)
@@ -34,6 +34,8 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     const [selectedCust, setSelectedCust] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
     const [showPopup, setShowPopup] = useState(false);
+    const popupRef = useRef(null);
+    const originalTabIndexes = useRef(new Map());
     const handleSuggestTag = () => { }
 
     const handleDeleteTag = (id) => {
@@ -51,6 +53,64 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     const handleSelectCustChange = (e) => {
         setSelectedCust(e.target.value)
     }
+    useEffect(() => {
+        if (disableBackgroundFocus) {
+            const focusableElements = document.querySelectorAll(
+                "button, a, input, select, textarea, [tabindex]:not([tabindex='-1'])"
+            );
+
+            focusableElements.forEach((el) => {
+                if (!popupRef.current.contains(el)) {
+                    // Guardar el tabIndex original o si no tiene, null
+                    originalTabIndexes.current.set(el, el.getAttribute("tabindex"));
+                    el.setAttribute("tabindex", "-1"); // Deshabilitar el foco
+                }
+            });
+        }
+
+        return () => {
+            // Restaurar el tabIndex original al cerrar el popup
+            originalTabIndexes.current.forEach((value, el) => {
+                if (value === null) {
+                    el.removeAttribute("tabindex");
+                } else {
+                    el.setAttribute("tabindex", value);
+                }
+            });
+            originalTabIndexes.current.clear();
+        };
+    }, [disableBackgroundFocus]);
+
+    useEffect(() => {
+        // Mover el foco al primer elemento del popup al abrirlo
+        const focusablePopupElements = popupRef.current.querySelectorAll(
+            "button, a, input, select, textarea, [tabindex]:not([tabindex='-1'])"
+        );
+        if (focusablePopupElements.length > 0) {
+            focusablePopupElements[0].focus();
+        }
+    }, []);
+    const handleKeyDown = (e) => {
+        if (e.key === "Tab") {
+            const focusablePopupElements = popupRef.current.querySelectorAll(
+                "button, a, input, select, textarea, [tabindex]:not([tabindex='-1'])"
+            );
+            const firstElement = focusablePopupElements[0];
+            const lastElement = focusablePopupElements[focusablePopupElements.length - 1];
+
+            // Ciclar el foco dentro del popup
+            if (e.shiftKey && document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            } else if (!e.shiftKey && document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        } else if (e.key === "Escape") {
+            // Cerrar el popup con la tecla Escape
+            closeNewJob();
+        }
+    };
 
     useEffect(() => {
         fetch('/3D_printer/3d_project/query.php', {
@@ -278,11 +338,20 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     return (
         <>
             <div onClick={closeNewJob} className="blur_content">
-                <div onClick={handleContainerClick} className="container">
+            <div
+                ref={popupRef}
+                onClick={(e) => e.stopPropagation()}
+                className="container"
+                onKeyDown={handleKeyDown}
+            >
                     <div className="new-job-header">
-                        <h2>{t("new_job")}</h2>
-                        <p onClick={closeNewJob}>X</p>
-                    </div>
+                    <h2>{t("new_job")}</h2>
+                    <p onClick={closeNewJob} tabIndex="0" onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        closeNewJob();
+                    }
+                }}>X</p>
+                </div>
                     <form className="form-main" onSubmit={handleFormSubmit}>
                         <div className="form-container">
                             <div className="img-upload-manager">
@@ -355,7 +424,11 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                 </div>
                                 <div className="nj-tags-added">
                                     {tags.map((tag, index) => (
-                                        <p key={index} className="nj-tag" onClick={() => handleDeleteTag(tag.id)}>
+                                        <p key={index} className="nj-tag" tabIndex="0" onClick={() => handleDeleteTag(tag.id)}  onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                handleDeleteTag(tag.id);
+                                            }
+                                        }}>
                                             {tag.name}
                                         </p>
                                     ))}
@@ -455,7 +528,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                             )}
                                             <li className="new-file nj-file add-button">
                                                 <p>+</p>
-                                                <input type="file" accept=".stl,.3mf" onChange={handleFileChange} multiple />
+                                                <input type="file" accept=".stl,.3mf" onChange={handleFileChange} multiple className="upload-files-btn" />
                                             </li>
                                         </>
                                     ) : (

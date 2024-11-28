@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect, useRef, useContext } from "rea
 import "./new_job.css"
 import { UserContext } from "../../context/UserContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpload, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faUpload, faTrash, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import { Popup } from '../popup_message/popup_message';
 
@@ -37,6 +37,8 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
     const popupRef = useRef(null);
     const originalTabIndexes = useRef(new Map());
     const handleSuggestTag = () => { }
+    const [isLoading, setIsLoading] = useState(false); // Estado para el spinner
+
 
     const handleDeleteTag = (id) => {
         setTags(tags.filter(tag => tag.id !== id));
@@ -245,6 +247,8 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
             setTimeout(() => setShowPopup(false), 3000);
             return;
         } 
+        setIsLoading(true); 
+
         const tagIds = tags.map(tag => tag.id);
     
         const fileDetailsArray = files.map((file, index) => ({

@@ -6,6 +6,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const JobPreview = ({ modelPath, fileColor }) => {
   const mountRef = useRef(null);
+  const requestIdRef = useRef(null);
 
   useEffect(() => {
     const scene = new THREE.Scene();
@@ -42,7 +43,7 @@ const JobPreview = ({ modelPath, fileColor }) => {
     const loadModel = () => {
       const extension = modelPath.split('.').pop().toLowerCase();
       let loader;
-    
+
       if (extension === 'stl') {
         loader = new STLLoader();
       } else if (extension === '3mf') {
@@ -51,34 +52,28 @@ const JobPreview = ({ modelPath, fileColor }) => {
         console.error('Unsupported file type:', extension);
         return;
       }
-    
+
       loader.load(
         absolutePath,
         (object) => {
           try {
             const materialColor = new THREE.Color(fileColor || '#808080'); // Color por defecto
             console.log('Color aplicado:', materialColor);
-    
+
             const material = new THREE.MeshPhongMaterial({
               color: materialColor,
-              specular: 0x333333, // Color de reflejos
-              shininess: 50, // Brillo del material
+              specular: 0x333333,
+              shininess: 50,
             });
-    
+
             if (object instanceof THREE.Group || object instanceof THREE.Object3D) {
               object.traverse((child) => {
                 if (child instanceof THREE.Mesh) {
-                  console.log('Procesando malla:', child);
-    
-                  // Eliminar atributos conflictivos
                   if (child.geometry) {
-                    console.log('Recalculando normales para:', child.name);
-                    child.geometry.computeVertexNormals(); // Recalcular normales
+                    child.geometry.computeVertexNormals();
                   }
-    
-                  // Reemplazar material
                   child.material = material;
-                  child.material.needsUpdate = true; // Forzar actualización
+                  child.material.needsUpdate = true;
                 }
               });
               scene.add(object);
@@ -86,8 +81,7 @@ const JobPreview = ({ modelPath, fileColor }) => {
             } else if (object instanceof THREE.BufferGeometry) {
               const mesh = new THREE.Mesh(object, material);
               if (mesh.geometry) {
-                console.log('Recalculando normales para geometría única');
-                mesh.geometry.computeVertexNormals(); // Recalcular normales
+                mesh.geometry.computeVertexNormals();
               }
               scene.add(mesh);
               centerAndScaleObject(mesh, camera, controls);
@@ -104,8 +98,6 @@ const JobPreview = ({ modelPath, fileColor }) => {
         }
       );
     };
-    
-    
 
     const centerAndScaleObject = (object, camera, controls) => {
       const boundingBox = new THREE.Box3().setFromObject(object);
@@ -118,17 +110,14 @@ const JobPreview = ({ modelPath, fileColor }) => {
       const size = new THREE.Vector3();
       boundingBox.getSize(size);
 
-      // Calcular la escala
       const maxDim = Math.max(size.x, size.y, size.z);
-      const padding = 1.4; // Margen adicional
+      const padding = 1.4;
       const fov = camera.fov * (Math.PI / 180);
       const distance = (maxDim * padding) / (2 * Math.tan(fov / 2));
 
-      // Ajustar cámara
       camera.position.set(0, 0, distance);
       camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-      // Ajustar controles
       controls.target.set(0, 0, 0);
       controls.update();
     };
@@ -147,7 +136,7 @@ const JobPreview = ({ modelPath, fileColor }) => {
     window.addEventListener('resize', handleResize);
 
     const animate = () => {
-      requestAnimationFrame(animate);
+      requestIdRef.current = requestAnimationFrame(animate);
       controls.update();
       renderer.render(scene, camera);
     };
@@ -155,8 +144,26 @@ const JobPreview = ({ modelPath, fileColor }) => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
+
+      if (requestIdRef.current) {
+        cancelAnimationFrame(requestIdRef.current);
+      }
+
       controls.dispose();
       renderer.dispose();
+
+      scene.traverse((child) => {
+        if (child.isMesh) {
+          child.geometry.dispose();
+          if (child.material.isMaterial) {
+            child.material.dispose();
+          } else if (Array.isArray(child.material)) {
+            child.material.forEach((mat) => mat.dispose());
+          }
+        }
+      });
+
+      scene.clear();
       if (mountRef.current) {
         mountRef.current.removeChild(renderer.domElement);
       }

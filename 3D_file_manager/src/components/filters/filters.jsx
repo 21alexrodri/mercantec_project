@@ -232,7 +232,13 @@ function Filters({ onFiltersAppliedChange }) {
                     type="text"
                     placeholder={t('search_by_name')}
                 />
-                <label className='date_label' onClick={toggleDateVisibility} style={{ cursor: 'pointer' }}>
+                <label className='date_label' onClick={toggleDateVisibility} style={{ cursor: 'pointer' }} tabIndex="0" 
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        toggleDateVisibility();
+                    }
+                }}
+                >
                     {t('date')} {isDateVisible ? '▲' : '▼'}
                 </label>
                 <input
@@ -243,7 +249,14 @@ function Filters({ onFiltersAppliedChange }) {
                     placeholder='Search by printjob name...'
                 /> 
                 <fieldset>
-                    <legend onClick={toggleTagVisibility} style={{ cursor: 'pointer' }}>
+                    <legend onClick={toggleTagVisibility} style={{ cursor: 'pointer' }}
+                    tabIndex="0"
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            toggleTagVisibility();
+                        }
+                    }}
+                    >
                         {t('tags')} {isTagVisible ? '▲' : '▼'}
                     </legend>
                     <div className='tags-filters' style={{ display: isTagVisible ? 'block' : 'none' }}>
@@ -262,7 +275,14 @@ function Filters({ onFiltersAppliedChange }) {
                     </div>
                 </fieldset>
 
-                <label className='customer_label' onClick={toggleCustomerVisibility} style={{ cursor: 'pointer' }}>
+                <label className='customer_label' onClick={toggleCustomerVisibility} style={{ cursor: 'pointer' }}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        toggleCustomerVisibility();
+                    }
+                }}
+                tabIndex="0"
+                >
                     {t('customer')} {isCustomerVisible ? '▲' : '▼'}
                 </label>
                 <div style={{ display: isCustomerVisible ? 'block' : 'none' }}>
@@ -274,7 +294,14 @@ function Filters({ onFiltersAppliedChange }) {
                     </select>
                 </div>
 
-                <label className='color_label' onClick={toggleColorVisibility} style={{ cursor: 'pointer' }}>
+                <label className='color_label' onClick={toggleColorVisibility} style={{ cursor: 'pointer' }}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        toggleColorVisibility();
+                    }
+                }}
+                tabIndex="0"
+                >
                     {t('colors')} {isColorsVisible ? '▲' : '▼'}
                 </label>
 
@@ -294,7 +321,14 @@ function Filters({ onFiltersAppliedChange }) {
                         <option value='black'>{t("black")}</option>
                     </select>
                 </div>
-                <label className='range_label' onClick={toggleLayerThicknessVisibility} style={{ cursor: 'pointer' }}>
+                <label className='range_label' onClick={toggleLayerThicknessVisibility} style={{ cursor: 'pointer' }}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        toggleLayerThicknessVisibility();
+                    }
+                }}
+                tabIndex="0"
+                >
                     {t("layer_thickness")} {isLayerThicknessVisible ? '▲' : '▼'}
                 </label>
                 <div className="range-slider" style={{ display: isLayerThicknessVisible ? 'block' : 'none' }}>
@@ -318,7 +352,14 @@ function Filters({ onFiltersAppliedChange }) {
                     />
                     <p>{t("layer_thickness_range")}: {(minLayerThicknessValue / 100).toFixed(2)} - {(maxLayerThicknessValue / 100).toFixed(2)}</p>
                 </div>
-                <label className='material_label' onClick={toggleMaterialVisibility} style={{ cursor: 'pointer' }}>
+                <label className='material_label' onClick={toggleMaterialVisibility} style={{ cursor: 'pointer' }}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        toggleMaterialVisibility();
+                    }
+                }}
+                tabIndex="0"
+                >
                     {t("material")} {isMaterialVisible ? '▲' : '▼'}
                 </label>
                 <input

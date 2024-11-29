@@ -198,7 +198,13 @@ function Home() {
             <div id='home'>
                 <Filters onFiltersAppliedChange={handleFiltersAppliedChange} />
                 <main>
-                    {jobMenu && <NewJob closeNewJob={() => setNewJobMenu(false)} tags={tags}/>}
+                {jobMenu && (
+    <NewJob
+        closeNewJob={() => setNewJobMenu(false)}
+        tags={tags}
+        disableBackgroundFocus={true} 
+    />
+)}
                     {appliedFiltersCount >= 1 ? (
                         <div>
                             <div className='hp_searchedheader'>
@@ -282,9 +288,18 @@ function Home() {
                     )}
                 </main>
                 {isLogged && (
-                    <div onClick={() => setNewJobMenu(true)} id="upload-button">
-                        <p>+</p>
-                    </div>
+                    <div
+                    onClick={() => setNewJobMenu(true)}
+                    id="upload-button"
+                    tabIndex="0"
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            setNewJobMenu(true);
+                        }
+                    }}
+                >
+                    <p>+</p>
+                </div>
                 )}
             </div>
         </>

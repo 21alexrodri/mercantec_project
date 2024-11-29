@@ -11,7 +11,7 @@ import { Popup } from '../popup_message/popup_message';
  * @param {closeNewJob} a function to close the new job popup 
  * @returns A popup to create a new job
  */
-export const NewJob = ({ closeNewJob, tags: propTags }) => {
+export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) => {
     const { t } = useTranslation();
     const [files, setFiles] = useState([])
     const [zipFile, setZipFile] = useState(null)
@@ -34,6 +34,8 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     const [selectedCust, setSelectedCust] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
     const [showPopup, setShowPopup] = useState(false);
+    const popupRef = useRef(null);
+    const originalTabIndexes = useRef(new Map());
     const handleSuggestTag = () => { }
     const [isLoading, setIsLoading] = useState(false); // Estado para el spinner
 
@@ -53,6 +55,64 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     const handleSelectCustChange = (e) => {
         setSelectedCust(e.target.value)
     }
+    useEffect(() => {
+        if (disableBackgroundFocus) {
+            const focusableElements = document.querySelectorAll(
+                "button, a, input, select, textarea, [tabindex]:not([tabindex='-1'])"
+            );
+
+            focusableElements.forEach((el) => {
+                if (!popupRef.current.contains(el)) {
+                    // Guardar el tabIndex original o si no tiene, null
+                    originalTabIndexes.current.set(el, el.getAttribute("tabindex"));
+                    el.setAttribute("tabindex", "-1"); // Deshabilitar el foco
+                }
+            });
+        }
+
+        return () => {
+            // Restaurar el tabIndex original al cerrar el popup
+            originalTabIndexes.current.forEach((value, el) => {
+                if (value === null) {
+                    el.removeAttribute("tabindex");
+                } else {
+                    el.setAttribute("tabindex", value);
+                }
+            });
+            originalTabIndexes.current.clear();
+        };
+    }, [disableBackgroundFocus]);
+
+    useEffect(() => {
+        // Mover el foco al primer elemento del popup al abrirlo
+        const focusablePopupElements = popupRef.current.querySelectorAll(
+            "button, a, input, select, textarea, [tabindex]:not([tabindex='-1'])"
+        );
+        if (focusablePopupElements.length > 0) {
+            focusablePopupElements[0].focus();
+        }
+    }, []);
+    const handleKeyDown = (e) => {
+        if (e.key === "Tab") {
+            const focusablePopupElements = popupRef.current.querySelectorAll(
+                "button, a, input, select, textarea, [tabindex]:not([tabindex='-1'])"
+            );
+            const firstElement = focusablePopupElements[0];
+            const lastElement = focusablePopupElements[focusablePopupElements.length - 1];
+
+            // Ciclar el foco dentro del popup
+            if (e.shiftKey && document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            } else if (!e.shiftKey && document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        } else if (e.key === "Escape") {
+            // Cerrar el popup con la tecla Escape
+            closeNewJob();
+        }
+    };
 
     useEffect(() => {
         fetch('/3D_printer/3d_project/query.php', {
@@ -186,10 +246,9 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
             setErrorMsg("Please select at least one file to upload.");
             setTimeout(() => setShowPopup(false), 3000);
             return;
-        }
-    
-        setIsLoading(true); // Mostrar spinner
-    
+        } 
+        setIsLoading(true); 
+
         const tagIds = tags.map(tag => tag.id);
     
         const fileDetailsArray = files.map((file, index) => ({
@@ -198,7 +257,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
             scale: parseFloat(fileDetails[index]?.scale || document.getElementById("form-scale").value || 1),
             weight: parseFloat(fileDetails[index]?.weight || 1), 
         }));
-    
+        
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -220,66 +279,58 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                 files: fileDetailsArray
             }),
         })
-            .then(response => response.json())
-            .then(data => { 
-                if (data.success) {
-                    const formData = new FormData();
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const formData = new FormData();
     
-                    formData.append("job_id", data.generated_id);
+                formData.append("job_id", data.generated_id);
     
-                    if (imgFile) {
-                        formData.append('img_file', imgFile);
-                    }
-    
-                    if (selectedUploadMode === "stl") {
-                        files.forEach((file) => {
-                            formData.append('files[]', file);
-                        });
-                    } else {
-                        formData.append('zip_file', zipFile);
-                    }
-    
-                    formData.append("type", selectedUploadMode);
-    
-                    fetch('/3D_printer/3d_project/upload.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                console.log("Files uploaded successfully:", data);
-                                window.location.href = '/home';
-                            } else {
-                                setShowPopup(true);
-                                setErrorMsg("Error. " + data.message);
-                                setTimeout(() => setShowPopup(false), 3000);
-                            }
-                        })
-                        .catch(error => {
-                            console.error("Error:", error);
-                            setShowPopup(true);
-                            setErrorMsg("Error. " + error.message);
-                            setTimeout(() => setShowPopup(false), 3000);
-                        })
-                        .finally(() => {
-                            setIsLoading(false); // Ocultar spinner después de la carga
-                        });
-                } else {
-                    setShowPopup(true);
-                    setErrorMsg("Error. " + data.message);
-                    setTimeout(() => setShowPopup(false), 3000);
-                    setIsLoading(false); // Ocultar spinner en caso de error
+                if (imgFile) {
+                    formData.append('img_file', imgFile);
                 }
-            })
-            .catch(error => {
-                setShowPopup(true);
-                setErrorMsg("Error. " + error.message);
-                setTimeout(() => setShowPopup(false), 3000);
-                setIsLoading(false); // Ocultar spinner en caso de error
-            });
-    };
     
+                if (selectedUploadMode === "stl") {
+                    files.forEach((file) => {
+                        formData.append('files[]', file);
+                    });
+                } else {
+                    formData.append('zip_file', zipFile);
+                }
+    
+                formData.append("type", selectedUploadMode);
+    
+                fetch('/3D_printer/3d_project/upload.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Files uploaded successfully:", data);
+                        window.location.href = '/home';
+                    } else {
+                        setShowPopup(true);
+                        setErrorMsg("Error. " + data.message);
+                        setTimeout(() => setShowPopup(false), 3000);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    window.location.href = '/home';
+                });
+            } else {
+                setShowPopup(true);
+                setErrorMsg("Error. " + data.message);
+                setTimeout(() => setShowPopup(false), 3000);
+            }
+        })
+        .catch(error => {
+            setShowPopup(true);
+            setErrorMsg("Error. " + error);
+            setTimeout(() => setShowPopup(false), 3000);
+        });
+    };
     
     
 
@@ -291,11 +342,20 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
     return (
         <>
             <div onClick={closeNewJob} className="blur_content">
-                <div onClick={handleContainerClick} className="container">
+            <div
+                ref={popupRef}
+                onClick={(e) => e.stopPropagation()}
+                className="container"
+                onKeyDown={handleKeyDown}
+            >
                     <div className="new-job-header">
-                        <h2>{t("new_job")}</h2>
-                        <p onClick={closeNewJob}>X</p>
-                    </div>
+                    <h2>{t("new_job")}</h2>
+                    <p onClick={closeNewJob} tabIndex="0" onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        closeNewJob();
+                    }
+                }}>X</p>
+                </div>
                     <form className="form-main" onSubmit={handleFormSubmit}>
                         <div className="form-container">
                             <div className="img-upload-manager">
@@ -368,7 +428,11 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                 </div>
                                 <div className="nj-tags-added">
                                     {tags.map((tag, index) => (
-                                        <p key={index} className="nj-tag" onClick={() => handleDeleteTag(tag.id)}>
+                                        <p key={index} className="nj-tag" tabIndex="0" onClick={() => handleDeleteTag(tag.id)}  onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                handleDeleteTag(tag.id);
+                                            }
+                                        }}>
                                             {tag.name}
                                         </p>
                                     ))}
@@ -468,7 +532,7 @@ export const NewJob = ({ closeNewJob, tags: propTags }) => {
                                             )}
                                             <li className="new-file nj-file add-button">
                                                 <p>+</p>
-                                                <input type="file" accept=".stl,.3mf" onChange={handleFileChange} multiple />
+                                                <input type="file" accept=".stl,.3mf" onChange={handleFileChange} multiple className="upload-files-btn" />
                                             </li>
                                         </>
                                     ) : (

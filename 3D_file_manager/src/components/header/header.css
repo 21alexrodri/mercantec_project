@@ -60,10 +60,15 @@ li.link_li a:hover{
 }
 
 #mercantec_logo{
+    background-image: url("/3D_printer/Files/img/logo.svg");
     margin-left: 0;
     padding-top: 2px;
     padding-right: 4rem;
     margin-left: -14px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 14rem;
+    height: 4rem;
 }
 
 .btn_lang {
@@ -74,7 +79,7 @@ li.link_li a:hover{
 }
 
 .btn_lang img {
-    width: 2vw; 
+    width: 2rem; 
     height: auto;
     display: block;
     border-radius: 0.3vw;
@@ -102,84 +107,49 @@ li.link_li a:hover{
     margin-left: 1.5vw;
 }
 
-/* Estilos Responsive */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px 20px;
-    } 
+.link_li > a > *:nth-child(2) {
+    display: none;
+}
 
-    .header_title {
-        font-size: 20px;
-        padding-left: 0;
-        margin-bottom: 10px;
-    }
+.login_btn > svg {
+    display: none;
+}
 
-    ul {
-        flex-direction: column;
-        width: 100%;
-        padding: 0;
-    }
+.login_btn p {
+    margin: 0;
+}
 
-    li {
-        margin: 5px 0;
-    }
 
-    li.link_li a {
-        font-size: 18px;
-    }
+@media (max-width: 730px) {
 
-    .login_btn, .signup_btn {
-        font-size: 16px;
-        padding: 8px 15px;
-        width: 100%;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-
-    #mercantec_header {
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
+    .header_navbar svg {
+        font-size: 1.5rem;
     }
 
     #mercantec_logo {
-        padding-right: 0;
-        margin-left: 0;
-        margin-bottom: 10px;
-    }
-
-    .header_left {
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-    }
-
-    .btn_lang img {
-        width: 6vw;
-    }
-}
-
-@media (max-width: 480px) {
-    header {
-        padding: 10px;
+        background-image: url("/3D_printer/Files/img/logo_mobile.svg");
+        width: 1rem;
+        height: 4rem;
     }
 
     .header_title {
-        font-size: 18px;
+        display: none;
     }
 
-    li.link_li a {
-        font-size: 16px;
+    .link_li > a > *:nth-child(1) {
+        display: none;
+    }
+    .link_li > a > *:nth-child(2) {
+        display: flex;
     }
 
-    .login_btn, .signup_btn {
-        font-size: 14px;
-        padding: 6px 10px;
+    .login_btn {
+        border: none;
     }
-
-    .btn_lang img {
-        width: 8vw;
+    .login_btn > p {
+        display: none;
+    }
+    .login_btn > svg {
+        display: flex;
     }
 }

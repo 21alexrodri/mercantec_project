@@ -7,7 +7,7 @@ import { UserContext } from '../../context/UserContext';
 import { useTranslation } from 'react-i18next';
 import { Popup } from '../popup_message/popup_message';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import { faCircleInfo, faHouse, faUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * The header of the page that is shown to the user, it allows the user to navigate through the page and to log in or sign up as well as log out
@@ -71,13 +71,18 @@ function Header() {
         {!isLogged &&(
         <header>
             <div id='mercantec_header'>
-            <a target='_blank' className= "logo" href="https://www.mercantec.dk/"><img id="mercantec_logo" src="/3D_printer/Files/img/logo.svg"></img></a>
+            <a target='_blank' className= "logo" href="https://www.mercantec.dk/">
+                <div id="mercantec_logo"></div>
+            </a>
             <h1 className='header_title'>3D Print Archive</h1>
             </div>
             <div className='header_left'>
             <nav className='header_navbar'>
                 <ul>
-                    <li className='link_li'><a href='/home'>Home</a></li>
+                    <li className='link_li'><a href='/home'>
+                       <p>Home</p>
+                       <FontAwesomeIcon icon={faHouse}/>
+                    </a></li>
                     <li><button className='login_btn' onClick={() => setShowLogin(true)}>Log In</button>
                     {showLogin && <Login closeLogin={() => setShowLogin(false)} />}</li>
                     <li>
@@ -123,16 +128,29 @@ function Header() {
         {isLogged &&(
         <header>
             <div id='mercantec_header'>
-            <a target='_blank' className= "logo" href="https://www.mercantec.dk/"><img id="mercantec_logo" src="/3D_printer/Files/img/logo.svg"></img></a>
+            <a target='_blank' className= "logo" href="https://www.mercantec.dk/">
+                <div id="mercantec_logo">
+
+                </div>
+            </a>
 
             <h1 className='header_title'>3D Print Archive</h1>
             </div>
             <div className='header_left'> 
             <nav className='header_navbar'>
                 <ul>
-                    <li className='link_li'><a href='/home'>Home</a></li>
-                    <li className='link_li'><a href='/profile'>Profile</a></li>
-                    <button className='login_btn' onClick={handleLogout}>Log Out</button>
+                    <li className='link_li'><a href='/home'>
+                        <p>Home</p>
+                        <FontAwesomeIcon icon={faHouse}/>
+                    </a></li>
+                    <li className='link_li'><a href='/profile'>
+                        <p>Profile</p>
+                        <FontAwesomeIcon icon={faUser} />
+                    </a></li>
+                    <button className='login_btn' onClick={handleLogout}>
+                        <p>Log Out</p>
+                        <FontAwesomeIcon icon={faRightFromBracket} />
+                    </button>
                 </ul>
             </nav>
             <div className='l_h_box'>

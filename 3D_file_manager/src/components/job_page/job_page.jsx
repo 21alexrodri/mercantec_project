@@ -523,6 +523,7 @@ export const JobPage = () => {
                 </div>
                 <div className="other_jobs">
                     <h3>{t("other_jobs")} {jobData.owner}</h3><br/>
+                    <div className='other-jobs-list'>
                     {jobData?.otherJobs?.length > 0 ? (
                         jobData.otherJobs.map((otherJob, index) => (
                             <div key={index} className="other_job" onClick={() => handleJobClick(otherJob.id)}>
@@ -544,6 +545,8 @@ export const JobPage = () => {
                     ) : (
                         <div>{t("no_jobs")}</div>
                     )}
+                    </div>
+                    
                 </div>
             </div>
 

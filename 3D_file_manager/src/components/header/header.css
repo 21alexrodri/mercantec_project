@@ -60,10 +60,15 @@ li.link_li a:hover{
 }
 
 #mercantec_logo{
+    background-image: url("/3D_printer/Files/img/logo.svg");
     margin-left: 0;
     padding-top: 2px;
     padding-right: 4rem;
     margin-left: -14px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 14rem;
+    height: 4rem;
 }
 
 .btn_lang {
@@ -74,7 +79,7 @@ li.link_li a:hover{
 }
 
 .btn_lang img {
-    width: 2vw; 
+    width: 2rem; 
     height: auto;
     display: block;
     border-radius: 0.3vw;
@@ -100,4 +105,51 @@ li.link_li a:hover{
     color: white;
     font-size: 30px;
     margin-left: 1.5vw;
+}
+
+.link_li > a > *:nth-child(2) {
+    display: none;
+}
+
+.login_btn > svg {
+    display: none;
+}
+
+.login_btn p {
+    margin: 0;
+}
+
+
+@media (max-width: 730px) {
+
+    .header_navbar svg {
+        font-size: 1.5rem;
+    }
+
+    #mercantec_logo {
+        background-image: url("/3D_printer/Files/img/logo_mobile.svg");
+        width: 1rem;
+        height: 4rem;
+    }
+
+    .header_title {
+        display: none;
+    }
+
+    .link_li > a > *:nth-child(1) {
+        display: none;
+    }
+    .link_li > a > *:nth-child(2) {
+        display: flex;
+    }
+
+    .login_btn {
+        border: none;
+    }
+    .login_btn > p {
+        display: none;
+    }
+    .login_btn > svg {
+        display: flex;
+    }
 }

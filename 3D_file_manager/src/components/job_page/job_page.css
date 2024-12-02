@@ -643,6 +643,10 @@
     padding-right: 100%;
 }
 
+.show-details {
+    display: none;
+}
+
 @media (max-height: 610px) {
     .color-button {
         height: 35px;
@@ -806,5 +810,46 @@
         border: none;
         box-shadow: none;
         background-color: transparent;
+    }
+}
+
+@media (max-width: 768px) {
+    .popup_main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .file_details {
+        display: none;
+    }
+
+    .show-details {
+        display: inline;
+        border: solid 2px #0E38AB;
+        border-radius: 1rem;
+        background-color: #0E38AB;
+        color: white;
+        cursor: pointer;
+        padding: 0.7rem;
+        transition: all 0.3s ease;
+    }
+    .show-details p {
+        margin: 0;
+    }
+
+    .show-details:hover {
+        color: #0E38AB;
+        background-color: transparent;
+        transition: all 0.3s ease;
+    }
+
+    #preview.showing-details {
+        display: none;
+    }
+    .file_details.showing-details {
+        display: block;
+    }
+    .color-buttons {
+        visibility: hidden;
     }
 }

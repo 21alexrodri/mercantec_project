@@ -257,6 +257,8 @@
     "search_material": "Search by material...",
     "write_comment": "Write a new comment",
     "physical_weight": "Physical Weight",
-    "public": "Public"
+    "public": "Public",
+    "show-details": "Show details",
+    "hide-details": "Hide details"
   }
   

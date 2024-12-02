@@ -172,6 +172,7 @@ const JobPreview = ({ modelPath, fileColor }) => {
 
   return (
     <div
+      id='preview'
       ref={mountRef}
       style={{ width: '100%', height: '100%', borderRadius: '15px', overflow: 'hidden' }}
     ></div>

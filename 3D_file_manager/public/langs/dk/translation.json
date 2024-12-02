@@ -257,6 +257,8 @@
     "max_layer_thickness": "Maks. lagtykkelse",
     "search_material": "Søg efter materiale...",
     "write_comment": "Skriv en ny kommentar",
-    "public": "Offentlig"
+    "public": "Offentlig",
+    "show-details":"Vis detaljer",
+    "hide-details": "Skjul detaljer"
   }
   

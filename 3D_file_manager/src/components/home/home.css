@@ -218,6 +218,13 @@
     text-wrap: nowrap;
 }
 
-.hp-filters{
+@media (min-width: 1800px){
     
+    .tag-content h2{
+        font-size: 1.5vw;
+    }
+    .col{
+        font-size: 1.2vw;
+    }
+
 }

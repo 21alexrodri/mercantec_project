@@ -165,7 +165,8 @@
     color: white;
     padding: 10px;
     border-radius: 20px;
-    margin-left: 5%;
+    margin-left: 1rem;
+    margin-right: 1rem;
     cursor: pointer;
     width: max-content;
     user-select: none;

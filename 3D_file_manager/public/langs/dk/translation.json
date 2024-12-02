@@ -5,7 +5,7 @@
     "searched_files": "Søgte Filer",
     "filters_applied": "Filtre Anvendt",
     "filters": "Filtre",
-    "search_by_name": "Søg efter printjob navn...",
+    "search_by_name": "Søg efter navn...",
     "date": "Dato",
     "tags": "Tags",
     "scale": "Skala",
@@ -259,6 +259,8 @@
     "write_comment": "Skriv en ny kommentar",
     "public": "Offentlig",
     "show-details":"Vis detaljer",
-    "hide-details": "Skjul detaljer"
+    "hide-details": "Skjul detaljer",
+    "show_filters": "Vis filtre",
+    "hide_filters": "Skjul filtre"
   }
   

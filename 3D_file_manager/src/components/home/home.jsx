@@ -23,6 +23,7 @@ function Home() {
     const [isOrderDropdownOpen, setIsOrderDropdownOpen] = useState(false);
     const [orderOption, setOrderOption] = useState('');
     const [deleteJobState,setDeleteJobState] = useState(false);
+    const [orderByOpened,setOrderByOpened] = useState(false);
 
     const handleOrderSelection = (option) => {
         setOrderOption(option);
@@ -215,7 +216,7 @@ function Home() {
                                         <div className='order' onClick={() => setIsOrderDropdownOpen(!isOrderDropdownOpen)}>
                                             <FontAwesomeIcon icon={faSort} /> <p className='order-by-text'>{t("order_by")}</p>
                                             
-                                                <ul className="order-dropdown">
+                                                <ul className={"order-dropdown "+(isOrderDropdownOpen ? "" : "")}>
                                                     <li onClick={() => handleOrderSelection('name')}>{t("name")}</li>
                                                     <li onClick={() => handleOrderSelection('username')}>{t("username")}</li>
                                                     <li onClick={() => handleOrderSelection('date')}>{t("date")}</li>

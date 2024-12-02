@@ -159,7 +159,7 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs }) {
                                                             />
                                                         )}
                                                     </div>
-                                                    <b>{job.project_name}</b>
+                                                    <p><b>{job.project_name}</b></p>
                                                     <p>{job.username} - {job.creation_date}</p>
                                                 </div>
                                             );

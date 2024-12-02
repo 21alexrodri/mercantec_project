@@ -408,6 +408,14 @@
     height: 100%;
 }
 
+.file_details {
+    font-size: 2vh;
+}
+
+.file_details p {
+    margin: 1vh;
+}
+
 .close_popup {
     position: absolute;
     top: 8px;
@@ -635,7 +643,7 @@
     padding-right: 100%;
 }
 
-@media (max-height: 725px) {
+@media (max-height: 610px) {
     .color-button {
         height: 35px;
         width: 35px;
@@ -643,7 +651,7 @@
     }
 }
 
-@media (max-height: 630px) {
+@media (max-height: 460px) {
     .color-button {
         border-radius: 0px;
         margin: 1rem 0 0 0;
@@ -657,7 +665,7 @@
     }   
 }
 
-@media (max-height: 570px) {
+@media (max-height: 400px) {
     .color-buttons {
         display: none;
     }

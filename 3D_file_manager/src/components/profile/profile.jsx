@@ -18,41 +18,45 @@ function Profile() {
     const imageLink = "/3D_printer/Files/img/profile/default_profile.png";
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const {userId, username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged} = useContext(UserContext);  
+    const { userId, username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
     const [showUserTable, setShowUserTable] = useState(false);
     const [showTagsProposals, setShowTagsProposals] = useState(false);
-    const [showCustomersProposals,setShowCustomersProposals] = useState(false);
+    const [showCustomersProposals, setShowCustomersProposals] = useState(false);
     const [filteredItems, setFilteredItems] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [deleteJobState,setDeleteJobState] = useState(false);
+    const [deleteJobState, setDeleteJobState] = useState(false);
     const { t } = useTranslation();
 
+    /**
+     * This function handles the suggestion of a new customer
+     * @returns The new customer suggestion
+     */
     const handleCustomerSuggestion = () => {
         let customerName = document.getElementById("nc-name").value
         let customerMail = document.getElementById("nc-email").value
         let willReturn = false
 
-        if(!isLogged){
+        if (!isLogged) {
             return
         }
 
-        if(customerName == ""){
+        if (customerName == "") {
             alert("You must introduce a customer name")
             willReturn = true
         }
-        if(customerMail == ""){
+        if (customerMail == "") {
             alert("You must introduce the customer email")
             willReturn = true
         }
 
-        if(willReturn){
+        if (willReturn) {
             return
         }
 
-        fetch('/3D_printer/3d_project/query.php',{
+        fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
-                'Content-Type' : 'appliaction/json'
+                'Content-Type': 'appliaction/json'
             },
             body: JSON.stringify({
                 arg: 'newCustomer',
@@ -65,24 +69,27 @@ function Profile() {
         })
     }
 
+    /**
+     * This function handles the suggestion of a new tag
+     * @returns The new tag suggestion
+     */
     const handleTagSuggestion = () => {
         let tagName = document.getElementById("new-tag-input").value
 
-        if(!isLogged){
+        if (!isLogged) {
             return
         }
 
-        if(tagName == ""){
+        if (tagName == "") {
             alert("You must introduce a tag name")
             return
         }
 
-        console.log("PASA");
 
-        fetch('/3D_printer/3d_project/query.php',{
+        fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 arg: 'newTag',
@@ -90,20 +97,22 @@ function Profile() {
                 name: tagName
             })
         }).then((response) => {
-            if(!response.ok){
+            if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`)
             }
             return response.json()
         }).then((data) => {
-            if(data){
+            if (data) {
 
             }
         })
     }
-    
+    /**
+     * This function fetches the jobs of the user when the component mounts.
+     */
     useEffect(() => {
-        if (isLogged && username) {  
-            setLoading(true);  
+        if (isLogged && username) {
+            setLoading(true);
             fetch('/3D_printer/3d_project/query.php', {
                 method: 'POST',
                 headers: {
@@ -119,16 +128,16 @@ function Profile() {
                 })
                 .then((data) => {
                     setFilteredItems(data);
-                    setLoading(false); 
+                    setLoading(false);
                 })
                 .catch((error) => {
                     console.error('Error fetching categories:', error);
                     setError(error);
-                    setLoading(false); 
+                    setLoading(false);
                 });
         }
     }, [username, isLogged]);
-    
+
     /**
      * This function handles the click event on the edit button.
      */
@@ -160,6 +169,11 @@ function Profile() {
      */
     const handleDeleteButton = (e) => {
         e.target.classList.toggle("activated-btt")
+        if(e.target.classList.contains("activated-btt")){
+            e.target.innerHTML = t("cancel_del_jobs")
+        }else{
+            e.target.innerHTML = t("del_jobs")
+        }
         setDeleteJobState(!deleteJobState);
     }
 

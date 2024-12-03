@@ -9,6 +9,10 @@ import { Popup } from '../popup_message/popup_message';
 import JSZip from 'jszip';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * It shows a job page with all the information about the job
+ * @returns The job page
+ */
 export const JobPage = () => {
     const location = useLocation();
     const navigateTo = useNavigate();

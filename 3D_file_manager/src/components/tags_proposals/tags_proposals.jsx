@@ -1,33 +1,43 @@
-import { useCallback, useState, useEffect, useContext} from "react";
+import { useCallback, useState, useEffect, useContext } from "react";
 import "./tags_proposals.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import FilteredJob from "../filtered_job/filtered_job";
 import { useTranslation } from 'react-i18next';
 import { UserContext } from "../../context/UserContext";
-
+/**
+ * Admin's table to manage tags.
+ * @param {closeUserTable} it closes the table 
+ * @returns The tags proposals table
+ */
 export const TagsProposals = ({ closeUserTable }) => {
 
-    const [tagsList,setTagsList] = useState([])
+    const [tagsList, setTagsList] = useState([])
     const { t } = useTranslation();
-    const [filteredList,setFilteredTags] = useState([])
-    const [updateTagList,setUpdateTagList] = useState(false)
-    const [loading,setLoading] = useState(true)
-    const {userId, username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);  
+    const [filteredList, setFilteredTags] = useState([])
+    const [updateTagList, setUpdateTagList] = useState(false)
+    const [loading, setLoading] = useState(true)
+    const { userId, username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
 
     const handleContainerClick = (e) => {
         e.stopPropagation();
     };
 
-    const handleTagAction = (id,action) => {
+    /**
+     * Handles the action of the admin on the tag
+     * @param {id} the id of the tag 
+     * @param {action} the action to be done
+     * @returns The action to be done
+     */
+    const handleTagAction = (id, action) => {
 
-        if(!isAdmin){
+        if (!isAdmin) {
             return
         }
 
         setLoading(true)
 
-        fetch("/3D_printer/3d_project/query.php",{
+        fetch("/3D_printer/3d_project/query.php", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -38,17 +48,17 @@ export const TagsProposals = ({ closeUserTable }) => {
                 action: action
             })
         }).then(response => {
-            if(!response.ok){
+            if (!response.ok) {
                 throw new Error("ERROR modifying tags")
             }
 
             setUpdateTagList(!updateTagList);
             setLoading(false)
         })
-        .catch(error => {
-            console.error("Error modifying tags: ",error)
-            setLoading(false)
-        })
+            .catch(error => {
+                console.error("Error modifying tags: ", error)
+                setLoading(false)
+            })
     }
 
     const escFunction = useCallback((event) => {
@@ -65,10 +75,13 @@ export const TagsProposals = ({ closeUserTable }) => {
     useEffect(() => {
         document.addEventListener("keydown", escFunction, false);
         return () => {
-            document.removeEventListener("keydown", escFunction, false); 
+            document.removeEventListener("keydown", escFunction, false);
         };
     }, [escFunction]);
 
+    /**
+     * Gets the unaccepted tags from the server
+     */
     useEffect(() => {
         setLoading(true)
 
@@ -82,17 +95,17 @@ export const TagsProposals = ({ closeUserTable }) => {
             }),
             credentials: 'include',
         })
-        .then(response => response.json())
-        .then(data => {
-            setTagsList(data);
-            setFilteredTags(data);
-            setLoading(false)
-        })
-        .catch(error => {
-            console.error('Error getting unaccepted tags:', error);
-            setLoading(false)
-        });
-    }, [,updateTagList]);
+            .then(response => response.json())
+            .then(data => {
+                setTagsList(data);
+                setFilteredTags(data);
+                setLoading(false)
+            })
+            .catch(error => {
+                console.error('Error getting unaccepted tags:', error);
+                setLoading(false)
+            });
+    }, [, updateTagList]);
 
     const sortTagsList = () => {
         setFilteredTags([...tagsList].sort((a, b) => a.accepted - b.accepted));
@@ -112,7 +125,7 @@ export const TagsProposals = ({ closeUserTable }) => {
                     <h2>{t("edit-tags")}</h2>
                 </div>
                 <div className="suggested_tags_table_body">
-                    <input 
+                    <input
                         onChange={handleSearch}
                         type="text"
                         placeholder={t("search-tag")}
@@ -121,7 +134,7 @@ export const TagsProposals = ({ closeUserTable }) => {
                     <div className="tags_table_results_container">
                         {loading ? (
                             <p className="loading-txt">Loading...</p>
-                        ):(
+                        ) : (
                             <table>
                                 <thead>
                                     <tr>
@@ -130,31 +143,31 @@ export const TagsProposals = ({ closeUserTable }) => {
                                     </tr>
                                 </thead>
                                 <tbody className="tags_table_body">
-                                    {filteredList.map((tag,index) => (
-                                        <tr 
-                                            key={index} 
+                                    {filteredList.map((tag, index) => (
+                                        <tr
+                                            key={index}
                                             className={tag.accepted == 0 ? "to-accept" : "accepted"}
                                             title={tag.accepted == 0 ? "To accept" : "Accepted"}
                                         >
                                             <td>{tag.name_tag}</td>
                                             {tag.accepted == 0 ? (
                                                 <td>
-                                                    <button onClick={()=>{handleTagAction(tag.id,"decline")}} className="decline">{t("decline")}</button>
-                                                    <button onClick={()=>{handleTagAction(tag.id,"accept")}} className="accept">{t("accept")}</button>
+                                                    <button onClick={() => { handleTagAction(tag.id, "decline") }} className="decline">{t("decline")}</button>
+                                                    <button onClick={() => { handleTagAction(tag.id, "accept") }} className="accept">{t("accept")}</button>
                                                 </td>
                                             ) : (
                                                 <td>
-                                                    <button onClick={()=>{handleTagAction(tag.id,"disable")}} className="disable">{t("disable")}</button>
-                                                    <button onClick={()=>{handleTagAction(tag.id,"delete")}} className="delete">{t("delete")}</button>
+                                                    <button onClick={() => { handleTagAction(tag.id, "disable") }} className="disable">{t("disable")}</button>
+                                                    <button onClick={() => { handleTagAction(tag.id, "delete") }} className="delete">{t("delete")}</button>
                                                 </td>
                                             )
-                                        }
+                                            }
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                         )}
-                        
+
                     </div>
                     <div className="legend">
                         <span>

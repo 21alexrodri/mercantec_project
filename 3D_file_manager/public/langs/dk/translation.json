@@ -252,11 +252,24 @@
     "rules_signup": "REGLER FOR TILMELDING",
     "spacebar": "Ingen mellemrumstasten",
     "special_char": "Brug ikke specialtegn som f.eks:",
-    "min_char": "Adgangskoden skal være på mindst 8 tegn",
+    "exception_char": "undtagen - og _",
+    "min_char": "Adgangskoden skal være mindst 8 tegn lang, brugernavnet mindst 3 tegn og maksimalt 20",
     "min_layer_thickness": "Min. lagtykkelse",
     "max_layer_thickness": "Maks. lagtykkelse",
     "search_material": "Søg efter materiale...",
     "write_comment": "Skriv en ny kommentar",
-    "public": "Offentlig"
+    "public": "Offentlig",
+    "aboutus": "Om os",
+    "aboutus_t1": "Denne hjemmeside er en 3D-filadministrator, hvor en (indlogget) bruger kan uploade printopgaver for at vise dem til verden. Hjemmesiden er et projekt anmodet af Mercantec, en dansk skole, og skabt af en gruppe spanske udviklere. Siden vil modtage konstant vedligeholdelse fra en gruppe studerende fra Mercantec.",
+    "aboutus_mercantec": "Om Mercantec",
+    "aboutus_merc_miss": "Mercantecs mission",
+    "aboutus_merc_miss_t1": "Mercantec er et sted, hvor unge mennesker bliver dannet, uddannet og udviklet, og hvor voksne, virksomheder og organisationer udvikler sig og tilegner sig kompetencer.",
+    "aboutus_merc_miss_t2": "Vi giver vores studerende energi og lyst til livslang udvikling, både professionelt og personligt.",
+    "aboutus_merc_miss_t3": "Vi sikrer, at samfundet besidder den nødvendige ekspertise inden for erhvervsuddannelser og efteruddannelse.",
+    "aboutus_merc_vis": "Mercantecs vision",
+    "aboutus_merc_vis_t1": "Mercantec sigter mod at være markedets foretrukne uddannelsesinstitution for unge og voksne, når det gælder erhvervsuddannelser, erhvervsgymnasier og efteruddannelse.",
+    "aboutus_merc_vis_t2": "Vores mål er at forfine og udvide udvalget og kombinationen af tekniske og kommercielle kurser i et attraktivt og inspirerende uddannelsesmiljø.",
+    "about_devs": "Om Udviklerteamet",
+    "about_devs_t1": "Dette projekt er blevet udviklet af et team af spanske udviklere med det formål at gøre det muligt for virksomheden 'Mercantec' bedre at administrere sit system til opbevaring og download af 3D-filer og dermed opnå forbedret journalføring samt øget sikkerhed og effektivitet."
   }
   

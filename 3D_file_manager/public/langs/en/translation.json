@@ -252,11 +252,24 @@
     "rules_signup": "RULES FOR SIGN UP",
     "spacebar": "No spacebar",
     "special_char": "Do not use special characters like:",
-    "min_char": "Password must be at least 8 characters long",
+    "exception_char": "except for - and _",
+    "min_char": "Password must be at least 8 characters long, username at least 3 characters long and maximum 20.",
     "min_layer_thickness": "Min. layer thickness",
     "search_material": "Search by material...",
     "write_comment": "Write a new comment",
     "physical_weight": "Physical Weight",
-    "public": "Public"
+    "public": "Public",
+    "aboutus": "About Us",
+    "aboutus_t1": "This website is a 3D file manager where a (logged in) user can upload print jobs in order to show them to the world. The website is a project requested by Mercantec, a Danish school, and created by a group of Spanish developers. The page will receive constant maintenance from a group of students from Mercantec.",
+    "aboutus_mercantec": "About Mercantec",
+    "aboutus_merc_miss": "Mercantec's mission",
+    "aboutus_merc_miss_t1": "Mercantec is a place where young people are formed, educated and developed, and where adults, companies and organisations evolve and acquire skills.",
+    "aboutus_merc_miss_t2": "We invest our students with the energy and desire for lifelong development, both professional and personal.",
+    "aboutus_merc_miss_t3": "We make sure that society possesses the necessary expertise in the fields of vocational basic and continuing education.",
+    "aboutus_merc_vis": "Mercantec's vision",
+    "aboutus_merc_vis_t1": "Mercantec aims to be the market's educational institution of choice for young people and adults when it comes to vocational education courses, vocational high schools and continuing professional development.",
+    "aboutus_merc_vis_t2": "It is our objective to refine and expand the range and combination of technical and commercial courses in an attractive and inspirational educational environment.",
+    "about_devs": "About Developers Team",
+    "about_devs_t1": "This project has been developed by a team of Spanish developers with the aim of enabling the company 'Mercantec' to better manage its system for storing and downloading 3D files, thereby achieving improved record-keeping as well as increased security and efficiency."
   }
   

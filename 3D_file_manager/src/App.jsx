@@ -6,6 +6,7 @@ import Profile from './components/profile/profile'
 import Error_Page from './components/error_page/error_page'
 import JobPage from "./components/job_page/job_page";
 import Help from "./components/help_page/help_page";
+import About from "./components/aboutme/aboutme";
 import { UserProvider } from './context/UserContext';
 /**
  * The main component of the application. It contains the routes for the different pages.
@@ -24,6 +25,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/job_page" element={<JobPage />} />
         <Route path="/help" element={<Help />} />
+        <Route path="/about" element={<About />} />
         <Route path="*" element={<Error_Page />} />
       </Routes>
     </Router>

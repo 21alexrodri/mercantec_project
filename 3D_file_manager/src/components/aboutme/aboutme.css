@@ -1,0 +1,32 @@
+.dev-portraits{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 2vw;
+}
+.portrait-img{
+    background-color: #0E38AB;
+    width: 16vw;
+    height: 16vw;
+    object-fit: cover;
+    border-radius: 900000vw;
+    transition: all 0.3s;
+    &:hover{
+        background-color: rgb(255, 131, 135);
+    }
+}
+.portrait-adrian{
+    object-fit: contain;
+}
+.dev-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    p{
+        color: #0E38AB;
+        font-weight: bolder;
+        font-size: 1.2vw;
+        text-align: center;
+    }
+}

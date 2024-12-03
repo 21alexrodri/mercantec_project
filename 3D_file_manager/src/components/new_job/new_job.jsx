@@ -371,7 +371,7 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
 
                             <div className="name_box">
                                 <label className="name_lbl">{t("name")}</label>
-                                <input id="form-name" type="text" className="name_input" placeholder="Project Name..." />
+                                <input id="form-name" type="text" className="name_input" placeholder="Project Name..." maxLength="30"/>
                             </div>
                             <div className="description_box">
                                 <label className="description_lbl">{t("job_desc")}</label>

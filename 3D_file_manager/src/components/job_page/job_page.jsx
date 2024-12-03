@@ -173,7 +173,7 @@ export const JobPage = () => {
         .catch((error) => {
             console.error('Error fetching job data:', error);
         });
-        // Obtener los archivos del jobId
+        
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -196,7 +196,7 @@ export const JobPage = () => {
             console.error('Error fetching job files:', error);
         });
 
-        checkUserLike(); // Verificar si el usuario ya ha dado "like"
+        checkUserLike(); 
     }, [jobId]);
 
     const getLicenseText = () => {
@@ -211,7 +211,7 @@ export const JobPage = () => {
             return;
         }
     
-        // Inicializar 'date' con la fecha actual en formato ISO
+        
         const date = new Date().toISOString();
     
         fetch('/3D_printer/3d_project/query.php', {
@@ -306,7 +306,6 @@ export const JobPage = () => {
         setLoading(true);
         
         try {
-            // Fetch file URLs from the backend
             const response = await fetch('/3D_printer/3d_project/query.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

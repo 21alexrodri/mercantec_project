@@ -221,15 +221,16 @@ p{
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 768px) {
     .job-content-list {
         width: 8rem !important;
         height: 8rem !important;
     }
     .job-item-list {
         flex-direction: column;
-        width: 10rem;
-        height: fit-content;
+        width: 10rem !important;
+        height: fit-content !important;
+        padding: 1rem !important;
     }
     .job-item-list > li {
         width: 100%;
@@ -250,5 +251,14 @@ p{
     }
     .private_cell {
         font-size: 1rem;
+    }
+    .profile_jobs_section > div:nth-child(2) {
+        margin: 2rem;
+        display: flex;
+        width: fit-content !important;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+        align-content: center;
     }
 }

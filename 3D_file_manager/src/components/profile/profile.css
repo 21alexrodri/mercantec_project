@@ -297,19 +297,9 @@
     }
 }
 
-@media (max-width: 1100px) {
-    .profile_jobs_section .job-item-list {
-        height: 11vw;
-    }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
     .profile_page {
         flex-direction: column;
-    }
-
-    .profile_jobs_section .job-item-list {
-        height: 13vw;
     }
 
     img.profile_picture {
@@ -319,6 +309,15 @@
     .profile_jobs_section_header{
         flex-wrap: wrap;
 
+    }
+}
+@media (max-width: 768px) {
+    .usr-jobs-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
     }
 }
 @media (max-width: 435px) {
@@ -335,5 +334,15 @@
 
     .profile_jobs_section_title{
         margin-right: 40%;
+    }
+}
+
+@media (max-width: 1200px) {
+    .profile_page .job-item-list *{
+        font-size: 0.8rem;
+    }
+    .profile_page .job-item-list img{
+        width: 5rem;
+        height: 5rem;
     }
 }

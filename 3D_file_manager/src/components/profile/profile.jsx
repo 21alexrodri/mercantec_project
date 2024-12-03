@@ -5,7 +5,7 @@ import Home from '../home/home';
 import { UserTable } from '../users_table/users_table';
 import FilteredJob from '../filtered_job/filtered_job';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers, faTags, faBuilding} from '@fortawesome/free-solid-svg-icons';
+import { faUsers, faTags, faBuilding, faTrash} from '@fortawesome/free-solid-svg-icons';
 import { TagsProposals } from '../tags_proposals/tags_proposals';
 import { CustomersProposals } from '../customers_proposals/customers_proposals';
 import { useTranslation } from 'react-i18next';
@@ -160,11 +160,6 @@ function Profile() {
      */
     const handleDeleteButton = (e) => {
         e.target.classList.toggle("activated-btt")
-        if(e.target.classList.contains("activated-btt")){
-            e.target.innerHTML = t("cancel_del_jobs")
-        }else{
-            e.target.innerHTML = t("del_jobs")
-        }
         setDeleteJobState(!deleteJobState);
     }
 
@@ -246,7 +241,7 @@ function Profile() {
                         if (e.key === "Enter") {
                             handleDeleteButton(e);
                         }
-                    }}>{t("delete_jobs")}</div>
+                    }}><FontAwesomeIcon icon={faTrash}/></div>
                     </div>
                     <div>
                         {loading ? (

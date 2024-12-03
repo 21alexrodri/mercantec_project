@@ -20,6 +20,8 @@ footer{
   .footer-section {
     margin: 10px;
     flex: 1;
+    align-items: center;
+    justify-items: center
   }
   
   .footer-section h4 {
@@ -41,8 +43,7 @@ footer{
 
   #mercantec_logo_footer{
     background-image: url("/3D_printer/Files/img/logo.svg");
-    margin-left: 0;
-    margin-left: 25%;
+    margin: 0;
     background-repeat: no-repeat;
     background-size: cover;
     width: 14rem;
@@ -57,4 +58,16 @@ footer{
 #contact{
   line-height: 150%;
   margin-top: 13px
+}
+
+@media (max-width: 1024px) {
+    .footer-container {
+      font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+  }
 }

@@ -275,6 +275,7 @@ function Home() {
                                                 total_physical_weight={item.total_physical_weight}
                                                 delete_mode={deleteJobState}
                                                 onDeleteJob={onDeleteJob}
+                                                ad={1}
                                             />
                                         ))}
                                     </>

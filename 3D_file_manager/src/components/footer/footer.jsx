@@ -9,7 +9,7 @@ function Footer() {
         <div className="footer-section" id="info">
             <p className=''>
             {t("footer_text7")}
-            <a href="../about-us">{t("footer_text6")} </a> <br/>
+            <a href="../about">{t("footer_text6")} </a> <br/>
             {t("footer_text1")}
             <a href="../help">{t("footer_text5")} </a> {t("footer_text2")} <br/> {t("footer_text8")}
             <a href="https://github.com/your-repo-link" target="_blank">{t("footer_text4")}</a>

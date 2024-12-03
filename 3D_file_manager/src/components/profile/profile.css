@@ -161,13 +161,15 @@
 }
 
 .job-delete-btt{
+    margin: 0.5rem;
     background-color:red;
     border: 2px red solid;
     font-weight: bold;
     color: white;
     padding: 10px;
     border-radius: 20px;
-    margin-left: 5%;
+    margin-left: 1rem;
+    margin-right: 1rem;
     cursor: pointer;
     width: max-content;
     user-select: none;

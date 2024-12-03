@@ -9,6 +9,10 @@ import { Popup } from '../popup_message/popup_message';
 import JSZip from 'jszip';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * It shows a job page with all the information about the job
+ * @returns The job page
+ */
 export const JobPage = () => {
     const location = useLocation();
     const navigateTo = useNavigate();
@@ -38,6 +42,13 @@ export const JobPage = () => {
     const [errorMsg, setErrorMsg] = useState('');
     const [showErrorPopup, setErrorShowPopup] = useState(false);
 
+    const handleShowDetails = (e) => {
+        e.target.innerHTML = e.target.innerHTML === t("show-details") ? t("hide-details") : t("show-details")
+        let preview = document.getElementById("preview")
+        let details = document.querySelector(".file_details")
+        preview.classList.toggle("showing-details")
+        details.classList.toggle("showing-details")
+    }
 
     const checkUserLike = () => {
         fetch('/3D_printer/3d_project/query.php', {
@@ -365,7 +376,7 @@ export const JobPage = () => {
                         <div className="popup_content" onClick={(e) => e.stopPropagation()}>
                             <button className="close_popup" onClick={() => setShowPopup(false)}>✕</button>
                             <div className="popup_main">
-                                <JobPreview 
+                                <JobPreview
                                     modelPath={`/3D_printer/Files/3d_files/${selectedFile.file_path}`} 
                                     fileColor={selectedColor} 
                                 />
@@ -390,6 +401,9 @@ export const JobPage = () => {
                                         <li className="color-button white" onClick={() => setSelectedColor("White")}></li>
                                         <li className="color-button grey" onClick={() => setSelectedColor("Grey")}></li>
                                     </ul>
+                                </div>
+                                <div onClick={handleShowDetails} className='show-details'>
+                                   <p>{t("show-details")}</p> 
                                 </div>
                             </div>
                         </div>

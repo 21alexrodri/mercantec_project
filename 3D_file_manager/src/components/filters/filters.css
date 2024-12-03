@@ -46,6 +46,7 @@ legend, .color_label, .customer_label, .range_label, .likes_label, .date_label, 
     font-size: 23px;
     width: fit-content;
     user-select: none;
+    text-wrap: nowrap;
 }
 select{
     margin-top: 5px;
@@ -101,7 +102,7 @@ select:focus{
     background-color: transparent;
     border: none;
     border-bottom: 2px solid #0E38AB;
-    font-size: 15px;
+    font-size: 1.5vw;
     outline: none;
     margin-bottom: 10px;
     &:hover, &:active, &:focus, &:target{
@@ -141,36 +142,135 @@ select:focus{
     background-color: #0E38AB;
 }
 }
+
+.show-filters-btt {
+    display: none;
+}
+.search_and_delete {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: left;
+    gap: 10px;
+}
+input#search_by_name {
+    width: 80%;
+}
+
 @media (min-width: 1441px){
-.filter{
-    font-size: 1vw;
-    h2{
+    .filter{
+        font-size: 1vw;
+        h2{
+            font-size: 1.2vw;
+        }
+    }
+    #search_by_name, #search_by_date, #search_by_material{
+        font-size: 1vw;
+    }
+    .date_label, legend, .customer_label, .color_label, .range_label, .material_label{
         font-size: 1.2vw;
     }
+    #search_by_customer, #search_by_color{
+        font-size: 0.7vw;
+    }
+    .job-content-list{
+        width: 4vw;
+        height: 4vw;
+    }
+    .usr-key{
+        font-size: 1.3vw;
+    }
+    .hp_searchedfiles{
+        font-size: medium;
+    }
+    .order-controls{
+        font-size: 1vw;
+    }
 }
-#search_by_name, #search_by_date, #search_by_material{
-    font-size: 1vw;
+@media (max-width: 1200px){
+    .filter_form label {
+        font-size: large;
+    }
+    .filter_form fieldset legend {
+        font-size: large;
+    }
+
+    .filter h2 {
+        font-size: large;
+    }
 }
-.date_label, legend, .customer_label, .color_label, .range_label, .material_label{
-    font-size: 1.2vw;
+
+@media (max-width: 900px){
+    .filter_form label {
+        font-size:0.95rem;
+    }
+    .filter_form fieldset legend {
+        font-size: 0.95rem;
+    }
 }
-#search_by_customer, #search_by_color{
-    font-size: 0.7vw;
-}
-.job-content-list{
-    width: 4vw;
-    height: 4vw;
-}
-.usr-key{
-    font-size: 1.3vw;
-}
-.hp_searchedfiles{
-    font-size: 1.7vw;
-}
-.order-controls{
-    font-size: 1vw;
-}
-}
-@media (min-width: 769px) and (max-width: 1024px){
+
+@media (max-width: 768px) {
+    .filter_form{
+        display: none;
+        
+    }
+    .filter_title {
+        display: none;
+    }
+
+    .filter_form.show-filters {
+        display: flex;
+        border-bottom: 1px gray solid !important;
+    }
+    .filter_title.show-filters {
+        display: flex;
+    }
+    .clearFilter-button {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .filter {
+        width: 100%;
+        max-width: none;
+        
+    }
+
+    .filters_applied {
+        display: flex;
+        height: 50px;
+        min-height: 0px ;
+        max-height: none;
+        overflow: auto;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .filter_style p {
+        font-size: 0.8rem;
+        margin: 0;
+    }
+    .filter_style {
+        width: fit-content;
+        min-width: fit-content;
+    }
+    .show-filters-btt {
+        display: flex;
+        background-color: #0E38AB;
+        color: white;
+        border: 2px #0E38AB solid;
+        border-radius: 1rem;
+        padding: 0.5rem;
+        transition: all 0.2s ease;
+        margin-top: 0.5rem;
+    }
+
+    #search_by_name, #search_by_date, #search_by_material{
+        font-size: 1rem;
+        width: 80%;
+    }
+
 
 }

@@ -3,6 +3,11 @@ import "./users_table.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
+/**
+ * Admin's table to manage users.
+ * @param {closeUserTable} it closes the table 
+ * @returns The users table
+ */
 export const UserTable = ({ closeUserTable }) => {
     const [search, setSearch] = useState('');
     const [usersList, setUsersList] = useState([]);
@@ -13,9 +18,14 @@ export const UserTable = ({ closeUserTable }) => {
         e.stopPropagation();
     };
 
+    /**
+     * This function changes the state of the user.
+     * @param {id} the id of the user 
+     * @param {active} the state of the user
+     */
     const changeUserState = (id, active) => {
         const newActiveState = active == 1 ? 0 : 1;
-    
+
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -28,30 +38,35 @@ export const UserTable = ({ closeUserTable }) => {
             }),
             credentials: 'include',
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                setUsersList(prevUsersList => 
-                    prevUsersList.map(user => 
-                        user.id === id ? { ...user, active: newActiveState } : user
-                    )
-                );
-    
-                setFilteredUsers(prevFilteredUsers => 
-                    prevFilteredUsers.map(user => 
-                        user.id === id ? { ...user, active: newActiveState } : user
-                    )
-                );
-            } else {
-                console.error('Error changing user state:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error changing user state:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    setUsersList(prevUsersList =>
+                        prevUsersList.map(user =>
+                            user.id === id ? { ...user, active: newActiveState } : user
+                        )
+                    );
+
+                    setFilteredUsers(prevFilteredUsers =>
+                        prevFilteredUsers.map(user =>
+                            user.id === id ? { ...user, active: newActiveState } : user
+                        )
+                    );
+                } else {
+                    console.error('Error changing user state:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error changing user state:', error);
+            });
     };
 
-    const toggleAdmin = (id,admin) => {
+    /**
+     * This function toggles the admin state of the user.
+     * @param {id} the id of the user 
+     * @param {admin} the state of the user 
+     */
+    const toggleAdmin = (id, admin) => {
         const newAdminState = admin == 1 ? 0 : 1;
 
         fetch("/3D_printer/3d_project/query.php", {
@@ -65,32 +80,32 @@ export const UserTable = ({ closeUserTable }) => {
             }),
             credentials: 'include',
         })
-        .then(response => response.json())
-        .then(data => {
-            if(data.success){
-                console.log("ENTRA EN SUCCESS")
-                setUsersList(prevUsersList => 
-                    prevUsersList.map(user =>
-                        user.id === id ? { ...user, is_admin: newAdminState } : user
-                    )
-                );
-                
-                setFilteredUsers(prevFilteredUsers => 
-                    prevFilteredUsers.map(user =>
-                        user.id === id ? { ...user, is_admin: newAdminState} : user
-                    )
-                );
-            }
-        })
-        .catch(error => {
-            console.error('Error getting all users:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("ENTRA EN SUCCESS")
+                    setUsersList(prevUsersList =>
+                        prevUsersList.map(user =>
+                            user.id === id ? { ...user, is_admin: newAdminState } : user
+                        )
+                    );
+
+                    setFilteredUsers(prevFilteredUsers =>
+                        prevFilteredUsers.map(user =>
+                            user.id === id ? { ...user, is_admin: newAdminState } : user
+                        )
+                    );
+                }
+            })
+            .catch(error => {
+                console.error('Error getting all users:', error);
+            });
     }
 
     const handleSearch = (e) => {
         const value = e.target.value.toLowerCase();
         setSearch(value);
-        setFilteredUsers(usersList.filter(user => 
+        setFilteredUsers(usersList.filter(user =>
             user.username.toLowerCase().includes(value) ||
             user.email.toLowerCase().includes(value)
         ));
@@ -105,7 +120,7 @@ export const UserTable = ({ closeUserTable }) => {
     useEffect(() => {
         document.addEventListener("keydown", escFunction, false);
         return () => {
-            document.removeEventListener("keydown", escFunction, false); 
+            document.removeEventListener("keydown", escFunction, false);
         };
     }, [escFunction]);
 
@@ -120,14 +135,14 @@ export const UserTable = ({ closeUserTable }) => {
             }),
             credentials: 'include',
         })
-        .then(response => response.json())
-        .then(data => {
-            setUsersList(data);
-            setFilteredUsers(data);
-        })
-        .catch(error => {
-            console.error('Error getting all users:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                setUsersList(data);
+                setFilteredUsers(data);
+            })
+            .catch(error => {
+                console.error('Error getting all users:', error);
+            });
     }, []);
 
     return (
@@ -140,10 +155,10 @@ export const UserTable = ({ closeUserTable }) => {
                     <h2>{t("edit_users")}</h2>
                 </div>
                 <div className="users_table_body">
-                    <input 
-                        type="text" 
-                        value={search} 
-                        onChange={handleSearch} 
+                    <input
+                        type="text"
+                        value={search}
+                        onChange={handleSearch}
                         placeholder="Search by username or email..."
                         className="users_table_searchbar"
                     />
@@ -166,7 +181,7 @@ export const UserTable = ({ closeUserTable }) => {
                                         <td>{user.is_admin === 1 ? 'Yes' : 'No'}</td>
                                         <td>{user.email}</td>
                                         <td>{user.date_created}</td>
-                                        <td 
+                                        <td
                                             id={user.id}
                                             tabIndex="0"
                                             onClick={() => {
@@ -177,14 +192,14 @@ export const UserTable = ({ closeUserTable }) => {
                                                     changeUserState(user.id, user.active);
                                                 }
                                             }}
-                                            className={user.active == 1 ? 'user_active' : 'user_inactive'} 
+                                            className={user.active == 1 ? 'user_active' : 'user_inactive'}
                                             title={user.active == 1 ? 'User Enabled' : 'User Disabled'}
                                         >
                                             <FontAwesomeIcon icon={faCircle} />
                                         </td>
                                         <td
                                             id={user.id}
-                                            tabIndex="0" 
+                                            tabIndex="0"
                                             onClick={() => {
                                                 toggleAdmin(user.id, user.is_admin)
                                             }}
@@ -192,8 +207,8 @@ export const UserTable = ({ closeUserTable }) => {
                                                 if (e.key === "Enter") {
                                                     toggleAdmin(user.id, user.is_admin);
                                                 }
-                                            }} 
-                                            className={user.is_admin == 1 ? 'user_active' : 'user_inactive'} 
+                                            }}
+                                            className={user.is_admin == 1 ? 'user_active' : 'user_inactive'}
                                             title={user.is_admin == 1 ? 'Admin user' : 'Non admin user'}
                                         >
                                             <FontAwesomeIcon icon={faCircle} />

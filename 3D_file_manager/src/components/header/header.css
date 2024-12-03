@@ -12,9 +12,10 @@ header{
     padding-left: 25px;
 }
 
-ul{
+.header_navbar ul{
     display: flex;
     list-style: none;
+    align-items: center;
 }
 
 li{
@@ -36,16 +37,19 @@ li.link_li a:hover{
 
 .login_btn, .signup_btn{
    background-color: transparent;
-   border: 2px solid rgb(255, 131, 135);
+   border: 2px solid #ff8387;
    border-radius: 5px;
     padding: 5px 10px;
     color: #FF8387;
     font-size: 17px;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .login_btn:hover, .signup_btn:hover{
-    background-color: rgb(255, 131, 135);
+    background-color: #ff8387;
     color: white;
+    transition: all 0.2s ease;
 }
 
 .link_li{
@@ -111,25 +115,44 @@ li.link_li a:hover{
     display: none;
 }
 
-.login_btn > svg {
+.login_btn > svg, .signup_btn > svg {
     display: none;
 }
 
-.login_btn p {
+.login_btn p, .signup_btn p {
     margin: 0;
 }
 
-
-@media (max-width: 730px) {
-
-    .header_navbar svg {
-        font-size: 1.5rem;
-    }
-
+@media (max-width: 900px) {
     #mercantec_logo {
         background-image: url("/3D_printer/Files/img/logo_mobile.svg");
         width: 1rem;
         height: 4rem;
+    }
+}
+
+@media (max-width: 730px) {
+
+    #mercantec_logo {
+        /* background-image: url("/3D_printer/Files/img/logo_mobile.svg"); */
+        background-size: contain;
+        width: 0.5rem;
+        height: 2rem;
+    }
+
+    .header_navbar svg {
+        font-size: 1.2rem;
+    }
+    .header_navbar > ul > * {
+        margin: 0 0.3rem 0 0.3rem;
+        padding: 0;
+    }
+
+    .header_navbar li {
+        margin: 0 0.3rem 0 0.3rem;
+    }
+    .header_navbar button {
+        padding: 0;
     }
 
     .header_title {
@@ -143,13 +166,26 @@ li.link_li a:hover{
         display: flex;
     }
 
-    .login_btn {
+    .login_btn, .signup_btn {
         border: none;
+        transition: none;
     }
-    .login_btn > p {
+    .login_btn:hover, .signup_btn:hover {
+        border: none;
+        background-color: transparent;
+        transition: none;
+    }
+
+
+    .login_btn > p, .signup_btn > p {
         display: none;
     }
-    .login_btn > svg {
+    .login_btn > svg, .signup_btn > svg {
         display: flex;
+    }
+
+    header {
+        padding-left: 15vw;
+        padding-right: 15vw;
     }
 }

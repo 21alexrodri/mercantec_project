@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next';
  * @param {onDeleteJob} the function to delete the job 
  * @returns A filtered job
  */
-function FilteredJob({ id, name, job_user, creation_date, img_format, likes, license, layerthickness, total_physical_weight, delete_mode, onDeleteJob }) {
+function FilteredJob({ id, name, job_user, creation_date, img_format, likes, license, layerthickness, total_physical_weight, delete_mode, onDeleteJob, ad }) {
     const { username, isAdmin, isLogged } = useContext(UserContext);
     const { t } = useTranslation();
     const [deleting, setDeleting] = useState(false);
@@ -50,6 +50,7 @@ function FilteredJob({ id, name, job_user, creation_date, img_format, likes, lic
      * @param {id} the id of the job to be deleted 
      */
     const handleDeleteJob = (id) => {
+        
         if (isAdmin || username === job_user) {
             setDeleted(true);
             setTimeout(() => {
@@ -60,7 +61,8 @@ function FilteredJob({ id, name, job_user, creation_date, img_format, likes, lic
                     },
                     body: JSON.stringify({
                         arg: 'deleteJobById',
-                        id
+                        id,
+                        ad
                     }),
                 })
                     .then((response) => {

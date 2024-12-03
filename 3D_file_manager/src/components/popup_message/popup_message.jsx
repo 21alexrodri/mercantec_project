@@ -4,6 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 
+/**
+ * 
+ * @param {message} The message to be displayed in the popup. 
+ * @returns A popup message that appears when the user performs an action.
+ */
 export const Popup = ({ message, status }) => {
     const { t } = useTranslation();
     const [visible, setVisible] = useState(true);
@@ -15,7 +20,7 @@ export const Popup = ({ message, status }) => {
 
         return () => clearTimeout(timeout);
     }, []);
-    
+
     const closePopup = () => {
         setVisible(false);
     };

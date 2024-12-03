@@ -29,7 +29,7 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs }) {
     const [displayedJobs, setDisplayedJobs] = useState(jobs[tagId]?.jobs || []);
 
     /**
-     * Esta función maneja el clic en la flecha de la siguiente página.
+     * This function handles the click on the next page arrow.
      */
     const handleNextPage = () => {
         const newOffset = ((currentPage + 1) * jobsPerPage);
@@ -50,7 +50,7 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs }) {
     };
 
     /**
-     * Esta función maneja el clic en la flecha de la página anterior.
+     * This function handles the click on the previous page arrow.
      */
     const handlePrevPage = () => {
         const newOffset = (offset - jobsPerPage);
@@ -78,7 +78,6 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs }) {
         if (!loadingJobs) {
             console.log("ACABA DE CARGAR");
             setTimeoutFinished(false);
-            // Solo actualizamos displayedJobs si no estamos animando
             if (direction === null && jobs[tagId]?.jobs) {
                 setDisplayedJobs(jobs[tagId].jobs);
             }
@@ -128,7 +127,7 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs }) {
                                     displayedJobs
                                         .filter(job => job.license === 0 || (job.license === 1 && isLogged))
                                         .map((job, i) => {
-                                            const isVisible = i >= offset && i < offset + jobsPerPage; 
+                                            const isVisible = i >= offset && i < offset + jobsPerPage;
                                             return (
                                                 <div
                                                     key={job.id}
@@ -138,7 +137,7 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs }) {
                                                         id={job.id}
                                                         className='job-link'
                                                         onClick={() => handleJobClick(job.id)}
-                                                        tabIndex={isVisible ? "0" : "-1"} 
+                                                        tabIndex={isVisible ? "0" : "-1"}
                                                         onKeyDown={(e) => {
                                                             if (e.key === "Enter") {
                                                                 handleJobClick(job.id);
@@ -168,12 +167,12 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs }) {
 
 
                                 {jobs[tagId].count > (currentPage + 1) * jobsPerPage && !loading && !loadingJobs && (
-                                    <FontAwesomeIcon className='arrow arrow-right' onClick={() => handleNextPage()} icon={faCaretRight} tabIndex="0" 
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter") {
-                                            handleNextPage();
-                                        }
-                                    }}
+                                    <FontAwesomeIcon className='arrow arrow-right' onClick={() => handleNextPage()} icon={faCaretRight} tabIndex="0"
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                handleNextPage();
+                                            }
+                                        }}
                                     />
                                 )}
                             </>

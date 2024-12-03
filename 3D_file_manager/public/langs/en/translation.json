@@ -286,6 +286,13 @@
     "aboutus_merc_vis_t1": "Mercantec aims to be the market's educational institution of choice for young people and adults when it comes to vocational education courses, vocational high schools and continuing professional development.",
     "aboutus_merc_vis_t2": "It is our objective to refine and expand the range and combination of technical and commercial courses in an attractive and inspirational educational environment.",
     "about_devs": "About Developers Team",
-    "about_devs_t1": "This project has been developed by a team of Spanish developers with the aim of enabling the company 'Mercantec' to better manage its system for storing and downloading 3D files, thereby achieving improved record-keeping as well as increased security and efficiency."
+    "about_devs_t1": "This project has been developed by a team of Spanish developers with the aim of enabling the company 'Mercantec' to better manage its system for storing and downloading 3D files, thereby achieving improved record-keeping as well as increased security and efficiency.",
+    "important_rules_signup1.1": "Please send an email to", 
+    "important_rules_signup1.2":"to stipulate the reason for creating an account.",
+    "important_rules_signup2": "Attach the following information to the email to continue creating the account.",
+    "important_rules_procedence":"Where are you from",
+    "important_rules_reason":"Reason for creating the account",
+    "important_rules_more_info":"You can find more contact information in the 'Help' section"
+
   }
   

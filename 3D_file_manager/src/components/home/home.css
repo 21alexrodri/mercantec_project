@@ -75,12 +75,12 @@
 }
 #home #upload-button{
     position: fixed;
-    right: 5%;
-    bottom: 5%;
+    right: 3rem;
+    bottom: 3rem;
 
-    width: 80px;
-    height: 80px;
-    border-radius: 1vw;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 1rem;
     background-color: #0E38AB;
 
     display: flex;
@@ -257,7 +257,7 @@
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 768px) {
     .usr-key {
         display: none !important;
     }

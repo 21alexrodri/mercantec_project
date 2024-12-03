@@ -103,8 +103,6 @@
     color: black;
     background-color: #ddd;
     line-height: 2em;
-    
-    box-size: border-size;
 }
 
 #users_table .users_table_results_container .result.color_b {

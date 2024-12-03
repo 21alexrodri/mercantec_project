@@ -94,7 +94,7 @@ function FilteredJob({ id, name, job_user, creation_date, img_format, likes, lic
             ) : (
                 <>
                     {(deleting && delete_mode) ? (
-                        <div className="deleting-job" id={id}>
+                        <ul className="deleting-job" id={id}>
                             <b>{t("confirm_delete_job")} "{name}"?</b>
                             <div className='deleting-job-opts'>
                                 <p className='yes' tabIndex="0" onKeyDown={(evt) => {
@@ -108,7 +108,7 @@ function FilteredJob({ id, name, job_user, creation_date, img_format, likes, lic
                                     }
                                 }} onClick={() => handleDisableSelecting()}>{t("cancel")}</p>
                             </div>
-                        </div>
+                        </ul>
                     ) : (
                         <ul
                             className={`job-item-list ${(delete_mode ? "delete-enabled" : "")}`}

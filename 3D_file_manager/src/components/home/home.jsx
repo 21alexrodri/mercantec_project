@@ -7,7 +7,7 @@ import { NewJob } from '../new_job/new_job';
 import { UserContext } from '../../context/UserContext';
 import FilteredJob from '../filtered_job/filtered_job';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSort, faArrowDownShortWide, faArrowDownWideShort } from '@fortawesome/free-solid-svg-icons';
+import { faSort, faArrowDownShortWide, faArrowDownWideShort, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function Home() {
     const { t } = useTranslation();
@@ -23,6 +23,7 @@ function Home() {
     const [isOrderDropdownOpen, setIsOrderDropdownOpen] = useState(false);
     const [orderOption, setOrderOption] = useState('');
     const [deleteJobState,setDeleteJobState] = useState(false);
+    const [orderByOpened,setOrderByOpened] = useState(false);
 
     const handleOrderSelection = (option) => {
         setOrderOption(option);
@@ -180,12 +181,7 @@ function Home() {
     },[appliedFiltersCount])
 
     const handleDeleteButton = (e) => {
-        e.target.classList.toggle("activated-btt")
-        if(e.target.classList.contains("activated-btt")){
-            e.target.innerHTML = t("cancel_del_jobs")
-        }else{
-            e.target.innerHTML = t("del_jobs")
-        }
+        // e.target.classList.toggle("activated-btt")
         setDeleteJobState(!deleteJobState);
     }
 
@@ -212,27 +208,32 @@ function Home() {
                                     
                                     <div className='order-controls'>
                                     
-                                        <div className='order' onClick={() => setIsOrderDropdownOpen(!isOrderDropdownOpen)}>
+                                        <div className={'order ' + (isOrderDropdownOpen ? "open" : "")} onClick={() => setIsOrderDropdownOpen(!isOrderDropdownOpen)}>
+                                            <div className='title'>
                                             <FontAwesomeIcon icon={faSort} /> <p className='order-by-text'>{t("order_by")}</p>
+                                            </div>
                                             
-                                                <ul className="order-dropdown">
-                                                    <li onClick={() => handleOrderSelection('name')}>{t("name")}</li>
-                                                    <li onClick={() => handleOrderSelection('username')}>{t("username")}</li>
-                                                    <li onClick={() => handleOrderSelection('date')}>{t("date")}</li>
-                                                    <li onClick={() => handleOrderSelection('likes')}>{t("likes")}</li>
-                                                    <li onClick={() => handleOrderSelection('layerthickness')}>{t("layer_thickness")}</li>
-                                                    <li onClick={() => handleOrderSelection('weight')}>{t("weight")}</li>
-                                                </ul>
+                                            
+                                            <ul className={"order-dropdown "+(isOrderDropdownOpen ? "" : "")}>
+                                                <li onClick={() => handleOrderSelection('name')}>{t("name")}</li>
+                                                <li onClick={() => handleOrderSelection('username')}>{t("username")}</li>
+                                                <li onClick={() => handleOrderSelection('date')}>{t("date")}</li>
+                                                <li onClick={() => handleOrderSelection('likes')}>{t("likes")}</li>
+                                                <li onClick={() => handleOrderSelection('layerthickness')}>{t("layer_thickness")}</li>
+                                                <li onClick={() => handleOrderSelection('weight')}>{t("weight")}</li>
+                                            </ul>
                                             
                                         </div>
                                         <button className='order-direction-button' onClick={toggleOrderDirection}>
                                             {orderDirection === 'ASC' ? <FontAwesomeIcon icon={faArrowDownShortWide} /> : <FontAwesomeIcon icon={faArrowDownWideShort} />}
                                         </button>
-                                        {(isAdmin) ? (<div className='job-delete-btt' onClick={handleDeleteButton}>{t("del_jobs")}</div>) : (<></>)}
+                                        {(isAdmin) ? (<div className='job-delete-btt' onClick={handleDeleteButton}>
+                                            <FontAwesomeIcon icon={faTrash}/>
+                                        </div>) : (<></>)}
                                     </div>
                                     
                             </div>
-                            <div>
+                            <div className='hp_results'>
                             {filteredItems.length > 0 ? (
                                 <>
                                     <ul className='usr-key'>

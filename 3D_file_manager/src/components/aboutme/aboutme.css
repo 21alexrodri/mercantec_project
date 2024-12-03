@@ -23,10 +23,36 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 15rem;
     p{
         color: #0E38AB;
         font-weight: bolder;
-        font-size: 1.2vw;
         text-align: center;
     }
+}
+@media (min-width: 2179px){
+    .portrait-img{
+        background-color: #0E38AB;
+        width: 13vw;
+        height: 13vw;
+        object-fit: cover;
+        border-radius: 900000vw;
+        transition: all 0.3s;
+        &:hover{
+            background-color: rgb(255, 131, 135);
+        }
+    }
+    .portrait-adrian{
+        object-fit: contain;
+    }
+}
+@media (max-width: 770px){
+    .dev-portraits {
+        flex-wrap: wrap;
+    }
+    .portrait-img{
+        width: 31vw;
+        height: 31vw;
+    }
+    
 }

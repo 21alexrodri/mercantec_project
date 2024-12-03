@@ -141,22 +141,22 @@
 }
 .order{
     background-color: #0E38AB;
-    margin-right: 1vw;
-    padding: 0.8rem;
+    margin: 1rem;
+    padding: 0.5rem;
     color: white;
     border-radius: 1rem;
     display: flex;
     align-items: center;
     transition: all 0.5s ease;
-    cursor:default;
+    cursor: default;
     overflow: hidden;
-    min-width: fit-content;
     font-size: small;
+    width: 5.4rem;
+    transition: width 0.3s ease;
 }
-.order:hover{
-    background-color: #1340bc;
-    color: white;
-    transition: all 0.5s ease;
+.order:hover {
+    width: 33rem;
+    transition: width 0.3s ease;
 }
 
 
@@ -166,33 +166,14 @@
     justify-content: end;
     width: 100%;
 }
-
-.order:hover > .order-dropdown{
-    transition: all 0.8s ease;
-    max-height: 1.2rem;
-    max-width: 100vw;
-    overflow: hidden;
-    opacity: 1;
-}
-
-.order:hover > .order-dropdown > li {
-    opacity: 1;
-    text-wrap: nowrap;
-}
-
 .order-dropdown{
     margin: 0;
-    max-height: 0;
-    max-width: 0;
-    opacity: 0;
-    transition: all 0.5s ease;
     display: flex;
+    text-wrap: nowrap;
     align-items: center;
 }
 
 .order-dropdown > li{
-    opacity: 0;
-    transition: opacity 0.5s ease;
     cursor: pointer;
 }
 .order-dropdown > li:hover{
@@ -221,20 +202,51 @@
     text-wrap: nowrap;
 }
 
+.order .title {
+    display: flex;
+}
+
 
 @media (max-width: 768px) {
     #home {
         display: flex;
         flex-direction: column;
     }
-}
-
-@media (max-width: 1000px) {
-    .order-controls {
-        margin-top: 1rem;
+    .order {
+        align-items: start;
+        flex-direction: column; 
+        width: 8.3rem !important;
+        height: 2.6rem;
+        transition: height 0.3s ease !important;
+    }
+    .order.open {
+        height: 12rem;
+        transition: height 0.3s ease;
+    }
+    .order .title {
+        padding: 0.5rem;
+    }
+    .order-dropdown {
+        align-items: start;
+        flex-direction: column;
     }
 
-    .order-controls > div:nth-last-child(1) {
+    .order-controls {
+        justify-content: center;
+        align-items: start;
+    }
+    .order-direction-button {
+        margin: 1rem;
+    }
+}
 
+@media (min-width: 1800px) {
+    .order {
+        font-size: x-large;
+        padding: 1rem;
+        width: 9.5rem;
+    }
+    .order:hover {
+        width: 54rem;
     }
 }

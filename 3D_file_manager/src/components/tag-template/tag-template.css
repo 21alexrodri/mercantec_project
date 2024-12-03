@@ -41,6 +41,22 @@
     transform: translateX(-300%);
 }
 
+.col .job-info {
+    overflow: hidden;
+    width: 100%;
+    align-items: center;
+    justify-items: center;
+}
+
+.col .job-info p {
+    height: 1rem !important;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
 @keyframes slide-right {
     0% {
         transform: translateX(-300%);
@@ -56,5 +72,18 @@
     }
     100% {
         transform: translateX(-600%);
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* .jobs-container .col:nth-child(1),.jobs-container .col:nth-child(2) {
+        display: none;
+    } */
+
+    .jobs-container .col{
+        transform: translateX(-300%);
+        width: 35vw;
+        font-size: xx-small;
     }
 }

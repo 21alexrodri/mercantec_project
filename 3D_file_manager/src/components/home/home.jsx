@@ -193,12 +193,6 @@ function Home() {
     }, [appliedFiltersCount])
 
     const handleDeleteButton = (e) => {
-        e.target.classList.toggle("activated-btt")
-        if (e.target.classList.contains("activated-btt")) {
-            e.target.innerHTML = t("cancel_del_jobs")
-        } else {
-            e.target.innerHTML = t("del_jobs")
-        }
         setDeleteJobState(!deleteJobState);
     }
 

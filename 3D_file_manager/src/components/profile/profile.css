@@ -159,7 +159,7 @@
 }
 
 .job-delete-btt{
-    margin: 1rem;
+    margin: 0.5rem;
     background-color:red;
     border: 2px red solid;
     font-weight: bold;
@@ -179,6 +179,17 @@
     background-color:transparent;
     color: red;
     transition: all 0.3s ease;
+}
+
+.activated-btt{
+    background-color: #0E38AB !important;
+    border: 2px #0E38AB solid;
+    color: white;
+}
+
+.activated-btt:hover{
+    background-color: transparent !important;
+    color: #0E38AB;
 }
 
 .profile-search-project-name{

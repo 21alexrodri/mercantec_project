@@ -233,7 +233,7 @@ function Home() {
                                     </div>
                                     
                             </div>
-                            <div>
+                            <div className='hp_results'>
                             {filteredItems.length > 0 ? (
                                 <>
                                     <ul className='usr-key'>

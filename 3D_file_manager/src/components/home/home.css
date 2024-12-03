@@ -127,7 +127,8 @@
     cursor: pointer;
 }
 .hp_searchedfiles{
-    padding-top: 20px;
+    padding-top: 0.5rem;
+    font-size: 1.3rem;
 }
 .hp_searchedheader{
     display: flex;
@@ -141,7 +142,7 @@
 }
 .order{
     background-color: #0E38AB;
-    margin: 1rem;
+    margin: 0.5rem;
     padding: 0.5rem;
     color: white;
     border-radius: 1rem;
@@ -236,7 +237,12 @@
         align-items: start;
     }
     .order-direction-button {
-        margin: 1rem;
+        margin: 0.5rem;
+    }
+
+
+    .tag-content {
+        width: 100% !important;
     }
 }
 
@@ -248,5 +254,18 @@
     }
     .order:hover {
         width: 54rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .usr-key {
+        display: none !important;
+    }
+    .hp_results {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
     }
 }

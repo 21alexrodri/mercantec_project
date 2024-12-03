@@ -141,6 +141,23 @@ export const Signup = ({ closeSignup, onUserCreated }) => {
                     <label htmlFor="password">{t("password")}</label><br />
                     <input id="password_prompt" type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
                     <br />
+                    <div className="important">
+                    <span className="important-container">
+                        <span className="important-icon">
+                            <b className="icon">!</b>
+                        </span>
+                        <span className="tooltip-text">
+                            {t("important_rules_signup1.1")} <b>hotskp@mercantec.dk</b> {t("important_rules_signup1.2")}<br /> <br />{t("important_rules_signup2")}<br />
+                            <FontAwesomeIcon icon={faCaretRight} /> {t("email")}<br />
+                            <FontAwesomeIcon icon={faCaretRight} /> {t("name")}<br />
+                            <FontAwesomeIcon icon={faCaretRight} /> {t("important_rules_procedence")}<br />
+                            <FontAwesomeIcon icon={faCaretRight} /> {t("important_rules_reason")}<br /><br />
+                            {t("important_rules_more_info")}
+
+                        </span>
+                    </span>
+                    </div>
+
                     <input type="submit" value="SIGN UP" className="credentials_submit_button" />
                     {showPopup && (
                     <Popup message={errorMsg} status="warning"/>

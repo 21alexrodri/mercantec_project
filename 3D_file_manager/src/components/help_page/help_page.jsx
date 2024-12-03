@@ -105,7 +105,7 @@ function Error_Page() {
             <p>{t("tos_gl_t1")}</p>
             <h3>{t("10. Contact")}</h3>
             <p>{t("tos_cnt_t1")}</p>
-            <p>{t("email")}: mercantec@example.com</p>
+            <p>{t("email")}: hotskp@mercantec.dk</p>
             <p>{t("address")}: H C Andersens Vej 9 8800 Viborg</p>
             </section>
             <section>
@@ -156,7 +156,7 @@ function Error_Page() {
             <p>{t("pp_ctp_t1")}</p>
             <h3>{t("pp_cntct")}</h3>
             <p>{t("pp_cntct_t1")}</p>
-            <p>{t("email")}: mercantec@example.com</p>
+            <p>{t("email")}: hotskp@mercantec.dk</p>
             <p>{t("address")}: H C Andersens Vej 9 8800 Viborg</p>
             </section>
             <section>
@@ -192,7 +192,7 @@ function Error_Page() {
         <p>{t("ck_utcp_t1")}</p>
         <h3>{t("ck_cntct")}</h3>
         <p>{t("ck_cntct_t1")}</p>
-        <p>{t("email")}: mercantec@example.com</p>
+        <p>{t("email")}: hotskp@mercantec.dk</p>
         <p>{t("address")}: H C Andersens Vej 9 8800 Viborg</p>
         </section>
         </div>

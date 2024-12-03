@@ -270,6 +270,23 @@
     "aboutus_merc_vis_t1": "Mercantec sigter mod at være markedets foretrukne uddannelsesinstitution for unge og voksne, når det gælder erhvervsuddannelser, erhvervsgymnasier og efteruddannelse.",
     "aboutus_merc_vis_t2": "Vores mål er at forfine og udvide udvalget og kombinationen af tekniske og kommercielle kurser i et attraktivt og inspirerende uddannelsesmiljø.",
     "about_devs": "Om Udviklerteamet",
-    "about_devs_t1": "Dette projekt er blevet udviklet af et team af spanske udviklere med det formål at gøre det muligt for virksomheden 'Mercantec' bedre at administrere sit system til opbevaring og download af 3D-filer og dermed opnå forbedret journalføring samt øget sikkerhed og effektivitet."
+    "about_devs_t1": "Dette projekt er blevet udviklet af et team af spanske udviklere med det formål at gøre det muligt for virksomheden 'Mercantec' bedre at administrere sit system til opbevaring og download af 3D-filer og dermed opnå forbedret journalføring samt øget sikkerhed og effektivitet.",
+    "footer_info": "Kontaktinformation",
+    "footer_mail": "E-mail",
+    "footer_phone": "Telefon",
+    "footer_copy": "2024 Mercantec 3D Print Archive. Alle rettigheder forbeholdes.",
+    "footer_text1": "Lær mere om vores projekt i ",
+    "footer_text2": "sektionen",
+    "footer_text4": "GitHub-repositoriet",
+    "footer_text5": "Hjælp",
+    "footer_text6": "Om Os",
+    "footer_text7": "Se vores ",
+    "footer_text8": "Du kan udforske kildekoden i vores ",
+    "important_rules_signup1.1": "Send venligst en e-mail til",
+    "important_rules_signup1.2": "for at angive grunden til oprettelse af en konto.",
+    "important_rules_signup2": "Vedhæft følgende oplysninger til e-mailen for at fortsætte med at oprette kontoen.",
+    "important_rules_procedence": "Hvor kommer du fra",
+    "important_rules_reason": "Årsag til oprettelse af kontoen",
+    "important_rules_more_info": "Du kan finde flere kontaktoplysninger i 'Hjælp'-sektionen"
   }
   

@@ -253,12 +253,44 @@ p{
         font-size: 1rem;
     }
     .profile_jobs_section > div:nth-child(2) {
-        margin: 2rem;
+        /* margin: 2rem; */
         display: flex;
-        width: fit-content !important;
+        /* width: fit-content !important; */
         justify-content: center;
         justify-items: center;
         align-items: center;
         align-content: center;
+        width: 100%;
+    }
+
+    .deleting-job {
+        width: 10rem;
+        height: 18rem;
+        margin-right: 1rem;
+    }
+
+    .deleting-job b {
+        width: 80% !important;
+        text-align: center;
+    }
+
+    .deleting-job-opts {
+        flex-direction: column;
+    }
+
+    .deleting-job-opts .yes {
+        width: fit-content;
+        margin: 0.5rem 0rem 0.5rem 0rem;
+        padding: 0.5rem;
+    }
+    .deleting-job-opts .no {
+        width: fit-content;
+        margin: 0.5rem 0rem 0.5rem 0rem;
+        padding: 0.5rem;
+    }
+
+    .deleted-job {
+        width: 10rem;
+        height: 18rem;
     }
 }

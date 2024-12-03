@@ -26,7 +26,7 @@ export const Login = ({ closeLogin }) => {
     useEffect(() => {
         document.addEventListener("keydown", escFunction, false);
         return () => {
-            document.removeEventListener("keydown", escFunction, false); 
+            document.removeEventListener("keydown", escFunction, false);
         };
     }, [escFunction]);
 
@@ -34,7 +34,7 @@ export const Login = ({ closeLogin }) => {
         const { name, value } = e.target;
         setDataSend((prevData) => ({
             ...prevData,
-            [name]: value 
+            [name]: value
         }));
     };
 
@@ -44,7 +44,6 @@ export const Login = ({ closeLogin }) => {
     const send_data = (event) => {
         event.preventDefault();
 
-        // Evitar mostrar el popup si ya está visible
         if (showPopup) return;
 
         fetch('/3D_printer/3d_project/query.php', {
@@ -57,53 +56,51 @@ export const Login = ({ closeLogin }) => {
                 username: dataSend.username,
                 password: dataSend.password
             }),
-            credentials: 'include' 
+            credentials: 'include'
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Response:', data);
-            if (data.status === "success") {
-                localStorage.setItem('userLoggedIn', true);
-                localStorage.setItem('isAdmin', data.user.is_admin);
-                window.location.reload();
-            } else {
-                // Mostrar el popup solo si aún no está visible
-                setShowPopup(true);
-                document.getElementById("password_prompt").focus();
-                // Ocultar el popup después de 3 segundos
-                setTimeout(() => setShowPopup(false), 3000);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response:', data);
+                if (data.status === "success") {
+                    localStorage.setItem('userLoggedIn', true);
+                    localStorage.setItem('isAdmin', data.user.is_admin);
+                    window.location.reload();
+                } else {
+                    setShowPopup(true);
+                    document.getElementById("password_prompt").focus();
+                    setTimeout(() => setShowPopup(false), 3000);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching:', error);
+            });
     };
 
     return (
         <div onClick={closeLogin} className="blur_content">
-    <div onClick={handleContainerClick} className="credentials_popup_container">
-        <div className="credentials_popup_close">
-            <button onClick={closeLogin}>X</button>
+            <div onClick={handleContainerClick} className="credentials_popup_container">
+                <div className="credentials_popup_close">
+                    <button onClick={closeLogin}>X</button>
+                </div>
+                <div className="credentials_title">
+                    <h2>{t("login")}</h2>
+                </div>
+                <div className="credentials_body">
+                    <form id="login_form" onSubmit={send_data}>
+                        <label className="username-lbl" htmlFor="username">
+                            {t("username")}
+                        </label><br />
+                        <input id="username_prompt" type="text" name="username" value={dataSend.username} onChange={handleChange} autoFocus /><br />
+                        <label htmlFor="password">{t("password")}</label><br />
+                        <input id="password_prompt" type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
+                        <br />
+                        <input type="submit" value="LOG IN" className="credentials_submit_button" />
+                        {showPopup && (
+                            <Popup message={t("login_invalid")} status="warning" />
+                        )}
+                    </form>
+                </div>
+            </div>
         </div>
-        <div className="credentials_title">
-            <h2>{t("login")}</h2>
-        </div>
-        <div className="credentials_body">
-            <form id="login_form" onSubmit={send_data}>
-                <label className="username-lbl" htmlFor="username">
-                    {t("username")} 
-                </label><br />
-                <input id="username_prompt" type="text" name="username" value={dataSend.username} onChange={handleChange} autoFocus /><br />
-                <label htmlFor="password">{t("password")}</label><br />
-                <input id="password_prompt" type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
-                <br />
-                <input type="submit" value="LOG IN" className="credentials_submit_button" />
-                {showPopup && (
-                    <Popup message={t("login_invalid")} status="warning"/>
-                )}
-            </form>
-        </div>
-    </div>
-</div>
     );
 };

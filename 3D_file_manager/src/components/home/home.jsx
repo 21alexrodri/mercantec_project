@@ -8,21 +8,24 @@ import { UserContext } from '../../context/UserContext';
 import FilteredJob from '../filtered_job/filtered_job';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faArrowDownShortWide, faArrowDownWideShort, faTrash } from '@fortawesome/free-solid-svg-icons';
-
+/**
+ * Home page
+ * @returns The home page
+ */
 function Home() {
     const { t } = useTranslation();
     const [tags, setTags] = useState([]);
     const [jobs, setJobs] = useState({});
     const [filteredItems, setFilteredItems] = useState({})
     const [jobMenu, setNewJobMenu] = useState(false);
-    const [error, setError] = useState(null); 
-    const [loading, setLoading] = useState(false); 
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
     const { username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
     const [filtersApplied, setFiltersApplied] = useState([]);
-    const [orderDirection, setOrderDirection] = useState('ASC'); 
+    const [orderDirection, setOrderDirection] = useState('ASC');
     const [isOrderDropdownOpen, setIsOrderDropdownOpen] = useState(false);
     const [orderOption, setOrderOption] = useState('');
-    const [deleteJobState,setDeleteJobState] = useState(false);
+    const [deleteJobState, setDeleteJobState] = useState(false);
     const [orderByOpened,setOrderByOpened] = useState(false);
 
     const handleOrderSelection = (option) => {
@@ -32,12 +35,15 @@ function Home() {
     const toggleOrderDirection = () => {
         setOrderDirection(prevDirection => (prevDirection === 'ASC' ? 'DESC' : 'ASC'));
     };
-    
+
 
     const handleFiltersAppliedChange = (newFiltersApplied) => {
         setFiltersApplied(newFiltersApplied);
     };
-
+    /**
+     * Get the number of applied filters, used to know if the main content should be scrollable or not
+     * @returns 
+     */
     const getAppliedFiltersCount = () => {
         let count = 0;
         for (const key in filtersApplied) {
@@ -54,7 +60,9 @@ function Home() {
     };
 
     const appliedFiltersCount = getAppliedFiltersCount();
-
+    /**
+     * Fetches the filtered items from the server
+     */
     useEffect(() => {
         const appliedFiltersCount = getAppliedFiltersCount();
         if (appliedFiltersCount >= 1) {
@@ -77,26 +85,28 @@ function Home() {
                     orderDirection: orderDirection
                 })
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                setFilteredItems(data);
-                // console.log("resultado: ");
-                // console.log(filteredItems);
-            })
-            .catch(error => {
-                console.error('Error fetching filtered items:', error);
-            });
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    setFilteredItems(data);
+                    // console.log("resultado: ");
+                    // console.log(filteredItems);
+                })
+                .catch(error => {
+                    console.error('Error fetching filtered items:', error);
+                });
         }
-    }, [filtersApplied, orderOption, orderDirection]); 
-    
+    }, [filtersApplied, orderOption, orderDirection]);
 
+    /**
+     * Fetches the tags from the server
+     */
     const handleShowTags = () => {
-        setLoading(true); 
+        setLoading(true);
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -122,7 +132,9 @@ function Home() {
                 setLoading(false);
             });
     };
-
+    /**
+     * Fetches the jobs from the server
+     */
     async function handleShowJobs(tagId, offset) {
         setLoading(true);
 
@@ -138,26 +150,26 @@ function Home() {
                 is_logged: isLogged
             }),
         })
-        .then((response)=>{
-            if(!response.ok){
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json()
-        })
-        .then((data)=>{
-            setJobs(prevJobs => ({
-                ...prevJobs,
-                [tagId]: data,
-            }));
-        })
-        .catch((error)=>{
-            console.error('Error:', error);
-            setError(error.message);
-        })
-        .finally(()=>{
-            setLoading(false)
-            console.log("HA ACABADO DE CARGAR JOBS")
-        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json()
+            })
+            .then((data) => {
+                setJobs(prevJobs => ({
+                    ...prevJobs,
+                    [tagId]: data,
+                }));
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                setError(error.message);
+            })
+            .finally(() => {
+                setLoading(false)
+                console.log("HA ACABADO DE CARGAR JOBS")
+            })
     }
 
     useEffect(() => {
@@ -172,16 +184,21 @@ function Home() {
         }
     }, [tags]);
 
-    useEffect(()=>{
-        if(appliedFiltersCount>=1){
+    useEffect(() => {
+        if (appliedFiltersCount >= 1) {
             document.querySelector("#home main").style.overflow = "visible"
-        }else{
+        } else {
             document.querySelector("#home main").style.overflow = "hidden"
         }
-    },[appliedFiltersCount])
+    }, [appliedFiltersCount])
 
     const handleDeleteButton = (e) => {
-        // e.target.classList.toggle("activated-btt")
+        e.target.classList.toggle("activated-btt")
+        if (e.target.classList.contains("activated-btt")) {
+            e.target.innerHTML = t("cancel_del_jobs")
+        } else {
+            e.target.innerHTML = t("del_jobs")
+        }
         setDeleteJobState(!deleteJobState);
     }
 
@@ -194,13 +211,13 @@ function Home() {
             <div id='home'>
                 <Filters onFiltersAppliedChange={handleFiltersAppliedChange} />
                 <main>
-                {jobMenu && (
-    <NewJob
-        closeNewJob={() => setNewJobMenu(false)}
-        tags={tags}
-        disableBackgroundFocus={true} 
-    />
-)}
+                    {jobMenu && (
+                        <NewJob
+                            closeNewJob={() => setNewJobMenu(false)}
+                            tags={tags}
+                            disableBackgroundFocus={true}
+                        />
+                    )}
                     {appliedFiltersCount >= 1 ? (
                         <div>
                             <div className='hp_searchedheader'>
@@ -234,73 +251,73 @@ function Home() {
                                     
                             </div>
                             <div className='hp_results'>
-                            {filteredItems.length > 0 ? (
-                                <>
-                                    <ul className='usr-key'>
-                                        <li></li>
-                                        <li className='author'>{t("project")}</li>
-                                        <li>{t("project")} {t("date")}</li>
-                                        <li>{t("layer_thickness")}</li>
-                                        <li>{t("weight")}</li>
-                                        <li className='job_likes_key'></li>
-                                    </ul>
-                                    {filteredItems.map(item => (
-                                        <FilteredJob
-                                        key={item.id}
-                                        id={item.id}
-                                        name={item.project_name}
-                                        job_user={item.username}
-                                        creation_date={item.creation_date}
-                                        img_format={item.img_format}
-                                        likes={item.likes}
-                                        license={item.license}
-                                        layerthickness={item.layer_thickness}
-                                        total_physical_weight={item.total_physical_weight}
-                                        delete_mode={deleteJobState}
-                                        onDeleteJob={onDeleteJob}
-                                        />
-                                    ))}
-                                </>
-                                
-                            ) : (
-                                <p>{t("no_results")}</p>
-                            )}
+                                {filteredItems.length > 0 ? (
+                                    <>
+                                        <ul className='usr-key'>
+                                            <li></li>
+                                            <li className='author'>{t("project")}</li>
+                                            <li>{t("project")} {t("date")}</li>
+                                            <li>{t("layer_thickness")}</li>
+                                            <li>{t("weight")}</li>
+                                            <li className='job_likes_key'></li>
+                                        </ul>
+                                        {filteredItems.map(item => (
+                                            <FilteredJob
+                                                key={item.id}
+                                                id={item.id}
+                                                name={item.project_name}
+                                                job_user={item.username}
+                                                creation_date={item.creation_date}
+                                                img_format={item.img_format}
+                                                likes={item.likes}
+                                                license={item.license}
+                                                layerthickness={item.layer_thickness}
+                                                total_physical_weight={item.total_physical_weight}
+                                                delete_mode={deleteJobState}
+                                                onDeleteJob={onDeleteJob}
+                                            />
+                                        ))}
+                                    </>
+
+                                ) : (
+                                    <p>{t("no_results")}</p>
+                                )}
+                            </div>
                         </div>
-                    </div>
                     ) : (
                         <div>
-                        {tags.length > 0 ? (
-                            <ul className="tags-list">
-                                {tags.map((tag, index) => (
-                                    <TagTemplate 
-                                        key={tag.id} 
-                                        jobs={jobs} 
-                                        tagId={tag.id} 
-                                        tagName={tag.name_tag}
-                                        handleShowJobs={handleShowJobs}
-                                        loadingJobs={loading}
-                                    />
-                                ))}
-                            </ul>
-                        ) : (
-                            <p>{t("no_tags")}</p> 
-                        )}
-                    </div>
+                            {tags.length > 0 ? (
+                                <ul className="tags-list">
+                                    {tags.map((tag, index) => (
+                                        <TagTemplate
+                                            key={tag.id}
+                                            jobs={jobs}
+                                            tagId={tag.id}
+                                            tagName={tag.name_tag}
+                                            handleShowJobs={handleShowJobs}
+                                            loadingJobs={loading}
+                                        />
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p>{t("no_tags")}</p>
+                            )}
+                        </div>
                     )}
                 </main>
                 {isLogged && (
                     <div
-                    onClick={() => setNewJobMenu(true)}
-                    id="upload-button"
-                    tabIndex="0"
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                            setNewJobMenu(true);
-                        }
-                    }}
-                >
-                    <p>+</p>
-                </div>
+                        onClick={() => setNewJobMenu(true)}
+                        id="upload-button"
+                        tabIndex="0"
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                setNewJobMenu(true);
+                            }
+                        }}
+                    >
+                        <p>+</p>
+                    </div>
                 )}
             </div>
         </>

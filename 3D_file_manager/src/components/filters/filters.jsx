@@ -27,8 +27,8 @@ function Filters({ onFiltersAppliedChange }) {
     const [isLayerThicknessVisible, setIsLayerThicknessVisible] = useState(false);
     const [isMaterialVisible, setIsMaterialVisble] = useState(false);
     const [areMobileFiltersVisible, setAreMobileFiltersVisible] = useState(false);
-    const [filtersApplied, setFiltersApplied] = useState({ textname: '', date: '', tags: [], color: '', customer: '', minlayerthickness: '', maxlayerthickness: '', material: ''});
-    
+    const [filtersApplied, setFiltersApplied] = useState({ textname: '', date: '', tags: [], color: '', customer: '', minlayerthickness: '', maxlayerthickness: '', material: '' });
+
     const [minLayerThicknessValue, setMinLayerThicknessValue] = useState(0);
     const [maxLayerThicknessValue, setMaxLayerThicknessValue] = useState(100);
 
@@ -107,7 +107,7 @@ function Filters({ onFiltersAppliedChange }) {
     useEffect(() => {
         const minLayerThickness = minLayerThicknessValue === 0 ? '' : (minLayerThicknessValue / 100).toFixed(2);
         const maxLayerThickness = maxLayerThicknessValue === 100 ? '' : (maxLayerThicknessValue / 100).toFixed(2);
-    
+
         const newFiltersApplied = {
             textname: selectedTextName,
             date: selectedDate,
@@ -124,7 +124,7 @@ function Filters({ onFiltersAppliedChange }) {
             onFiltersAppliedChange(newFiltersApplied);
         }
     }, [selectedTextName, selectedDate, selectedTags, selectedColor, selectedCustomer, minLayerThicknessValue, maxLayerThicknessValue, selectedMaterial]);
-    
+
     /**
      * useEffect is used to fetch the tags and the customers from the database when the component is mounted
      */
@@ -206,16 +206,16 @@ function Filters({ onFiltersAppliedChange }) {
                     <div id={("name_") + filtersApplied.textname} className='filter_style'><p><FontAwesomeIcon icon={faSignature} title='Name Filter' /> {filtersApplied.textname}</p></div>
                 )}
                 {filtersApplied.date && (
-                    <div id={("date_") + filtersApplied.date} className='filter_style'><p><FontAwesomeIcon icon={faCalendar} title='Date Filter'/> {filtersApplied.date}</p></div>    
+                    <div id={("date_") + filtersApplied.date} className='filter_style'><p><FontAwesomeIcon icon={faCalendar} title='Date Filter' /> {filtersApplied.date}</p></div>
                 )}
                 {filtersApplied.tags.length > 0 && filtersApplied.tags.map((tag) => (
-                    <div id={("tag_") + tag} key={tag} className='filter_style'><FontAwesomeIcon icon={faTag} title='Tag filter'/><p>{tag}</p></div>
+                    <div id={("tag_") + tag} key={tag} className='filter_style'><FontAwesomeIcon icon={faTag} title='Tag filter' /><p>{tag}</p></div>
                 ))}
                 {filtersApplied.color && (
-                    <div id={("color_") + filtersApplied.color} className='filter_style'><p><FontAwesomeIcon icon={faPaintBrush} title='Color Filter'/> {filtersApplied.color}</p></div>
+                    <div id={("color_") + filtersApplied.color} className='filter_style'><p><FontAwesomeIcon icon={faPaintBrush} title='Color Filter' /> {filtersApplied.color}</p></div>
                 )}
                 {filtersApplied.customer && (
-                    <div id={("customer") + filtersApplied.customer} className='filter_style'><p><FontAwesomeIcon icon={faBuilding} title='Customer Filter'/> {filtersApplied.customer}</p></div>
+                    <div id={("customer") + filtersApplied.customer} className='filter_style'><p><FontAwesomeIcon icon={faBuilding} title='Customer Filter' /> {filtersApplied.customer}</p></div>
                 )}
                 {filtersApplied.minlayerthickness > 0 && (
                     <div id={("min-layerthickness_") + filtersApplied.minlayerthickness} className='filter_style'><p><FontAwesomeIcon icon={faPenNib} /> {t("min_layer_thickness")}: {filtersApplied.minlayerthickness}</p></div>
@@ -224,7 +224,7 @@ function Filters({ onFiltersAppliedChange }) {
                     <div id={("max-layerthickness_") + filtersApplied.maxlayerthickness} className='filter_style'><p><FontAwesomeIcon icon={faPenNib} /> {t("max_layer_thickness")}: {filtersApplied.maxlayerthickness}</p></div>
                 )}
                 {filtersApplied.material && (
-                    <div id={("material_")+filtersApplied.material} className='filter_style'><p><FontAwesomeIcon icon={faCube} /> {filtersApplied.material}</p></div>
+                    <div id={("material_") + filtersApplied.material} className='filter_style'><p><FontAwesomeIcon icon={faCube} /> {filtersApplied.material}</p></div>
                 )}
 
             </div>
@@ -241,30 +241,30 @@ function Filters({ onFiltersAppliedChange }) {
                         placeholder={t('search_by_name')}
                     />
                 </div>
-                <label className='date_label' onClick={toggleDateVisibility} style={{ cursor: 'pointer' }} tabIndex="0" 
-                onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                        toggleDateVisibility();
-                    }
-                }}
+                <label className='date_label' onClick={toggleDateVisibility} style={{ cursor: 'pointer' }} tabIndex="0"
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            toggleDateVisibility();
+                        }
+                    }}
                 >
                     {t('date')} {isDateVisible ? '▲' : '▼'}
                 </label>
                 <input
-                    style={{ display: isDateVisible ? 'block' : 'none' }} 
+                    style={{ display: isDateVisible ? 'block' : 'none' }}
                     onChange={handleDateChange}
                     id="search_by_date"
                     type="date"
                     placeholder='Search by printjob name...'
-                /> 
+                />
                 <fieldset>
                     <legend onClick={toggleTagVisibility} style={{ cursor: 'pointer' }}
-                    tabIndex="0"
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                            toggleTagVisibility();
-                        }
-                    }}
+                        tabIndex="0"
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                toggleTagVisibility();
+                            }
+                        }}
                     >
                         {t('tags')} {isTagVisible ? '▲' : '▼'}
                     </legend>
@@ -285,12 +285,12 @@ function Filters({ onFiltersAppliedChange }) {
                 </fieldset>
 
                 <label className='customer_label' onClick={toggleCustomerVisibility} style={{ cursor: 'pointer' }}
-                onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                        toggleCustomerVisibility();
-                    }
-                }}
-                tabIndex="0"
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            toggleCustomerVisibility();
+                        }
+                    }}
+                    tabIndex="0"
                 >
                     {t('customer')} {isCustomerVisible ? '▲' : '▼'}
                 </label>
@@ -304,12 +304,12 @@ function Filters({ onFiltersAppliedChange }) {
                 </div>
 
                 <label className='color_label' onClick={toggleColorVisibility} style={{ cursor: 'pointer' }}
-                onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                        toggleColorVisibility();
-                    }
-                }}
-                tabIndex="0"
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            toggleColorVisibility();
+                        }
+                    }}
+                    tabIndex="0"
                 >
                     {t('colors')} {isColorsVisible ? '▲' : '▼'}
                 </label>
@@ -331,12 +331,12 @@ function Filters({ onFiltersAppliedChange }) {
                     </select>
                 </div>
                 <label className='range_label' onClick={toggleLayerThicknessVisibility} style={{ cursor: 'pointer' }}
-                onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                        toggleLayerThicknessVisibility();
-                    }
-                }}
-                tabIndex="0"
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            toggleLayerThicknessVisibility();
+                        }
+                    }}
+                    tabIndex="0"
                 >
                     {t("layer_thickness")} {isLayerThicknessVisible ? '▲' : '▼'}
                 </label>
@@ -362,23 +362,23 @@ function Filters({ onFiltersAppliedChange }) {
                     <p>{t("layer_thickness_range")}: {(minLayerThicknessValue / 100).toFixed(2)} - {(maxLayerThicknessValue / 100).toFixed(2)}</p>
                 </div>
                 <label className='material_label' onClick={toggleMaterialVisibility} style={{ cursor: 'pointer' }}
-                onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                        toggleMaterialVisibility();
-                    }
-                }}
-                tabIndex="0"
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            toggleMaterialVisibility();
+                        }
+                    }}
+                    tabIndex="0"
                 >
                     {t("material")} {isMaterialVisible ? '▲' : '▼'}
                 </label>
                 <input
-                    style={{ display: isMaterialVisible ? 'block' : 'none' }} 
+                    style={{ display: isMaterialVisible ? 'block' : 'none' }}
                     onChange={handleMaterialChange}
                     id="search_by_material"
                     type="text"
-                    placeholder= {t("search_material")}
-                /> 
-                
+                    placeholder={t("search_material")}
+                />
+
 
             </form>
         </div>

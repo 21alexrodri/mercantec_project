@@ -29,7 +29,7 @@ export const Signup = ({ closeSignup, onUserCreated }) => {
         const { name, value } = e.target;
         setDataSend((prevData) => ({
             ...prevData,
-            [name]: value 
+            [name]: value
         }));
     };
 
@@ -109,7 +109,7 @@ export const Signup = ({ closeSignup, onUserCreated }) => {
     useEffect(() => {
         document.addEventListener("keydown", escFunction, false);
         return () => {
-            document.removeEventListener("keydown", escFunction, false); 
+            document.removeEventListener("keydown", escFunction, false);
         };
     }, []);
 
@@ -124,27 +124,27 @@ export const Signup = ({ closeSignup, onUserCreated }) => {
                 </div>
                 <div className="credentials_body">
                     <form id="signup_form" onSubmit={send_data}>
-                    <label className="username-lbl" htmlFor="email">{t("email")}
-                    <span className="tooltip-container">
-                        <span className="tooltip-icon">?</span>
-                        <span className="tooltip-text">
-                            {t("rules_signup")}<br /> <br />
-                            <FontAwesomeIcon icon={faCaretRight} /> {t("spacebar")}<br />
-                            <FontAwesomeIcon icon={faCaretRight} /> {t("special_char")} &lt;, &gt;, ", '... {t("exception_char")}<br />
-                            <FontAwesomeIcon icon={faCaretRight} /> {t("min_char")}
-                        </span>
-                    </span>    
-                    </label>
-                    <input id="email_prompt" type="text" name="email" value={dataSend.email} onChange={handleChange} autoFocus /><br />
-                    <label htmlFor="username">{t("username")}</label><br />
-                    <input id="username_prompt" type="text" name="username" value={dataSend.username} onChange={handleChange} /><br />
-                    <label htmlFor="password">{t("password")}</label><br />
-                    <input id="password_prompt" type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
-                    <br />
-                    <input type="submit" value="SIGN UP" className="credentials_submit_button" />
-                    {showPopup && (
-                    <Popup message={errorMsg} status="warning"/>
-                )}
+                        <label className="username-lbl" htmlFor="email">{t("email")}
+                            <span className="tooltip-container">
+                                <span className="tooltip-icon">?</span>
+                                <span className="tooltip-text">
+                                    {t("rules_signup")}<br /> <br />
+                                    <FontAwesomeIcon icon={faCaretRight} /> {t("spacebar")}<br />
+                                    <FontAwesomeIcon icon={faCaretRight} /> {t("special_char")} &lt;, &gt;, ", '... {t("exception_char")}<br />
+                                    <FontAwesomeIcon icon={faCaretRight} /> {t("min_char")}
+                                </span>
+                            </span>
+                        </label>
+                        <input id="email_prompt" type="text" name="email" value={dataSend.email} onChange={handleChange} autoFocus /><br />
+                        <label htmlFor="username">{t("username")}</label><br />
+                        <input id="username_prompt" type="text" name="username" value={dataSend.username} onChange={handleChange} /><br />
+                        <label htmlFor="password">{t("password")}</label><br />
+                        <input id="password_prompt" type="password" name="password" value={dataSend.password} onChange={handleChange} /><br />
+                        <br />
+                        <input type="submit" value="SIGN UP" className="credentials_submit_button" />
+                        {showPopup && (
+                            <Popup message={errorMsg} status="warning" />
+                        )}
                     </form>
                 </div>
             </div>

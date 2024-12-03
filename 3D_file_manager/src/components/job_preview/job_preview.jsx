@@ -3,14 +3,19 @@ import * as THREE from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
 import { ThreeMFLoader } from 'three/examples/jsm/loaders/3MFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-
+/**
+ * A component to show a preview of a 3D model
+ * @param {modelPath} the path of the model to be shown
+ * @param {fileColor} the color of the model 
+ * @returns a preview of the model
+ */
 const JobPreview = ({ modelPath, fileColor }) => {
   const mountRef = useRef(null);
   const requestIdRef = useRef(null);
 
   useEffect(() => {
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x808080); // Fondo gris
+    scene.background = new THREE.Color(0x808080);
 
     const camera = new THREE.PerspectiveCamera(
       75,
@@ -40,6 +45,10 @@ const JobPreview = ({ modelPath, fileColor }) => {
     const absolutePath = modelPath;
     console.log("Attempting to load model from:", absolutePath);
 
+    /**
+     * Loads the model into the scene
+     * @returns The model loaded into the scene
+     */
     const loadModel = () => {
       const extension = modelPath.split('.').pop().toLowerCase();
       let loader;
@@ -57,7 +66,7 @@ const JobPreview = ({ modelPath, fileColor }) => {
         absolutePath,
         (object) => {
           try {
-            const materialColor = new THREE.Color(fileColor || '#808080'); // Color por defecto
+            const materialColor = new THREE.Color(fileColor || '#808080');
             console.log('Color aplicado:', materialColor);
 
             const material = new THREE.MeshPhongMaterial({
@@ -99,12 +108,18 @@ const JobPreview = ({ modelPath, fileColor }) => {
       );
     };
 
+    /**
+     * Centers and scales the object in the scene
+     * @param {object} the object to be centered and scaled 
+     * @param {camera} the camera  
+     * @param {controls} the controls 
+     */
     const centerAndScaleObject = (object, camera, controls) => {
       const boundingBox = new THREE.Box3().setFromObject(object);
       const center = new THREE.Vector3();
       boundingBox.getCenter(center);
 
-      // Reposicionar el objeto al origen
+
       object.position.sub(center);
 
       const size = new THREE.Vector3();

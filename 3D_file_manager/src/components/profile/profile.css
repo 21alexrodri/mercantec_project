@@ -20,6 +20,8 @@
 
 .admin_ctrl_panel > button{
     margin: 0.5em;
+    min-height: 2.2rem;
+    min-width: 2.2rem;
 }
 
 .profile_page img.profile_picture {
@@ -38,7 +40,7 @@
 .profile_page button.profile_button {
     display: inline;
     line-height: 2em;
-    font-size: 1vw;
+    font-size: 1.1rem;
 
     border: 2px #0E38AB solid;
     background-color: #0E38AB;
@@ -297,6 +299,41 @@
 
 @media (max-width: 1100px) {
     .profile_jobs_section .job-item-list {
-        height: 9vw;
+        height: 11vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile_page {
+        flex-direction: column;
+    }
+
+    .profile_jobs_section .job-item-list {
+        height: 13vw;
+    }
+
+    img.profile_picture {
+        max-width: 20%;
+    }
+
+    .profile_jobs_section_header{
+        flex-wrap: wrap;
+
+    }
+}
+@media (max-width: 435px) {
+    .profile_jobs_section_header{
+        margin-bottom: 10px;
+    }
+    .job-delete-btt{
+        margin:10px 0 0 0;
+    }
+
+    .profile-search-project-name{
+        margin-right: 0.4rem;
+    }
+
+    .profile_jobs_section_title{
+        margin-right: 40%;
     }
 }

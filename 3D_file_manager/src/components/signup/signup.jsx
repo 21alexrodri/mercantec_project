@@ -130,7 +130,7 @@ export const Signup = ({ closeSignup, onUserCreated }) => {
                         <span className="tooltip-text">
                             {t("rules_signup")}<br /> <br />
                             <FontAwesomeIcon icon={faCaretRight} /> {t("spacebar")}<br />
-                            <FontAwesomeIcon icon={faCaretRight} /> {t("special_char")} &lt;, &gt;, ", '...<br />
+                            <FontAwesomeIcon icon={faCaretRight} /> {t("special_char")} &lt;, &gt;, ", '... {t("exception_char")}<br />
                             <FontAwesomeIcon icon={faCaretRight} /> {t("min_char")}
                         </span>
                     </span>    

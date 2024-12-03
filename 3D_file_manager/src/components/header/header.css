@@ -36,9 +36,9 @@ li.link_li a:hover{
 }
 
 .login_btn, .signup_btn{
-    background-color: transparent;
-    border: 2px solid rgb(237, 123, 191);
-    border-radius: 5px;
+   background-color: transparent;
+   border: 2px solid #ff8387;
+   border-radius: 5px;
     padding: 5px 10px;
     color: #FF8387;
     font-size: 17px;
@@ -47,7 +47,7 @@ li.link_li a:hover{
 }
 
 .login_btn:hover, .signup_btn:hover{
-    background-color: rgb(237, 123, 191);
+    background-color: #ff8387;
     color: white;
     transition: all 0.2s ease;
 }

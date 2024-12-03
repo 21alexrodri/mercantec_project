@@ -121,7 +121,7 @@ function Header() {
                 </div>
                 
                 )}
-                <a className='help_direction' href='help'><FontAwesomeIcon icon={faCircleInfo} /></a>
+                <a className='help_direction' href='about'><FontAwesomeIcon icon={faCircleInfo} /></a>
             </div>
             </div>
             {showSuccessPopup && (
@@ -178,7 +178,7 @@ function Header() {
                 </div>
                 
                 )}
-                <a className='help_direction' href='help'><FontAwesomeIcon icon={faCircleInfo} /></a>
+                <a className='help_direction' href='about'><FontAwesomeIcon icon={faCircleInfo} /></a>
             </div>
             </div> 
             

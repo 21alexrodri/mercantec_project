@@ -7,7 +7,7 @@ import { NewJob } from '../new_job/new_job';
 import { UserContext } from '../../context/UserContext';
 import FilteredJob from '../filtered_job/filtered_job';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSort, faArrowDownShortWide, faArrowDownWideShort } from '@fortawesome/free-solid-svg-icons';
+import { faSort, faArrowDownShortWide, faArrowDownWideShort, faTrash } from '@fortawesome/free-solid-svg-icons';
 /**
  * Home page
  * @returns The home page
@@ -26,6 +26,7 @@ function Home() {
     const [isOrderDropdownOpen, setIsOrderDropdownOpen] = useState(false);
     const [orderOption, setOrderOption] = useState('');
     const [deleteJobState, setDeleteJobState] = useState(false);
+    const [orderByOpened,setOrderByOpened] = useState(false);
 
     const handleOrderSelection = (option) => {
         setOrderOption(option);
@@ -221,30 +222,35 @@ function Home() {
                         <div>
                             <div className='hp_searchedheader'>
                                 <h2 className='hp_searchedfiles'>{t('searched_files')}</h2>
-
-                                <div className='order-controls'>
-
-                                    <div className='order' onClick={() => setIsOrderDropdownOpen(!isOrderDropdownOpen)}>
-                                        <FontAwesomeIcon icon={faSort} /> <p className='order-by-text'>{t("order_by")}</p>
-
-                                        <ul className="order-dropdown">
-                                            <li onClick={() => handleOrderSelection('name')}>{t("name")}</li>
-                                            <li onClick={() => handleOrderSelection('username')}>{t("username")}</li>
-                                            <li onClick={() => handleOrderSelection('date')}>{t("date")}</li>
-                                            <li onClick={() => handleOrderSelection('likes')}>{t("likes")}</li>
-                                            <li onClick={() => handleOrderSelection('layerthickness')}>{t("layer_thickness")}</li>
-                                            <li onClick={() => handleOrderSelection('weight')}>{t("weight")}</li>
-                                        </ul>
-
+                                    
+                                    <div className='order-controls'>
+                                    
+                                        <div className={'order ' + (isOrderDropdownOpen ? "open" : "")} onClick={() => setIsOrderDropdownOpen(!isOrderDropdownOpen)}>
+                                            <div className='title'>
+                                            <FontAwesomeIcon icon={faSort} /> <p className='order-by-text'>{t("order_by")}</p>
+                                            </div>
+                                            
+                                            
+                                            <ul className={"order-dropdown "+(isOrderDropdownOpen ? "" : "")}>
+                                                <li onClick={() => handleOrderSelection('name')}>{t("name")}</li>
+                                                <li onClick={() => handleOrderSelection('username')}>{t("username")}</li>
+                                                <li onClick={() => handleOrderSelection('date')}>{t("date")}</li>
+                                                <li onClick={() => handleOrderSelection('likes')}>{t("likes")}</li>
+                                                <li onClick={() => handleOrderSelection('layerthickness')}>{t("layer_thickness")}</li>
+                                                <li onClick={() => handleOrderSelection('weight')}>{t("weight")}</li>
+                                            </ul>
+                                            
+                                        </div>
+                                        <button className='order-direction-button' onClick={toggleOrderDirection}>
+                                            {orderDirection === 'ASC' ? <FontAwesomeIcon icon={faArrowDownShortWide} /> : <FontAwesomeIcon icon={faArrowDownWideShort} />}
+                                        </button>
+                                        {(isAdmin) ? (<div className='job-delete-btt' onClick={handleDeleteButton}>
+                                            <FontAwesomeIcon icon={faTrash}/>
+                                        </div>) : (<></>)}
                                     </div>
-                                    <button className='order-direction-button' onClick={toggleOrderDirection}>
-                                        {orderDirection === 'ASC' ? <FontAwesomeIcon icon={faArrowDownShortWide} /> : <FontAwesomeIcon icon={faArrowDownWideShort} />}
-                                    </button>
-                                    {(isAdmin) ? (<div className='job-delete-btt' onClick={handleDeleteButton}>{t("del_jobs")}</div>) : (<></>)}
-                                </div>
-
+                                    
                             </div>
-                            <div>
+                            <div className='hp_results'>
                                 {filteredItems.length > 0 ? (
                                     <>
                                         <ul className='usr-key'>

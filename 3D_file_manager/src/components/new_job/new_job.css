@@ -218,8 +218,8 @@
     }
 }
 .nj-tags-added{
-    width: 15vw;
-    height: 4vw;
+    width: 12rem;
+    height: 2rem;
     background-color: #ebebeb;
     border-radius: 1vw;
     display: flex;
@@ -333,7 +333,7 @@
         margin: 0;
     }
     .nj-select-customer{
-        height: 2vw;
+        height: 2rem;
         border-radius: 9999vw;
     }
     
@@ -661,6 +661,38 @@
     background-color: #FF5A5E;
 }
 .nj-select-tags{
-    height: 2vw;
+    height: 2rem;
     border-radius: 9999vw;
+}
+
+
+@media (max-width: 1000px) {
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .lower {
+        flex-direction: column;
+    }
+    .lower-right {
+        justify-content: center;
+    }
+
+    .form-container > div:not(.color_box) {
+        width: 100%;
+    }
+    .licence_box {
+        width: fit-content !important;
+    }
+
+    .tags_box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .description_input {
+        height: 10rem !important;
+    }
 }

@@ -1,0 +1,60 @@
+
+footer{
+    background-color: #0E38AB;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    bottom: 0;
+    width: 100%;
+    position: relative;
+    z-index: 998;
+}
+  
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer-section {
+    margin: 10px;
+    flex: 1;
+  }
+  
+  .footer-section h4 {
+    margin-bottom: 10px;
+  }
+  
+  .footer-section p {
+    margin: 5px 0;
+  }
+  
+  .footer-section a {
+    color: #1e90ff;
+    text-decoration: none;
+  }
+  
+  .footer-section a:hover {
+    text-decoration: underline;
+  }
+
+  #mercantec_logo_footer{
+    background-image: url("/3D_printer/Files/img/logo.svg");
+    margin-left: 0;
+    margin-left: 25%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 14rem;
+    height: 4rem;
+}
+
+#info{
+  margin-top: 19px;
+  line-height: 150%;
+}
+
+#contact{
+  line-height: 150%;
+  margin-top: 13px
+}

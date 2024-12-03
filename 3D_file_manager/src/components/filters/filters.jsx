@@ -26,6 +26,7 @@ function Filters({ onFiltersAppliedChange }) {
     const [isCustomerVisible, setIsCustomerVisible] = useState(false);
     const [isLayerThicknessVisible, setIsLayerThicknessVisible] = useState(false);
     const [isMaterialVisible, setIsMaterialVisble] = useState(false);
+    const [areMobileFiltersVisible, setAreMobileFiltersVisible] = useState(false);
     const [filtersApplied, setFiltersApplied] = useState({ textname: '', date: '', tags: [], color: '', customer: '', minlayerthickness: '', maxlayerthickness: '', material: '' });
 
     const [minLayerThicknessValue, setMinLayerThicknessValue] = useState(0);
@@ -53,6 +54,11 @@ function Filters({ onFiltersAppliedChange }) {
     };
     const toggleMaterialVisibility = () => {
         setIsMaterialVisble(!isMaterialVisible);
+    }
+
+    const handleShowFilters = (e) => {
+        e.target.innerHTML = e.target.innerHTML === t("show_filters") ? t("hide_filters") : t("show_filters")
+        setAreMobileFiltersVisible(!areMobileFiltersVisible)
     }
 
     /**
@@ -203,7 +209,7 @@ function Filters({ onFiltersAppliedChange }) {
                     <div id={("date_") + filtersApplied.date} className='filter_style'><p><FontAwesomeIcon icon={faCalendar} title='Date Filter' /> {filtersApplied.date}</p></div>
                 )}
                 {filtersApplied.tags.length > 0 && filtersApplied.tags.map((tag) => (
-                    <div id={("tag_") + tag} key={tag} className='filter_style'><FontAwesomeIcon icon={faTag} title='Tag filter' /> {tag}</div>
+                    <div id={("tag_") + tag} key={tag} className='filter_style'><FontAwesomeIcon icon={faTag} title='Tag filter' /><p>{tag}</p></div>
                 ))}
                 {filtersApplied.color && (
                     <div id={("color_") + filtersApplied.color} className='filter_style'><p><FontAwesomeIcon icon={faPaintBrush} title='Color Filter' /> {filtersApplied.color}</p></div>
@@ -223,15 +229,18 @@ function Filters({ onFiltersAppliedChange }) {
 
             </div>
 
-            <h2 className='filter_title'>{t('filters')}</h2>
-            <form className="filter_form" onSubmit={handleFormSubmit}>
-                <button title='Delete all filters' className='clearFilter-button' onClick={clearFilters}><FontAwesomeIcon icon={faTrash} /></button>
-                <input
-                    onChange={handleTextChange}
-                    id="search_by_name"
-                    type="text"
-                    placeholder={t('search_by_name')}
-                />
+           <button onClick={handleShowFilters} className='show-filters-btt'>{t("show_filters")}</button> 
+            <h2 className={"filter_title " + (areMobileFiltersVisible ? ("show-filters") : (""))}>{t('filters')}</h2>
+            <form className={"filter_form " + (areMobileFiltersVisible ? ("show-filters") : (""))} onSubmit={handleFormSubmit}>
+                <div className='search_and_delete'>
+                    <button title='Delete all filters' className='clearFilter-button' onClick={clearFilters}><FontAwesomeIcon icon={faTrash} /></button>
+                    <input
+                        onChange={handleTextChange}
+                        id="search_by_name"
+                        type="text"
+                        placeholder={t('search_by_name')}
+                    />
+                </div>
                 <label className='date_label' onClick={toggleDateVisibility} style={{ cursor: 'pointer' }} tabIndex="0"
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {

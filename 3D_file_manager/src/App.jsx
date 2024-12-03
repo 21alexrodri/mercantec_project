@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
 import Home from './components/home/home'
 import Header from './components/header/header'
+import Footer from './components/footer/footer'
 import Profile from './components/profile/profile'
 import Error_Page from './components/error_page/error_page'
 import JobPage from "./components/job_page/job_page";
@@ -27,9 +28,8 @@ function App() {
         <Route path="*" element={<Error_Page />} />
       </Routes>
     </Router>
-    <footer>
-        <p>&copy; 2024 Mercantec 3D Print Archive. All rights reserved.</p>
-    </footer>
+    <Footer />
+
     </UserProvider>
     </>
   )

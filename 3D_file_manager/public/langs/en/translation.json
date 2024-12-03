@@ -257,6 +257,17 @@
     "search_material": "Search by material...",
     "write_comment": "Write a new comment",
     "physical_weight": "Physical Weight",
-    "public": "Public"
+    "public": "Public",
+    "footer_info": "Contact Information",
+    "footer_mail": "Mail",
+    "footer_phone": "Phone",
+    "footer_copy":"2024 Mercantec 3D Print Archive. All rights reserved.",
+    "footer_text1": "Learn more about our project in the ",
+    "footer_text2": "section",
+    "footer_text4": "GitHub repository ",
+    "footer_text5": "Help",
+    "footer_text6": "About Us",
+    "footer_text7": "Check out our ",
+    "footer_text8": "You can explore the source code on our "
   }
   

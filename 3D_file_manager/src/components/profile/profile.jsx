@@ -39,6 +39,8 @@ function Profile() {
         e.preventDefault()
         let customerName = document.getElementById("nc-name").value
         let customerMail = document.getElementById("nc-email").value
+        let customerPhone = document.getElementById("nc-phone").value
+        let customerDesc = document.getElementById("nc-desc").value
         let willReturn = false
 
         if (!isLogged) {
@@ -52,7 +54,6 @@ function Profile() {
             setShowPopup(true)
             
             setTimeout(() => setShowPopup(false), 3000);
-            // alert("You must introduce a customer name")
             willReturn = true
         }
         if (customerMail == "") {
@@ -62,7 +63,6 @@ function Profile() {
             setShowPopup(true)
             
             setTimeout(() => setShowPopup(false), 3000);
-            // alert("You must introduce the customer email")
             willReturn = true
         }
 
@@ -80,9 +80,24 @@ function Profile() {
                 admin: isAdmin,
                 name: customerName,
                 email: customerMail,
-                phone: document.getElementById("nc-phone").value,
-                desc: document.getElementById("nc-desc").value
+                phone: customerPhone,
+                desc: customerDesc
             })
+        }).then((response) => {
+            if(response.ok){
+                setAlertMessage(t("customer-suggest-sent"))
+                setPopupStatus("success")
+
+                setShowPopup(true)
+                
+                setTimeout(() => setShowPopup(false), 3000);
+
+                document.getElementById("nc-name").value = ""
+                document.getElementById("nc-email").value = ""
+                document.getElementById("nc-phone").value = ""
+                document.getElementById("nc-desc").value = ""
+            }
+            
         })
     }
 
@@ -125,7 +140,13 @@ function Profile() {
             return response.json()
         }).then((data) => {
             document.getElementById("new-tag-input").value = ""
+
+            setAlertMessage(t("tag-suggest-sent"))
+            setPopupStatus("success")
+
             setShowPopup(true)
+
+            setTimeout(() => setShowPopup(false), 3000);
         })
     }
     /**

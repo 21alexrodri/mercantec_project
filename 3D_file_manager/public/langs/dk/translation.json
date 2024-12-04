@@ -298,6 +298,8 @@
     "tag-error": "Du skal angive et tag-navn",
     "customer-name-error": "Du skal angive et kundenavn",
     "customer-mail-error": "Du skal angive et kundemail",
+    "tag-suggest-sent": "Tagforslag sendt korrekt",
+    "customer-suggest-sent": "Kundeforslag sendt korrekt",
     "confirm": "Bekræft"
   }
   

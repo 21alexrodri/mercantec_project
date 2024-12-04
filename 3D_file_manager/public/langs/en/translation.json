@@ -298,6 +298,8 @@
     "tag-error":"You must introduce a tag name",
     "customer-name-error": "You must introduce a customer name",
     "customer-mail-error": "You must introduce a customer name",
+    "tag-suggest-sent": "Tag suggestion sent correctly",
+    "customer-suggest-sent": "Customer suggestion sent correctly",
     "confirm": "Confirm"
   }
   

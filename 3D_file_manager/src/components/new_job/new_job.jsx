@@ -323,7 +323,7 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                console.log("Files uploaded successfully:", data);
+                                //console.log("Files uploaded successfully:", data);
                                 window.location.href = '/home';
                             } else {
                                 setShowPopup(true);

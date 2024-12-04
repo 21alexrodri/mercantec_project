@@ -97,7 +97,7 @@ export const JobPage = () => {
             })
             .then((data) => {
                 if (data.status === 'success') {
-                    console.log(data.tags);
+                    //console.log(data.tags);
                     setTags(data.tags); 
                 } else {
                     console.error('Error in response:', data.message);
@@ -162,7 +162,7 @@ export const JobPage = () => {
                     otherJobs: shuffledOtherJobs,
                     comments: data.job.comments || []
                 });
-                console.log(jobData)
+                //console.log(jobData)
                 setLikes(data.job.likes); 
             } else {
                 setErrorShowPopup(true);

@@ -43,7 +43,7 @@ const JobPreview = ({ modelPath, fileColor }) => {
     controls.enableDamping = true;
 
     const absolutePath = modelPath;
-    console.log("Attempting to load model from:", absolutePath);
+    //console.log("Attempting to load model from:", absolutePath);
 
     /**
      * Loads the model into the scene
@@ -67,7 +67,7 @@ const JobPreview = ({ modelPath, fileColor }) => {
         (object) => {
           try {
             const materialColor = new THREE.Color(fileColor || '#808080');
-            console.log('Color aplicado:', materialColor);
+            //console.log('Color aplicado:', materialColor);
 
             const material = new THREE.MeshPhongMaterial({
               color: materialColor,

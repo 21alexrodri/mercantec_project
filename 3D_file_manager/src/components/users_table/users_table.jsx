@@ -1,8 +1,9 @@
-import { useCallback, useState, useEffect, act } from "react";
+import { useCallback, useState, useEffect } from "react";
 import "./users_table.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
+
 /**
  * Admin's table to manage users.
  * @param {closeUserTable} it closes the table 
@@ -43,13 +44,13 @@ export const UserTable = ({ closeUserTable }) => {
                 if (data.status === 'success') {
                     setUsersList(prevUsersList =>
                         prevUsersList.map(user =>
-                            user.id === id ? { ...user, active: newActiveState } : user
+                            String(user.id) === String(id) ? { ...user, active: newActiveState } : user
                         )
                     );
 
                     setFilteredUsers(prevFilteredUsers =>
                         prevFilteredUsers.map(user =>
-                            user.id === id ? { ...user, active: newActiveState } : user
+                            String(user.id) === String(id) ? { ...user, active: newActiveState } : user
                         )
                     );
                 } else {
@@ -83,16 +84,15 @@ export const UserTable = ({ closeUserTable }) => {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    console.log("ENTRA EN SUCCESS")
                     setUsersList(prevUsersList =>
                         prevUsersList.map(user =>
-                            user.id === id ? { ...user, is_admin: newAdminState } : user
+                            String(user.id) === String(id) ? { ...user, is_admin: newAdminState } : user
                         )
                     );
 
                     setFilteredUsers(prevFilteredUsers =>
                         prevFilteredUsers.map(user =>
-                            user.id === id ? { ...user, is_admin: newAdminState } : user
+                            String(user.id) === String(id) ? { ...user, is_admin: newAdminState } : user
                         )
                     );
                 }
@@ -100,7 +100,7 @@ export const UserTable = ({ closeUserTable }) => {
             .catch(error => {
                 console.error('Error getting all users:', error);
             });
-    }
+    };
 
     const handleSearch = (e) => {
         const value = e.target.value.toLowerCase();
@@ -137,13 +137,50 @@ export const UserTable = ({ closeUserTable }) => {
         })
             .then(response => response.json())
             .then(data => {
-                setUsersList(data);
-                setFilteredUsers(data);
+                // Inicializamos isDeleted en false para todos los usuarios
+                const usersWithIsDeleted = data.map(user => ({ ...user, isDeleted: false }));
+                setUsersList(usersWithIsDeleted);
+                setFilteredUsers(usersWithIsDeleted);
             })
             .catch(error => {
                 console.error('Error getting all users:', error);
             });
     }, []);
+
+    const handleDeleteUserAction = (id) => {
+        fetch('/3D_printer/3d_project/query.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                arg: 'deleteUserById',
+                id: id
+            }),
+            credentials: 'include',
+        })
+            .then(response => response.json())
+            .then(data => {
+                
+                    setUsersList(prevUsersList =>
+                        prevUsersList.map(user =>
+                            String(user.id) === String(id) ? { ...user, isDeleted: true } : user
+                        )
+                    );
+
+                    setFilteredUsers(prevFilteredUsers =>
+                        prevFilteredUsers.map(user =>
+                            String(user.id) === String(id) ? { ...user, isDeleted: true } : user
+                        )
+                    );
+            
+                    console.error('Error deleting user:', data.message);
+                
+            })
+            .catch(error => {
+                console.error('Error deleting user:', error);
+            });
+    };
 
     return (
         <div onClick={closeUserTable} className="blur_content">
@@ -167,54 +204,66 @@ export const UserTable = ({ closeUserTable }) => {
                             <thead>
                                 <tr>
                                     <th>{t("username")}</th>
-                                    <th>{t("admin")}</th>
                                     <th>{t("email")}</th>
                                     <th>{t("date")} {t("created")}</th>
                                     <th>{t("active")}</th>
                                     <th>{t("admin")}</th>
+                                    <th>{t("delete")}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {filteredUsers.map((user, index) => (
-                                    <tr key={index} className={index % 2 === 0 ? 'color_a' : 'color_b'}>
-                                        <td>{user.username}</td>
-                                        <td>{user.is_admin === 1 ? 'Yes' : 'No'}</td>
-                                        <td>{user.email}</td>
-                                        <td>{user.date_created}</td>
-                                        <td
-                                            id={user.id}
-                                            tabIndex="0"
-                                            onClick={() => {
-                                                changeUserState(user.id, user.active);
-                                            }}
-                                            onKeyDown={(e) => {
-                                                if (e.key === "Enter") {
+                                {filteredUsers.map((user, index) => {
+                                    if (user.isDeleted) {
+                                        return null; // No renderizamos la fila si el usuario está eliminado
+                                    }
+                                    return (
+                                        <tr
+                                            key={user.id}
+                                            className={index % 2 === 0 ? 'color_a' : 'color_b'}
+                                        >
+                                            <td>{user.username}</td>
+                                            <td>{user.email}</td>
+                                            <td>{user.date_created}</td>
+                                            <td
+                                                id={user.id}
+                                                tabIndex="0"
+                                                onClick={() => {
                                                     changeUserState(user.id, user.active);
-                                                }
-                                            }}
-                                            className={user.active == 1 ? 'user_active' : 'user_inactive'}
-                                            title={user.active == 1 ? 'User Enabled' : 'User Disabled'}
-                                        >
-                                            <FontAwesomeIcon icon={faCircle} />
-                                        </td>
-                                        <td
-                                            id={user.id}
-                                            tabIndex="0"
-                                            onClick={() => {
-                                                toggleAdmin(user.id, user.is_admin)
-                                            }}
-                                            onKeyDown={(e) => {
-                                                if (e.key === "Enter") {
+                                                }}
+                                                onKeyDown={(e) => {
+                                                    if (e.key === "Enter") {
+                                                        changeUserState(user.id, user.active);
+                                                    }
+                                                }}
+                                                className={user.active == 1 ? 'user_active' : 'user_inactive'}
+                                                title={user.active == 1 ? 'User Enabled' : 'User Disabled'}
+                                            >
+                                                <FontAwesomeIcon icon={faCircle} />
+                                            </td>
+                                            <td
+                                                id={user.id}
+                                                tabIndex="0"
+                                                onClick={() => {
                                                     toggleAdmin(user.id, user.is_admin);
-                                                }
-                                            }}
-                                            className={user.is_admin == 1 ? 'user_active' : 'user_inactive'}
-                                            title={user.is_admin == 1 ? 'Admin user' : 'Non admin user'}
-                                        >
-                                            <FontAwesomeIcon icon={faCircle} />
-                                        </td>
-                                    </tr>
-                                ))}
+                                                }}
+                                                onKeyDown={(e) => {
+                                                    if (e.key === "Enter") {
+                                                        toggleAdmin(user.id, user.is_admin);
+                                                    }
+                                                }}
+                                                className={user.is_admin == 1 ? 'user_active' : 'user_inactive'}
+                                                title={user.is_admin == 1 ? 'Admin user' : 'Non admin user'}
+                                            >
+                                                <FontAwesomeIcon icon={faCircle} />
+                                            </td>
+                                            <td>
+                                                <button onClick={() => { handleDeleteUserAction(user.id); }} className="delete">
+                                                    {t("delete")}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>

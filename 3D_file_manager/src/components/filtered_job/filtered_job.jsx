@@ -75,7 +75,7 @@ function FilteredJob({ id, name, job_user, creation_date, img_format, likes, lic
                         onDeleteJob(id);
                     })
                     .catch(error => {
-                        console.log("ERROR: ", error);
+                        //console.log("ERROR: ", error);
                     });
             }, 1000);
         }

@@ -60,7 +60,7 @@ export const Login = ({ closeLogin }) => {
         })
             .then(response => response.json())
             .then(data => {
-                console.log('Response:', data);
+                //console.log('Response:', data);
                 if (data.status === "success") {
                     localStorage.setItem('userLoggedIn', true);
                     localStorage.setItem('isAdmin', data.user.is_admin);

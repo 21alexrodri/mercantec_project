@@ -76,7 +76,7 @@ function TagTemplate({ jobs, tagId, tagName, handleShowJobs, loadingJobs }) {
 
     useEffect(() => {
         if (!loadingJobs) {
-            console.log("ACABA DE CARGAR");
+            //console.log("ACABA DE CARGAR");
             setTimeoutFinished(false);
             if (direction === null && jobs[tagId]?.jobs) {
                 setDisplayedJobs(jobs[tagId].jobs);

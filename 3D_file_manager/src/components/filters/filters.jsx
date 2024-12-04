@@ -119,7 +119,7 @@ function Filters({ onFiltersAppliedChange }) {
             material: selectedMaterial
         };
         setFiltersApplied(newFiltersApplied);
-        console.log(newFiltersApplied);
+        //console.log(newFiltersApplied);
         if (onFiltersAppliedChange) {
             onFiltersAppliedChange(newFiltersApplied);
         }

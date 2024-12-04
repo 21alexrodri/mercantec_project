@@ -9,6 +9,7 @@ import { faUsers, faTags, faBuilding, faTrash} from '@fortawesome/free-solid-svg
 import { TagsProposals } from '../tags_proposals/tags_proposals';
 import { CustomersProposals } from '../customers_proposals/customers_proposals';
 import { useTranslation } from 'react-i18next';
+import { Popup } from '../popup_message/popup_message';
 
 /**
  * The profile component. It shows the user's profile with their files and information.
@@ -25,13 +26,17 @@ function Profile() {
     const [filteredItems, setFilteredItems] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [deleteJobState, setDeleteJobState] = useState(false);
+    const [showPopup, setShowPopup] = useState(false)
+    const [alertMessage, setAlertMessage] = useState("")
+    const [popupStatus, setPopupStatus] = useState("")
     const { t } = useTranslation();
 
     /**
      * This function handles the suggestion of a new customer
      * @returns The new customer suggestion
      */
-    const handleCustomerSuggestion = () => {
+    const handleCustomerSuggestion = (e) => {
+        e.preventDefault()
         let customerName = document.getElementById("nc-name").value
         let customerMail = document.getElementById("nc-email").value
         let willReturn = false
@@ -41,11 +46,23 @@ function Profile() {
         }
 
         if (customerName == "") {
-            alert("You must introduce a customer name")
+            setAlertMessage(t("customer-name-error"))
+            setPopupStatus("warning")
+
+            setShowPopup(true)
+            
+            setTimeout(() => setShowPopup(false), 3000);
+            // alert("You must introduce a customer name")
             willReturn = true
         }
         if (customerMail == "") {
-            alert("You must introduce the customer email")
+            setAlertMessage(t("customer-mail-error"))
+            setPopupStatus("warning")
+
+            setShowPopup(true)
+            
+            setTimeout(() => setShowPopup(false), 3000);
+            // alert("You must introduce the customer email")
             willReturn = true
         }
 
@@ -73,7 +90,8 @@ function Profile() {
      * This function handles the suggestion of a new tag
      * @returns The new tag suggestion
      */
-    const handleTagSuggestion = () => {
+    const handleTagSuggestion = (e) => {
+        e.preventDefault()
         let tagName = document.getElementById("new-tag-input").value
 
         if (!isLogged) {
@@ -81,10 +99,14 @@ function Profile() {
         }
 
         if (tagName == "") {
-            alert("You must introduce a tag name")
+            setAlertMessage(t("tag-error"))
+            setPopupStatus("warning")
+
+            setShowPopup(true)
+            
+            setTimeout(() => setShowPopup(false), 3000);
             return
         }
-
 
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
@@ -102,9 +124,8 @@ function Profile() {
             }
             return response.json()
         }).then((data) => {
-            if (data) {
-
-            }
+            document.getElementById("new-tag-input").value = ""
+            setShowPopup(true)
         })
     }
     /**
@@ -202,10 +223,10 @@ function Profile() {
                     <div className='suggestions'>
                         <div className='suggest-container'>
                             <b>{t("suggest_new_tag")}</b>
-                            <div className='suggest-tag-input'>
+                            <form onSubmit={handleTagSuggestion} className='suggest-tag-input'>
                                 <input id="new-tag-input" type='text' placeholder={t("new_tag")}/>
                                 <button onClick={handleTagSuggestion}>{t("suggest_tag")}</button>
-                            </div>
+                            </form>
                         </div>
                         <div className='suggest-container'>
                             <b>{t("suggest_new_customer")}</b>
@@ -292,6 +313,9 @@ function Profile() {
         )}
         {!isLogged && (
             <Home />
+        )}
+        {showPopup && (
+            <Popup message={alertMessage} status={popupStatus} />
         )}
         </>
     );

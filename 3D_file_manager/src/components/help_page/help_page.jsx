@@ -40,7 +40,7 @@ function Error_Page() {
             </p>
             {isAdmin && <p className='admin_msg'>{t("admin_t1")}</p>}
 
-            <h3>{t("profile")}</h3>
+            <h3>{t("profile_page")}</h3>
             <p>{t("profile_t1")}</p>
             {isAdmin && <p className='admin_msg'>{t("admin_t2")}<br /><br />
             <ul className='upload_files_list'> 

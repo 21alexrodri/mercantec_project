@@ -58,6 +58,7 @@
     "no_comments": "There are no comments",
     "other_jobs": "Other Jobs from",
     "no_jobs": "No available jobs",
+    "logout": "Log Out",
     "login": "Log In",
     "login_invalid": "Invalid username, invalid password or user not activated",
     "like_invalid": "You have to be logged in to like a job",
@@ -112,7 +113,8 @@
     "instr_hp_t4": "There are two types of views on the Home Page, the standard view and the filtered view (shown when a filter is applied). Both of them show all the jobs to all the users except the licensed jobs that are only visible to logged in users. In the filtered view, the logged in users will know that a project is licensed because of the",
     "icon": "icon",
     "admin_t1": "As an admin, you can delete any project on the filtered view. You will need to apply one or more filter and then you will see at the top of the page a delete jobs button.",
-    "profile": "Profile Page",
+    "profile": "Profile",
+    "profile_page": "Profile Page",
     "profile_t1": "This page shows the user's projects. Here, a user can suggest a new tag, a new customer and delete his own jobs.",
     "admin_t2": "As an admin, you will have 3 more buttons.",
     "admin_users": "Users: Here, an admin can activate/desactivate every user from the server. The admin can also make another users as admins or revoke the admin role to a user",
@@ -297,6 +299,7 @@
     "customer-name-error": "You must introduce a customer name",
     "customer-mail-error": "You must introduce a customer name",
     "tag-suggest-sent": "Tag suggestion sent correctly",
-    "customer-suggest-sent": "Customer suggestion sent correctly"
+    "customer-suggest-sent": "Customer suggestion sent correctly",
+    "confirm": "Confirm"
   }
   

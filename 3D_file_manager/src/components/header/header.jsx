@@ -9,11 +9,13 @@ import { Popup } from '../popup_message/popup_message';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo, faHouse, faUser, faRightFromBracket, faKey, faUserPlus, faK } from '@fortawesome/free-solid-svg-icons';
 
+
 /**
  * The header of the page that is shown to the user, it allows the user to navigate through the page and to log in or sign up as well as log out
  * @returns The header of the page, with two possible states, one for when the user is logged in and one for when the user is not logged in
  */
 function Header() {
+    const { t } = useTranslation();
     const { i18n } = useTranslation();
     const navigateTo = useNavigate();
     const [showLogin, setShowLogin] = useState(false);
@@ -64,7 +66,6 @@ function Header() {
     };
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
-        //console.log(i18n.language);
     };
     return (
         <>
@@ -74,23 +75,23 @@ function Header() {
                         <a target='_blank' className="logo" href="https://www.mercantec.dk/">
                             <div id="mercantec_logo"></div>
                         </a>
-                        <h1 className='header_title'>3D Print Archive</h1>
+                        <a href="/home" className='header_title'><h1>3D Print Archive</h1></a>
                     </div>
                     <div className='header_left'>
                         <nav className='header_navbar'>
                             <ul>
                                 <li className='link_li'><a href='/home'>
-                                    <p>Home</p>
+                                    <p>{t("home")}</p>
                                     <FontAwesomeIcon icon={faHouse} />
                                 </a></li>
                                 <li><button className='login_btn' onClick={() => setShowLogin(true)}>
-                        <p>Log In</p>
+                        <p>{t("login")}</p>
                         <FontAwesomeIcon icon={faKey} />
                     </button>
                                     {showLogin && <Login closeLogin={() => setShowLogin(false)} />}</li>
                                 <li>
                                     <button className='signup_btn' onClick={() => setShowSignup(true)}> 
-                                    <p>Sign Up</p>
+                                    <p>{t("sign_up")}</p>
                                     <FontAwesomeIcon icon={faUserPlus} />
                                 </button>
                                     {showSignup && (
@@ -140,21 +141,21 @@ function Header() {
                             </div>
                         </a>
 
-                        <h1 className='header_title'>3D Print Archive</h1>
+                        <a href="/home" className='header_title'><h1>3D Print Archive</h1></a>
                     </div>
                     <div className='header_left'>
                         <nav className='header_navbar'>
                             <ul>
                                 <li className='link_li'><a href='/home'>
-                                    <p>Home</p>
+                                    <p>{t("home")}</p>
                                     <FontAwesomeIcon icon={faHouse} />
                                 </a></li>
                                 <li className='link_li'><a href='/profile'>
-                                    <p>Profile</p>
+                                    <p>{t("profile")}</p>
                                     <FontAwesomeIcon icon={faUser} />
                                 </a></li>
                                 <button className='login_btn' onClick={handleLogout}>
-                                    <p>Log Out</p>
+                                    <p>{t("logout")}</p>
                                     <FontAwesomeIcon icon={faRightFromBracket} />
                                 </button>
                             </ul>

@@ -58,7 +58,8 @@
     "no_comments": "Der er ingen kommentarer",
     "other_jobs": "Andre Jobs Fra",
     "no_jobs": "Ingen tilgængelige jobs",
-    "login": "Log Ind",
+    "logout": "Logge Ud",
+    "login": "Logge Ind",
     "login_invalid": "Ugyldigt brugernavn, ugyldigt kodeord eller bruger ikke aktiveret",
     "like_invalid": "Du skal være logget ind for at kunne lide et job",
     "comment_invalid": "Indtast venligst en kommentar.",
@@ -114,7 +115,8 @@
     "instr_hp_t4": "Der er to typer visninger på hjemmesiden: standardvisningen og den filtrerede visning (som vises, når en filterindstilling er aktiveret). Begge visninger viser alle job til alle brugere, undtagen licenserede job, der kun er synlige for indloggede brugere. I den filtrerede visning vil de indloggede brugere kunne se, at et projekt er licenseret, på grund af følgende",
     "icon": "ikon",
     "admin_t1": "Som administrator kan du slette ethvert projekt i den filtrerede visning. Du skal anvende et eller flere filtre, hvorefter du vil se en 'slet job'-knap øverst på siden.",
-    "profile": "Profilside",
+    "profile_page": "Profilside",
+    "profile": "Profil",
     "profile_t1": "Denne side viser brugerens projekter. Her kan en bruger foreslå et nyt tag, en ny kunde og slette sine egne job.",
     "admin_t2": "Som administrator vil du have 3 flere knapper.",
     "admin_users": "Brugere: Her kan en administrator aktivere/deaktivere enhver bruger på serveren. Administratoren kan også gøre andre brugere til administratorer eller tilbagekalde administratorrollen fra en bruger.",
@@ -297,6 +299,7 @@
     "customer-name-error": "Du skal angive et kundenavn",
     "customer-mail-error": "Du skal angive et kundemail",
     "tag-suggest-sent": "Tagforslag sendt korrekt",
-    "customer-suggest-sent": "Kundeforslag sendt korrekt"
+    "customer-suggest-sent": "Kundeforslag sendt korrekt",
+    "confirm": "Bekræft"
   }
   

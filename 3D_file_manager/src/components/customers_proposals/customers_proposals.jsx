@@ -86,7 +86,7 @@ export const CustomersProposals = ({ closeUserTable }) => {
     useEffect(() => {
         setLoading(true)
 
-        console.log(isAdmin)
+        //console.log(isAdmin)
 
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',

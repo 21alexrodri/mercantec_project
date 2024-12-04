@@ -43,6 +43,10 @@
     cursor: pointer;
     padding:1.4em;
 }
+.hidden {
+    display: none;
+}
+
 
 #users_table .users_table_body {
     display: block;

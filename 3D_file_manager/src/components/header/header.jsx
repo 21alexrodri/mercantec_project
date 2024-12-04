@@ -64,7 +64,7 @@ function Header() {
     };
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
-        console.log(i18n.language);
+        //console.log(i18n.language);
     };
     return (
         <>

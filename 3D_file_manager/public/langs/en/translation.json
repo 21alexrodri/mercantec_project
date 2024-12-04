@@ -295,6 +295,7 @@
     "important_rules_more_info":"You can find more contact information in the 'Help' section",
     "tag-error":"You must introduce a tag name",
     "customer-name-error": "You must introduce a customer name",
-    "customer-mail-error": "You must introduce a customer name"
+    "customer-mail-error": "You must introduce a customer name",
+    "confirm": "Confirm"
   }
   

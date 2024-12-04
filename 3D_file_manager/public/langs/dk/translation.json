@@ -295,6 +295,7 @@
     "important_rules_more_info": "Du kan finde flere kontaktoplysninger i 'Hjælp'-sektionen",
     "tag-error": "Du skal angive et tag-navn",
     "customer-name-error": "Du skal angive et kundenavn",
-    "customer-mail-error": "Du skal angive et kundemail"
+    "customer-mail-error": "Du skal angive et kundemail",
+    "confirm": "Bekræft"
   }
   

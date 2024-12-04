@@ -240,8 +240,8 @@
     "suggest_new_tag": "Foreslå nyt tag",
     "new_tag": "nyt tag...",
     "suggest_new_customer": "Foreslå en ny kunde",
-    "new_customer_email": "nyt kundenavn...",
-    "new_customer_name": "nyt kundenavn e-mail...",
+    "new_customer_name": "nyt kundenavn...",
+    "new_customer_email": "nyt kundenavn e-mail...",
     "phone_number": "Telefonnummer",
     "new_customer_phone": "nyt telefonnummer...",
     "new_customer_description": "ny kundebeskrivelse...",
@@ -292,6 +292,9 @@
     "important_rules_signup2": "Vedhæft følgende oplysninger til e-mailen for at fortsætte med at oprette kontoen.",
     "important_rules_procedence": "Hvor kommer du fra",
     "important_rules_reason": "Årsag til oprettelse af kontoen",
-    "important_rules_more_info": "Du kan finde flere kontaktoplysninger i 'Hjælp'-sektionen"
+    "important_rules_more_info": "Du kan finde flere kontaktoplysninger i 'Hjælp'-sektionen",
+    "tag-error": "Du skal angive et tag-navn",
+    "customer-name-error": "Du skal angive et kundenavn",
+    "customer-mail-error": "Du skal angive et kundemail"
   }
   

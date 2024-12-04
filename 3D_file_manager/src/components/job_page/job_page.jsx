@@ -469,11 +469,12 @@ export const JobPage = () => {
                         </div>
                         <div className="job_info_item">
                             <span className="job_info_label">{t("color")}:</span>
-                            <span className="job_info_value">{jobData.info.color}</span>
+                            {jobData.info.color === "" ? <span className="job_info_value">Undefined</span> : <span className="job_info_value">{jobData.info.color}</span>}
+                            
                         </div>
                         <div className="job_info_item">
                             <span className="job_info_label">{t("customer")}:</span>
-                            <span className="job_info_value">{jobData.info.customer_name}</span>
+                            {jobData.info.color === "" ? <span className="job_info_value">Undefined</span> : <span className="job_info_value">{jobData.info.customer_name}</span>}
                         </div>
                         </div>
                         

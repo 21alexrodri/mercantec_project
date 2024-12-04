@@ -46,6 +46,30 @@
 .hidden {
     display: none;
 }
+.delete-btn{
+    color: red;
+    border: 2px solid red;
+    background: transparent;
+    padding: 0.5vw;
+    border-radius: 9999999999999vw;
+}
+.confirm-btn{
+    color: green;
+    border: 2px solid green;
+    padding: 0.5vw;
+    background: transparent;
+
+    border-radius: 9999999999999vw;
+}
+.cancel-btn{
+    color: red;
+    border: 2px solid red;
+    background: transparent;
+    border-radius: 9999999999999vw;
+    padding: 0.5vw;
+    margin-top: 0.3vw;
+
+}
 
 
 #users_table .users_table_body {

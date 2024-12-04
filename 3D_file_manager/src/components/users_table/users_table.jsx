@@ -137,10 +137,10 @@ export const UserTable = ({ closeUserTable }) => {
         })
             .then(response => response.json())
             .then(data => {
-                // Inicializamos isDeleted en false para todos los usuarios
-                const usersWithIsDeleted = data.map(user => ({ ...user, isDeleted: false }));
-                setUsersList(usersWithIsDeleted);
-                setFilteredUsers(usersWithIsDeleted);
+                // Inicializamos isDeleted y confirmDelete en false para todos los usuarios
+                const usersWithFlags = data.map(user => ({ ...user, isDeleted: false, confirmDelete: false }));
+                setUsersList(usersWithFlags);
+                setFilteredUsers(usersWithFlags);
             })
             .catch(error => {
                 console.error('Error getting all users:', error);
@@ -161,25 +161,56 @@ export const UserTable = ({ closeUserTable }) => {
         })
             .then(response => response.json())
             .then(data => {
-                
-                    setUsersList(prevUsersList =>
-                        prevUsersList.map(user =>
-                            String(user.id) === String(id) ? { ...user, isDeleted: true } : user
-                        )
-                    );
+                // Marcamos el usuario como eliminado y reiniciamos confirmDelete
+                setUsersList(prevUsersList =>
+                    prevUsersList.map(user =>
+                        String(user.id) === String(id) ? { ...user, isDeleted: true, confirmDelete: false } : user
+                    )
+                );
 
-                    setFilteredUsers(prevFilteredUsers =>
-                        prevFilteredUsers.map(user =>
-                            String(user.id) === String(id) ? { ...user, isDeleted: true } : user
-                        )
-                    );
-            
-                    console.error('Error deleting user:', data.message);
-                
+                setFilteredUsers(prevFilteredUsers =>
+                    prevFilteredUsers.map(user =>
+                        String(user.id) === String(id) ? { ...user, isDeleted: true, confirmDelete: false } : user
+                    )
+                );
             })
             .catch(error => {
                 console.error('Error deleting user:', error);
             });
+    };
+
+    const handleDeleteClick = (id) => {
+        const userToDelete = usersList.find(user => String(user.id) === String(id));
+        if (userToDelete && userToDelete.confirmDelete) {
+            // Si confirmDelete es true, procedemos a eliminar
+            handleDeleteUserAction(id);
+        } else {
+            // Si no, establecemos confirmDelete en true
+            setUsersList(prevUsersList =>
+                prevUsersList.map(user =>
+                    String(user.id) === String(id) ? { ...user, confirmDelete: true } : user
+                )
+            );
+            setFilteredUsers(prevFilteredUsers =>
+                prevFilteredUsers.map(user =>
+                    String(user.id) === String(id) ? { ...user, confirmDelete: true } : user
+                )
+            );
+        }
+    };
+
+    const handleCancelDelete = (id) => {
+        // Reiniciamos confirmDelete a false
+        setUsersList(prevUsersList =>
+            prevUsersList.map(user =>
+                String(user.id) === String(id) ? { ...user, confirmDelete: false } : user
+            )
+        );
+        setFilteredUsers(prevFilteredUsers =>
+            prevFilteredUsers.map(user =>
+                String(user.id) === String(id) ? { ...user, confirmDelete: false } : user
+            )
+        );
     };
 
     return (
@@ -257,9 +288,20 @@ export const UserTable = ({ closeUserTable }) => {
                                                 <FontAwesomeIcon icon={faCircle} />
                                             </td>
                                             <td>
-                                                <button onClick={() => { handleDeleteUserAction(user.id); }} className="delete">
-                                                    {t("delete")}
-                                                </button>
+                                                {user.confirmDelete ? (
+                                                    <>
+                                                        <button onClick={() => handleDeleteClick(user.id)} className="confirm-btn">
+                                                            {t("confirm")}
+                                                        </button>
+                                                        <button onClick={() => handleCancelDelete(user.id)} className="cancel-btn">
+                                                            {t("cancel")}
+                                                        </button>
+                                                    </>
+                                                ) : (
+                                                    <button onClick={() => handleDeleteClick(user.id)} className="delete-btn">
+                                                        {t("delete")}
+                                                    </button>
+                                                )}
                                             </td>
                                         </tr>
                                     );

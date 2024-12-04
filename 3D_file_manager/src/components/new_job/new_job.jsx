@@ -381,20 +381,20 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                                         <input ref={fileInputRef} id="img-upload" className="img-upload" type="file" onChange={handleImgChange} accept="image/jpg, image/png, image/jpeg" />
                                     </label>
                                 </div>
-                                <p>* Only .jpg, .png and .jpeg accepted</p>
+                                <p>Only .jpg, .png and .jpeg accepted</p>
                                 <button className="nj-delete-image" onClick={handleClearImg}>Delete image</button>
                             </div>
 
                             <div className="name_box">
                                 <label className="name_lbl">{t("name")}</label>
-                                <input id="form-name" type="text" className="name_input" placeholder="Project Name..." maxLength="30" />
+                                <input id="form-name" type="text" className="name_input" placeholder="Project Name... *" maxLength="30" />
                             </div>
                             <div className="description_box">
                                 <label className="description_lbl">{t("job_desc")}</label>
                                 <textarea id="form-desc" className="description_input" placeholder="Description..." />
                             </div>
                             <div className="scale_box">
-                                <label className="scale_lbl">{t("scale")}</label>
+                                <label className="scale_lbl">{t("scale")} *</label>
                                 <input id="form-scale" type="number" className="scale_input" min={0.1} step={0.1} />
                             </div>
                             <div className="color_box">
@@ -423,7 +423,7 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                                 <input id="license" type="checkbox" />
                             </div>
                             <div className="layerThickness_box">
-                                <label className="layerThickness_lbl">{t("layer_thickness")}</label>
+                                <label className="layerThickness_lbl">{t("layer_thickness")}(mm) *</label>
                                 <input id="form-layerThickness" type="number" min={0.01} max={1} step={0.01} />
                             </div>
 
@@ -470,12 +470,13 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                                         <a href="/profile">{t("suggest_customer")}</a>
                                     </p>
                                 </div>
+                                <p className="req_field">* required field</p>
                             </div>
                         </div>
                         <div className="lower">
                             <div className="files-upload">
                                 <div className="upload-type-selector">
-                                    <p ref={uploadStl} className="upload-stl selected-mode" onClick={setSelected}>{t("upload_files")}</p>
+                                    <p ref={uploadStl} className="upload-stl selected-mode" onClick={setSelected}>{t("upload_files")} *</p>
                                 </div>
                                 <ul className="files-list">
                                     {selectedUploadMode === "stl" ? (
@@ -519,7 +520,7 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                                                             <option value="Grey">{t("grey")}</option>
                                                         </select>
 
-                                                        <label className="scale_file_lbl">{t("scale")}:</label>
+                                                        <label className="scale_file_lbl">{t("scale")}: *</label>
                                                         <input
                                                             className="scale_file_input"
                                                             type="number"

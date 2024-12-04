@@ -217,9 +217,13 @@
         font-weight: 800;
     }
 }
+.req_field{
+    margin-top: 1vw !important;
+    color: red !important;
+}
 .nj-tags-added{
     width: 12rem;
-    height: 2rem;
+    height: 3.2rem;
     background-color: #ebebeb;
     border-radius: 1vw;
     display: flex;
@@ -407,8 +411,13 @@
     border-radius: 1vw;
     color: white;
     font-weight: bold;
-    cursor: pointer;
     margin-bottom: 1vw;
+}
+.upload-stl{
+    cursor: default;
+} 
+.selected-mode{
+    cursor: default;
 }
 
 .upload-type-selector p {

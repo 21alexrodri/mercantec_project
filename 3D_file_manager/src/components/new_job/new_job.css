@@ -419,6 +419,17 @@
 .selected-mode{
     cursor: default;
 }
+.checked_job{
+    width: 100%;
+    height: 100%;
+    background-color: #0E38AB;
+    text-align: center;
+    font-size: 12vw;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .upload-type-selector p {
     padding: 0.5vw 1vw;

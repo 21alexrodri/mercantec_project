@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect, useRef, useContext } from "rea
 import "./new_job.css"
 import { UserContext } from "../../context/UserContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpload, faTrash, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faUpload, faTrash, faSpinner, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import { Popup } from '../popup_message/popup_message';
 
@@ -38,6 +38,7 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
     const originalTabIndexes = useRef(new Map());
     const handleSuggestTag = () => { }
     const [isLoading, setIsLoading] = useState(false);
+    const [isUploaded, setIsUploaded] = useState(false);
 
 
     const handleDeleteTag = (id) => {
@@ -323,8 +324,10 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
+                                setIsUploaded(true);
                                 //console.log("Files uploaded successfully:", data);
                                 window.location.href = '/home';
+                                
                             } else {
                                 setShowPopup(true);
                                 setErrorMsg("Error. " + data.message);
@@ -332,8 +335,10 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                             }
                         })
                         .catch(error => {
+                            setIsUploaded(true);
                             console.error("Error:", error);
                             window.location.href = '/home';
+                            
                         });
                 } else {
                     setShowPopup(true);
@@ -372,7 +377,8 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                             }
                         }}>X</p>
                     </div>
-                    <form className="form-main" onSubmit={handleFormSubmit}>
+                    {!isUploaded ? (
+                        <form className="form-main" onSubmit={handleFormSubmit}>
                         <div className="form-container">
                             <div className="img-upload-manager">
                                 <div ref={imgUploadContainerRef} className="img-upload-container">
@@ -575,6 +581,12 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                             <Popup message={errorMsg} status="warning" />
                         )}
                     </form>
+
+                    ) : (
+                        <div className="checked_job">
+                            <FontAwesomeIcon icon={faCheck} />
+                        </div>
+                    )}
                 </div>
             </div>
         </>

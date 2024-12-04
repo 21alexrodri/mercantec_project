@@ -16,7 +16,7 @@ export const Popup = ({ message, status }) => {
     useEffect(() => {
         const timeout = setTimeout(() => {
             setVisible(false);
-        }, 10000);
+        }, 3000);
 
         return () => clearTimeout(timeout);
     }, []);

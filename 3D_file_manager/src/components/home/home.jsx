@@ -168,7 +168,7 @@ function Home() {
             })
             .finally(() => {
                 setLoading(false)
-                console.log("HA ACABADO DE CARGAR JOBS")
+                //console.log("HA ACABADO DE CARGAR JOBS")
             })
     }
 

@@ -131,13 +131,13 @@ function Error_Page() {
             <p>{t("pp_is_t1")}</p>
             <ul className='upload_files_list'>
                 <li>{t("pp_is_t2")}</li>
-                <li>{("pp_is_t3")}</li>
-                <li>{("pp_is_t4")}</li>
+                <li>{t("pp_is_t3")}</li>
+                <li>{t("pp_is_t4")}</li>
             </ul>
             <h3>{t("pp_dr")}</h3>
             <p>{t("pp_dr_t1")}</p>
             <h3>{t("pp_sec")}</h3>
-            <p>{("pp_sec_t1")}</p>
+            <p>{t("pp_sec_t1")}</p>
             <h3>{t("pp_yr")}</h3>
             <p>{t("pp_yr_t1")}</p>
             <ul className='upload_files_list'>

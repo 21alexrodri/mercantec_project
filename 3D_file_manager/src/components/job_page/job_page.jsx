@@ -453,7 +453,7 @@ export const JobPage = () => {
                         <div>
                         <div className="job_info_item">
                             <span className="job_info_label">{t("license")}:</span>
-                            <span className="job_info_value">{jobData.info.license}</span>
+                            <span className="job_info_value">{getLicenseText(jobData.info.license)}</span>
                         </div>
                         <div className="job_info_item">
                             <span className="job_info_label">{t("likes")}:</span>

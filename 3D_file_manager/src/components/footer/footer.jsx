@@ -5,7 +5,7 @@ function Footer() {
     const { t } = useTranslation();
     return (
     <footer>
-    <div class="footer-container">
+    <div className="footer-container">
         <div className="footer-section" id="info">
             <p className=''>
             {t("footer_text7")}

@@ -61,6 +61,9 @@ function Error_Page() {
             <h3>{t("dwnd_files")}</h3>
             <p>{t("dwnd_t1")}
             </p>
+            <h3>{t("preview_title")}</h3>
+            <p>{t("preview_text")}</p>
+            <p></p>
             </section>
             <section>
             <h2>{t("tos")}</h2>

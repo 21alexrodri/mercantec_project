@@ -298,6 +298,7 @@
     "tag-error": "Du skal angive et tag-navn",
     "customer-name-error": "Du skal angive et kundenavn",
     "customer-mail-error": "Du skal angive et kundemail",
+    "customer-unexpected-error": "Uventet fejl",
     "confirm": "Bekræft",
     "nj_only":"Kun .jpg, .png og .jpeg accepteres",
     "nj_required_field":"Påkrævet felt",

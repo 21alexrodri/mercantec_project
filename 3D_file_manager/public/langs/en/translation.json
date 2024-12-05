@@ -298,6 +298,7 @@
     "tag-error":"You must introduce a tag name",
     "customer-name-error": "You must introduce a customer name",
     "customer-mail-error": "You must introduce a customer name",
+    "customer-unexpected-error": "Unexpected error",
     "confirm": "Confirm",
     "nj_only":"Only .jpg, .png and .jpeg accepted",
     "nj_required_field":"Required field",

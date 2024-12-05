@@ -307,19 +307,22 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                         formData.append('img_file', imgFile);
                     }
 
-                    if (selectedUploadMode === "stl") {
-                        files.forEach((file) => {
-                            formData.append('files[]', file);
-                        });
-                    } else {
-                        formData.append('zip_file', zipFile);
-                    }
+                    files.forEach((file) => {
+                        console.log(file)
+
+                        formData.append('files[]', file);
+
+                    });
 
                     formData.append("type", selectedUploadMode);
 
-                    fetch('/3D_printer/3d_project/upload.php', {
+                    fetch('/3D_printer/3d_project/upload_adrian.php', {
                         method: 'POST',
-                        body: formData
+                        body: {
+                            files: files,
+                            job_id: data.generated_id,
+                            img_file: imgFile
+                        }
                     })
                         .then(response => response.json())
                         .then(data => {

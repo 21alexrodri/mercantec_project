@@ -390,17 +390,17 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                                         <input ref={fileInputRef} id="img-upload" className="img-upload" type="file" onChange={handleImgChange} accept="image/jpg, image/png, image/jpeg" />
                                     </label>
                                 </div>
-                                <p>Only .jpg, .png and .jpeg accepted</p>
-                                <button className="nj-delete-image" onClick={handleClearImg}>Delete image</button>
+                                <p>{t("nj_only")}</p>
+                                <button className="nj-delete-image" onClick={handleClearImg}>{t("del_img")}</button>
                             </div>
 
                             <div className="name_box">
                                 <label className="name_lbl">{t("name")}</label>
-                                <input id="form-name" type="text" className="name_input" placeholder="Project Name... *" maxLength="30" />
+                                <input id="form-name" type="text" className="name_input" placeholder={t("project_name")+"... *"} maxLength="30" />
                             </div>
                             <div className="description_box">
                                 <label className="description_lbl">{t("job_desc")}</label>
-                                <textarea id="form-desc" className="description_input" placeholder="Description..." />
+                                <textarea id="form-desc" className="description_input" placeholder={t("description")+"... *"} />
                             </div>
                             <div className="scale_box">
                                 <label className="scale_lbl">{t("scale")} *</label>
@@ -479,7 +479,7 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                                         <a href="/profile">{t("suggest_customer")}</a>
                                     </p>
                                 </div>
-                                <p className="req_field">* required field</p>
+                                <p className="req_field">* {t("nj_required_field")}</p>
                             </div>
                         </div>
                         <div className="lower">

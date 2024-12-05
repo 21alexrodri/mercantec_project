@@ -30,28 +30,28 @@ function AboutMe() {
                     <p>{t("about_devs_t1")}</p>
                     <div className='dev-portraits'>
                         <div className='dev-box dev-adrian'>
-                            <a href='https://github.com/AdrianCasadoAguilera'><img className='portrait-img portrait-adrian' src='/3D_printer/Files/img/profile/portrait_adrian.png'></img></a>
+                            <a href='https://github.com/AdrianCasadoAguilera' target="_blank"><img className='portrait-img portrait-adrian' src='/3D_printer/Files/img/profile/portrait_adrian.png'></img></a>
                             <div>
                                 <p>Adrián Casado Aguilera</p>
                                 <p>Web Full-Stack Developer</p>
                             </div>
                         </div>
                         <div className='dev-box dev-alex'>
-                            <a href='https://github.com/21alexrodri'><img className='portrait-img portrait-alex' src='/3D_printer/Files/img/profile/portrait_alex.png'></img></a>
+                            <a href='https://github.com/21alexrodri' target="_blank"><img className='portrait-img portrait-alex' src='/3D_printer/Files/img/profile/portrait_alex.png'></img></a>
                             <div>
                                 <p>Àlex Rodríguez Benítez</p>
                                 <p>Web Full-Stack Developer</p>
                             </div>
                         </div>
                         <div className='dev-box dev-marc'>
-                            <a href='https://github.com/MarcArques'><img className='portrait-img portrait-marc' src='/3D_printer/Files/img/profile/portrait_marc.png'></img></a>
+                            <a href='https://github.com/MarcArques' target="_blank"><img className='portrait-img portrait-marc' src='/3D_printer/Files/img/profile/portrait_marc.png'></img></a>
                             <div>
                                 <p>Marc Arqués Marimón</p>
                                 <p>Web Full-Stack Developer</p>
                             </div>
                         </div>
                         <div className='dev-box dev-nil'>
-                            <a href='https://github.com/nil0j'><img className='portrait-img portrait-nil' src='/3D_printer/Files/img/profile/portrait_nil.png'></img></a>
+                            <a href='https://github.com/nil0j' target="_blank"><img className='portrait-img portrait-nil' src='/3D_printer/Files/img/profile/portrait_nil.png'></img></a>
                             <div>
                                 <p>Nil Jimeno Ogaya</p>
                                 <p>Server Deployment</p>

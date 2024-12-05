@@ -30,6 +30,10 @@
         text-align: center;
     }
 }
+
+.dev-box a {
+    border-radius: 9999vw;
+}
 @media (min-width: 2179px){
     .portrait-img{
         background-color: #0E38AB;

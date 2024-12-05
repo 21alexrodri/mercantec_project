@@ -303,6 +303,10 @@
     "nj_only":"Only .jpg, .png and .jpeg accepted",
     "nj_required_field":"Required field",
     "tag-suggest-sent": "Tag suggestion sent correctly",
-    "customer-suggest-sent": "Customer suggestion sent correctly"
+    "customer-suggest-sent": "Customer suggestion sent correctly",
+    "uploading_issue": "If you have encountered any issues uploading a project but believe you have filled out all the form fields correctly, the error is most likely due to attempting to upload files that are too large. Try reducing the project size, uploading it in two parts, or contacting an administrator.",
+    "admin_solve": "If a user has experienced issues uploading a project and appears to have made no mistakes, after verifying that the user is correct, the most likely cause of the error is the upload configuration in the php.ini file. Contact the IT department to resolve it.",
+    "preview_text": "On the job page, you have a preview for each file created with Three.js. If the file is large, it may take some time to load. If it doesn't load, it's recommended to try moving it with the mouse using the left or right click.",
+    "preview_title": "Preview Files"
   }
   

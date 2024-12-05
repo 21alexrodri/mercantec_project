@@ -316,7 +316,7 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
 
                     formData.append("type", selectedUploadMode);
 
-                    fetch('/3D_printer/3d_project/upload_adrian.php', {
+                    fetch('/3D_printer/3d_project/upload.php', {
                         method: 'POST',
                         body: formData
                     })

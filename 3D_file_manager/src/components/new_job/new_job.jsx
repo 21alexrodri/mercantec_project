@@ -402,7 +402,7 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                             </div>
                             <div className="description_box">
                                 <label className="description_lbl">{t("job_desc")}</label>
-                                <textarea id="form-desc" className="description_input" placeholder={t("description")+"... *"} />
+                                <textarea id="form-desc" className="description_input" placeholder={t("description")} />
                             </div>
                             <div className="scale_box">
                                 <label className="scale_lbl">{t("scale")} *</label>
@@ -577,8 +577,8 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                             </div>
                             <div className="lower-right">
                                 <div className="upload-options">
-                                    <button className="cancel-button" onClick={closeNewJob}>{t("cancel")}</button>
-                                    <button className="upload-button" onClick={handleUpload}>{t("upload")}</button>
+                                    <button className="cancel-button" onClick={closeNewJob} disabled={isLoading}>{t("cancel")}</button>
+                                    <button className="upload-button" onClick={handleUpload} disabled={isLoading}>{t("upload")}</button>
                                 </div>
                             </div>
                         </div>

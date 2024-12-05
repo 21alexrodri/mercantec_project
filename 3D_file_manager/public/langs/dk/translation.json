@@ -302,6 +302,8 @@
     "nj_only":"Kun .jpg, .png og .jpeg accepteres",
     "nj_required_field":"Påkrævet felt",
     "tag-suggest-sent": "Tagforslag sendt korrekt",
-    "customer-suggest-sent": "Kundeforslag sendt korrekt"
+    "customer-suggest-sent": "Kundeforslag sendt korrekt",
+    "uploading_issue": "Hvis du har oplevet problemer med at uploade et projekt, men mener, at du har udfyldt alle formularfelterne korrekt, skyldes fejlen sandsynligvis, at du har forsøgt at uploade filer, der er for store. Prøv at reducere projektets størrelse, uploade det i to dele eller kontakte en administrator.",
+    "admin_solve": "Hvis en bruger har haft problemer med at uploade et projekt og tilsyneladende ikke har begået nogen fejl, er det mest sandsynlige, efter at have bekræftet, at brugeren har ret, at fejlen skyldes uploadkonfigurationen i php.ini-filen. Kontakt IT-afdelingen for at løse det."
   }
   

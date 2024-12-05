@@ -53,6 +53,8 @@ function Error_Page() {
             <p>{t("ufiles_t1")} (<b>{t("note")} </b> 
             {t("ufiles_t2")}).</p>
             <p>{t("ufiles_t3")}</p>
+            <p>{t("uploading_issue")}</p>
+            {isAdmin && <p className='admin_msg'>{t("admin_solve")}</p>}
             <h3>{t("deleting_files")}</h3>
             <p>{t("dfiles_t1")}</p>
             {isAdmin && <p className='admin_msg'>{t("admin_t1")}</p>}

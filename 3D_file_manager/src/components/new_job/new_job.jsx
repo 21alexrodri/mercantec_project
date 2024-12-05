@@ -320,14 +320,12 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                         method: 'POST',
                         body: formData
                     })
-                        .then(response => {
-                            // console.log(response)    
+                        .then(response => {  
                             response.json()
                         })
                         .then(data => {
                             if (data.success) {
                                 setIsUploaded(true);
-                                //console.log("Files uploaded successfully:", data);
                                 window.location.href = '/home';
                                 
                             } else {

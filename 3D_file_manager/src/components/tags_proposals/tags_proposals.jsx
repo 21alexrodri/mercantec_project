@@ -3,6 +3,7 @@ import "./tags_proposals.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import FilteredJob from "../filtered_job/filtered_job";
+import { Popup } from "../popup_message/popup_message";
 import { useTranslation } from 'react-i18next';
 import { UserContext } from "../../context/UserContext";
 /**
@@ -18,6 +19,7 @@ export const TagsProposals = ({ closeUserTable }) => {
     const [updateTagList, setUpdateTagList] = useState(false)
     const [loading, setLoading] = useState(true)
     const { userId, username, isAdmin, isLogged, setUsername, setIsAdmin, setIsLogged } = useContext(UserContext);
+    const [showPopup, setShowPopup] = useState(false)
 
     const handleContainerClick = (e) => {
         e.stopPropagation();
@@ -56,6 +58,9 @@ export const TagsProposals = ({ closeUserTable }) => {
             setLoading(false)
         })
             .catch(error => {
+                setShowPopup(true)
+
+                setTimeout(() => setShowPopup(false), 3000);
                 console.error("Error modifying tags: ", error)
                 setLoading(false)
             })
@@ -181,6 +186,10 @@ export const TagsProposals = ({ closeUserTable }) => {
                     </div>
                 </div>
             </div>
+            {showPopup && (
+            <Popup message="Error deleting tag. No job must use this tag before deleting it." status="warning" />
+            )}
         </div>
+        
     );
 };

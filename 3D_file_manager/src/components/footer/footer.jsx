@@ -12,7 +12,7 @@ function Footer() {
             <a href="../about">{t("footer_text6")} </a> <br/>
             {t("footer_text1")}
             <a href="../help">{t("footer_text5")} </a> {t("footer_text2")} <br/> {t("footer_text8")}
-            <a href="https://github.com/your-repo-link" target="_blank">{t("footer_text4")}</a>
+            <a href="https://github.com/21alexrodri/mercantec_project" target="_blank">{t("footer_text4")}</a>
             </p>        
         </div>
         <div className="footer-section">

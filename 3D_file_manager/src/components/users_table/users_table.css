@@ -110,7 +110,7 @@
 
 #users_table .users_table_results_container {
     overflow-y: scroll;
-    overflow-x: hidden;
+    overflow-x: auto;
     width: 100%;
     aspect-ratio: 2;
     height: 100%;

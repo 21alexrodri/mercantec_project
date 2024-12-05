@@ -318,13 +318,12 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
 
                     fetch('/3D_printer/3d_project/upload_adrian.php', {
                         method: 'POST',
-                        body: {
-                            files: files,
-                            job_id: data.generated_id,
-                            img_file: imgFile
-                        }
+                        body: formData
                     })
-                        .then(response => response.json())
+                        .then(response => {
+                            // console.log(response)    
+                            response.json()
+                        })
                         .then(data => {
                             if (data.success) {
                                 setIsUploaded(true);
@@ -353,6 +352,9 @@ export const NewJob = ({ closeNewJob, tags: propTags, disableBackgroundFocus }) 
                 setShowPopup(true);
                 setErrorMsg("Error. " + error);
                 setTimeout(() => setShowPopup(false), 3000);
+            })
+            .finally(() => {
+                setIsLoading(false)
             });
     };
 

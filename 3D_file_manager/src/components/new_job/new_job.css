@@ -685,6 +685,29 @@
     border-radius: 9999vw;
 }
 
+.loading-upload {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #0E38AB;
+}
+
+
+.rotating-loading {
+    font-size: 5rem;
+    animation: rotating 1s linear infinite;
+    color: white;
+}
+
+@keyframes rotating {
+    0% {transform: rotateZ(0deg);}
+    50% {transform: rotateZ(180deg);}
+    100% {transform: rotateZ(360deg);}
+}
 
 @media (max-width: 1000px) {
     .form-container {

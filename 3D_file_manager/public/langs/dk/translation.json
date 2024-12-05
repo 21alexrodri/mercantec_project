@@ -300,6 +300,8 @@
     "customer-mail-error": "Du skal angive et kundemail",
     "confirm": "Bekræft",
     "nj_only":"Kun .jpg, .png og .jpeg accepteres",
-    "nj_required_field":"Påkrævet felt"
+    "nj_required_field":"Påkrævet felt",
+    "tag-suggest-sent": "Tagforslag sendt korrekt",
+    "customer-suggest-sent": "Kundeforslag sendt korrekt"
   }
   

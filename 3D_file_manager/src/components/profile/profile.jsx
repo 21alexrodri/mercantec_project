@@ -46,7 +46,6 @@ function Profile() {
         if (!isLogged) {
             return
         }
-
         if (customerName == "") {
             setAlertMessage(t("customer-name-error"))
             setPopupStatus("warning")
@@ -69,7 +68,6 @@ function Profile() {
         if (willReturn) {
             return
         }
-
         fetch('/3D_printer/3d_project/query.php', {
             method: 'POST',
             headers: {
@@ -96,6 +94,14 @@ function Profile() {
                 document.getElementById("nc-email").value = ""
                 document.getElementById("nc-phone").value = ""
                 document.getElementById("nc-desc").value = ""
+            }else{
+                setAlertMessage(t("customer-unexpected-error"))
+                setPopupStatus("warning")
+    
+                setShowPopup(true)
+                
+                setTimeout(() => setShowPopup(false), 3000);
+                willReturn = true
             }
             
         })
